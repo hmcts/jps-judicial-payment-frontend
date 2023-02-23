@@ -12,4 +12,5 @@
 
 !angular.json
 !tsconfig.json
+!tsconfig.app.json
 !src/**
