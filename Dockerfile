@@ -7,7 +7,7 @@ COPY --chown=hmcts:hmcts package.json yarn.lock ./
 FROM base as build
 RUN yarn
 COPY --chown=hmcts:hmcts . .
-RUN yarn build && rm -r node_modules/ && rm -r ~/.cache/yarn
+RUN yarn build:prod && rm -r node_modules/ && rm -r ~/.cache/yarn
 
 FROM base as runtime
 COPY --from=build $WORKDIR ./
