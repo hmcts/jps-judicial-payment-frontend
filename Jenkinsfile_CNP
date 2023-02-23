@@ -19,7 +19,6 @@ withPipeline(type, product, component) {
   }
 
   afterAlways('build') {
-    yarnBuilder.yarn('rebuild puppeteer')
     yarnBuilder.yarn('build')
   }
 
