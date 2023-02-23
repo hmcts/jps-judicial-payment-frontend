@@ -9,7 +9,7 @@ pipelineTriggers([cron('H 05 * * *')])
 
 def type = "nodejs"
 def product = "hmc"
-def component = "hmc-judicial-payment-frontend"
+def component = "judicial-payment-frontend"
 
 withNightlyPipeline(type, product, component) {
 
