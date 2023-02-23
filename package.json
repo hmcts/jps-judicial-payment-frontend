@@ -9,6 +9,7 @@
     "watch": "ng build --watch --configuration development",
     "test:watch": "ng test",
     "test": "ng test --watch=false --browsers ChromeHeadless",
+    "test:coverage": "ng test --code-coverage --source-map --watch=false --browsers ChromeHeadless",
     "cichecks": "yarn && ng build && ng lint  && yarn test",
     "lint": "ng lint"
   },
