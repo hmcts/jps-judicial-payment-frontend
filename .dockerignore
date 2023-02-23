@@ -10,8 +10,6 @@
 !.yarnrc.yml
 !.pnp.cjs
 
+!angular.json
 !tsconfig.json
-!webpack/**
-!src/main/**
-!config/**
-!webpack.config.js
+!src/**
