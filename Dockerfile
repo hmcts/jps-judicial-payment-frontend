@@ -19,9 +19,9 @@ COPY --chown=hmcts:hmcts . ./
 
 RUN yarn build:prod
 
-FROM nginx:alpine as runtime
+FROM nginxinc/nginx-unprivileged:latest as runtime
 
-COPY --from=build /opt/app/nginx.conf /etc/nginx/
+#COPY --from=build /opt/app/nginx.conf /etc/nginx/
 COPY --from=build /opt/app/dist/hmc-judicial-payment-frontend/ /usr/share/nginx/html
 
-EXPOSE 80
+EXPOSE 8080
