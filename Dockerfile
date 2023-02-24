@@ -21,6 +21,7 @@ RUN yarn build:prod
 
 FROM nginx:alpine as runtime
 
+COPY --from=build /opt/app/nginx.conf /etc/nginx/
 COPY --from=build /opt/app/dist/hmc-judicial-payment-frontend/ /usr/share/nginx/html
 
 EXPOSE 80

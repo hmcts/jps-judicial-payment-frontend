@@ -14,3 +14,4 @@
 !tsconfig.json
 !tsconfig.app.json
 !src/**
+!nginx.conf
