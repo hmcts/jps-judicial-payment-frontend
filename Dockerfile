@@ -19,7 +19,7 @@ COPY --chown=hmcts:hmcts . ./
 
 RUN yarn build:prod
 
-FROM nginx:latest as runtime
+FROM nginx:alpine as runtime
 
 COPY --from=build /opt/app/dist/hmc-judicial-payment-frontend/ /usr/share/nginx/html
 
