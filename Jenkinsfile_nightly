@@ -7,7 +7,7 @@ pipelineTriggers([cron('H 05 * * *')])
 
 @Library("Infrastructure")
 
-def type = "nodejs"
+def type = "angular"
 def product = "hmc"
 def component = "judicial-payment-frontend"
 
