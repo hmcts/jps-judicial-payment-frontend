@@ -2,7 +2,7 @@
   "name": "hmc-judicial-payment-frontend",
   "version": "0.0.0",
   "scripts": {
-    "ng": "ng",
+    "ng": "node node_modules/@angular/cli/bin/ng",
     "start": "ng serve",
     "build": "ng build",
     "build:prod": "node node_modules/@angular/cli/bin/ng build -c production",
@@ -12,7 +12,11 @@
     "test:coverage": "ng test --code-coverage --source-map --watch=false --browsers ChromeHeadless",
     "test:a11y": "echo 'TODO'",
     "cichecks": "yarn && ng build && ng lint  && yarn test",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "dev:ssr": "ng run hmc-judicial-payment-frontend:serve-ssr",
+    "serve:ssr": "node dist/hmc-judicial-payment-frontend/server/main.js",
+    "build:ssr": "yarn run ng build && yarn run ng run hmc-judicial-payment-frontend:server",
+    "prerender": "ng run hmc-judicial-payment-frontend:prerender"
   },
   "dependencies": {
     "@angular/animations": "^15.2.0",
@@ -22,7 +26,10 @@
     "@angular/forms": "^15.2.0",
     "@angular/platform-browser": "^15.2.0",
     "@angular/platform-browser-dynamic": "^15.2.0",
+    "@angular/platform-server": "^15.2.0",
     "@angular/router": "^15.2.0",
+    "@nguniversal/express-engine": "^15.2.0",
+    "express": "^4.15.2",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.12.0"
@@ -36,7 +43,10 @@
     "@angular-eslint/template-parser": "15.2.1",
     "@angular/cli": "~15.2.0",
     "@angular/compiler-cli": "^15.2.0",
+    "@nguniversal/builders": "^15.2.0",
+    "@types/express": "^4.17.0",
     "@types/jasmine": "~4.3.0",
+    "@types/node": "^14.15.0",
     "@typescript-eslint/eslint-plugin": "5.48.2",
     "@typescript-eslint/parser": "5.48.2",
     "eslint": "^8.33.0",
