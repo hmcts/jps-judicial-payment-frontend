@@ -13,7 +13,7 @@
         "test:a11y": "echo 'TODO'",
         "cichecks": "yarn && ng build && ng lint  && yarn test",
         "lint": "ng lint",
-        "codeceptjs": "codeceptjs run -c codecept.conf.js --grep @functional --steps --reporter mocha-multi",
+        "codeceptjs": "codeceptjs run -c src/test/end-to-end/codecept.conf.js --grep @functional --steps --reporter mochawesome",
         "codeceptjs:headless": "HEADLESS=true codeceptjs run --steps"
     },
     "dependencies": {

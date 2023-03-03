@@ -8,7 +8,7 @@ setCommonPlugins();
 
 /** @type {CodeceptJS.MainConfig} */
 exports.config = {
-  tests: './src/test/end-to-end/*_test.js',
+  tests: './paths/*_test.js',
   output: './output',
   helpers: {
     Playwright: {
@@ -18,7 +18,7 @@ exports.config = {
     }
   },
   include: {
-    I: './steps_file.js'
+    I: './pages/steps_file.js'
   },
   name: 'hmc-judicial-payment-frontend',
   mocha: {
