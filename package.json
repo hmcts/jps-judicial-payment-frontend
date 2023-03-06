@@ -12,6 +12,7 @@
     "test:coverage": "ng test --code-coverage --source-map --watch=false --browsers ChromeHeadless",
     "test:a11y": "echo 'TODO'",
     "test:smoke": "echo 'TODO'",
+    "test:functional": "echo 'TODO'",
     "cichecks": "yarn && yarn build:ssr && ng lint  && yarn test",
     "lint": "ng lint",
     "dev:ssr": "ng run hmc-judicial-payment-frontend:serve-ssr",
