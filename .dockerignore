@@ -16,4 +16,3 @@
 !tsconfig.server.json
 !src/**
 !server.ts
-!nginx.conf
