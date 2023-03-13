@@ -1,5 +1,5 @@
 nodejs:
-  applicationPort: 4200
+  applicationPort: 4000
   aadIdentityName: hmc
   ingressHost: hmc-judicial-payment-frontend.{{ .Values.global.environment }}.platform.hmcts.net
   image: 'hmctspublic.azurecr.io/hmc/judicial-payment-frontend:latest'

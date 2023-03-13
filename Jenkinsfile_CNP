@@ -4,7 +4,7 @@ import uk.gov.hmcts.contino.GithubAPI
 
 @Library("Infrastructure")
 
-def type = "nodejs"
+def type = "angular"
 def product = "hmc"
 def component = "judicial-payment-frontend"
 
