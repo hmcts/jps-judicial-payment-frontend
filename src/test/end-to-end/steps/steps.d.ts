@@ -1,5 +1,5 @@
 /// <reference types='codeceptjs' />
-// @ts-ignore
+/* eslint-disable */
 type steps_file = typeof import('../pages/steps_file.js');
 
 declare namespace CodeceptJS {
