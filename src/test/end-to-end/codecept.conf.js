@@ -9,11 +9,11 @@ setCommonPlugins();
 /** @type {CodeceptJS.MainConfig} */
 exports.config = {
   tests: './paths/*_test.js',
-  output: './output',
+  output: process.cwd() + '/functional-output',
   helpers: {
     Playwright: {
       url: 'http://localhost',
-      show: true,
+      show: false,
       browser: 'chromium'
     }
   },
@@ -24,9 +24,9 @@ exports.config = {
   mocha: {
     reporterOptions: {
       mochawesome: {
-        stdout: "./output/console.log",
+        stdout: './functional-output/console.log',
         options: {
-          reportDir: "./output",
+          reportDir: './functional-output',
           reportFilename: "Functional Tests Report"
         }
       }
