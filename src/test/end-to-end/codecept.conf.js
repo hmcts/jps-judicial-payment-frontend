@@ -13,7 +13,7 @@ exports.config = {
   helpers: {
     Playwright: {
       url: 'http://localhost',
-      show: true,
+      show: false,
       browser: 'chromium'
     }
   },
@@ -23,13 +23,9 @@ exports.config = {
   name: 'hmc-judicial-payment-frontend',
   mocha: {
     reporterOptions: {
-      mochawesome: {
-        stdout: "./output/console.log",
-        options: {
-          reportDir: "./output",
-          reportFilename: "Functional Tests Report"
-        }
-      }
+      reportDir: 'functional-output/',
+      reportFilename: "Functional Tests Report",
+      stdout: './functional-output/console.log'
     }
   }
 }
