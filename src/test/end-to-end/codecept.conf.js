@@ -9,7 +9,7 @@ setCommonPlugins();
 /** @type {CodeceptJS.MainConfig} */
 exports.config = {
   tests: './paths/*_test.js',
-  output: 'functional-output/',
+  output: process.cwd() + '/functional-output/tests/',
   helpers: {
     Playwright: {
       url: 'http://localhost',
@@ -23,9 +23,9 @@ exports.config = {
   name: 'hmc-judicial-payment-frontend',
   mocha: {
     reporterOptions: {
-      reportDir: 'functional-output/',
+      reportDir: 'functional-output/tests/',
       reportFilename: "Functional Tests Report",
-      stdout: './functional-output/console.log'
+      stdout: './functional-output/tests/console.log'
     }
   }
 }
