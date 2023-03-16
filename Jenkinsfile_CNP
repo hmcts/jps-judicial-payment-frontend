@@ -23,11 +23,11 @@ withPipeline(type, product, component) {
   }
 
   afterAlways('functionalTest:aat') {
-    steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/functional-output/tests/**/*'
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/tests/**/*'
   }
 
   afterAlways('functionalTest:preview') {
-    steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/functional-output/tests/**/*'
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/tests/**/*'
   }
 
 }
