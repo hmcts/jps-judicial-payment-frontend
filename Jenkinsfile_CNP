@@ -23,10 +23,12 @@ withPipeline(type, product, component) {
   }
 
   afterAlways('functionalTest:aat') {
+    new File("${rootDir}/Report for Functional Tests").mkdirs()
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/functional-output/**/*'
   }
 
   afterAlways('functionalTest:preview') {
+    new File("${rootDir}/Report for Functional Tests").mkdirs()
     steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/functional-output/**/*'
   }
 }
