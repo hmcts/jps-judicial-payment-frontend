@@ -12,7 +12,7 @@
     "test:coverage": "ng test --code-coverage --source-map --watch=false --browsers ChromeHeadless",
     "test:a11y": "echo 'TODO'",
     "test:smoke": "echo 'TODO'",
-    "test:functional": "HEADLESS=true codeceptjs run -c src/test/end-to-end/codecept.conf.js --grep @functional --steps --reporter mochawesome --reporter-options reportDir=functional-output/tests/api_functional,reportFilename=mochawesome",
+    "test:functional": "HEADLESS=true codeceptjs run -c src/test/end-to-end/codecept.conf.js --grep @functional --steps --reporter mochawesome",
     "cichecks": "yarn && yarn build:ssr && ng lint && yarn test",
     "lint": "ng lint",
     "codeceptjs": "HEADLESS=true codeceptjs run -c src/test/end-to-end/codecept.conf.js --grep @functional --steps --reporter mochawesome",
