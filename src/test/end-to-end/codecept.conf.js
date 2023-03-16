@@ -23,7 +23,7 @@ exports.config = {
   name: 'hmc-judicial-payment-frontend',
   mocha: {
     reporterOptions: {
-      reportDir: 'functional-output',
+      reportDir: 'functional-output/',
       reportFilename: "Functional Tests Report",
       stdout: './functional-output/console.log'
     }

@@ -18,15 +18,6 @@ withPipeline(type, product, component) {
     }
   }
 
-  afterSuccess('functionalTest:preview') {
-    publishHTML([
-      allowMissing         : true,
-      alwaysLinkToLastBuild: true,
-      keepAll              : true,
-      reportDir            : "functional-output"
-    ])
-  }
-
   afterAlways('build') {
     yarnBuilder.yarn('build')
   }
