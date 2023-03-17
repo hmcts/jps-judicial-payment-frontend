@@ -15,8 +15,6 @@
     "test:functional": "HEADLESS=true codeceptjs run -c src/test/end-to-end/codecept.conf.js --grep @functional --steps --reporter mochawesome",
     "cichecks": "yarn && yarn build:ssr && ng lint && yarn test",
     "lint": "ng lint",
-    "codeceptjs": "HEADLESS=true codeceptjs run -c src/test/end-to-end/codecept.conf.js --grep @functional --steps --reporter mochawesome",
-    "codeceptjs:headless": "HEADLESS=true codeceptjs run --steps",
     "dev:ssr": "ng run hmc-judicial-payment-frontend:serve-ssr",
     "serve:ssr": "node dist/hmc-judicial-payment-frontend/server/main.js",
     "build:ssr": "yarn run ng build && yarn run ng run hmc-judicial-payment-frontend:server",
