@@ -8,7 +8,7 @@ pipelineTriggers([cron('H 05 * * *')])
 @Library("Infrastructure")
 
 def type = "angular"
-def product = "hmc"
+def product = "jps"
 def component = "judicial-payment-frontend"
 
 withNightlyPipeline(type, product, component) {

@@ -5,7 +5,7 @@ import uk.gov.hmcts.contino.GithubAPI
 @Library("Infrastructure")
 
 def type = "angular"
-def product = "hmc"
+def product = "jps"
 def component = "judicial-payment-frontend"
 
 def yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)

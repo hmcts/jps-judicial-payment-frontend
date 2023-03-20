@@ -20,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'hmc-judicial-payment-frontend'`, () => {
+  it(`should have as title 'jps-judicial-payment-frontend'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('hmc-judicial-payment-frontend');
+    expect(app.title).toEqual('jps-judicial-payment-frontend');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('hmc-judicial-payment-frontend app is running!');
+    expect(compiled.querySelector('.content span')?.textContent).toContain('jps-judicial-payment-frontend app is running!');
   });
 });

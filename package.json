@@ -1,5 +1,5 @@
 {
-  "name": "hmc-judicial-payment-frontend",
+  "name": "jps-judicial-payment-frontend",
   "version": "0.0.0",
   "scripts": {
     "ng": "node node_modules/@angular/cli/bin/ng",
@@ -15,10 +15,10 @@
     "test:functional": "echo 'TODO'",
     "cichecks": "yarn && yarn build:ssr && ng lint && yarn test",
     "lint": "ng lint",
-    "dev:ssr": "ng run hmc-judicial-payment-frontend:serve-ssr",
-    "serve:ssr": "node dist/hmc-judicial-payment-frontend/server/main.js",
-    "build:ssr": "yarn run ng build && yarn run ng run hmc-judicial-payment-frontend:server",
-    "prerender": "ng run hmc-judicial-payment-frontend:prerender"
+    "dev:ssr": "ng run jps-judicial-payment-frontend:serve-ssr",
+    "serve:ssr": "node dist/jps-judicial-payment-frontend/server/main.js",
+    "build:ssr": "yarn run ng build && yarn run ng run jps-judicial-payment-frontend:server",
+    "prerender": "ng run jps-judicial-payment-frontend:prerender"
   },
   "dependencies": {
     "@angular/animations": "^15.2.0",

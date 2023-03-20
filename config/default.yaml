@@ -1,9 +1,9 @@
 ---
 service:
-  name: 'hmc-judicial-payment-frontend'
+  name: 'jps-judicial-payment-frontend'
 environment: 'prod'
 services:
-  hmc-judicial-payment-service:
+  jps-judicial-payment-service:
     enabled: true
     url: 'http://localhost:4001'
     port: 4001
