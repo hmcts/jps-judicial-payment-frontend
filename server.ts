@@ -12,7 +12,7 @@ import { HealthCheck } from './src/app/server/healthcheck';
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
   const server = express();
-  const distFolder = join(process.cwd(), 'dist/hmc-judicial-payment-frontend/browser');
+  const distFolder = join(process.cwd(), 'dist/jps-judicial-payment-frontend/browser');
   const indexHtml = existsSync(join(distFolder, 'index.original.html')) ? 'index.original.html' : 'index';
 
   // Our Universal express-engine (found @ https://github.com/angular/universal/tree/main/modules/express-engine)

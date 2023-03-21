@@ -10,7 +10,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "hmc-judicial-payment-frontend": {
+    "jps-judicial-payment-frontend": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -24,7 +24,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/hmc-judicial-payment-frontend/browser",
+            "outputPath": "dist/jps-judicial-payment-frontend/browser",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -72,10 +72,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "hmc-judicial-payment-frontend:build:production"
+              "browserTarget": "jps-judicial-payment-frontend:build:production"
             },
             "development": {
-              "browserTarget": "hmc-judicial-payment-frontend:build:development"
+              "browserTarget": "jps-judicial-payment-frontend:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -83,7 +83,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "hmc-judicial-payment-frontend:build"
+            "browserTarget": "jps-judicial-payment-frontend:build"
           }
         },
         "test": {
@@ -117,7 +117,7 @@
         "server": {
           "builder": "@angular-devkit/build-angular:server",
           "options": {
-            "outputPath": "dist/hmc-judicial-payment-frontend/server",
+            "outputPath": "dist/jps-judicial-payment-frontend/server",
             "main": "server.ts",
             "tsConfig": "tsconfig.server.json",
             "inlineStyleLanguage": "scss"
@@ -139,12 +139,12 @@
           "builder": "@nguniversal/builders:ssr-dev-server",
           "configurations": {
             "development": {
-              "browserTarget": "hmc-judicial-payment-frontend:build:development",
-              "serverTarget": "hmc-judicial-payment-frontend:server:development"
+              "browserTarget": "jps-judicial-payment-frontend:build:development",
+              "serverTarget": "jps-judicial-payment-frontend:server:development"
             },
             "production": {
-              "browserTarget": "hmc-judicial-payment-frontend:build:production",
-              "serverTarget": "hmc-judicial-payment-frontend:server:production"
+              "browserTarget": "jps-judicial-payment-frontend:build:production",
+              "serverTarget": "jps-judicial-payment-frontend:server:production"
             }
           },
           "defaultConfiguration": "development"
@@ -158,12 +158,12 @@
           },
           "configurations": {
             "production": {
-              "browserTarget": "hmc-judicial-payment-frontend:build:production",
-              "serverTarget": "hmc-judicial-payment-frontend:server:production"
+              "browserTarget": "jps-judicial-payment-frontend:build:production",
+              "serverTarget": "jps-judicial-payment-frontend:server:production"
             },
             "development": {
-              "browserTarget": "hmc-judicial-payment-frontend:build:development",
-              "serverTarget": "hmc-judicial-payment-frontend:server:development"
+              "browserTarget": "jps-judicial-payment-frontend:build:development",
+              "serverTarget": "jps-judicial-payment-frontend:server:development"
             }
           },
           "defaultConfiguration": "production"

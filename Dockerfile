@@ -1,6 +1,6 @@
 # ---- Base image ----
 FROM hmctspublic.azurecr.io/base/node:16-alpine as base
-LABEL maintainer = "HMC Judicial Payment Frontend <https://github.com/hmcts/hmc-judicial-payment-frontend>"
+LABEL maintainer = "JPS Judicial Payment Frontend <https://github.com/hmcts/jps-judicial-payment-frontend>"
 
 WORKDIR /opt/app
 
@@ -22,4 +22,4 @@ COPY --from=build /opt/app/dist/ $WORKDIR/dist
 
 EXPOSE 4000
 
-CMD [ "node", "/opt/app/dist/hmc-judicial-payment-frontend/server/main.js" ]
+CMD [ "node", "/opt/app/dist/jps-judicial-payment-frontend/server/main.js" ]
