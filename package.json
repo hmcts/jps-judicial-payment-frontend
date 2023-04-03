@@ -13,7 +13,7 @@
     "test:a11y": "echo 'TODO'",
     "test:smoke": "echo 'TODO'",
     "test:functional": "echo 'TODO'",
-    "cichecks": "yarn && yarn build:ssr && ng lint && yarn test",
+    "cichecks": "yarn build:ssr && ng lint && yarn test",
     "lint": "ng lint",
     "dev:ssr": "ng run jps-judicial-payment-frontend:serve-ssr",
     "serve:ssr": "node dist/jps-judicial-payment-frontend/server/main.js",
