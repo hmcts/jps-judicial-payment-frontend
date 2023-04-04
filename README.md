@@ -7,10 +7,9 @@
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=uk.gov.hmcts.reform%3Ajps-judicial-payment-service&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=uk.gov.hmcts.reform%3Ajps-judicial-payment-service) 
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=uk.gov.hmcts.reform%3Ajps-judicial-payment-service&metric=coverage)](https://sonarcloud.io/summary/new_code?id=uk.gov.hmcts.reform%3Ajps-judicial-payment-service)
 
-## Purpose
+## Description
 
-This is the frontend application for the Log and Audit service.
-This service will allow an investigator to see a report detailing all case interactions and system logons for a given user for up to 2 years.
+An intermediate digital solution which provides the Judicial Payments team with a consistent data set, that enables the payment of sitting hours for Tribunal Judicial Office Holders once that service moves their listing processes away from legacy/heritage tools into reform, and until the strategic solution is available.
 
 ## Getting Started
 
