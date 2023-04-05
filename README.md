@@ -1,11 +1,11 @@
 # Judicial Payment Frontend
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) 
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=uk.gov.hmcts.reform%3Ajps-judicial-payment-service&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=uk.gov.hmcts.reform%3Ajps-judicial-payment-service) 
-[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=uk.gov.hmcts.reform%3Ajps-judicial-payment-service&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=uk.gov.hmcts.reform%3Ajps-judicial-payment-service) 
-[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=uk.gov.hmcts.reform%3Ajps-judicial-payment-service&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=uk.gov.hmcts.reform%3Ajps-judicial-payment-service) 
-[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=uk.gov.hmcts.reform%3Ajps-judicial-payment-service&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=uk.gov.hmcts.reform%3Ajps-judicial-payment-service) 
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=uk.gov.hmcts.reform%3Ajps-judicial-payment-service&metric=coverage)](https://sonarcloud.io/summary/new_code?id=uk.gov.hmcts.reform%3Ajps-judicial-payment-service)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=jps-judicial-payment-frontend&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=jps-judicial-payment-frontend) 
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=jps-judicial-payment-frontend&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=jps-judicial-payment-frontend) 
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=jps-judicial-payment-frontend&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=jps-judicial-payment-frontend) 
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=jps-judicial-payment-frontend&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=jps-judicial-payment-frontend) 
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=jps-judicial-payment-frontend&metric=coverage)](https://sonarcloud.io/summary/new_code?id=jps-judicial-payment-frontend)
 
 ## Description
 
