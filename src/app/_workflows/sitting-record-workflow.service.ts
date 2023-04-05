@@ -6,10 +6,9 @@ import { FormGroup } from '@angular/forms';
 })
 export class SittingRecordWorkflowService {
 
-  formData: any;
-  hasVisitedManage: boolean = false;
+  formData!: FormGroup;
+  hasVisitedManage = false;
 
-  constructor() { }
 
   setManageVisited(){
     this.hasVisitedManage = true;
@@ -28,6 +27,6 @@ export class SittingRecordWorkflowService {
   }
 
   resetFormData(){
-    this.formData = {};
+    this.formData.reset();
   }
 }

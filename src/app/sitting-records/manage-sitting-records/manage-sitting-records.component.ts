@@ -24,7 +24,7 @@ export class ManageSittingRecordsComponent implements OnInit {
   }
 
   get f(): { [key: string]: AbstractControl } {
-    return this.manageRecords!.controls;
+    return this.manageRecords?.controls;
   }
 
   constructor(
@@ -51,14 +51,14 @@ export class ManageSittingRecordsComponent implements OnInit {
     );
     this.manageRecords.controls['venue'].disable();
     
-    this.manageRecords.valueChanges.subscribe((data) => {
+    this.manageRecords.valueChanges.subscribe(() => {
       if(this.manageRecords.controls['tribunalService'].value !== "" && this.manageRecords.controls['venue'].disabled){
         this.manageRecords.controls['venue'].enable();
       }
 
     })
 
-    this.manageRecords.controls['tribunalService'].valueChanges.subscribe(value => {
+    this.manageRecords.controls['tribunalService'].valueChanges.subscribe(() => {
       if(this.manageRecords.controls['venue'].value !== ""){
         this.manageRecords.controls['venue'].reset();
       }
