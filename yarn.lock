@@ -5540,6 +5540,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"govuk-frontend@npm:^4.5.0":
+  version: 4.5.0
+  resolution: "govuk-frontend@npm:4.5.0"
+  checksum: 7a999ffb49c2f32f9dc3b0b743b698f8385d39cd0213d8aea1d7f2dfcc9f035f597030faac34659e8981d3c4a596379e99f5ea8c4d088cf486340eeaafdc800d
+  languageName: node
+  linkType: hard
+
 "graceful-fs@npm:^4.1.2, graceful-fs@npm:^4.1.6, graceful-fs@npm:^4.2.0, graceful-fs@npm:^4.2.4, graceful-fs@npm:^4.2.6, graceful-fs@npm:^4.2.9":
   version: 4.2.10
   resolution: "graceful-fs@npm:4.2.10"
@@ -6455,6 +6462,7 @@ __metadata:
     config: ^3.3.9
     eslint: ^8.33.0
     express: ^4.15.2
+    govuk-frontend: ^4.5.0
     jasmine-core: ~4.5.0
     karma: ~6.4.0
     karma-chrome-launcher: ~3.1.0
