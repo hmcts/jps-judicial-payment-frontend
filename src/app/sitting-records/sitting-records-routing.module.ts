@@ -12,6 +12,11 @@ const routes: Routes = [
         component: SittingRecordsComponent,
         children: [
           {
+            path: '',
+            redirectTo: 'manage',
+            pathMatch: 'prefix'
+          },
+          {
             path: 'manage',
             component: ManageSittingRecordsComponent
           },

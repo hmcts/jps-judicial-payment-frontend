@@ -34,9 +34,22 @@ export class CustomValidators extends Validators {
                 return { 'date_out_of_support': true }
             }
 
-            if(CustomValidators.validateDay(dateDay) && CustomValidators.validateMonth(dateMonth) && CustomValidators.validateYear(dateYear)){
-                return null
+            const validDay = CustomValidators.validateDay(dateDay)
+            const validMonth = CustomValidators.validateMonth(dateMonth)
+            const validYear = CustomValidators.validateYear(dateYear)
+
+            if(validDay != true){
+              return { 'date_invalid' : true }
             }
+            if(validMonth != true){
+              return { 'date_invalid' : true } 
+            } 
+            if(validYear != true){
+              return { 'date_invalid' : true } 
+            }
+            
+            return null
+            
         } 
 
 
@@ -79,7 +92,7 @@ export class CustomValidators extends Validators {
     if (control.value && control.value.length > 0 && control.dirty) {
       const matches = numbersOnly.test(control.value);
       const today = new Date()
-      if(control.value > today.getFullYear()){
+      if(Number(control.value) > today.getFullYear()){
         return { 'year_after_current' : true }
       }
       if(!matches){

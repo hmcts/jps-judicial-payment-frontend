@@ -26,7 +26,28 @@ describe('CustomValidators', () => {
             control.patchValue({ dateDay: '01', dateMonth: '02', dateYear: '23' });
             control.get('dateYear')?.markAsTouched();
             expect(CustomValidators.validateDateFormat(control)).toEqual({ 'date_invalid': true });
+
         });
+
+        it('should return date_out_of_Valid error when date is after today', () => {
+            control.patchValue({ dateDay: '33', dateMonth: '02', dateYear: '2023' });
+            control.get('dateDay')?.markAsDirty();
+            control.get('dateMonth')?.markAsDirty();
+            control.get('dateYear')?.markAsDirty();
+            expect(CustomValidators.validateDateFormat(control)).toEqual({ 'date_invalid': true });
+
+            control.patchValue({ dateDay: '1', dateMonth: '15', dateYear: '2023' });
+            control.get('dateDay')?.markAsDirty();
+            control.get('dateMonth')?.markAsDirty();
+            control.get('dateYear')?.markAsDirty();
+            expect(CustomValidators.validateDateFormat(control)).toEqual({ 'date_invalid': true });
+
+            control.patchValue({ dateDay: '1', dateMonth: '11', dateYear: '202a' });
+            control.get('dateDay')?.markAsDirty();
+            control.get('dateMonth')?.markAsDirty();
+            control.get('dateYear')?.markAsDirty();
+            expect(CustomValidators.validateDateFormat(control)).toEqual({ 'date_invalid': true });
+        })
 
         it('should return date_after_today error when date is after today', () => {
             const today = new Date()
