@@ -26,6 +26,42 @@ import {
 
 //const logger = log4jui.getLogger('auth');
 
+import * as express from 'express';
+import { NextFunction, Response } from 'express';
+export interface EnhancedRequest extends express.Request {
+  auth?: {
+    roles: string[]
+    token: string
+    userId: string
+    expires: number
+    data?: any
+  };
+  body;
+  headers;
+  session;
+  url: string;
+}
+export const successCallback = (req: EnhancedRequest, res: Response, next: NextFunction) => {
+  const {user} = req.session.passport;
+  const {userinfo} = user;
+  const {accessToken} = user.tokenset;
+  const cookieToken = 'token';
+  const cookieUserId = 'userid';
+  console.log('Setting session and cookies');
+  res.cookie(cookieUserId, userinfo.uid);
+  res.cookie(cookieToken, accessToken);
+  if (!req.isRefresh) {
+    return res.redirect('/');
+  }
+  next();
+};
+export const failureCallback = (req: EnhancedRequest, res: Response, next: NextFunction) => {
+  const errorMsg = `Auth Error: ${res.locals.message}`;
+  console.log(errorMsg);
+};
+xuiNode.on(AUTH.EVENT.AUTHENTICATE_SUCCESS, successCallback);
+xuiNode.on(AUTH.EVENT.AUTHENTICATE_FAILURE, failureCallback);
+
 export const getXuiNodeMiddleware = () => {
 
   const idamWebUrl = getConfigValue(SERVICES_IDAM_LOGIN_URL);
@@ -113,7 +149,7 @@ export const getXuiNodeMiddleware = () => {
         s2sEndpointUrl: `${getConfigValue(SERVICE_S2S_PATH)}/lease`,
         s2sSecret: s2sSecret.trim(),
       },
-      oidc:options,
+      oauth2:options,
     },
     session: showFeature(FEATURE_REDIS_ENABLED) ? redisStoreOptions : fileStoreOptions,
   };

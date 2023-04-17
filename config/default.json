@@ -16,7 +16,7 @@
     },
     "microservice": "xui_webapp",
     "sessionSecret": "secretSauce",
-    "loginRoleMatcher": "caseworker",
+    "loginRoleMatcher": "ccd-import",
     "feature": {
         "secureCookieEnabled": true,
         "redisEnabled": false
