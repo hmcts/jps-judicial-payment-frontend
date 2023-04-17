@@ -1,5 +1,9 @@
 {
     "environment": "NODE_CONFIG_ENV",
+    "cookies": {
+        "token": "COOKIE_TOKEN",
+        "userId": "COOKIES_USER_ID"
+    },
     "now": {
         "__name": "NOW",
         "__format": "json"

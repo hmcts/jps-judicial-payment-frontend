@@ -1,6 +1,10 @@
 import { AUTH, AuthOptions, xuiNode } from '@hmcts/rpx-xui-node-lib';
+import { NextFunction, Response } from 'express';
+import { EnhancedRequest } from '../lib/models';
 import { getConfigValue, showFeature } from '../configuration';
 import {
+  COOKIES_TOKEN,
+  COOKIES_USER_ID,
   FEATURE_REDIS_ENABLED,
   FEATURE_SECURE_COOKIE_ENABLED,
   IDAM_SECRET,
@@ -26,28 +30,15 @@ import {
 
 //const logger = log4jui.getLogger('auth');
 
-import * as express from 'express';
-import { NextFunction, Response } from 'express';
-export interface EnhancedRequest extends express.Request {
-  auth?: {
-    roles: string[]
-    token: string
-    userId: string
-    expires: number
-    data?: any
-  };
-  body;
-  headers;
-  session;
-  url: string;
-}
 export const successCallback = (req: EnhancedRequest, res: Response, next: NextFunction) => {
   const {user} = req.session.passport;
   const {userinfo} = user;
   const {accessToken} = user.tokenset;
-  const cookieToken = 'token';
-  const cookieUserId = 'userid';
-  console.log('Setting session and cookies');
+  const cookieToken = getConfigValue(COOKIES_TOKEN);
+  const cookieUserId = getConfigValue(COOKIES_USER_ID);
+
+  //logger.info('Setting session and cookies');
+
   res.cookie(cookieUserId, userinfo.uid);
   res.cookie(cookieToken, accessToken);
   if (!req.isRefresh) {
@@ -55,10 +46,16 @@ export const successCallback = (req: EnhancedRequest, res: Response, next: NextF
   }
   next();
 };
+
 export const failureCallback = (req: EnhancedRequest, res: Response, next: NextFunction) => {
   const errorMsg = `Auth Error: ${res.locals.message}`;
-  console.log(errorMsg);
-};
+
+  //logger.warn(errorMsg);
+
+  //if (client) {
+    //client.trackEvent({name: errorMsg});
+}
+
 xuiNode.on(AUTH.EVENT.AUTHENTICATE_SUCCESS, successCallback);
 xuiNode.on(AUTH.EVENT.AUTHENTICATE_FAILURE, failureCallback);
 

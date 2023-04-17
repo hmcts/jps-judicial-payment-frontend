@@ -1,5 +1,9 @@
 {
     "environment": "production",
+    "cookies": {
+        "token": "__auth__",
+        "userId": "__userid__"
+    },
     "now": false,
     "services": {
         "idam": {
