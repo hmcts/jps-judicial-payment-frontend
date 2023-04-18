@@ -5,7 +5,7 @@ import uk.gov.hmcts.contino.GithubAPI
 @Library("Infrastructure")
 
 def type = "angular"
-def product = "hmc"
+def product = "jps"
 def component = "judicial-payment-frontend"
 
 def yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)
@@ -22,4 +22,11 @@ withPipeline(type, product, component) {
     yarnBuilder.yarn('build')
   }
 
+  afterAlways('functionalTest:aat') {
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/functional-output/**/*'
+  }
+
+  afterAlways('functionalTest:preview') {
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/functional-output/**/*'
+  }
 }

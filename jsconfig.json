@@ -1,0 +1,6 @@
+{
+  "compilerOptions": {
+    "allowJs": true
+  },
+  "reportDir" : "functional-output/"
+}
