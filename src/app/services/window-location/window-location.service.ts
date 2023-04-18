@@ -5,8 +5,6 @@ import { Injectable } from '@angular/core';
 })
 export class WindowLocationService {
 
-  constructor() { }
-
   public getPathName(): string {
     return window.location.pathname;
   }

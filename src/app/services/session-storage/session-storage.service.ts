@@ -10,7 +10,7 @@ export class SessionStorageService {
    * If remove is true, the item will be removed once read
    * @param removeAfterRead removed the key once it has been read
    */
-  public getItem(key: string, removeAfterRead: boolean = false): string {
+  public getItem(key: string, removeAfterRead = false): string {
     const item:any = sessionStorage.getItem(key);
 
     if (removeAfterRead) { this.removeItem(key); }
