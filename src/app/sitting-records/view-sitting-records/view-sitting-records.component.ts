@@ -18,6 +18,10 @@ export class ViewSittingRecordsComponent implements OnInit {
     this.router.navigate(['sittingRecords','manage'])
   }
 
+  addNewRecord(){
+    this.router.navigate(['sittingRecords','add'])
+  }
+
   constructor(
     private srWorkFlow: SittingRecordWorkflowService,
     private dateSvc: DateService,

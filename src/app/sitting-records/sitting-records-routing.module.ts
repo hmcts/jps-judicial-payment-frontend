@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { SittingRecordsComponent } from './sitting-records.component';
 import { ManageSittingRecordsComponent } from './manage-sitting-records/manage-sitting-records.component';
 import { ViewSittingRecordsComponent } from './view-sitting-records/view-sitting-records.component';
+import { AddSittingRecordComponent } from './add-sitting-record/add-sitting-record.component'
 import { SittingRecordsGuard } from '../_guards/sitting-records.guard';
 
 const routes: Routes = [
@@ -23,6 +24,11 @@ const routes: Routes = [
           {
             path: 'view',
             component: ViewSittingRecordsComponent,
+            canActivate: [SittingRecordsGuard]
+          },
+          {
+            path: 'add',
+            component: AddSittingRecordComponent,
             canActivate: [SittingRecordsGuard]
           }
         ]
