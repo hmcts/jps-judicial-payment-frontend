@@ -1,27 +1,88 @@
-# JpsJudicialPaymentFrontend 
+# Judicial Payment Frontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.0.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) 
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=jps-judicial-payment-frontend&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=jps-judicial-payment-frontend) 
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=jps-judicial-payment-frontend&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=jps-judicial-payment-frontend) 
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=jps-judicial-payment-frontend&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=jps-judicial-payment-frontend) 
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=jps-judicial-payment-frontend&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=jps-judicial-payment-frontend) 
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=jps-judicial-payment-frontend&metric=coverage)](https://sonarcloud.io/summary/new_code?id=jps-judicial-payment-frontend)
 
-## Development server
+## Description
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+An intermediate digital solution which provides the Judicial Payments team with a consistent data set, that enables the payment of sitting hours for Tribunal Judicial Office Holders once that service moves their listing processes away from legacy/heritage tools into reform, and until the strategic solution is available.
 
-## Code scaffolding
+## Getting Started
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Prerequisites
 
-## Build
+Running the application requires the following tools to be installed in your environment:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+* [Node.js](https://nodejs.org/) v16.19.0 or later
+* [Yarn](https://yarnpkg.com/)
+* [Docker](https://www.docker.com)
 
-## Running unit tests
+### Running the application
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+The application will run in production using server-side processing. More info can be found [here](https://angular.io/guide/universal).
 
-## Running end-to-end tests
+Install dependencies by executing the following command:
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+ ```bash
+$ yarn install
+ ```
+Bundle:
 
-## Further help
+```bash
+$ yarn build:ssr
+```
+Run:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+```bash
+# Development
+$ yarn dev:ssr 
+# Production
+$ yarn serve:ssr
+```
+
+The application's home page will be available at https://localhost:4000
+
+## Developing
+
+### Code style
+
+[ESLint](https://github.com/typescript-eslint/typescript-eslint) is used as the linter for the project.
+
+
+Running the linter:
+```bash
+$ yarn lint
+```
+
+### Running the tests
+
+This app uses jasmine and karma as the testing framework, more information can be found on the  [Angular testing docs](https://angular.io/guide/testing). 
+
+You can run unit tests by executing
+the following command:
+
+```bash
+$ yarn test
+```
+
+Here's how to run functional tests (to be implemented):
+
+```bash
+$ yarn test:functional
+```
+
+Running accessibility tests (to be implemented):
+
+```bash
+$ yarn test:a11y
+```
+
+Make sure all the paths in your application are covered by accessibility tests).
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
