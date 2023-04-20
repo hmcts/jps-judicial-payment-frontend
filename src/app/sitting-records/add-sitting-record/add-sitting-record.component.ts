@@ -2,50 +2,73 @@ import { Component, OnInit } from '@angular/core';
 import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-workflow.service';
 import { DateService } from '../../_services/date-service';
 import { Router } from '@angular/router';
-import { 
-  FormBuilder, 
-  FormGroup, 
-  Validators, 
-  AbstractControl
+import {
+  FormGroup,
+  Validators,
+  FormArray,
+  FormControl,
 } from '@angular/forms';
-import { sittingRecordsPostObj } from '../../_models/addSIttingRecords'
 
 @Component({
   selector: 'app-add-sitting-record',
   templateUrl: './add-sitting-record.component.html',
   styleUrls: ['./add-sitting-record.component.scss']
 })
-export class AddSittingRecordComponent implements OnInit{
+export class AddSittingRecordComponent implements OnInit {
+
+  addSittingRecordsFG: FormGroup;
 
   tribService = "";
   venue = "";
   date = "";
 
-  johList: sittingRecordsPostObj[] = [new sittingRecordsPostObj()];
-
-  goBack(){
-    this.router.navigate(['sittingRecords','view'])
+  goBack() {
+    this.router.navigate(['sittingRecords', 'view'])
   }
 
-  addNewJoh(){
-    if(this.johList.length != 3){
-      const newJoh = new sittingRecordsPostObj()
-      this.johList.push(newJoh);
+  get johFormArray() {
+    return <FormArray>this.addSittingRecordsFG.get('JOH');
+  }
+
+  submitNewSittingRecord() {
+    this.router.navigate(['sittingRecords', 'addSuccess'])
+  }
+
+  addNewJoh() {
+    if (this.johFormArray.length != 3) {
+      this.johFormArray.push(
+        new FormGroup({
+          johName: new FormControl(null, [Validators.required]),
+          johRole: new FormControl(null, [Validators.required])
+        })
+      )
     }
   }
 
-  removeJoh(index: number){
-    this.johList.splice(index, 1)
+  removeJoh(index: number) {
+    this.johFormArray.removeAt(index)
   }
 
   constructor(
-    private srWorkFlow: SittingRecordWorkflowService,
+    public srWorkFlow: SittingRecordWorkflowService,
     private dateSvc: DateService,
-    private router: Router,
-    private formBuilder: FormBuilder,
-    ){}
+    public router: Router,
+  ) {
 
-  ngOnInit(){
+    this.addSittingRecordsFG = new FormGroup(
+      {
+        JOH: new FormArray([
+          new FormGroup({
+            johName: new FormControl(null, [Validators.required]),
+            johRole: new FormControl(null, [Validators.required])
+          })
+        ]),
+        period: new FormControl(null, [Validators.required]),
+      }
+    );
+  }
+
+  ngOnInit() {
     const formData = this.srWorkFlow.getFormData().value;
     const { dateSelected, tribunalService, venue } = formData;
     this.tribService = tribunalService;

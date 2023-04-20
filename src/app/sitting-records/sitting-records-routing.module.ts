@@ -6,6 +6,7 @@ import { ManageSittingRecordsComponent } from './manage-sitting-records/manage-s
 import { ViewSittingRecordsComponent } from './view-sitting-records/view-sitting-records.component';
 import { AddSittingRecordComponent } from './add-sitting-record/add-sitting-record.component'
 import { SittingRecordsGuard } from '../_guards/sitting-records.guard';
+import { AddSittingRecordSuccessComponent } from './add-sitting-record-success/add-sitting-record-success.component';
 
 const routes: Routes = [
     {
@@ -29,6 +30,11 @@ const routes: Routes = [
           {
             path: 'add',
             component: AddSittingRecordComponent,
+            canActivate: [SittingRecordsGuard]
+          },
+          {
+            path: 'addSuccess',
+            component: AddSittingRecordSuccessComponent,
             canActivate: [SittingRecordsGuard]
           }
         ]

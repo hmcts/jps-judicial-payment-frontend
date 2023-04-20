@@ -8,6 +8,8 @@ import { ManageSittingRecordsComponent } from './manage-sitting-records/manage-s
 import { PhaseBannerComponent } from '../phase-banner/phase-banner.component';
 import { ViewSittingRecordsComponent } from './view-sitting-records/view-sitting-records.component';
 import { NumberDirective } from '../_directives/numbers-only.directive';
+import { AddSittingRecordComponent } from './add-sitting-record/add-sitting-record.component';
+import { AddSittingRecordSuccessComponent } from './add-sitting-record-success/add-sitting-record-success.component'
 
 @NgModule({
   imports: [
@@ -21,7 +23,9 @@ import { NumberDirective } from '../_directives/numbers-only.directive';
     ManageSittingRecordsComponent,
     PhaseBannerComponent,
     ViewSittingRecordsComponent,
-    NumberDirective
+    NumberDirective,
+    AddSittingRecordComponent,
+    AddSittingRecordSuccessComponent
   ],
 })
 export class SittingRecordsModule { }

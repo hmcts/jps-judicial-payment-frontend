@@ -6,7 +6,7 @@ import {
   AbstractControl
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CustomValidators } from '../../_validators/sitting-records-form-validator';
+import { ManageSittingRecord } from '../../_validators/sitting-records-form-validator';
 import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-workflow.service';
 
 @Component({
@@ -35,15 +35,15 @@ export class ManageSittingRecordsComponent implements OnInit {
   ){
     this.manageRecords = this.formBuilder.group(
       {
-        tribunalService: ['', Validators.required],
-        venue: ['', [Validators.required,]],
+        tribunalService: [null, Validators.required],
+        venue: [null, [Validators.required,]],
         dateSelected: formBuilder.group({
-          dateDay: '',
-          dateMonth: '',
-          dateYear: '',
+          dateDay: null,
+          dateMonth: null,
+          dateYear: null,
         },{
           validators: [
-            CustomValidators.validateDateFormat
+            ManageSittingRecord.validateDateFormat
           ]
         })
         

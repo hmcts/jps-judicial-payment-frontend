@@ -61,4 +61,9 @@ describe('ViewSittingRecordsComponent', () => {
     component.goBack();
     expect(mockRouter.navigate).toHaveBeenCalledWith(['sittingRecords','manage']);
   });
+
+  it('should navigate to the add sitting records page on addNewRecord', () => {
+    component.addNewRecord();
+    expect(mockRouter.navigate).toHaveBeenCalledWith(['sittingRecords','add']);
+  });
 });

@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ManageSittingRecordsComponent } from './manage-sitting-records.component';
@@ -65,5 +65,19 @@ describe('ManageSittingRecordsComponent', () => {
     expect(srWorkflowService.setManageVisited).toHaveBeenCalled();
     expect(router.navigate).toHaveBeenCalledWith(['sittingRecords', 'view']);
   });
+
+  it('should populate manageRecords if object exists in sittingRecordsWorkflow', () => {
+    const formDataMock: FormGroup = new FormBuilder().group({
+      dateSelected: ['2022-01-01'],
+      tribunalService: ['Tribunal 1'],
+      venue: ['Venue 1'],
+    });
+
+    srWorkflowService.setFormData(formDataMock)
+    component.ngOnInit();
+
+    expect(component.manageRecords).toEqual(formDataMock)
+  });
+
 });
 

@@ -1,11 +1,11 @@
-import { AbstractControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormGroup, Validators } from '@angular/forms';
 
 // setup simple regex for white listed characters
 const numbersOnly = new RegExp('^[0-9]+$');
 
 
 // create your class that extends the angular validator class
-export class CustomValidators extends Validators {
+export class ManageSittingRecord extends Validators {
 
   static validateDateFormat(control: FormGroup) {
     if(control){
@@ -34,9 +34,9 @@ export class CustomValidators extends Validators {
                 return { 'date_out_of_support': true }
             }
 
-            const validDay = CustomValidators.validateDay(dateDay)
-            const validMonth = CustomValidators.validateMonth(dateMonth)
-            const validYear = CustomValidators.validateYear(dateYear)
+            const validDay = ManageSittingRecord.validateDay(dateDay)
+            const validMonth = ManageSittingRecord.validateMonth(dateMonth)
+            const validYear = ManageSittingRecord.validateYear(dateYear)
 
             if(validDay != true){
               return { 'date_invalid' : true }

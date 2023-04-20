@@ -29,4 +29,8 @@ export class SittingRecordWorkflowService {
   resetFormData(){
     this.formData.reset();
   }
+  
+  resetVisitedManaged(){
+    this.hasVisitedManage = false;
+  }
 }

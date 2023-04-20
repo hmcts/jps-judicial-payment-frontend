@@ -46,4 +46,12 @@ describe('SittingRecordWorkflowService', () => {
       expect(service.getFormData().getRawValue()).toEqual({ name: null, age: null });
     });
   });
+
+  describe('resetVisitedManaged', () => {
+    it('should set hasVisitedManaged to false', () => {
+      service.setManageVisited()
+      service.resetVisitedManaged()
+      expect(service.getManageVisited()).toBe(false);
+    });
+  });
 });
