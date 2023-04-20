@@ -2663,6 +2663,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@ngrx/store@npm:^15.4.0":
+  version: 15.4.0
+  resolution: "@ngrx/store@npm:15.4.0"
+  dependencies:
+    tslib: ^2.0.0
+  peerDependencies:
+    "@angular/core": ^15.0.0
+    rxjs: ^6.5.3 || ^7.5.0
+  checksum: 444ab9c3da0f69fda6c09a92d50de5b828b3dce221abb4167aecbac3a120102ccbd64d3060c173b0db21b29632b850646a4d9d977a15c65d45a244f2352b3c5e
+  languageName: node
+  linkType: hard
+
 "@ngtools/webpack@npm:15.2.6":
   version: 15.2.6
   resolution: "@ngtools/webpack@npm:15.2.6"
@@ -4169,6 +4181,12 @@ __metadata:
   checksum: 3e044fd6d1d26545f235a9fe4d7a534e2029d8e59fa7fd9f2a6eb21230f6b5380ea1eaf55136e60cbf8e613544b3b766e7a6fa2102e2a3a117505466e3025dc2
   languageName: node
   linkType: hard
+
+"api@workspace:api":
+  version: 0.0.0-use.local
+  resolution: "api@workspace:api"
+  languageName: unknown
+  linkType: soft
 
 "aproba@npm:^1.0.3 || ^2.0.0":
   version: 2.0.0
@@ -9726,6 +9744,7 @@ __metadata:
     "@codeceptjs/ui": ^0.5.0
     "@hmcts/properties-volume": ^0.0.14
     "@hmcts/rpx-xui-node-lib": ^2.26.13
+    "@ngrx/store": ^15.4.0
     "@nguniversal/builders": ^15.2.0
     "@nguniversal/express-engine": ^15.2.0
     "@types/config": ^3.3.0
@@ -14691,7 +14710,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:2.5.0, tslib@npm:^2.0.3, tslib@npm:^2.1.0, tslib@npm:^2.3.0":
+"tslib@npm:2.5.0, tslib@npm:^2.0.0, tslib@npm:^2.0.3, tslib@npm:^2.1.0, tslib@npm:^2.3.0":
   version: 2.5.0
   resolution: "tslib@npm:2.5.0"
   checksum: ae3ed5f9ce29932d049908ebfdf21b3a003a85653a9a140d614da6b767a93ef94f460e52c3d787f0e4f383546981713f165037dc2274df212ea9f8a4541004e1

@@ -1,16 +1,9 @@
-import { TestBed } from '@angular/core/testing';
-
 import { WindowLocationService } from './window-location.service';
 
-describe('WindowLocationService', () => {
-  let service: WindowLocationService;
+describe('Window Location Service', () => {
+  it('should return pathname', () => {
+    const service = new WindowLocationService();
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(WindowLocationService);
-  });
-
-  it('should be created', () => {
-    expect(service).toBeTruthy();
+    expect(service.getPathName()).toBeTruthy();
   });
 });

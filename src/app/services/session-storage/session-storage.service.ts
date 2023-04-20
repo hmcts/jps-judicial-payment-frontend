@@ -13,7 +13,7 @@ export class SessionStorageService {
   public getItem(key: string, removeAfterRead = false): string {
     const item:any = sessionStorage.getItem(key);
 
-    if (removeAfterRead) { this.removeItem(key); }
+    if (removeAfterRead) { sessionStorage.removeItem(key); }
 
     return item;
   }
