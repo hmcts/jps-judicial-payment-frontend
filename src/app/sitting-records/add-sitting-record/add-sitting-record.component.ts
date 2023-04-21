@@ -31,7 +31,11 @@ export class AddSittingRecordComponent implements OnInit {
   }
 
   submitNewSittingRecord() {
-    this.router.navigate(['sittingRecords', 'addSuccess'])
+
+    this.srWorkFlow.formAndPostNewSittingRecord(this.addSittingRecordsFG, () =>{
+      this.router.navigate(['sittingRecords', 'addSuccess'])
+    })
+
   }
 
   addNewJoh() {

@@ -1,4 +1,5 @@
 export class sittingRecordsPostObj {
+    hmctsServiceCode!: string;
     sittingDate!: string;
     epimmsId!: string;
     personalCode!: string;
@@ -7,4 +8,8 @@ export class sittingRecordsPostObj {
     AM!: boolean;
     PM!: boolean;
     replaceDuplicate!: boolean;
+}
+
+export class sittingRecordsPostBody {
+    postedSittingRecords: Array<sittingRecordsPostObj> = [];
 }
