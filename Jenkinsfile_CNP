@@ -22,4 +22,11 @@ withPipeline(type, product, component) {
     yarnBuilder.yarn('build')
   }
 
+  afterAlways('functionalTest:aat') {
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/functional-output/**/*'
+  }
+
+  afterAlways('functionalTest:preview') {
+    steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/functional-output/**/*'
+  }
 }
