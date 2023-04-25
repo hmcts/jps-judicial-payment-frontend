@@ -14,10 +14,6 @@ export const REDIS_CLOUD_URL = 'secrets.rpx.webapp-redis-connection-string';
 export const COOKIES_TOKEN = 'cookies.token';
 export const COOKIES_USER_ID = 'cookies.userId';
 
-export const LOGGING = 'logging';
-
-export const SERVICES_ROLE_ASSIGNMENT_API_PATH = 'services.role_assignment.roleApi';
-
 export const SERVICES_IDAM_API_URL = 'services.idam.idamApiUrl';
 export const SERVICES_IDAM_CLIENT_ID = 'services.idam.idamClientID';
 export const SERVICES_IDAM_LOGIN_URL = 'services.idam.idamLoginUrl';

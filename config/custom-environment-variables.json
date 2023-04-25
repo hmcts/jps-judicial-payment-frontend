@@ -16,9 +16,6 @@
             "oauthCallbackUrl": "SERVICES_IDAM_OAUTH_CALLBACK_URL",
             "iss": "SERVICES_IDAM_ISS_URL"
         },
-        "role_assignment": {
-            "roleApi": "SERVICES_ROLE_ASSIGNMENT_API"
-        },
         "s2s": "SERVICES_S2S"
     },
     "microservice": "MICROSERVICE",
