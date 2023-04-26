@@ -49,10 +49,10 @@
 
                     <ul *ngIf="johFormArray?.value[i].johName?.length > 1 && autoCompleteVis[i]" class="autoComplete-container ">
                         <li *ngFor="let johNameList of johAutocompList$ | async" 
-                            class="autoComplete-item" 
+                            class="autoComplete-item " 
                             (click)="setJohNameValue(i, johNameList)"
                         >
-                            {{johNameList}}
+                            <span class="govuk-body">{{johNameList}}</span>
                         </li>
                     </ul>
                 </div>

@@ -19,7 +19,11 @@
     }
     &-item:hover{
         background-color: $govuk-link-hover-colour;
-        color: #ffffff;
+        color: #ffffff !important;
+    }
+    &-item > span:hover{
+        background-color: $govuk-link-hover-colour;
+        color: #ffffff !important;
     }
 
 }
