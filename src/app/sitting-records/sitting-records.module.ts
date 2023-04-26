@@ -11,12 +11,14 @@ import { NumberDirective } from '../_directives/numbers-only.directive';
 import { AddSittingRecordComponent } from './add-sitting-record/add-sitting-record.component';
 import { AddSittingRecordSuccessComponent } from './add-sitting-record-success/add-sitting-record-success.component'
 
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   imports: [
     CommonModule,
     SittingRecordsRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   declarations: [
     SittingRecordsComponent,

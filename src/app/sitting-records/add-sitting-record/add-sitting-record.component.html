@@ -32,13 +32,29 @@
                 </div>
             
                 <div class="govuk-grid-column-one-half">
-                    <div class="govuk-form-group">
+                    <div class="govuk-form-group govuk-!-static-margin-bottom-0">
                         <div id="judge-hint" class="govuk-hint">
                             Name
                         </div>
-                        <input class="govuk-input" id="judge" name="judge" type="text" aria-describedby="judge-hint"
-                            placeholder="Start typing to find a JOH name" formControlName="johName">
+                        <input 
+                            class="govuk-input" id="judge" name="judge" 
+                            type="text" aria-describedby="judge-hint"
+                            placeholder="Start typing to find a JOH name" 
+                            formControlName="johName"
+                            (input)="getJohName(i)"
+                            (blur)="autoCompleteVis[i] = false;"
+                            (focus)="autoCompleteVis[i] = true;getJohName(i)"
+                        >
                     </div>
+
+                    <ul *ngIf="johFormArray?.value[i].johName?.length > 1 && autoCompleteVis[i]" class="autoComplete-container ">
+                        <li *ngFor="let johNameList of johAutocompList$ | async" 
+                            class="autoComplete-item" 
+                            (click)="setJohNameValue(i, johNameList)"
+                        >
+                            {{johNameList}}
+                        </li>
+                    </ul>
                 </div>
             
             
