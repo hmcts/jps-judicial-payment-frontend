@@ -37,7 +37,7 @@
 
           <div 
             class="govuk-form-group"
-            [class.govuk-form-group--error]="f['dateSelected'].invalid && f['dateSelected'].dirty"
+            [class.govuk-form-group--error]="f['dateSelected'].errors !== null && f['dateSelected'].dirty"
             formGroupName="dateSelected"
           >
             <fieldset class="govuk-fieldset" role="group" aria-describedby="msr-date-hint">
@@ -66,7 +66,7 @@
                         type="text" 
                         inputmode="numeric"
                         formControlName="dateDay"
-                        [class.govuk-input--error] = "f['dateSelected'].invalid && f['dateSelected'].dirty" 
+                        [class.govuk-input--error] = "f['dateSelected'].errors !== null && f['dateSelected'].dirty" 
                         [maxlength]="2"
                         appNumbersOnly
                     >
@@ -84,7 +84,7 @@
                         type="text" i
                         nputmode="numeric"
                         formControlName="dateMonth"
-                        [class.govuk-input--error] = "f['dateSelected'].invalid && f['dateSelected'].dirty" 
+                        [class.govuk-input--error] = "f['dateSelected'].errors !== null && f['dateSelected'].dirty" 
                         [maxLength]="2"
                         appNumbersOnly
                     >
@@ -101,8 +101,9 @@
                         type="text" 
                         inputmode="numeric"
                         formControlName="dateYear"
-                        [class.govuk-input--error] = "f['dateSelected'].invalid && f['dateSelected'].dirty" 
+                        [class.govuk-input--error] = "f['dateSelected'].errors !== null && f['dateSelected'].dirty" 
                         [maxlength]="4"
+                        [minlength]="4"
                         appNumbersOnly
                     >
                   </div>

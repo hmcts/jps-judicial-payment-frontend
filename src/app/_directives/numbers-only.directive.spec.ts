@@ -4,7 +4,7 @@ import { By } from '@angular/platform-browser';
 import { NumberDirective } from './numbers-only.directive';
 
 @Component({
-  template: `<input type="text" appNumbersOnly [numbericType]="'number'">`
+  template: `<input type="text" appNumbersOnly >`
 })
 class TestComponent {}
 

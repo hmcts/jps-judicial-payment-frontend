@@ -38,9 +38,9 @@ export class ManageSittingRecordsComponent implements OnInit {
         tribunalService: ['', Validators.required],
         venue: ['', [Validators.required,]],
         dateSelected: formBuilder.group({
-          dateDay: '',
-          dateMonth: '',
-          dateYear: '',
+          dateDay: ['', [Validators.required,]],
+          dateMonth: ['', [Validators.required,]],
+          dateYear: ['', [Validators.required,]],
         },{
           validators: [
             CustomValidators.validateDateFormat
