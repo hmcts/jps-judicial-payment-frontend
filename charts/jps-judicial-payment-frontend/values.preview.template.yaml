@@ -2,3 +2,24 @@ nodejs:
   # Don't modify below here
   image: ${IMAGE_NAME}
   ingressHost: ${SERVICE_FQDN}
+  environment:
+    SERVICES_IDAM_API_URL: https://idam-api.aat.platform.hmcts.net
+    SERVICES_IDAM_LOGIN_URL: https://idam-web-public.aat.platform.hmcts.net
+    REDISCLOUD_URL: redis://${SERVICE_NAME}-redis-master:6379
+    DEBUG: xuiNode:*,-xuiNode:auth:s2s,-xuiNode:auth:oauth2
+  keyVaults:
+    rpx:
+      secrets:
+        - mc-s2s-client-secret
+        - mc-idam-client-secret
+        - system-user-name
+        - system-user-password
+  autoscaling:
+    enabled: false
+redis:
+  enabled: true
+idam-pr:
+  enabled: true
+  redirect_uris:
+    XUI:
+      - https://${SERVICE_FQDN}/oauth2/callback
