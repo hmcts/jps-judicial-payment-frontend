@@ -37,8 +37,8 @@ nodejs:
     REDIS_TTL: 6000
 
   keyVaults:
-    rpx:
-      resourceGroup: rpx
+    jps:
+      resourceGroup: jps
       secrets:
         - mc-s2s-client-secret
         - mc-idam-client-secret
