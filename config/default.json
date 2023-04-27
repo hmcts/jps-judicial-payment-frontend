@@ -19,11 +19,6 @@
     "sessionSecret": "secretSauce",
     "loginRoleMatcher": "ccd-import",
     "feature": {
-        "secureCookieEnabled": true,
-        "redisEnabled": false
-    },
-    "redis": {
-        "prefix": "activity:",
-        "ttl": 86400
+        "secureCookieEnabled": true
     }
 }

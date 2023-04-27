@@ -5,15 +5,11 @@ import { getConfigValue, showFeature } from '../configuration';
 import {
   COOKIES_TOKEN,
   COOKIES_USER_ID,
-  FEATURE_REDIS_ENABLED,
   FEATURE_SECURE_COOKIE_ENABLED,
   IDAM_SECRET,
   LOGIN_ROLE_MATCHER,
   MICROSERVICE,
   NOW,
-  REDIS_CLOUD_URL,
-  REDIS_KEY_PREFIX,
-  REDIS_TTL,
   S2S_SECRET,
   SERVICE_S2S_PATH,
   SERVICES_IDAM_API_URL,
@@ -21,14 +17,8 @@ import {
   SERVICES_IDAM_ISS_URL,
   SERVICES_IDAM_LOGIN_URL,
   SERVICES_IDAM_OAUTH_CALLBACK_URL,
-  SESSION_SECRET,
-  SYSTEM_USER_NAME,
-  SYSTEM_USER_PASSWORD
+  SESSION_SECRET
 } from '../configuration/references';
-//import * as log4jui from '../lib/log4jui';
-//import { client } from '../lib/appInsights';
-
-//const logger = log4jui.getLogger('auth');
 
 export const successCallback = (req: EnhancedRequest, res: Response, next: NextFunction) => {
   const {user} = req.session.passport;
@@ -36,8 +26,6 @@ export const successCallback = (req: EnhancedRequest, res: Response, next: NextF
   const {accessToken} = user.tokenset;
   const cookieToken = getConfigValue(COOKIES_TOKEN);
   const cookieUserId = getConfigValue(COOKIES_USER_ID);
-
-  //logger.info('Setting session and cookies');
 
   res.cookie(cookieUserId, userinfo.uid);
   res.cookie(cookieToken, accessToken);
@@ -49,11 +37,6 @@ export const successCallback = (req: EnhancedRequest, res: Response, next: NextF
 
 export const failureCallback = (req: EnhancedRequest, res: Response, next: NextFunction) => {
   const errorMsg = `Auth Error: ${res.locals.message}`;
-
-  //logger.warn(errorMsg);
-
-  //if (client) {
-    //client.trackEvent({name: errorMsg});
 }
 
 xuiNode.on(AUTH.EVENT.AUTHENTICATE_SUCCESS, successCallback);
@@ -69,22 +52,6 @@ export const getXuiNodeMiddleware = () => {
   const idamApiPath = getConfigValue(SERVICES_IDAM_API_URL);
   const s2sSecret = getConfigValue(S2S_SECRET);
   const tokenUrl = `${getConfigValue(SERVICES_IDAM_API_URL)}/oauth2/token`;
-  const userName = getConfigValue(SYSTEM_USER_NAME);
-  const password = getConfigValue(SYSTEM_USER_PASSWORD);
-
-  const routeCredential = {
-    password,
-    routes: [
-      '/workallocation/caseworker',
-      '/api/role-access/roles/getJudicialUsers',
-      '/workallocation/retrieveCaseWorkersForServices',
-      '/workallocation/retrieveCaseWorkersForSpecificService',
-      '/workallocation/getJudicialUsers',
-      '/api/prd/judicial/searchJudicialUserByPersonalCodes',
-    ],
-    scope: 'openid profile roles manage-user create-user search-user',
-    userName,
-  };
 
   //TODO: we can move these out into proper config at some point to tidy up even further
   const options: AuthOptions = {
@@ -97,7 +64,6 @@ export const getXuiNodeMiddleware = () => {
     issuerURL: issuerUrl,
     logoutURL: idamApiPath,
     responseTypes: ['code'],
-    routeCredential,
     scope: 'profile openid roles manage-user create-user search-user',
     sessionKey: 'jps-webapp',
     tokenEndpointAuthMethod: 'client_secret_post',
@@ -115,18 +81,6 @@ export const getXuiNodeMiddleware = () => {
     resave: false,
     saveUninitialized: false,
     secret: getConfigValue(SESSION_SECRET),
-  };
-
-  const redisStoreOptions = {
-    redisStore: {
-      ...baseStoreOptions, ...{
-        redisStoreOptions: {
-          redisCloudUrl: getConfigValue(REDIS_CLOUD_URL),
-          redisKeyPrefix: getConfigValue(REDIS_KEY_PREFIX),
-          redisTtl: getConfigValue(REDIS_TTL),
-        },
-      },
-    },
   };
 
   const fileStoreOptions = {
@@ -148,10 +102,9 @@ export const getXuiNodeMiddleware = () => {
       },
       oauth2:options,
     },
-    session: showFeature(FEATURE_REDIS_ENABLED) ? redisStoreOptions : fileStoreOptions,
+    session: fileStoreOptions,
   };
   
-  //logger._logger.info('Setting XuiNodeLib options');
   return xuiNode.configure(nodeLibOptions);
 
  };
