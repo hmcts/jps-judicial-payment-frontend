@@ -45,7 +45,7 @@ describe('CustomValidators', () => {
             expect(CustomValidators.validateDateFormat(control)).toEqual({ 'date_after_today': true })
         })
 
-        it('should return date_after_today error when date is after today', () => {
+        it('should return date_out_of_support error when date is after today', () => {
             control.patchValue({ dateDay: '01', dateMonth: '02', dateYear: '2020'})
             expect(CustomValidators.validateDateFormat(control)).toEqual({ 'date_out_of_support': true })
         })
