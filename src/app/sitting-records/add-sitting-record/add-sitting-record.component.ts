@@ -1,4 +1,4 @@
-import { Component, Injectable, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-workflow.service';
 import { DateService } from '../../_services/date-service';
 import { Router } from '@angular/router';
@@ -10,15 +10,10 @@ import {
 } from '@angular/forms';
 import { 
   BehaviorSubject,
-  Observable, 
-  OperatorFunction, 
-  catchError, 
+  Observable,
   debounceTime, 
-  distinctUntilChanged, 
   map, 
-  of, 
-  switchMap, 
-  tap
+  switchMap
 } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
@@ -37,18 +32,24 @@ const PARAMS = new HttpParams({
 })
 export class AddSittingRecordComponent implements OnInit {
 
-  setJohNameValue(johIndex: number, nameSelected: string) {
-    console.log(nameSelected, johIndex)
-    this.johFormArray.controls[johIndex].setValue(nameSelected);
-  }
-
   addSittingRecordsFG: FormGroup;
 
   tribService = "";
   venue = "";
   date = "";
 
-  autoCompleteVis = [false, false, false]
+  // autocomplete functions
+
+  setJohNameValue(johIndex: number, nameSelected: string) {
+    const johControl = this.johFormArray.controls.at(johIndex) as FormGroup;
+    johControl.controls['johName'].setValue(nameSelected)
+  }
+
+  resetAutoVis(){
+    this.autoCompleteVis = new Array(this.autoCompleteVis.length).fill(false);
+  }
+
+  autoCompleteVis = [false]
 
   serachJohNames$ = new BehaviorSubject<string>('')
   johAutocompList$: Observable<string[]> = this.serachJohNames$.pipe(
@@ -61,6 +62,8 @@ export class AddSittingRecordComponent implements OnInit {
 
     })
   );
+  
+  //
 
   getJohName(controlIndex: number) {
     this.serachJohNames$.next(this.johFormArray.controls[controlIndex].value.johName);
@@ -90,11 +93,13 @@ export class AddSittingRecordComponent implements OnInit {
           johRole: new FormControl(null, [Validators.required])
         })
       )
+      this.autoCompleteVis.push(false)
     }
   }
 
   removeJoh(index: number) {
     this.johFormArray.removeAt(index)
+    this.autoCompleteVis.splice(index, 1)
   }
 
   constructor(

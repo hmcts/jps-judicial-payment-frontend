@@ -32,29 +32,30 @@
                 </div>
             
                 <div class="govuk-grid-column-one-half">
-                    <div class="govuk-form-group govuk-!-static-margin-bottom-0">
+                    <div class="govuk-form-group govuk-!-static-margin-bottom-0 posRel">
                         <div id="judge-hint" class="govuk-hint">
                             Name
                         </div>
                         <input 
-                            class="govuk-input" id="judge" name="judge" 
+                            class="govuk-input" attr.id="judge-{{i}}" name="judge" 
                             type="text" aria-describedby="judge-hint"
                             placeholder="Start typing to find a JOH name" 
                             formControlName="johName"
                             (input)="getJohName(i)"
-                            (blur)="autoCompleteVis[i] = false;"
                             (focus)="autoCompleteVis[i] = true;getJohName(i)"
                         >
-                    </div>
 
-                    <ul *ngIf="johFormArray?.value[i].johName?.length > 1 && autoCompleteVis[i]" class="autoComplete-container ">
-                        <li *ngFor="let johNameList of johAutocompList$ | async" 
-                            class="autoComplete-item " 
-                            (click)="setJohNameValue(i, johNameList)"
-                        >
-                            <span class="govuk-body">{{johNameList}}</span>
-                        </li>
-                    </ul>
+                        <ul *ngIf="johFormArray?.value[i].johName?.length > 1 && autoCompleteVis[i]" class="autoComplete-container govuk-grid-column-one-half"
+                            style="position:absolute;" >
+                            <li *ngFor="let johNameList of johAutocompList$ | async" 
+                                class="autoComplete-item govuk-body govuk-!-static-margin-bottom-0" 
+                                (click)="setJohNameValue(i, johNameList);autoCompleteVis[i] = false;">
+                                {{johNameList}}
+                            </li>
+                        </ul>
+
+                    </div>
+      
                 </div>
             
             
@@ -124,4 +125,6 @@
             Cancel
         </a>
     </div>
+
+    <div class="autoComplete-clickContainer" *ngIf="autoCompleteVis.includes(true)" (click)="resetAutoVis()"></div>
 </main>
