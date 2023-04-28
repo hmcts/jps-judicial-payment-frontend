@@ -2628,6 +2628,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/datatables.net@npm:^1.10.24":
+  version: 1.10.24
+  resolution: "@types/datatables.net@npm:1.10.24"
+  dependencies:
+    "@types/jquery": "*"
+  checksum: e1c75bcbe0625db1b061e9a3e108553f89388aedc2efcaa4aba38255e10e10a2c61222c2e74383f572189f1a82f70fb8d544b7b84c87ae0bd5d22bfc225671e6
+  languageName: node
+  linkType: hard
+
 "@types/eslint-scope@npm:^3.7.3":
   version: 3.7.4
   resolution: "@types/eslint-scope@npm:3.7.4"
@@ -2705,6 +2714,15 @@ __metadata:
   version: 4.3.1
   resolution: "@types/jasmine@npm:4.3.1"
   checksum: d31fc78f7e70ed4aed20fa59400be3de9f204c473a7755aba29df90eb7d9d19d4b04b821a07e30732e67ef6021c8191eb259211264e287c053832c1940ae6e71
+  languageName: node
+  linkType: hard
+
+"@types/jquery@npm:*, @types/jquery@npm:^3.5.16":
+  version: 3.5.16
+  resolution: "@types/jquery@npm:3.5.16"
+  dependencies:
+    "@types/sizzle": "*"
+  checksum: 13c995f15d1c2f1d322103dc1cb0a22b95eecc3e7546f00279b8731aea21d7ec04550af40e609ee48e755d4e11bf61c25b4aa9f53df3bcbec4b8fe8e81471732
   languageName: node
   linkType: hard
 
@@ -2812,6 +2830,13 @@ __metadata:
     "@types/mime": "*"
     "@types/node": "*"
   checksum: 2e078bdc1e458c7dfe69e9faa83cc69194b8896cce57cb745016580543c7ab5af07fdaa8ac1765eb79524208c81017546f66056f44d1204f812d72810613de36
+  languageName: node
+  linkType: hard
+
+"@types/sizzle@npm:*":
+  version: 2.3.3
+  resolution: "@types/sizzle@npm:2.3.3"
+  checksum: 586a9fb1f6ff3e325e0f2cc1596a460615f0bc8a28f6e276ac9b509401039dd242fa8b34496d3a30c52f5b495873922d09a9e76c50c2ab2bcc70ba3fb9c4e160
   languageName: node
   linkType: hard
 
@@ -3430,6 +3455,13 @@ __metadata:
     json-schema-traverse: ^0.4.1
     uri-js: ^4.2.2
   checksum: 874972efe5c4202ab0a68379481fbd3d1b5d0a7bd6d3cc21d40d3536ebff3352a2a1fabb632d4fd2cc7fe4cbdcd5ed6782084c9bbf7f32a1536d18f9da5007d4
+  languageName: node
+  linkType: hard
+
+"angular-datatables@npm:15.0.1":
+  version: 15.0.1
+  resolution: "angular-datatables@npm:15.0.1"
+  checksum: dca0805574e5300d87eaccd9b09f1c4a67eb0f9e002b39bb989116172752121280763adc2981666c1a14f449f130bb87b3c68966387c288d68b11e94b33e6101
   languageName: node
   linkType: hard
 
@@ -5124,6 +5156,25 @@ __metadata:
     whatwg-mimetype: ^3.0.0
     whatwg-url: ^11.0.0
   checksum: 033fc3dd0fba6d24bc9a024ddcf9923691dd24f90a3d26f6545d6a2f71ec6956f93462f2cdf2183cc46f10dc01ed3bcb36731a8208456eb1a08147e571fe2a76
+  languageName: node
+  linkType: hard
+
+"datatables.net-dt@npm:^1.13.4":
+  version: 1.13.4
+  resolution: "datatables.net-dt@npm:1.13.4"
+  dependencies:
+    datatables.net: ">=1.12.1"
+    jquery: ">=1.7"
+  checksum: 0f731ea859f1e6c135d2cfcc561faa40c2fe671136cbf934c9a0240414b72ce67f834d3977d900b92f4b6f3446c0c61bf3af6fcc2a2cb595ea074a57dc632cd3
+  languageName: node
+  linkType: hard
+
+"datatables.net@npm:>=1.12.1, datatables.net@npm:^1.13.4":
+  version: 1.13.4
+  resolution: "datatables.net@npm:1.13.4"
+  dependencies:
+    jquery: ">=1.7"
+  checksum: 7fa718f0c93809ac3b66e0287ae007459e072dfab9b435ac026be8feddbec24274b7cd08259b4caae3635e4e212cfd4de44e0e450ece66baaf43a1054966fead
   languageName: node
   linkType: hard
 
@@ -8108,17 +8159,23 @@ __metadata:
     "@nguniversal/builders": ^15.2.0
     "@nguniversal/express-engine": ^15.2.0
     "@types/config": ^3.3.0
+    "@types/datatables.net": ^1.10.24
     "@types/express": ^4.17.0
     "@types/jasmine": ~4.3.0
+    "@types/jquery": ^3.5.16
     "@types/node": ^14.15.0
     "@typescript-eslint/eslint-plugin": 5.48.2
     "@typescript-eslint/parser": 5.48.2
+    angular-datatables: 15.0.1
     codeceptjs: ^3.4.1
     config: ^3.3.9
+    datatables.net: ^1.13.4
+    datatables.net-dt: ^1.13.4
     eslint: ^8.33.0
     express: ^4.15.2
     govuk-frontend: ^4.5.0
     jasmine-core: ~4.5.0
+    jquery: ^3.6.4
     karma: ~6.4.0
     karma-chrome-launcher: ~3.1.0
     karma-coverage: ~2.2.0
@@ -8134,6 +8191,13 @@ __metadata:
     zone.js: ~0.12.0
   languageName: unknown
   linkType: soft
+
+"jquery@npm:>=1.7, jquery@npm:^3.6.4":
+  version: 3.6.4
+  resolution: "jquery@npm:3.6.4"
+  checksum: 8354f7bd0a0424aa714ee1b6b1ef74b410f834eb5c8501682289b358bc151f11677f11188b544f3bb49309d6ec4d15d1a5de175661250c206b06185a252f706f
+  languageName: node
+  linkType: hard
 
 "js-beautify@npm:^1.14.0":
   version: 1.14.7

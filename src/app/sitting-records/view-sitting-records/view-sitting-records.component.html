@@ -10,10 +10,44 @@
         </button>
       </div>
 
-      <p class="govuk-body govuk-!-margin-bottom-0">
+      <p class="govuk-body govuk-!-margin-bottom-4">
         Sitting records for {{tribService}}, {{venue}}, for {{date}}
         <br>
         <a class="govuk-link" (click)="goBack()">Change</a>
       </p>
+ 
+      <ng-container style="width: 100%;">
+        <table 
+          datatable 
+          [dtOptions]="dtOptions" 
+          class="govuk-table"
+          id="sittingRecordViewTable"
+        >
+
+          <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+              <th class="govuk-table__header"> Name </th>
+              <th class="govuk-table__header"> Role </th>
+              <th class="govuk-table__header"> Period </th>
+              <th class="govuk-table__header"> Entered By </th>
+              <th class="govuk-table__header"> Status </th>
+              <th class="govuk-table__header"> &nbsp; </th>
+            </tr>
+
+          </thead>
+          <tbody class="govuk-table__body">
+            <tr class="govuk-table__row" *ngFor="let sittingRecord of tempData">
+              <td class="govuk-table__cell"> {{sittingRecord.personalName}} </td>
+              <td class="govuk-table__cell"> {{sittingRecord.judgeRoleTypeId}} </td>
+              <td class="govuk-table__cell"> {{getPeriod(sittingRecord.AM, sittingRecord.PM)}} </td>
+              <td class="govuk-table__cell"> {{sittingRecord.createdByUserId}} </td>
+              <td class="govuk-table__cell"> {{sittingRecord.statusId}} </td>
+              <td class="govuk-table__cell deleteCell"> <a class="govuk-link">Delete</a> </td>
+
+            </tr>
+          </tbody>
+
+        </table>
+      </ng-container>
       
 </main>

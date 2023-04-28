@@ -9,12 +9,16 @@ import { PhaseBannerComponent } from '../phase-banner/phase-banner.component';
 import { ViewSittingRecordsComponent } from './view-sitting-records/view-sitting-records.component';
 import { NumberDirective } from '../_directives/numbers-only.directive';
 
+import { DataTablesModule } from "angular-datatables";
+
+
 @NgModule({
   imports: [
     CommonModule,
     SittingRecordsRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DataTablesModule
   ],
   declarations: [
     SittingRecordsComponent,

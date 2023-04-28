@@ -7,6 +7,8 @@ import { JPFooterComponent } from './jp-footer/jp-footer.component';
 import { JPHeaderComponent } from './jp-header/jp-header.component';
 import { SittingRecordsModule } from './sitting-records/sitting-records.module';
 
+import { DataTablesModule } from 'angular-datatables';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -16,7 +18,8 @@ import { SittingRecordsModule } from './sitting-records/sitting-records.module';
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
-    SittingRecordsModule
+    SittingRecordsModule,
+    DataTablesModule
   ],
   providers: [],
   bootstrap: [AppComponent]
