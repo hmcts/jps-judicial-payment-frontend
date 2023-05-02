@@ -38,37 +38,6 @@ export class AddSittingRecordComponent implements OnInit {
   venue = "";
   date = "";
 
-  // autocomplete functions
-
-  setJohNameValue(johIndex: number, nameSelected: string) {
-    const johControl = this.johFormArray.controls.at(johIndex) as FormGroup;
-    johControl.controls['johName'].setValue(nameSelected)
-  }
-
-  resetAutoVis(){
-    this.autoCompleteVis = new Array(this.autoCompleteVis.length).fill(false);
-  }
-
-  autoCompleteVis = [false]
-
-  serachJohNames$ = new BehaviorSubject<string>('')
-  johAutocompList$: Observable<string[]> = this.serachJohNames$.pipe(
-    debounceTime(400),
-    switchMap(searchJohNameText => {
-      if(searchJohNameText.length < 2) return ([])
-      return this.http
-      .get<any[]>('https://en.wikipedia.org/w/api.php', { params: PARAMS.set('search', searchJohNameText) })
-			.pipe(map((response) => response[1]));
-
-    })
-  );
-  
-  //
-
-  getJohName(controlIndex: number) {
-    this.serachJohNames$.next(this.johFormArray.controls[controlIndex].value.johName);
-  }
-
   goBack() {
     this.router.navigate(['sittingRecords', 'view'])
   }
@@ -93,13 +62,11 @@ export class AddSittingRecordComponent implements OnInit {
           johRole: new FormControl(null, [Validators.required])
         })
       )
-      this.autoCompleteVis.push(false)
     }
   }
 
   removeJoh(index: number) {
     this.johFormArray.removeAt(index)
-    this.autoCompleteVis.splice(index, 1)
   }
 
   constructor(

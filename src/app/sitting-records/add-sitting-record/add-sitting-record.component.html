@@ -41,18 +41,7 @@
                             type="text" aria-describedby="judge-hint"
                             placeholder="Start typing to find a JOH name" 
                             formControlName="johName"
-                            (input)="getJohName(i)"
-                            (focus)="autoCompleteVis[i] = true;getJohName(i)"
                         >
-
-                        <ul *ngIf="johFormArray?.value[i].johName?.length > 1 && autoCompleteVis[i]" class="autoComplete-container govuk-grid-column-one-half"
-                            style="position:absolute;" >
-                            <li *ngFor="let johNameList of johAutocompList$ | async" 
-                                class="autoComplete-item govuk-body govuk-!-static-margin-bottom-0" 
-                                (click)="setJohNameValue(i, johNameList);autoCompleteVis[i] = false;">
-                                {{johNameList}}
-                            </li>
-                        </ul>
 
                     </div>
       
@@ -125,6 +114,4 @@
             Cancel
         </a>
     </div>
-
-    <div class="autoComplete-clickContainer" *ngIf="autoCompleteVis.includes(true)" (click)="resetAutoVis()"></div>
 </main>
