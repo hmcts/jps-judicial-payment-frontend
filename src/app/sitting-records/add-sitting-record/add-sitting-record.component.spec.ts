@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-workflow.service';
 import { DateService } from '../../_services/date-service';
 import { Router } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('AddSittingRecordComponent', () => {
   let component: AddSittingRecordComponent;
@@ -15,7 +16,7 @@ describe('AddSittingRecordComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ AddSittingRecordComponent ],
-      imports: [ ReactiveFormsModule, RouterTestingModule ],
+      imports: [ ReactiveFormsModule, RouterTestingModule, HttpClientModule ],
       providers: [ SittingRecordWorkflowService, DateService ],
     })
     .compileComponents();
