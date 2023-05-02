@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DateService } from 'src/app/_services/date-service';
 import { SittingRecordWorkflowService } from 'src/app/_workflows/sitting-record-workflow.service';
@@ -8,7 +8,7 @@ import { SittingRecordWorkflowService } from 'src/app/_workflows/sitting-record-
   templateUrl: './add-sitting-record-success.component.html',
   styleUrls: ['./add-sitting-record-success.component.scss']
 })
-export class AddSittingRecordSuccessComponent {
+export class AddSittingRecordSuccessComponent implements OnInit {
   tribService: any;
   venue: any;
   date: any;

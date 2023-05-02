@@ -8,22 +8,7 @@ import {
   FormArray,
   FormControl,
 } from '@angular/forms';
-import { 
-  BehaviorSubject,
-  Observable,
-  debounceTime, 
-  map, 
-  switchMap
-} from 'rxjs';
-import { HttpClient, HttpParams } from '@angular/common/http';
-
-const PARAMS = new HttpParams({
-    fromObject: {
-      action: 'opensearch',
-      format: 'json',
-      origin: '*',
-    },
-  });
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-add-sitting-record',
