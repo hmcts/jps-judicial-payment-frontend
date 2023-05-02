@@ -26,7 +26,7 @@ export class ViewSittingRecordsComponent implements OnInit {
       "personalCode": "PC246",
       "personalName": "Jessica Lee",
       "contractTypeId": "1",
-      "judgeRoleTypeId": "1",
+      "judgeRoleTypeId": "Disability Member",
       "AM": false,
       "PM": true,
       "createdDateTime": "2023-05-04T09:00:00",
@@ -47,7 +47,7 @@ export class ViewSittingRecordsComponent implements OnInit {
       "personalCode": "PC789",
       "personalName": "Steven Wilson",
       "contractTypeId": "2",
-      "judgeRoleTypeId": "2",
+      "judgeRoleTypeId": "Lead Judge",
       "AM": true,
       "PM": true,
       "createdDateTime": "2023-05-05T12:00:00",
@@ -131,7 +131,7 @@ export class ViewSittingRecordsComponent implements OnInit {
         "personalCode": "PC246",
         "personalName": "Mia Johnson",
         "contractTypeId": "1",
-        "judgeRoleTypeId": "2",
+        "judgeRoleTypeId": "Disability Member",
         "AM": false,
         "PM": true,
         "createdDateTime": "2023-05-10T10:30:00",
@@ -170,14 +170,14 @@ export class ViewSittingRecordsComponent implements OnInit {
     this.date = this.dateSvc.formatDateFromForm(dateSelected);
 
     this.dtOptions = {
-      ...defaultDtOptions,
+      ...defaultDtOptions, 
       columnDefs:[
-        {orderData: 1, targets: [0]},
-        {orderData: 2, targets: [1]},
-        {orderData: 3, targets: [2]},
-        {orderData: 4, targets: [3]},
-        {orderData: 5, targets: [4]},
-        {orderData: 6, targets: [5], orderable: false},
+        {orderData: 0, targets: [0]},
+        {orderData: 1, targets: [1]},
+        {orderData: 2, targets: [2]},
+        {orderData: 3, targets: [3]},
+        {orderData: 4, targets: [4]},
+        {orderData: 5, targets: [5], orderable: false},
       ],
       
       drawCallback: 
