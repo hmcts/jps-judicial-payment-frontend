@@ -27,14 +27,23 @@
             <label class="govuk-label" for="venue-select">
               Select a venue
             </label>
-            <input class="govuk-input govuk-!-width-two-thirds" 
+            <div class="auto-complete-container">
+              <input class="govuk-input govuk-!-width-two-thirds"
                 formControlName="venue" id="venue-select" 
                 name="venue-select" type="text" 
                 placeholder="Start typing to search for a venue"
                 [class.govuk-form-group--error] = "f['venue'].invalid"
-            >
+                (input)="onInputVenue()"
+                [matAutocomplete]="autoSearchVenue">
+              <mat-autocomplete class="mat-autocomplete-panel-extend" autoActiveFirstOption #autoSearchVenue="matAutocomplete">
+                <mat-option *ngFor="let venue of venues" (onSelectionChange)="onSelectionChange(venue)">
+                  {{ venue.site_name }}
+                </mat-option>
+                <!--<mat-option *ngIf="!locations.length && showAutocomplete && term && term.length >= this.minSearchCharacters">No results found</mat-option>-->
+              </mat-autocomplete>
+            </div>
           </div>
-
+      
           <div 
             class="govuk-form-group"
             [class.govuk-form-group--error]="f['dateSelected'].errors !== null && f['dateSelected'].dirty"

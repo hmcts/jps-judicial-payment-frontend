@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import { 
   FormBuilder, 
   FormGroup, 
@@ -6,8 +6,12 @@ import {
   AbstractControl
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { debounceTime, filter, map, mergeMap, tap } from 'rxjs/operators';
 import { CustomValidators } from '../../_validators/sitting-records-form-validator';
 import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-workflow.service';
+import { VenueService } from 'src/app/_services/venue.service';
+import { VenueModel } from 'src/app/_models/venue.model';
 
 @Component({
   selector: 'app-manage-sitting-records',
@@ -16,6 +20,14 @@ import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-wo
 })
 export class ManageSittingRecordsComponent implements OnInit {
   manageRecords: FormGroup;
+  venues: VenueModel[] = [];
+  readonly minSearchCharacters = 3;
+  term: string = '';
+  delay: number = 500;
+  pSelectedVenues: any[] = [];
+  venueSelected = new EventEmitter<VenueModel>();
+  //venueInputChanged: EventEmitter<string> = new EventEmitter<string>();
+  searchVenueChanged: EventEmitter<void> = new EventEmitter<void>();
 
   submitForm(){
     this.srWorkFlow.setFormData(this.manageRecords)
@@ -31,7 +43,8 @@ export class ManageSittingRecordsComponent implements OnInit {
     protected router: Router,
     protected activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private srWorkFlow: SittingRecordWorkflowService
+    private srWorkFlow: SittingRecordWorkflowService,
+    private venueService : VenueService
   ){
     this.manageRecords = this.formBuilder.group(
       {
@@ -70,6 +83,44 @@ export class ManageSittingRecordsComponent implements OnInit {
     if(this.srWorkFlow.getFormData()){
       this.manageRecords = this.srWorkFlow.getFormData();
     }
+
+    this.venuesSearch();
+  }
+
+  public get selectedVenues(): any[] {
+    return this.pSelectedVenues;
+  }
+
+  public onSelectionChange(venue: VenueModel): void {
+    this.manageRecords.controls['venue'].patchValue('');
+    this.venueSelected.emit(venue);
+  }
+
+  public venuesSearch(): void {
+    this.manageRecords.controls['venue'].valueChanges
+      .pipe(
+        //tap((term) => this.venueInputChanged.next(term)),
+        //tap(() => this.venues = []),
+        filter(searchTerm => searchTerm.length >= this.minSearchCharacters),
+        //debounceTime(this.delay),
+        mergeMap(value => this.getVenues(value)),
+        tap(val => console.log(val)),
+        //map((venues) => this.removeSelectedVenues(venues))
+      ).subscribe(venues => this.venues = venues);
+  }
+
+  public onInputVenue(): void {
+    this.searchVenueChanged.emit();
+  }
+
+  public getVenues(searchTerm: string): Observable<VenueModel[]> {
+    return this.venueService.getAllVenues(searchTerm);
+  }
+
+  private removeSelectedVenues(venues: VenueModel[]): VenueModel[] {
+    return venues.filter(
+      venue => !this.selectedVenues.map(selectedVenue => selectedVenue.epimms_id).includes(venue.epimms_id) && venue.site_name);
+  
   }
 }
 

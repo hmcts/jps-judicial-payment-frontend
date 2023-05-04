@@ -8,13 +8,17 @@ import { ManageSittingRecordsComponent } from './manage-sitting-records/manage-s
 import { PhaseBannerComponent } from '../phase-banner/phase-banner.component';
 import { ViewSittingRecordsComponent } from './view-sitting-records/view-sitting-records.component';
 import { NumberDirective } from '../_directives/numbers-only.directive';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   imports: [
     CommonModule,
     SittingRecordsRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatAutocompleteModule,
+    HttpClientModule
   ],
   declarations: [
     SittingRecordsComponent,
@@ -22,6 +26,6 @@ import { NumberDirective } from '../_directives/numbers-only.directive';
     PhaseBannerComponent,
     ViewSittingRecordsComponent,
     NumberDirective
-  ],
+  ]
 })
 export class SittingRecordsModule { }
