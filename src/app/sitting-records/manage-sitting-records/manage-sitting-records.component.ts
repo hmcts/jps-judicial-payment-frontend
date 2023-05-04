@@ -92,7 +92,7 @@ export class ManageSittingRecordsComponent implements OnInit {
   }
 
   public onSelectionChange(venue: VenueModel): void {
-    this.manageRecords.controls['venue'].patchValue('');
+    this.manageRecords.controls['venue'].setValue(venue.site_name);
     this.venueSelected.emit(venue);
   }
 
@@ -101,8 +101,8 @@ export class ManageSittingRecordsComponent implements OnInit {
       .pipe(
         //tap((term) => this.venueInputChanged.next(term)),
         //tap(() => this.venues = []),
-        filter(searchTerm => searchTerm.length >= this.minSearchCharacters),
-        //debounceTime(this.delay),
+        //filter(searchTerm => searchTerm.length >= this.minSearchCharacters),
+        debounceTime(this.delay),
         mergeMap(value => this.getVenues(value)),
         tap(val => console.log(val)),
         //map((venues) => this.removeSelectedVenues(venues))
