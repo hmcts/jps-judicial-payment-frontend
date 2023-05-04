@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { JPFooterComponent } from './jp-footer/jp-footer.component';
 import { JPHeaderComponent } from './jp-header/jp-header.component';
 import { SittingRecordsModule } from './sitting-records/sitting-records.module';
+import { HttpClientModule } from '@angular/common/http';
 
 import { DataTablesModule } from 'angular-datatables';
 
@@ -19,7 +20,8 @@ import { DataTablesModule } from 'angular-datatables';
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     SittingRecordsModule,
-    DataTablesModule
+    DataTablesModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

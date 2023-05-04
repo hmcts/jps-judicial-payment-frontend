@@ -36,7 +36,7 @@
 
           </thead>
           <tbody class="govuk-table__body">
-            <tr class="govuk-table__row" *ngFor="let sittingRecord of tempData">
+            <tr class="govuk-table__row" *ngFor="let sittingRecord of sittingRecordData | async">
               <td class="govuk-table__cell"> {{sittingRecord.personalName}} </td>
               <td class="govuk-table__cell"> {{sittingRecord.judgeRoleTypeId}} </td>
               <td class="govuk-table__cell"> {{getPeriod(sittingRecord.AM, sittingRecord.PM)}} </td>

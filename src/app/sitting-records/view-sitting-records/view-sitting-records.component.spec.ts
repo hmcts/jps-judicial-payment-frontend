@@ -5,8 +5,7 @@ import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-wo
 import { DateService } from '../../_services/date-service';
 import { Router } from '@angular/router';
 import { DataTablesModule } from 'angular-datatables';
-import { defaultDtOptions } from '../../_services/default-dt-options';
-import { By } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('ViewSittingRecordsComponent', () => {
   let component: ViewSittingRecordsComponent;
@@ -27,7 +26,7 @@ describe('ViewSittingRecordsComponent', () => {
         { provide: DateService, useValue: mockDateService },
         { provide: Router, useValue: mockRouter }
       ],
-      imports: [RouterTestingModule, DataTablesModule]
+      imports: [RouterTestingModule, DataTablesModule, HttpClientModule]
     })
     .compileComponents();
 
@@ -67,19 +66,19 @@ describe('ViewSittingRecordsComponent', () => {
 
   describe('getPeriod', () => {
     it('should return "Full Day" when am and pm are true', () => {
-      expect(component.getPeriod(true, true)).toEqual('Full Day');
+      expect(component.getPeriod("true", "true")).toEqual('Full Day');
     });
   
     it('should return "Morning" when am is true and pm is false', () => {
-      expect(component.getPeriod(true, false)).toEqual('Morning');
+      expect(component.getPeriod("true", "false")).toEqual('Morning');
     });
   
     it('should return "Afternoon" when pm is true and am is false', () => {
-      expect(component.getPeriod(false, true)).toEqual('Afternoon');
+      expect(component.getPeriod("false", "true")).toEqual('Afternoon');
     });
   
     it('should return an empty string when both am and pm are false', () => {
-      expect(component.getPeriod(false, false)).toEqual('');
+      expect(component.getPeriod("false", "false")).toEqual('');
     });
   });
 });

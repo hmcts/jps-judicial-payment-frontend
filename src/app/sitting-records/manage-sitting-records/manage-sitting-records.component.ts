@@ -16,7 +16,7 @@ import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-wo
 })
 export class ManageSittingRecordsComponent implements OnInit {
   manageRecords: FormGroup;
-
+  
   submitForm(){
     this.srWorkFlow.setFormData(this.manageRecords)
     this.srWorkFlow.setManageVisited()

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ManageSittingRecordsComponent } from './manage-sitting-records.component';
 import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-workflow.service';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('ManageSittingRecordsComponent', () => {
   let component: ManageSittingRecordsComponent;
@@ -13,7 +14,7 @@ describe('ManageSittingRecordsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule, RouterTestingModule],
+      imports: [ReactiveFormsModule, RouterTestingModule, HttpClientModule],
       declarations: [ManageSittingRecordsComponent],
       providers: [SittingRecordWorkflowService],
     }).compileComponents();
