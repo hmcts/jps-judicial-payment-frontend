@@ -1,6 +1,6 @@
 nodejs:
   aadIdentityName: jps
-  applicationPort: 3000
+  applicationPort: 4000
   environment:
     REFORM_TEAM: jps
     REFORM_SERVICE_NAME: judicial-payment-frontend
