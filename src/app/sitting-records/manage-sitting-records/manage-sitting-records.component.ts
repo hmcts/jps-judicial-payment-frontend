@@ -7,7 +7,7 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { debounceTime, filter, map, mergeMap, tap } from 'rxjs/operators';
+import { debounceTime, filter, mergeMap, tap } from 'rxjs/operators';
 import { CustomValidators } from '../../_validators/sitting-records-form-validator';
 import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-workflow.service';
 import { VenueService } from 'src/app/_services/venue.service';
@@ -100,5 +100,6 @@ export class ManageSittingRecordsComponent implements OnInit {
     return this.venueService.getAllVenues(searchTerm);
   }
 
+  
 }
 

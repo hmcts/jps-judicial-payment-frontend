@@ -20,7 +20,6 @@
     "build:ssr": "yarn run ng build && yarn run ng run jps-judicial-payment-frontend:server",
     "prerender": "ng run jps-judicial-payment-frontend:prerender",
     "server": "json-server --watch ./src/app/data/db.json"
-
   },
   "dependencies": {
     "@angular/animations": "^15.2.8",
