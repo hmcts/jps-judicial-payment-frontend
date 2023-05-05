@@ -33,7 +33,6 @@
                 name="venue-select" type="text" 
                 placeholder="Start typing to search for a venue"
                 [class.govuk-form-group--error] = "f['venue'].invalid"
-                (input)="onInputVenue()"
                 [matAutocomplete]="autoSearchVenue">
               <mat-autocomplete class="mat-autocomplete-panel-extend" autoActiveFirstOption #autoSearchVenue="matAutocomplete">
                 <mat-option *ngFor="let venue of venues" (onSelectionChange)="onSelectionChange(venue)">

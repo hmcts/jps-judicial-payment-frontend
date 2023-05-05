@@ -22,12 +22,7 @@ export class ManageSittingRecordsComponent implements OnInit {
   manageRecords: FormGroup;
   venues: VenueModel[] = [];
   readonly minSearchCharacters = 3;
-  term: string = '';
   delay: number = 500;
-  pSelectedVenues: any[] = [];
-  venueSelected = new EventEmitter<VenueModel>();
-  //venueInputChanged: EventEmitter<string> = new EventEmitter<string>();
-  searchVenueChanged: EventEmitter<void> = new EventEmitter<void>();
 
   submitForm(){
     this.srWorkFlow.setFormData(this.manageRecords)
@@ -87,40 +82,23 @@ export class ManageSittingRecordsComponent implements OnInit {
     this.venuesSearch();
   }
 
-  public get selectedVenues(): any[] {
-    return this.pSelectedVenues;
-  }
-
   public onSelectionChange(venue: VenueModel): void {
-    this.manageRecords.controls['venue'].setValue(venue.site_name);
-    this.venueSelected.emit(venue);
+    this.manageRecords.controls['venue'].patchValue(venue.site_name, {emitEvent: false, onlySelf: true});
   }
 
   public venuesSearch(): void {
     this.manageRecords.controls['venue'].valueChanges
       .pipe(
-        //tap((term) => this.venueInputChanged.next(term)),
-        //tap(() => this.venues = []),
-        //filter(searchTerm => searchTerm.length >= this.minSearchCharacters),
+        tap(() => this.venues = []),
+        filter(term => !!term && term.length >= this.minSearchCharacters),
         debounceTime(this.delay),
         mergeMap(value => this.getVenues(value)),
-        tap(val => console.log(val)),
-        //map((venues) => this.removeSelectedVenues(venues))
       ).subscribe(venues => this.venues = venues);
-  }
-
-  public onInputVenue(): void {
-    this.searchVenueChanged.emit();
   }
 
   public getVenues(searchTerm: string): Observable<VenueModel[]> {
     return this.venueService.getAllVenues(searchTerm);
   }
 
-  private removeSelectedVenues(venues: VenueModel[]): VenueModel[] {
-    return venues.filter(
-      venue => !this.selectedVenues.map(selectedVenue => selectedVenue.epimms_id).includes(venue.epimms_id) && venue.site_name);
-  
-  }
 }
 
