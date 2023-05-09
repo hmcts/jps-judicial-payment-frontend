@@ -18,6 +18,8 @@ export class ViewSittingRecordsComponent implements OnInit {
   dtOptions: DataTables.Settings = {};
   sittingRecordData;
 
+  showFilters = false;
+
   goBack(){
     this.router.navigate(['sittingRecords','manage'])
   }
