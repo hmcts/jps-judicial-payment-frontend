@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { 
   FormBuilder, 
   FormGroup, 
@@ -22,11 +22,13 @@ export class ManageSittingRecordsComponent implements OnInit {
   manageRecords: FormGroup;
   venues: VenueModel[] = [];
   readonly minSearchCharacters = 3;
-  delay: number = 500;
+  delay = 500;
+  venueValueChange: any;
 
   submitForm(){
     this.srWorkFlow.setFormData(this.manageRecords)
     this.srWorkFlow.setManageVisited()
+    this.venueValueChange.unsubscribe()
     this.router.navigate(['sittingRecords','view'])
   }
 
@@ -82,12 +84,17 @@ export class ManageSittingRecordsComponent implements OnInit {
     this.venuesSearch();
   }
 
+  showLocation(state) {
+    if(state) { return state.site_name; }
+    return ""
+  }
+
   public onSelectionChange(venue: VenueModel): void {
-    this.manageRecords.controls['venue'].patchValue(venue.site_name, {emitEvent: false, onlySelf: true});
+    this.manageRecords.controls['venue'].patchValue(venue, {emitEvent: false, onlySelf: true});
   }
 
   public venuesSearch(): void {
-    this.manageRecords.controls['venue'].valueChanges
+    this.venueValueChange = this.manageRecords.controls['venue'].valueChanges
       .pipe(
         tap(() => this.venues = []),
         filter(term => !!term && term.length >= this.minSearchCharacters),

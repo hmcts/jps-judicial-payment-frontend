@@ -28,7 +28,7 @@ export class ViewSittingRecordsComponent implements OnInit {
     const formData = this.srWorkFlow.getFormData().value;
     const { dateSelected, tribunalService, venue } = formData;
     this.tribService = tribunalService;
-    this.venue = venue;
+    this.venue = venue.site_name;
     this.date = this.dateSvc.formatDateFromForm(dateSelected);
   }
 
