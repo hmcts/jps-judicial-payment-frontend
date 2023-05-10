@@ -24,25 +24,27 @@
           </div>
 
           <div class="govuk-form-group govuk-!-margin-bottom-3"                 
-          [class.govuk-form-group--error] = "f['venue'].errors !== null && f['venue'].dirty">
+          [class.govuk-form-group--error] = "f['venue'].errors !== null && f['venue'].dirty && f['venue'].touched">
             <label class="govuk-label" for="venue-select">
               Select a venue
             </label>
+            <p id="msr-require-match" class="govuk-error-message" *ngIf="f['venue'].errors && f['venue'].dirty && f['venue'].touched">
+              <span class="govuk-visually-hidden">Error:</span> Select valid Venue 
+            </p>
             <div class="auto-complete-container">
               <input class="govuk-input govuk-!-width-two-thirds"
                 formControlName="venue" id="venue-select" 
                 name="venue-select" type="text" 
                 placeholder="Start typing to search for a venue"
-                [matAutocomplete]="autoSearchVenue">
+                [matAutocomplete]="autoSearchVenue"
+                required>
               <mat-autocomplete class="mat-autocomplete-panel-extend" autoActiveFirstOption #autoSearchVenue="matAutocomplete" [displayWith]="showVenue">
                 <mat-option *ngFor="let venue of venues" (onSelectionChange)="onSelectionChange(venue)" [value]="venue" >
                   {{ venue.site_name }}
                 </mat-option>
                 <!--<mat-option *ngIf="!locations.length && showAutocomplete && term && term.length >= this.minSearchCharacters">No results found</mat-option>-->
               </mat-autocomplete>
-              <p id="msr-require-match" class="govuk-error-message" *ngIf="f['venue'].hasError('value_not_selected')">
-                <span class="govuk-visually-hidden">Error:</span> Select valid Venue 
-              </p>
+              
             </div>
           </div>
       

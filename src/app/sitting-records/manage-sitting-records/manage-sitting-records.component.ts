@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { 
   FormBuilder, 
   FormGroup, 
@@ -24,8 +24,7 @@ export class ManageSittingRecordsComponent implements OnInit {
   readonly minSearchCharacters = 3;
   delay = 500;
   venueValueChange: any;
-  //showAutoComplete: boolean = false;
-
+  
   submitForm(){
     this.srWorkFlow.setFormData(this.manageRecords)
     this.srWorkFlow.setManageVisited()
