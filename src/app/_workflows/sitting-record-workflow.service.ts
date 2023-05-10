@@ -11,6 +11,7 @@ export class SittingRecordWorkflowService {
   
   formData!: FormGroup;
   hasVisitedManage = false; 
+  sittingRecordToDelete = {};
 
   constructor(
     private ViewSittingRecordHttpService: ViewSittingRecordHttp,
@@ -38,6 +39,18 @@ export class SittingRecordWorkflowService {
     this.formData.reset();
   }
 
+  getSittingRecordToDelete(){
+    return this.sittingRecordToDelete
+  }
+
+  setSittingRecordToDelete(record){
+    this.sittingRecordToDelete = record;
+  }
+
+  resetSittingRecordToDelete(){
+    this.sittingRecordToDelete = {};
+  }
+
   formPostObject(){
     const postObj = new ViewSittingRecordPost();
     const { dateSelected, venue } = this.formData.value;
@@ -52,7 +65,36 @@ export class SittingRecordWorkflowService {
   }
 
   getTableData() {
-    return this.ViewSittingRecordHttpService.postObject(this.formPostObject())
+
+    return [{
+      "pageSize": 100,
+      "offset": 0,
+      "dateOrder": "ASCENDING",
+      "regionId": "string",
+      "epimmsId": "string",
+      "createdByUserId": "string",
+      "personalCode": "string",
+      "judgeRoleTypeId": "string",
+      "duration": "string",
+      "dateRangeFrom": "string",
+      "dateRangeTo": "string",
+      "statusIds": "string"
+    },{
+      "pageSize": 100,
+      "offset": 0,
+      "dateOrder": "ASCENDING",
+      "regionId": "string2",
+      "epimmsId": "string2",
+      "createdByUserId": "string2",
+      "personalCode": "string2",
+      "judgeRoleTypeId": "string2",
+      "duration": "string2",
+      "dateRangeFrom": "string2",
+      "dateRangeTo": "string2",
+      "statusIds": "string2"
+    },]
+
+    //return this.ViewSittingRecordHttpService.postObject(this.formPostObject())
   }
 
 }

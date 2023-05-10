@@ -39,13 +39,13 @@
 
               </thead>
               <tbody class="govuk-table__body">
-                <tr class="govuk-table__row" *ngFor="let sittingRecord of sittingRecordData | async">
+                <tr class="govuk-table__row" *ngFor="let sittingRecord of sittingRecordData">
                   <td class="govuk-table__cell"> {{sittingRecord.personalName}} </td>
                   <td class="govuk-table__cell"> {{sittingRecord.judgeRoleTypeId}} </td>
                   <td class="govuk-table__cell"> {{getPeriod(sittingRecord.AM, sittingRecord.PM)}} </td>
                   <td class="govuk-table__cell"> {{sittingRecord.createdByUserId}} </td>
                   <td class="govuk-table__cell"> {{sittingRecord.statusId}} </td>
-                  <td class="govuk-table__cell deleteCell"> <a class="govuk-link">Delete</a> </td>
+                  <td class="govuk-table__cell deleteCell"> <a class="govuk-link" (click)="navigateDeleteSittingRecord(sittingRecord)">Delete</a> </td>
 
                 </tr>
               </tbody>

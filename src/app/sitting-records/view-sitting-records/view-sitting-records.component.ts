@@ -3,6 +3,7 @@ import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-wo
 import { DateService } from '../../_services/date-service';
 import { Router } from '@angular/router';
 import { defaultDtOptions }  from '../../_services/default-dt-options'
+import { tableService } from '../../_services/table-services'
 
 @Component({
   selector: 'app-view-sitting-records',
@@ -25,18 +26,14 @@ export class ViewSittingRecordsComponent implements OnInit {
   }
 
   getPeriod(am: string, pm: string){
-    const amBool = am === 'true' ? true : false
-    const pmBool = pm === 'true' ? true : false
-    if(amBool && pmBool){ return "Full Day" }
-    if(amBool){ return "Morning" }
-    if(pmBool){ return "Afternoon" }
-    return ""
+    return this.tsvc.getPeriod(am, pm)
   }
 
   constructor(
     private srWorkFlow: SittingRecordWorkflowService,
     private dateSvc: DateService,
-    private router: Router
+    private router: Router,
+    private tsvc: tableService
   ){}
     
   ngOnInit(){
@@ -70,6 +67,11 @@ export class ViewSittingRecordsComponent implements OnInit {
       
     };
 
+  }
+
+  navigateDeleteSittingRecord(sittingRecord){
+    this.srWorkFlow.setSittingRecordToDelete(sittingRecord);
+    this.router.navigate(['sittingRecords', 'delete'])
   }
 
 }
