@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { 
   FormBuilder, 
   FormGroup, 
@@ -24,6 +24,7 @@ export class ManageSittingRecordsComponent implements OnInit {
   readonly minSearchCharacters = 3;
   delay = 500;
   venueValueChange: any;
+  //showAutoComplete: boolean = false;
 
   submitForm(){
     this.srWorkFlow.setFormData(this.manageRecords)
@@ -46,7 +47,7 @@ export class ManageSittingRecordsComponent implements OnInit {
     this.manageRecords = this.formBuilder.group(
       {
         tribunalService: ['', Validators.required],
-        venue: ['', [Validators.required,]],
+        venue: ['', [Validators.required, CustomValidators.RequireVenueMatch]],
         dateSelected: formBuilder.group({
           dateDay: ['', [Validators.required,]],
           dateMonth: ['', [Validators.required,]],
@@ -56,7 +57,6 @@ export class ManageSittingRecordsComponent implements OnInit {
             CustomValidators.validateDateFormat
           ]
         })
-        
       }
     );
     this.manageRecords.controls['venue'].disable();
@@ -84,8 +84,10 @@ export class ManageSittingRecordsComponent implements OnInit {
     this.venuesSearch();
   }
 
-  showLocation(state) {
-    if(state) { return state.site_name; }
+  public showVenue(value) {
+    if(value) { 
+      return value.site_name; 
+    }
     return ""
   }
 
@@ -100,13 +102,15 @@ export class ManageSittingRecordsComponent implements OnInit {
         filter(term => !!term && term.length >= this.minSearchCharacters),
         debounceTime(this.delay),
         mergeMap(value => this.getVenues(value)),
-      ).subscribe(venues => this.venues = venues);
+      ).subscribe(venues => {
+        this.venues = venues
+        //this.showAutoComplete = true;
+      });
   }
 
   public getVenues(searchTerm: string): Observable<VenueModel[]> {
+    //this.showAutoComplete = true;
     return this.venueService.getAllVenues(searchTerm);
   }
-
-  
 }
 

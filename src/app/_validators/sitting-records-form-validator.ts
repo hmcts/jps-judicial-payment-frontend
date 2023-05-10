@@ -1,4 +1,5 @@
-import { FormGroup, Validators } from '@angular/forms';
+import { FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { VenueModel } from '../_models/venue.model';
 
 // create your class that extends the angular validator class
 export class CustomValidators extends Validators {
@@ -28,5 +29,25 @@ export class CustomValidators extends Validators {
     }
     return null
   }
+
+  static RequireVenueMatch(control: AbstractControl, venues: VenueModel[]) {
+    const inputValue: any = control.value;
+    /*if (!!inputValue && inputValue.length >= 3 && typeof inputValue === 'string') {
+      return { 'value_not_selected': true };
+    }*/
+
+    /*let pickedOrNot = venues.filter(val => val.site_name === inputValue);
+
+    if (pickedOrNot.length > 0) {
+      return null;
+    }
+    else {
+      return { 'value_not_selected': true };
+    }*/
+  }
+
+  
+  
+
 
 }
