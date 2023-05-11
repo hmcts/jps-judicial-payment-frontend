@@ -4,10 +4,9 @@ import { ApplicationRoutingComponent } from './components/routing/application-ro
 import { AuthGuard } from './services/auth/auth.guard';
 
 const routes: Routes = [
-  {
-    path: '',
-    loadChildren: () => import('./sitting-records/sitting-records.module').then(m => m.SittingRecordsModule)
-  }
+  { path: '', canActivate: [AuthGuard], component: ApplicationRoutingComponent, pathMatch:'full' },
+  { path: '', loadChildren: () => import('./sitting-records/sitting-records.module').then(m => m.SittingRecordsModule) }
+
 ];
 
 @NgModule({

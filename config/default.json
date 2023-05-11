@@ -17,7 +17,7 @@
     },
     "microservice": "jps_webapp",
     "sessionSecret": "secretSauce",
-    "loginRoleMatcher": "ccd-import",
+    "loginRoleMatcher": "jp-recorder",
     "feature": {
         "secureCookieEnabled": true
     }

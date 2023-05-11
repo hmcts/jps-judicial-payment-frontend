@@ -1,5 +1,4 @@
 import { FormGroup, Validators, AbstractControl } from '@angular/forms';
-import { VenueModel } from '../_models/venue.model';
 
 // create your class that extends the angular validator class
 export class CustomValidators extends Validators {
