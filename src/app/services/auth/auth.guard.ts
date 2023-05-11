@@ -28,12 +28,7 @@ export class AuthGuard implements CanActivate {
         this.authService.loginRedirect();
         return false;
       }
-
       this.redirectToStoredUrl();
-
-      //Get Logged in User Role and Redirect User depending on the Role
-      this.redirectUserDependingOnRole(this.authService.getLoggedInUserRole());
-    
       return true;
     }));
   }
@@ -55,12 +50,4 @@ export class AuthGuard implements CanActivate {
     }
   }
 
-  private redirectUserDependingOnRole(role: string) {
-    if (role === 'jp-recorder') {
-      this.router.navigate(['sittingRecords']);
-    }
-  }
-
-  
-  
 }
