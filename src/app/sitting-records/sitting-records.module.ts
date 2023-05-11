@@ -11,6 +11,7 @@ import { DeleteSittingRecordsComponent } from './delete-sitting-records/delete-s
 import { NumberDirective } from '../_directives/numbers-only.directive';
 
 import { DataTablesModule } from "angular-datatables";
+import { DeleteSuccessComponent } from './delete-sitting-records/delete-success/delete-success.component';
 
 @NgModule({
   imports: [
@@ -26,7 +27,8 @@ import { DataTablesModule } from "angular-datatables";
     PhaseBannerComponent,
     ViewSittingRecordsComponent,
     NumberDirective,
-    DeleteSittingRecordsComponent
+    DeleteSittingRecordsComponent,
+    DeleteSuccessComponent
   ],
 })
 export class SittingRecordsModule { }

@@ -38,6 +38,10 @@ export class DeleteSittingRecordsComponent implements OnInit{
     return this.tsvc.getPeriod(am, pm)
   }
 
+  confirmDelete(){
+    this.router.navigate(['sittingRecords', 'deleteSuccess'])
+  }
+
   goBack(){
     this.srWorkFlow.resetSittingRecordToDelete()
     this.router.navigate(['sittingRecords', 'manage'])

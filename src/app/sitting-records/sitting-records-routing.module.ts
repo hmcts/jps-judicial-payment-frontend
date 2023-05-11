@@ -6,6 +6,7 @@ import { ManageSittingRecordsComponent } from './manage-sitting-records/manage-s
 import { ViewSittingRecordsComponent } from './view-sitting-records/view-sitting-records.component';
 import { SittingRecordsGuard } from '../_guards/sitting-records.guard';
 import { DeleteSittingRecordsComponent } from './delete-sitting-records/delete-sitting-records.component'
+import { DeleteSuccessComponent } from './delete-sitting-records/delete-success/delete-success.component'
 
 const routes: Routes = [
     {
@@ -29,7 +30,12 @@ const routes: Routes = [
           {
             path: 'delete',
             component: DeleteSittingRecordsComponent,
-            canActivate: [SittingRecordsGuard]
+            canActivate: [SittingRecordsGuard],
+          },
+          {
+            path: 'deleteSuccess',
+            component: DeleteSuccessComponent,
+            canActivate: [SittingRecordsGuard],
           }
         ]
     }
