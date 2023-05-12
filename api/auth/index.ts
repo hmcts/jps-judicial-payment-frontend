@@ -29,7 +29,7 @@ export const successCallback = (req: EnhancedRequest, res: Response, next: NextF
 
   res.cookie(cookieUserId, userinfo.uid);
   res.cookie(cookieToken, accessToken);
-  res.cookie('__role__', 'jp-recorder');
+  res.cookie('__role__', userinfo.roles);
   if (!req.isRefresh) {
     return res.redirect('/');
   }
