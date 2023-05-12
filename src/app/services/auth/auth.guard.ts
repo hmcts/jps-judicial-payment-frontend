@@ -21,33 +21,14 @@ export class AuthGuard implements CanActivate {
   ) { }
 
   canActivate(): Observable<boolean> {
-
     return this.authService.isAuthenticated().pipe(map(isAuth => {
       if (!isAuth) {
-        this.storeRedirectUrl();
         this.authService.loginRedirect();
         return false;
       }
-      this.redirectToStoredUrl();
+
       return true;
     }));
-  }
-
-  private storeRedirectUrl(): void {
-    this.sessionStorage.setItem('redirectUrl', this.windowLocationService.getPathName());
-  }
-
-  private redirectToStoredUrl(): void {
-    const currentLocationPathName = this.windowLocationService.getPathName();
-    const currentPathIsNotEmpty = /^\/([a-z]+)/g;
-    const currentPathIsRoot = !currentLocationPathName.match(currentPathIsNotEmpty);
-
-    if (currentPathIsRoot) {
-      const storedRedirectUrl = this.sessionStorage.getItem('redirectUrl', true);
-      if (!storedRedirectUrl) { return; }
-
-      this.authService.setWindowLocationHref(storedRedirectUrl);
-    }
   }
 
 }

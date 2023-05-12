@@ -1,8 +1,8 @@
 export interface VenueModel {
-    //"court_venue_id": "string",
+    "court_venue_id": "string",
     "epimms_id": "string",
     "site_name": "string",
-    /*"region_id": "string",
+    "region_id": "string",
     "region": "string",
     "court_type": "string",
     "court_type_id": "string",
@@ -34,5 +34,5 @@ export interface VenueModel {
     "mrd_building_location_id": "string",
     "mrd_venue_id": "string",
     "service_url": "string",
-    "fact_url": "string"*/
+    "fact_url": "string"
   }
