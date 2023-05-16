@@ -6,29 +6,32 @@ import { DateService } from '../../_services/date-service';
 import { Router } from '@angular/router';
 import { DataTablesModule } from 'angular-datatables';
 import { HttpClientModule } from '@angular/common/http';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 describe('ViewSittingRecordsComponent', () => {
   let component: ViewSittingRecordsComponent;
   let fixture: ComponentFixture<ViewSittingRecordsComponent>;
-  let mockSrWorkflowService: { getFormData: { and: { returnValue: (arg0: { value: { dateSelected: { dateDay: string; dateMonth: string; dateYear: string; }; tribunalService: string; venue: string; }; }) => void; }; }; };
+  let mockSrWorkflowService: SittingRecordWorkflowService
   let mockDateService: { formatDateFromForm: { and: { returnValue: (arg0: string) => void; }; }; };
   let mockRouter: { navigate: unknown; };
 
   beforeEach(() => {
-    mockSrWorkflowService = jasmine.createSpyObj(['getFormData']);
     mockDateService = jasmine.createSpyObj(['formatDateFromForm']);
     mockRouter = jasmine.createSpyObj(['navigate']);
 
     TestBed.configureTestingModule({
       declarations: [ ViewSittingRecordsComponent ],
       providers: [
-        { provide: SittingRecordWorkflowService, useValue: mockSrWorkflowService },
+        SittingRecordWorkflowService,
         { provide: DateService, useValue: mockDateService },
         { provide: Router, useValue: mockRouter }
       ],
       imports: [RouterTestingModule, DataTablesModule, HttpClientModule]
     })
     .compileComponents();
+
+    mockSrWorkflowService = TestBed.inject(SittingRecordWorkflowService);
+
 
     fixture = TestBed.createComponent(ViewSittingRecordsComponent);
     component = fixture.componentInstance;
@@ -39,23 +42,18 @@ describe('ViewSittingRecordsComponent', () => {
   });
 
   it('should populate the form data on init', () => {
-    const mockFormData = {
-      dateSelected: {
-        dateDay: '01',
-        dateMonth: '01',
-        dateYear: '2022'
-      },
-      tribunalService: 'Mock Tribunal Service',
-      venue: 'Mock Venue'
-    };
+    const mockFormData: FormGroup = new FormBuilder().group({
+      dateSelected: ['2022-01-01'],
+      tribunalService: ['Mock Tribunal Service'],
+      venue: ['Mock Venue'],
+    });
     const formattedDate = '01/01/2022';
-    mockSrWorkflowService.getFormData.and.returnValue({ value: mockFormData });
+    mockSrWorkflowService.setFormData(mockFormData)
     mockDateService.formatDateFromForm.and.returnValue(formattedDate);
     fixture.detectChanges();
-    expect(mockSrWorkflowService.getFormData).toHaveBeenCalled();
-    expect(mockDateService.formatDateFromForm).toHaveBeenCalledWith(mockFormData.dateSelected);
-    expect(component.tribService).toBe(mockFormData.tribunalService);
-    expect(component.venue).toBe(mockFormData.venue);
+    expect(mockDateService.formatDateFromForm).toHaveBeenCalledWith(mockFormData.controls['dateSelected'].value);
+    expect(component.tribService).toBe(mockFormData.controls['tribunalService'].value);
+    expect(component.venue).toBe(mockFormData.controls['venue'].value);
     expect(component.date).toBe(formattedDate);
   });
 
