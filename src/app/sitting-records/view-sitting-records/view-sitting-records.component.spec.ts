@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { DataTablesModule } from 'angular-datatables';
 import { HttpClientModule } from '@angular/common/http';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { sittingRecord } from '../../_models/view-sitting-records-response';
 
 describe('ViewSittingRecordsComponent', () => {
   let component: ViewSittingRecordsComponent;
@@ -61,6 +62,12 @@ describe('ViewSittingRecordsComponent', () => {
     component.goBack();
     expect(mockRouter.navigate).toHaveBeenCalledWith(['sittingRecords','manage']);
   });
+
+  it('should navigate to delete sitting records page on navigateDeleteSittingRecord', () => {
+    const mockSittingRecord = new sittingRecord();
+    component.navigateDeleteSittingRecord(mockSittingRecord);
+    expect(mockRouter.navigate).toHaveBeenCalledWith(['sittingRecords', 'delete'])
+  })
 
   describe('getPeriod', () => {
     it('should return "Full Day" when am and pm are true', () => {
