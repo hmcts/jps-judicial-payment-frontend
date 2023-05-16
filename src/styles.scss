@@ -2,4 +2,8 @@
 @import '../node_modules/govuk-frontend/govuk/all.scss';
 
 .datatable-row-detail { width: 100vw; }
+.textErrorColor{
+    color: $govuk-error-colour;
+    font-weight: 600;
+}
 .deleteCell{ cursor: pointer; color: $govuk-link-colour;}

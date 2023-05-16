@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { DateService } from '../../_services/date-service';
 import { tableService } from '../../_services/table-services';
 import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-workflow.service';
+import { DeleteSittingRecordHttp } from '../../_services/delete-sitting-records-http-service'
 
 @Component({
   selector: 'app-delete-sitting-records',
@@ -14,13 +15,14 @@ export class DeleteSittingRecordsComponent implements OnInit{
   venue!: string;
   date!: string;
   recordToDelete: any;
+  apiError = false;
 
   constructor(
     private srWorkFlow: SittingRecordWorkflowService,
     private dateSvc: DateService,
     private router: Router,
-    private tsvc: tableService
-
+    private tsvc: tableService,
+    private deleteRecordHttp: DeleteSittingRecordHttp
   ){}
 
   ngOnInit(){
@@ -39,7 +41,19 @@ export class DeleteSittingRecordsComponent implements OnInit{
   }
 
   confirmDelete(){
-    this.router.navigate(['sittingRecords', 'deleteSuccess'])
+    this.apiError = false
+    this.deleteRecordHttp.deleteRecord(this.recordToDelete.recordID).subscribe(
+      response => {
+        console.log('1')
+        console.log(response)
+        this.router.navigate(['sittingRecords', 'deleteSuccess'])
+      },  
+      error => {
+        this.apiError = true
+        console.log('2')
+        console.log(error)
+      }
+    )
   }
 
   goBack(){
