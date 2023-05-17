@@ -10,8 +10,8 @@ import { Observable } from 'rxjs';
 import { debounceTime, filter, mergeMap, tap } from 'rxjs/operators';
 import { CustomValidators } from '../../_validators/sitting-records-form-validator';
 import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-workflow.service';
-import { VenueService } from 'src/app/_services/venue.service';
-import { VenueModel } from 'src/app/_models/venue.model';
+import { VenueService } from '../../_services/venue-service/venue.service'
+import { VenueModel } from '../../_models/venue.model';
 
 @Component({
   selector: 'app-manage-sitting-records',
@@ -103,12 +103,10 @@ export class ManageSittingRecordsComponent implements OnInit {
         mergeMap(value => this.getVenues(value)),
       ).subscribe(venues => {
         this.venues = venues
-        //this.showAutoComplete = true;
       });
   }
 
   public getVenues(searchTerm: string): Observable<VenueModel[]> {
-    //this.showAutoComplete = true;
     return this.venueService.getAllVenues(searchTerm);
   }
 }

@@ -2,9 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { inject, TestBed } from '@angular/core/testing';
 import { StoreModule } from '@ngrx/store';
 import { of } from 'rxjs';
-import { SessionStorageService } from '../session-storage/session-storage.service';
+import { SessionStorageService } from '../../_services/session-storage/session-storage.service';
 import { AuthGuard } from './auth.guard';
-import { AuthService } from './auth.service';
+import { AuthService } from '../../_services/auth/auth.service';
 
 class HttpClientMock {
   public get() {

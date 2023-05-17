@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-workflow.service';
-import { DateService } from '../../_services/date-service';
+import { DateService } from '../../_services/date-service/date-service';
 import { Router } from '@angular/router';
 
 @Component({

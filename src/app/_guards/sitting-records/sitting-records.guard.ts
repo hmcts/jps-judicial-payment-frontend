@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
-import { SittingRecordWorkflowService } from '../_workflows/sitting-record-workflow.service';
+import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-workflow.service';
 
 @Injectable({
   providedIn: 'root'

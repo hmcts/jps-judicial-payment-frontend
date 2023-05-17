@@ -6,16 +6,12 @@ export const app = express();
 app.use(express.json())
 
 app.post('/test', async (req, res) => {
-    console.log('1233')
-    console.log(req.body)
-    //`http://rd-location-ref-api-aat.service.core-compute-aat.internal/refdata/location/court-venues/venue-search?search-string=${searchTerm}`
-
     const { S2S, AUTH, SEARCHSTRING } = req.body;
     try {
         const headers = {
             'Content-Type': 'application/json',
             "Authorization": 'Bearer ' + AUTH,
-            'ServiceAuthorization': S2S
+            'ServiceAuthorization': 'Bearer ' + S2S
         };
 
         const config: AxiosRequestConfig = {
@@ -25,11 +21,13 @@ app.post('/test', async (req, res) => {
         };
 
         const response = await axios(config);
+        console.log('Post call return');
+        console.log(response.data);
 
         res.json(response.data);
 
     } catch (error) {
-        res.status(500).json({ error: 'An error occurred' });
+        res.status(error.response.status).json({ error: 'An error occurred: '  + error.response.statusText});
     }
 })
 

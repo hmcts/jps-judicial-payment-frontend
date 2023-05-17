@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
-import { SittingRecordWorkflowService } from '../_workflows/sitting-record-workflow.service';
+import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-workflow.service';
 
 import { SittingRecordsGuard } from './sitting-records.guard';
 

@@ -2,7 +2,8 @@
     "environment": "NODE_CONFIG_ENV",
     "cookies": {
         "token": "COOKIE_TOKEN",
-        "userId": "COOKIES_USER_ID"
+        "userId": "COOKIES_USER_ID",
+        "userRole": "COOKIES_USER_ROLE"
     },
     "now": {
         "__name": "NOW",

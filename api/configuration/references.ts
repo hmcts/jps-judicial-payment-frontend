@@ -12,6 +12,7 @@ export const S2S_SECRET = 'secrets.jps.mc-s2s-client-secret';
 
 export const COOKIES_TOKEN = 'cookies.token';
 export const COOKIES_USER_ID = 'cookies.userId';
+export const COOKIES_USER_ROLE = 'cookies.userRole';
 
 export const SERVICES_IDAM_API_URL = 'services.idam.idamApiUrl';
 export const SERVICES_IDAM_CLIENT_ID = 'services.idam.idamClientID';
