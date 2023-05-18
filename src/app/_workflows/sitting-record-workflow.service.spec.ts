@@ -69,5 +69,15 @@ describe('SittingRecordWorkflowService', () => {
       expect(service.formPostObject()).toEqual(expectedPostObj);
     });
   });
+
+  describe('resetSittingRecordToDelete', () => {
+    it('should reset the sittingRecordToDelete to an empty object', () => {
+      service.setSittingRecordToDelete({'recordID': 123})
+      expect(service.sittingRecordToDelete).toEqual({'recordID': 123})
+      service.resetSittingRecordToDelete();
+      expect(service.sittingRecordToDelete).toEqual({})
+    })
+    
+  })
   
 });
