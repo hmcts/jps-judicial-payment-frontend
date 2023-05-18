@@ -1,4 +1,4 @@
-import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { CustomValidators } from './sitting-records-form-validator';
 
 describe('CustomValidators', () => {

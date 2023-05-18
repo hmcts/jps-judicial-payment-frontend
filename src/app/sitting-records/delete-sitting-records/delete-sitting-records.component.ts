@@ -43,10 +43,10 @@ export class DeleteSittingRecordsComponent implements OnInit{
   confirmDelete(){
     this.apiError = false
     this.deleteRecordHttp.deleteRecord(this.recordToDelete.recordID).subscribe(
-      response => {
+      () => {
         this.router.navigate(['sittingRecords', 'deleteSuccess'])
       },  
-      error => {
+      () => {
         this.apiError = true
       }
     )
