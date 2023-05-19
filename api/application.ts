@@ -11,7 +11,7 @@ app.post('/test', async (req, res) => {
         const headers = {
             'Content-Type': 'application/json',
             "Authorization": 'Bearer ' + AUTH,
-            'ServiceAuthorization': 'Bearer ' + S2S
+            'ServiceAuthorization': S2S
         };
 
         const config: AxiosRequestConfig = {

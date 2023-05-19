@@ -29,6 +29,7 @@ export const successCallback = (req: EnhancedRequest, res: Response, next: NextF
   const cookieUserId = getConfigValue(COOKIES_USER_ID);
   const cookieUserRole = getConfigValue(COOKIES_USER_ROLE);
 
+  res.cookie('serviceAuth', req.headers.ServiceAuthorization)
   res.cookie(cookieUserId, userinfo.uid);
   res.cookie(cookieToken, accessToken);
   res.cookie(cookieUserRole, userinfo.roles);
