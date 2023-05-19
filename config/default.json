@@ -16,9 +16,9 @@
           },
         "s2s": "http://rpe-service-auth-provider-prod.service.core-compute-prod.internal"
     },
-    "microservice": "jps_webapp",
+    "microservice": "xui_webapp",
     "sessionSecret": "secretSauce",
-    "loginRoleMatcher": "jp-recorder",
+    "loginRoleMatcher": "jps-recorder",
     "feature": {
         "secureCookieEnabled": true
     }
