@@ -1,21 +1,18 @@
-import * as express from 'express';
 import { getConfigValue } from '../configuration';
 import { SERVICES_LOCATION_API_PATH } from '../configuration/references';
 import axios, { AxiosRequestConfig } from 'axios';
 
-export const app = express();
-app.use(express.json())
-
 const url: string = getConfigValue(SERVICES_LOCATION_API_PATH);
 
-export async function getLocations(req: Request, res: Response) {
-    const { Authorization, ServiceAuthorization } = req.headers;
+export async function getLocations(req, res) {
+    const { authorization, serviceauthorization } = req.headers;
     const { searchTerm } = req.body;
+
     try {
         const headers = {
             'Content-Type': 'application/json',
-            "Authorization": 'Bearer ' + Authorization,
-            'ServiceAuthorization': ServiceAuthorization
+            "Authorization": 'Bearer ' + authorization,
+            'ServiceAuthorization': serviceauthorization
         };
 
         const config: AxiosRequestConfig = {
