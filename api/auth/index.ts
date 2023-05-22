@@ -4,6 +4,7 @@ import { EnhancedRequest } from '../lib/models';
 import { getConfigValue, showFeature } from '../configuration';
 import {
   COOKIES_TOKEN,
+  COOKIES_SERVICE_TOKEN,
   COOKIES_USER_ID,
   COOKIES_USER_ROLE,
   FEATURE_SECURE_COOKIE_ENABLED,
@@ -12,7 +13,7 @@ import {
   MICROSERVICE,
   NOW,
   S2S_SECRET,
-  SERVICE_S2S_PATH,
+  SERVICES_S2S_PATH,
   SERVICES_IDAM_API_URL,
   SERVICES_IDAM_CLIENT_ID,
   SERVICES_IDAM_ISS_URL,
@@ -25,14 +26,17 @@ export const successCallback = (req: EnhancedRequest, res: Response, next: NextF
   const {user} = req.session.passport;
   const {userinfo} = user;
   const {accessToken} = user.tokenset;
+  const {ServiceAuthorization} = req.headers;
   const cookieToken = getConfigValue(COOKIES_TOKEN);
+  const cookieServiceToken = getConfigValue(COOKIES_SERVICE_TOKEN);
   const cookieUserId = getConfigValue(COOKIES_USER_ID);
   const cookieUserRole = getConfigValue(COOKIES_USER_ROLE);
-
-  res.cookie('serviceAuth', req.headers.ServiceAuthorization)
+  
   res.cookie(cookieUserId, userinfo.uid);
   res.cookie(cookieToken, accessToken);
+  res.cookie(cookieServiceToken, ServiceAuthorization);
   res.cookie(cookieUserRole, userinfo.roles);
+
   if (!req.isRefresh) {
     return res.redirect('/');
   }
@@ -101,7 +105,7 @@ export const getXuiNodeMiddleware = () => {
     auth: {
       s2s: {
         microservice: getConfigValue(MICROSERVICE),
-        s2sEndpointUrl: `${getConfigValue(SERVICE_S2S_PATH)}/lease`,
+        s2sEndpointUrl: `${getConfigValue(SERVICES_S2S_PATH)}/lease`,
         s2sSecret: s2sSecret.trim(),
       },
       oauth2:options,

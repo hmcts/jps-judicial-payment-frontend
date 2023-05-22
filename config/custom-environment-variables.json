@@ -1,7 +1,8 @@
 {
     "environment": "NODE_CONFIG_ENV",
     "cookies": {
-        "token": "COOKIE_TOKEN",
+        "token": "COOKIES_TOKEN",
+        "serviceToken": "COOKIES_SERVICE_TOKEN",
         "userId": "COOKIES_USER_ID",
         "userRole": "COOKIES_USER_ROLE"
     },
@@ -17,6 +18,7 @@
             "oauthCallbackUrl": "SERVICES_IDAM_OAUTH_CALLBACK_URL",
             "iss": "SERVICES_IDAM_ISS_URL"
         },
+        "location_api": "SERVICES_LOCATION_REF_API_URL",
         "s2s": "SERVICES_S2S"
     },
     "microservice": "MICROSERVICE",

@@ -11,8 +11,11 @@
 export const S2S_SECRET = 'secrets.jps.mc-s2s-client-secret';
 
 export const COOKIES_TOKEN = 'cookies.token';
+export const COOKIES_SERVICE_TOKEN = 'cookies.serviceToken';
 export const COOKIES_USER_ID = 'cookies.userId';
 export const COOKIES_USER_ROLE = 'cookies.userRole';
+
+export const SERVICES_LOCATION_API_PATH = 'services.location_api';
 
 export const SERVICES_IDAM_API_URL = 'services.idam.idamApiUrl';
 export const SERVICES_IDAM_CLIENT_ID = 'services.idam.idamClientID';
@@ -20,7 +23,7 @@ export const SERVICES_IDAM_LOGIN_URL = 'services.idam.idamLoginUrl';
 export const SERVICES_IDAM_ISS_URL = 'services.idam.iss';
 export const SERVICES_IDAM_OAUTH_CALLBACK_URL = 'services.idam.oauthCallbackUrl';
 
-export const SERVICE_S2S_PATH = 'services.s2s';
+export const SERVICES_S2S_PATH = 'services.s2s';
 
 export const MICROSERVICE = 'microservice';
 export const NOW = 'now';

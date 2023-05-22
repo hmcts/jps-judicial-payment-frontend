@@ -20,7 +20,6 @@ export function isJUILogger(object: any): object is JUILogger {
     return '_logger' in object && 'debug' in object && 'error' in object && 'info' in object && 'warn' in object
 }
 export interface EnhancedRequest extends express.Request {
-    user: any
     auth?: {
         roles: string[]
         token: string

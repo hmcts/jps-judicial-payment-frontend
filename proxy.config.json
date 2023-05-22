@@ -9,7 +9,7 @@
     "secure": false,
     "logLevel": "debug"
   },
-  "/test": {
+  "/refdata/location/*": {
     "target": "http://localhost:3001",
     "secure": false
   }
