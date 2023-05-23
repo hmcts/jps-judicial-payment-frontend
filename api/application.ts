@@ -1,10 +1,10 @@
 import * as express from 'express';
 import { getXuiNodeMiddleware } from './auth';
-import router from './locations/routes';
+import refDataRouter from './refdata/routes';
 
 export const app = express();
 
 app.use(express.json())
 
-app.use('/refdata', router)
+app.use('/refdata', refDataRouter)
 app.use(getXuiNodeMiddleware());

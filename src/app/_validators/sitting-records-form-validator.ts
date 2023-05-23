@@ -29,7 +29,7 @@ export class CustomValidators extends Validators {
     return null
   }
 
-  static RequireVenueMatch(control: AbstractControl) {
+  static requireVenueMatch(control: AbstractControl) {
     const inputValue: string | object = control.value;
     if (typeof inputValue === 'string') {
       return { 'value_not_selected': true };

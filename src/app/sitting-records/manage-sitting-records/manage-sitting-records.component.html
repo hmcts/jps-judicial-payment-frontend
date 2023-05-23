@@ -42,7 +42,7 @@
                 <mat-option *ngFor="let venue of venues" (onSelectionChange)="onSelectionChange(venue)" [value]="venue" >
                   {{ venue.site_name }}
                 </mat-option>
-                <!--<mat-option *ngIf="!locations.length && showAutocomplete && term && term.length >= this.minSearchCharacters">No results found</mat-option>-->
+                <mat-option *ngIf="!venues.length && !refDataFound && searchTerm.length >= this.minSearchCharacters">No results found</mat-option>
               </mat-autocomplete>
               
             </div>

@@ -1,5 +1,5 @@
-import { getConfigValue } from '../configuration';
-import { SERVICES_LOCATION_API_PATH } from '../configuration/references';
+import { getConfigValue } from '../../configuration';
+import { SERVICES_LOCATION_API_PATH } from '../../configuration/references';
 import axios, { AxiosRequestConfig } from 'axios';
 
 const url: string = getConfigValue(SERVICES_LOCATION_API_PATH);

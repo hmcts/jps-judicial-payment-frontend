@@ -22,7 +22,9 @@ export class ManageSittingRecordsComponent implements OnInit {
   manageRecords: FormGroup;
   venues: VenueModel[] = [];
   readonly minSearchCharacters = 3;
+  public searchTerm: string = '';
   delay = 500;
+  refDataFound: boolean = true;
   venueValueChange: any;
   
   submitForm(){
@@ -46,7 +48,7 @@ export class ManageSittingRecordsComponent implements OnInit {
     this.manageRecords = this.formBuilder.group(
       {
         tribunalService: ['', Validators.required],
-        venue: ['', [Validators.required, CustomValidators.RequireVenueMatch]],
+        venue: ['', [Validators.required, CustomValidators.requireVenueMatch]],
         dateSelected: formBuilder.group({
           dateDay: ['', [Validators.required,]],
           dateMonth: ['', [Validators.required,]],
@@ -98,16 +100,22 @@ export class ManageSittingRecordsComponent implements OnInit {
     this.venueValueChange = this.manageRecords.controls['venue'].valueChanges
       .pipe(
         tap(() => this.venues = []),
+        tap(() => this.refDataFound = true),
+        tap((term) => this.searchTerm = term),
         filter(term => !!term && term.length >= this.minSearchCharacters),
         debounceTime(this.delay),
         mergeMap(value => this.getVenues(value)),
       ).subscribe(venues => {
-        this.venues = venues
+        this.venues = venues;
+        if (venues.length === 0) {
+          this.refDataFound = false;
+        }
       });
   }
 
   public getVenues(searchTerm: string): Observable<VenueModel[]> {
     return this.venueService.getAllVenues(searchTerm);
   }
+
 }
 
