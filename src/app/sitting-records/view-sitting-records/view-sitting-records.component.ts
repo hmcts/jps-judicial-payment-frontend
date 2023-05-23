@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-workflow.service';
-import { DateService } from '../../_services/date-service';
+import { DateService } from '../../_services/date-service/date-service';
 import { Router } from '@angular/router';
 import { defaultDtOptions }  from '../../_services/default-dt-options'
 
@@ -43,7 +43,7 @@ export class ViewSittingRecordsComponent implements OnInit {
     const formData = this.srWorkFlow.getFormData().value;
     const { dateSelected, tribunalService, venue } = formData;
     this.tribService = tribunalService;
-    this.venue = venue;
+    this.venue = venue.site_name;
     this.date = this.dateSvc.formatDateFromForm(dateSelected);
 
     this.sittingRecordData = this.srWorkFlow.getTableData();
