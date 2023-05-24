@@ -7,7 +7,7 @@ export class DateService {
 
   formatDateFromForm(dateObj: dateObj){
     const {dateDay, dateMonth, dateYear} = dateObj;
-    return `${dateDay}/${dateMonth}/${dateYear}`
+    return `${dateYear}-${dateMonth}-${dateDay}`
   }
 
 }

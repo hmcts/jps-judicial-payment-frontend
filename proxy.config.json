@@ -12,5 +12,9 @@
   "/refdata/location/*": {
     "target": "http://localhost:3001",
     "secure": false
+  },
+  "/sittingRecords/searchSittingRecords": {
+    "target": "http://localhost:3001",
+    "secure": false
   }
 }
