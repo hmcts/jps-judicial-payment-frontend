@@ -58,4 +58,13 @@ describe('CustomValidators', () => {
 
     });
 
+    describe('requireVenueMatch', () => {
+        let control: AbstractControl
+        
+        it('should return value_not_selected error when the control value is string', () => {
+            control.patchValue("aat");
+            expect(CustomValidators.requireVenueMatch(control)).toEqual({'value_not_selected': true });
+        })
+    });
+
 })

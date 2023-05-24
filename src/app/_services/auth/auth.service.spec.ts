@@ -2,7 +2,6 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { inject, TestBed } from '@angular/core/testing';
 import { StoreModule } from '@ngrx/store';
 import { of } from 'rxjs';
-import { SessionStorageService } from '../session-storage/session-storage.service';
 import { AuthService } from './auth.service';
 
 
@@ -15,8 +14,7 @@ describe('AuthService', () => {
         StoreModule.forRoot({}),
       ],
       providers: [
-        AuthService,
-        SessionStorageService
+        AuthService
       ]
     });
   });
