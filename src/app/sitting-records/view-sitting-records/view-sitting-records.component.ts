@@ -15,7 +15,7 @@ export class ViewSittingRecordsComponent implements OnInit {
   date = "";
 
   goBack(){
-    this.router.navigate(['sittingRecords','manage'])
+    void this.router.navigate(['sittingRecords','manage'])
   }
 
   constructor(
