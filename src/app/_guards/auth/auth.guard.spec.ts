@@ -1,7 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { of } from 'rxjs';
 import { AuthGuard } from './auth.guard';
 import { AuthService } from '../../_services/auth/auth.service';
 

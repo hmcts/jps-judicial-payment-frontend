@@ -22,9 +22,9 @@ export class ManageSittingRecordsComponent implements OnInit {
   manageRecords: FormGroup;
   venues: VenueModel[] = [];
   readonly minSearchCharacters = 3;
-  public searchTerm: string = '';
+  public searchTerm = '';
   delay = 500;
-  refDataFound: boolean = true;
+  refDataFound = true;
   venueValueChange: any;
   
   submitForm(){

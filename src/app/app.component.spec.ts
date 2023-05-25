@@ -9,7 +9,7 @@ import { JPHeaderComponent } from './jp-header/jp-header.component';
 describe('AppComponent', () => {
   let component: AppComponent;
   let fixture: ComponentFixture<AppComponent>;
-  let router: any; // Replace with the correct Router type if needed
+  let router: Router; // Replace with the correct Router type if needed
   let cookieService: jasmine.SpyObj<CookieService>;
 
   beforeEach(async () => {
@@ -29,6 +29,10 @@ describe('AppComponent', () => {
     component = fixture.componentInstance;
     router = TestBed.inject(Router);
     cookieService = TestBed.inject(CookieService) as jasmine.SpyObj<CookieService>;
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
   });
 
   it('should navigate to "sittingRecords/manage" if user has "jps-recorder" role', () => {
