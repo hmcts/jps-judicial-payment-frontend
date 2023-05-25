@@ -59,11 +59,12 @@ describe('CustomValidators', () => {
     });
 
     describe('requireVenueMatch', () => {
-        let control: AbstractControl
-        
+        const control = new FormControl('');
+
         it('should return value_not_selected error when the control value is string', () => {
-            control.patchValue("aat");
-            expect(CustomValidators.requireVenueMatch(control)).toEqual({'value_not_selected': true });
+            control.patchValue('some value');
+            const result = CustomValidators.requireVenueMatch(control);
+            expect(result).toEqual({ 'value_not_selected': true });
         })
     });
 

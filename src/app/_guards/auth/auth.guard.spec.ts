@@ -1,64 +1,41 @@
-import { HttpClient } from '@angular/common/http';
-import { inject, TestBed } from '@angular/core/testing';
-import { StoreModule } from '@ngrx/store';
-import { of } from 'rxjs';
+import { TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { AuthGuard } from './auth.guard';
 import { AuthService } from '../../_services/auth/auth.service';
 
-class HttpClientMock {
-  public get() {
-    return 'response';
-  }
-}
-
 describe('AuthGuard', () => {
+  let guard: AuthGuard;
+  let authService: jasmine.SpyObj<AuthService>;
+
   beforeEach(() => {
+    const authServiceSpy = jasmine.createSpyObj('AuthService', ['isAuthenticated', 'loginRedirect']);
+
     TestBed.configureTestingModule({
-      imports: [
-        StoreModule.forRoot({})
-      ],
-      providers: [
-        AuthService,
-        { provide: HttpClient, useClass: HttpClientMock },
-      ]
+      imports: [RouterTestingModule],
+      providers: [{ provide: AuthService, useValue: authServiceSpy }]
+    });
+
+    guard = TestBed.inject(AuthGuard);
+    authService = TestBed.inject(AuthService) as jasmine.SpyObj<AuthService>;
+  });
+
+  it('should allow activation when user is authenticated', () => {
+    authService.isAuthenticated.and.returnValue(of(true));
+
+    guard.canActivate().subscribe(result => {
+      expect(result).toBe(true);
+      expect(authService.loginRedirect).not.toHaveBeenCalled();
     });
   });
 
-  it('should exist', inject([AuthGuard], (guard: AuthGuard) => {
-    expect(guard).toBeTruthy();
-  }));
-
-  it('should exist', inject([AuthGuard], (guard: AuthGuard) => {
-    expect(guard.canActivate).toBeDefined();
-  }));
-});
-
-describe('AuthGuard', () => {
-  let authService: any;
-
-  beforeEach(() => {
-    authService = jasmine.createSpyObj('authService', ['loginRedirect', 'isAuthenticated', 'setWindowLocationHref']);
-  });
-
-  it('canActivate true', () => {
-    authService.isAuthenticated.and.returnValue(of(true));
-    const guard = new AuthGuard(authService);
-
-    const canActivate = guard.canActivate();
-
-    canActivate.subscribe(isAct => expect(isAct).toBeTruthy());
-    expect(authService.isAuthenticated).toHaveBeenCalled();
-    expect(authService.loginRedirect).not.toHaveBeenCalled();
-  });
-
-  it('canActivate false', () => {
+  it('should redirect to login when user is not authenticated', () => {
     authService.isAuthenticated.and.returnValue(of(false));
-    const guard = new AuthGuard(authService);
 
-    const canActivate = guard.canActivate();
-    canActivate.subscribe(isAct => expect(isAct).toBeFalsy());
-    expect(authService.isAuthenticated).toHaveBeenCalled();
-    expect(authService.loginRedirect).toHaveBeenCalled();
+    guard.canActivate().subscribe(result => {
+      expect(result).toBe(false);
+      expect(authService.loginRedirect).toHaveBeenCalled();
+    });
   });
- 
 });
