@@ -72,7 +72,6 @@ describe('ManageSittingRecordsComponent', () => {
 
     expect(srWorkflowService.setFormData).toHaveBeenCalled();
     expect(srWorkflowService.setManageVisited).toHaveBeenCalled();
-    //expect(component.venueValueChange.unsubscribe).toHaveBeenCalled();
     expect(router.navigate).toHaveBeenCalledWith(['sittingRecords', 'view']);
   });
 
