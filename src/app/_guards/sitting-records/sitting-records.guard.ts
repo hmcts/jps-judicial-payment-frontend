@@ -17,7 +17,7 @@ export class SittingRecordsGuard implements CanActivate {
       if(this.srWorkflow.getManageVisited()){
         return true
       }else{
-        this.router.navigate(['sittingRecords','manage']).then(result => { return true }).catch( err => { return false });
+        this.router.navigate(['sittingRecords','manage']);
         return false
       }
     
