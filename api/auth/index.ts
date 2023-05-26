@@ -36,7 +36,7 @@ export const successCallback = (req: EnhancedRequest, res: Response, next: NextF
 };
 
 export const failureCallback = (req: EnhancedRequest, res: Response, next: NextFunction) => {
-  const errorMsg = `Auth Error: ${res.locals.message}`;
+  const errorMsg = `Auth Error: ${res.locals['message']}`;
 }
 
 xuiNode.on(AUTH.EVENT.AUTHENTICATE_SUCCESS, successCallback);
