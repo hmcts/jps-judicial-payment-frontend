@@ -23,7 +23,7 @@ nodejs:
 
   keyVaults:
     jps:
-      resourceGroup: jps
+      resourceGroup: jps-shared
       secrets:
         - mc-s2s-client-secret
         - mc-idam-client-secret
