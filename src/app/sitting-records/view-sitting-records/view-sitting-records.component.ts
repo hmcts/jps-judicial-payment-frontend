@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-workflow.service';
-import { DateService } from '../../_services/date-service';
+import { DateService } from '../../_services/date-service/date-service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -15,7 +15,7 @@ export class ViewSittingRecordsComponent implements OnInit {
   date = "";
 
   goBack(){
-    this.router.navigate(['sittingRecords','manage'])
+    void this.router.navigate(['sittingRecords','manage'])
   }
 
   addNewRecord(){
@@ -32,7 +32,7 @@ export class ViewSittingRecordsComponent implements OnInit {
     const formData = this.srWorkFlow.getFormData().value;
     const { dateSelected, tribunalService, venue } = formData;
     this.tribService = tribunalService;
-    this.venue = venue;
+    this.venue = venue.site_name;
     this.date = this.dateSvc.formatDateFromForm(dateSelected);
   }
 

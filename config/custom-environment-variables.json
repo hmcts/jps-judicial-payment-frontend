@@ -1,0 +1,40 @@
+{
+    "environment": "NODE_CONFIG_ENV",
+    "cookies": {
+        "token": "COOKIES_TOKEN",
+        "serviceToken": "COOKIES_SERVICE_TOKEN",
+        "userId": "COOKIES_USER_ID",
+        "userRole": "COOKIES_USER_ROLE"
+    },
+    "now": {
+        "__name": "NOW",
+        "__format": "json"
+    },
+    "services": {
+        "idam": {
+            "idamApiUrl": "SERVICES_IDAM_API_URL",
+            "idamClientID": "SERVICES_IDAM_CLIENT_ID",
+            "idamLoginUrl": "SERVICES_IDAM_LOGIN_URL",
+            "oauthCallbackUrl": "SERVICES_IDAM_OAUTH_CALLBACK_URL",
+            "iss": "SERVICES_IDAM_ISS_URL"
+        },
+        "location_api": "SERVICES_LOCATION_REF_API_URL",
+        "s2s": "SERVICES_S2S"
+    },
+    "microservice": "MICROSERVICE",
+    "sessionSecret": "SESSION_SECRET",
+    "secrets": {
+        "jps": {
+          "mc-s2s-client-secret": "S2S_SECRET",
+          "mc-idam-client-secret": "IDAM_SECRET"
+        }
+    },
+    "feature": {
+        "secureCookieEnabled": {
+            "__name": "FEATURE_SECURE_COOKIE_ENABLED",
+            "__format": "json"
+        }
+    }
+}
+
+

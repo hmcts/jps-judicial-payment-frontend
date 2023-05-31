@@ -1,11 +1,9 @@
-import { Directive, ElementRef, HostListener, Input } from '@angular/core';
+import { Directive, ElementRef, HostListener } from '@angular/core';
 
 @Directive({
   selector: '[appNumbersOnly]'
 })
 export class NumberDirective {
-
-    @Input() numbericType = 'number';
 
   constructor(private _el: ElementRef) { }
 

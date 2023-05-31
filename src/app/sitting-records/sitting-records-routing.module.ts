@@ -5,12 +5,13 @@ import { SittingRecordsComponent } from './sitting-records.component';
 import { ManageSittingRecordsComponent } from './manage-sitting-records/manage-sitting-records.component';
 import { ViewSittingRecordsComponent } from './view-sitting-records/view-sitting-records.component';
 import { AddSittingRecordComponent } from './add-sitting-record/add-sitting-record.component'
-import { SittingRecordsGuard } from '../_guards/sitting-records.guard';
 import { AddSittingRecordSuccessComponent } from './add-sitting-record-success/add-sitting-record-success.component';
+import { SittingRecordsGuard } from '../_guards/sitting-records/sitting-records.guard';
+import { AuthGuard } from '../_guards/auth/auth.guard';
 
 const routes: Routes = [
     {
-        path: "sittingRecords",
+        path: "",
         component: SittingRecordsComponent,
         children: [
           {
@@ -20,6 +21,7 @@ const routes: Routes = [
           },
           {
             path: 'manage',
+            canActivate: [AuthGuard],
             component: ManageSittingRecordsComponent
           },
           {
