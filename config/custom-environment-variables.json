@@ -19,6 +19,7 @@
             "iss": "SERVICES_IDAM_ISS_URL"
         },
         "location_api": "SERVICES_LOCATION_REF_API_URL",
+        "users_api": "SERVICES_USERS_REF_API_URL",
         "s2s": "SERVICES_S2S"
     },
     "microservice": "MICROSERVICE",

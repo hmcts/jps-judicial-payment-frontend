@@ -41,7 +41,15 @@
                             type="text" aria-describedby="judge-hint"
                             placeholder="Start typing to find a JOH name" 
                             formControlName="johName"
+                            [matAutocomplete]="johUserSearch"
+
                         >
+                        <mat-autocomplete class="mat-autocomplete-panel-extend" autoActiveFirstOption #johUserSearch="matAutocomplete" [displayWith]="showUserName">
+                            <mat-option *ngFor="let user of userList[i]" (onSelectionChange)="onSelectionChange(user, i)" [value]="user" >
+                              {{ user.fullName }}
+                            </mat-option>
+                            <mat-option *ngIf="!userList[i].length">No results found</mat-option>
+                          </mat-autocomplete>
 
                     </div>
       
