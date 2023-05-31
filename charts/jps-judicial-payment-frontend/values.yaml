@@ -5,7 +5,6 @@ nodejs:
     REFORM_TEAM: jps
     REFORM_SERVICE_NAME: judicial-payment-frontend
     REFORM_ENVIRONMENT: '{{ .Values.global.environment }}'
-    NODE_CONFIG_ENV: production
     MICROSERVICE: jps_webapp
     SESSION_SECRET: secretSauce
     ALLOW_CONFIG_MUTATIONS: 1
