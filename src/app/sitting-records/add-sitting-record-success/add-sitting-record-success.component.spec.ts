@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AddSittingRecordSuccessComponent } from './add-sitting-record-success.component';
 import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-workflow.service';
-import { DateService } from '../../_services/date-service';
+import { DateService } from '../../_services/date-service/date-service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
 

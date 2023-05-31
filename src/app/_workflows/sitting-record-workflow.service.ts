@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { sittingRecordsPostObj, sittingRecordsPostBody } from '../_models/addSIttingRecords'
-import { DateService } from '../_services/date-service'
+import { DateService } from '../_services/date-service/date-service'
 
 @Injectable({
   providedIn: 'root'

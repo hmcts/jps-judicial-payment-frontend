@@ -3,7 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { AddSittingRecordComponent } from './add-sitting-record.component';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-workflow.service';
-import { DateService } from '../../_services/date-service';
+import { DateService } from '../../_services/date-service/date-service';
 import { Router } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 
