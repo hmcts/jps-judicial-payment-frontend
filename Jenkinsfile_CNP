@@ -10,19 +10,12 @@ def component = "judicial-payment-frontend"
 
 def yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)
 
-List<LinkedHashMap<String, Object>> secrets = [
-  secret('mc-s2s-client-secret', 'S2S_SECRET'),
-  secret('mc-idam-client-secret', 'IDAM_SECRET')
-]
-
-static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
-  [ $class: 'AzureKeyVaultSecret',
-    secretType: 'Secret',
-    name: secretName,
-    version: '',
-    envVariable: envVar
+def secrets = [
+  'jps-${env}': [
+    secret('mc-s2s-client-secret', 'S2S_SECRET'),
+    secret('mc-idam-client-secret', 'IDAM_SECRET')
+  ],
   ]
-}
 
 withPipeline(type, product, component) {
   loadVaultSecrets(secrets)
