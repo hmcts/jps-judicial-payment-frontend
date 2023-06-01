@@ -10,7 +10,26 @@ def component = "judicial-payment-frontend"
 
 def yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)
 
+List<LinkedHashMap<String, Object>> secrets = [
+  secret('mc-s2s-client-secret',                 'S2S_SECRET'),
+  secret('mc-idam-client-secret',              'IDAM_SECRET'),
+]
+
+static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
+  [ $class: 'AzureKeyVaultSecret',
+    secretType: 'Secret',
+    name: secretName,
+    version: '',
+    envVariable: envVar
+  ]
+}
+
 withPipeline(type, product, component) {
+  enableSlackNotifications(channel)
+  enableDockerBuild()
+  loadVaultSecrets(secrets)
+  setVaultName(vault)
+  installCharts()
   onPR {
     def githubApi = new GithubAPI(this)
     if (!githubApi.getLabelsbyPattern(env.BRANCH_NAME, "keep-helm")) {
