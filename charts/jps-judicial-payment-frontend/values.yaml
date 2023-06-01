@@ -6,7 +6,7 @@ nodejs:
     REFORM_SERVICE_NAME: judicial-payment-frontend
     REFORM_ENVIRONMENT: '{{ .Values.global.environment }}'
     NODE_ENV: production
-    NODE_CONFIG_ENV: production
+    NODE_CONFIG_ENV: preview
     XUI_ENV: preview
     MICROSERVICE: jps_webapp
     SESSION_SECRET: secretSauce
