@@ -22,7 +22,8 @@ def vaultOverrides = [
 ]
 
 static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
-  [ $class: 'AzureKeyVaultSecret',
+  [ 
+    $class: 'AzureKeyVaultSecret',
     secretType: 'Secret',
     name: secretName,
     version: '',
