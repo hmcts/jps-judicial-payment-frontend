@@ -53,6 +53,13 @@ export const getXuiNodeMiddleware = () => {
   const s2sSecret = getConfigValue(S2S_SECRET);
   const tokenUrl = `${getConfigValue(SERVICES_IDAM_API_URL)}/oauth2/token`;
 
+  console.log('IDAM SECRET: ' + secret);
+  console.log('s2sSECRET: ' + s2sSecret);
+  console.log('IDAM_LOGIN_URL: ' + idamWebUrl);
+  console.log('IDAM_CLIENT_ID: ' + idamClient);
+  console.log('IDAM_ISS_URL: ' + issuerUrl);
+  console.log('IDAM_API_URL: ' + idamApiPath);
+ 
   //TODO: we can move these out into proper config at some point to tidy up even further
   const options: AuthOptions = {
     allowRolesRegex: getConfigValue(LOGIN_ROLE_MATCHER),
