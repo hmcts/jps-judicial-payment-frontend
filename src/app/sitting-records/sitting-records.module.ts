@@ -12,6 +12,7 @@ import { AddSittingRecordComponent } from './add-sitting-record/add-sitting-reco
 import { AddSittingRecordSuccessComponent } from './add-sitting-record-success/add-sitting-record-success.component'
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { HttpClientModule } from '@angular/common/http';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 @NgModule({
   imports: [
@@ -20,7 +21,8 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     ReactiveFormsModule,
     MatAutocompleteModule,
-    HttpClientModule
+    HttpClientModule,
+    MatFormFieldModule
   ],
   declarations: [
     SittingRecordsComponent,

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-workflow.service';
 import { DateService } from '../../_services/date-service/date-service';
 import { Router } from '@angular/router';
@@ -11,11 +11,13 @@ import {
 import { HttpClient } from '@angular/common/http';
 import { debounceTime, filter, mergeMap, tap } from 'rxjs/operators';
 import { UserService } from '../../_services/user-service/user.service'
+import { AutoCompleteValidator } from '../../_validators/autoCompleteValidator/auto-complete-validator'
 
 @Component({
   selector: 'app-add-sitting-record',
   templateUrl: './add-sitting-record.component.html',
   styleUrls: ['./add-sitting-record.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddSittingRecordComponent implements OnInit {
 
@@ -25,8 +27,10 @@ export class AddSittingRecordComponent implements OnInit {
   venue = "";
   date = "";
   venueEpims: any;
-  userList: any[] = [[], [], []];
-  searchTerm = [];
+  userList: any[] = [ [], [], [] ];
+  userRoleList: any[] = [ {}, {}, {} ];
+  searchTerm = [ "", "", "" ];
+  usersFound = [ true, true, true ]
 
   goBack() {
     this.router.navigate(['sittingRecords', 'view'])
@@ -37,18 +41,16 @@ export class AddSittingRecordComponent implements OnInit {
   }
 
   submitNewSittingRecord() {
-
     this.srWorkFlow.formAndPostNewSittingRecord(this.addSittingRecordsFG, () =>{
       this.router.navigate(['sittingRecords', 'addSuccess'])
     })
-
   }
 
   addNewJoh() {
     if (this.johFormArray.length != 3) {
       this.johFormArray.push(
         new FormGroup({
-          johName: new FormControl(null, [Validators.required]),
+          johName: new FormControl(null, [Validators.required, AutoCompleteValidator.requireSelection]),
           johRole: new FormControl(null, [Validators.required])
         })
       )
@@ -61,17 +63,24 @@ export class AddSittingRecordComponent implements OnInit {
   onSelectionChange(user, index){
     this.johFormArray.controls[index].get('johName')?.setValue(user)
     this.userList[index] = []
+    this.getUserRoles(user.personalCode, index)
   }
 
   createValueChangesListener(index) {
     this.johFormArray.controls[index].get('johName')?.valueChanges
       .pipe(
+          tap(() => this.usersFound[index] = true),
+          tap(() => this.userList[index] = []),
+          tap(term => this.searchTerm[index] = term),
           filter(value => value.length >= 3),
           debounceTime(500),
           mergeMap(value => this.getUsers(value))
       ).subscribe(users => {
+        this.changeDetector.markForCheck()
         this.userList[index] = users;
-        console.log(this.userList)
+        if(users.length === 0){
+          this.usersFound[index] = false
+        }
       })
   }
 
@@ -80,6 +89,13 @@ export class AddSittingRecordComponent implements OnInit {
       return value.fullName; 
     }
     return ""
+  }
+
+  getUserRoles(userPersonalCode, index){
+    this.userSvc.getUserInfo(userPersonalCode)
+    .subscribe(userRoleInfo => {
+      this.userRoleList[index] = userRoleInfo;
+    })
   }
 
   getUsers(searchString){
@@ -95,14 +111,15 @@ export class AddSittingRecordComponent implements OnInit {
     private dateSvc: DateService,
     public router: Router,
     private http: HttpClient,
-    private userSvc: UserService
+    private userSvc: UserService,
+    private changeDetector: ChangeDetectorRef
   ) {
 
     this.addSittingRecordsFG = new FormGroup(
       {
         JOH: new FormArray([
           new FormGroup({
-            johName: new FormControl(null, [Validators.required]),
+            johName: new FormControl(null, [Validators.required, AutoCompleteValidator.requireSelection]),
             johRole: new FormControl(null, [Validators.required])
           })
         ]),

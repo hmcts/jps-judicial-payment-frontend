@@ -34,4 +34,24 @@ export class UserService {
 
   }
 
+  public getUserInfo(userCode: string): Observable<any[]> {
+
+    // TODO: move these to service file
+    const S2SToken: string  = this.cookies.get('__serviceauth__');
+    const authToken: string = this.cookies.get('__auth__')
+
+    const requestBody = {
+        "personal_code": [userCode]
+      }
+
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': authToken,
+      'ServiceAuthorization': S2SToken
+    };
+
+    return this.http.post<any[]>('/refdata/userInfo', {userCode: requestBody}, { headers: headers });
+
+  }
+
 }

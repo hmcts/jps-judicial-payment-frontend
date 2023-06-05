@@ -6,7 +6,6 @@
     <h1 class="govuk-heading-l">
         Select the Juduicial office holders (JOH) associated with this sitting
     </h1>
-
     <p class="govuk-body govuk-!-margin-bottom-5">
         You can select a maximum of 3 office holders for each sitting.
     </p>
@@ -32,7 +31,8 @@
                 </div>
             
                 <div class="govuk-grid-column-one-half">
-                    <div class="govuk-form-group govuk-!-static-margin-bottom-0 posRel">
+                    <div class="govuk-form-group govuk-!-static-margin-bottom-0 posRel"
+                    [class.govuk-form-group--error] = "johFormArray.controls[i].get('johName')?.errors !== null && johFormArray.controls[i].get('johName')?.dirty && johFormArray.controls[i].get('johName')?.touched">
                         <div id="judge-hint" class="govuk-hint">
                             Name
                         </div>
@@ -42,20 +42,18 @@
                             placeholder="Start typing to find a JOH name" 
                             formControlName="johName"
                             [matAutocomplete]="johUserSearch"
-
                         >
                         <mat-autocomplete class="mat-autocomplete-panel-extend" autoActiveFirstOption #johUserSearch="matAutocomplete" [displayWith]="showUserName">
                             <mat-option *ngFor="let user of userList[i]" (onSelectionChange)="onSelectionChange(user, i)" [value]="user" >
-                              {{ user.fullName }}
+                            {{ user.fullName }}
                             </mat-option>
-                            <mat-option *ngIf="!userList[i].length">No results found</mat-option>
-                          </mat-autocomplete>
-
+                            <mat-option *ngIf="!userList[i].length && searchTerm[i].length >= 3 && !usersFound[i]">No results found</mat-option>
+                        </mat-autocomplete>
+                        <mat-error *ngIf="johFormArray.controls[i].get('johName')?.errors !== null && johFormArray.controls[i].get('johName')?.dirty && johFormArray.controls[i].get('johName')?.touched">
+                            <p class="govuk-error-message">Please select a value</p>
+                        </mat-error>
                     </div>
-      
-                </div>
-            
-            
+                </div>          
                 <div class="govuk-grid-column-one-half">
                     <div class="govuk-form-group">
                         <div id="role-hint" class="govuk-hint">
@@ -64,10 +62,7 @@
                         <select class="govuk-select govuk-!-width-full" id="role" name="role" formControlName="johRole">
                             >
                             <option [ngValue]="null" disabled selected>--Select a value--</option>
-                            <option [ngValue]="'1'">Recently published</option>
-                            <option [ngValue]="'2'">Recently updated</option>
-                            <option [ngValue]="'3'">Most views</option>
-                            <option [ngValue]="'4'">Most comments</option>
+                            <!-- <option [ngValue]="role" *ngFor="let role of userRoleList[i]?.appointments[0]?.roles">{{role}}</option> -->
                         </select>
                     </div>
                 </div>
@@ -111,13 +106,11 @@
                 </div>
             </fieldset>
         </div>
-
         <button type="submit" class="govuk-button govuk-!-static-margin-bottom-4" data-module="govuk-button"
             (click)="submitNewSittingRecord()" [disabled]="addSittingRecordsFG.invalid">
             Continue
         </button>
         <br>
-
         <a class="govuk-link" (click)="goBack()">
             Cancel
         </a>

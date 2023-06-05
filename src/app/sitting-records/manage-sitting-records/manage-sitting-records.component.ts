@@ -12,6 +12,7 @@ import { debounceTime, filter, mergeMap, tap } from 'rxjs/operators';
 import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-workflow.service';
 import { VenueService } from '../../_services/venue-service/venue.service'
 import { VenueModel } from '../../_models/venue.model';
+import { AutoCompleteValidator } from '../../_validators/autoCompleteValidator/auto-complete-validator'
 
 @Component({
   selector: 'app-manage-sitting-records',
@@ -48,7 +49,7 @@ export class ManageSittingRecordsComponent implements OnInit {
     this.manageRecords = this.formBuilder.group(
       {
         tribunalService: ['', Validators.required],
-        venue: ['', [Validators.required, ManageSittingRecord.requireVenueMatch]],
+        venue: ['', [Validators.required, AutoCompleteValidator.requireSelection]],
         dateSelected: formBuilder.group({
           dateDay: ['', [Validators.required,]],
           dateMonth: ['', [Validators.required,]],
