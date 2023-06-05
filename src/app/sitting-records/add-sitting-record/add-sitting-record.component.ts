@@ -60,7 +60,8 @@ export class AddSittingRecordComponent implements OnInit {
     }
   }
 
-  onSelectionChange(user, index){
+  optionSelected(event, index){
+    const user = event.option.value
     this.johFormArray.controls[index].get('johName')?.setValue(user)
     this.userList[index] = []
     this.getUserRoles(user.personalCode, index)

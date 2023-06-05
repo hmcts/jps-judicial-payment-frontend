@@ -43,8 +43,8 @@
                             formControlName="johName"
                             [matAutocomplete]="johUserSearch"
                         >
-                        <mat-autocomplete class="mat-autocomplete-panel-extend" autoActiveFirstOption #johUserSearch="matAutocomplete" [displayWith]="showUserName">
-                            <mat-option *ngFor="let user of userList[i]" (onSelectionChange)="onSelectionChange(user, i)" [value]="user" >
+                        <mat-autocomplete class="mat-autocomplete-panel-extend" autoActiveFirstOption #johUserSearch="matAutocomplete" (optionSelected)="optionSelected($event, i)" [displayWith]="showUserName">
+                            <mat-option *ngFor="let user of userList[i]" [value]="user" (mousedown)=$event.preventDefault()  >
                             {{ user.fullName }}
                             </mat-option>
                             <mat-option *ngIf="!userList[i].length && searchTerm[i].length >= 3 && !usersFound[i]">No results found</mat-option>
