@@ -12,6 +12,7 @@ import { CustomValidators } from '../../_validators/sitting-records-form-validat
 import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-workflow.service';
 import { VenueService } from '../../_services/venue-service/venue.service'
 import { VenueModel } from '../../_models/venue.model';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
 @Component({
   selector: 'app-manage-sitting-records',
@@ -92,8 +93,8 @@ export class ManageSittingRecordsComponent implements OnInit {
     return ""
   }
 
-  public onSelectionChange(venue: VenueModel): void {
-    this.manageRecords.controls['venue'].patchValue(venue, {emitEvent: false, onlySelf: true});
+  public optionSelected(event: MatAutocompleteSelectedEvent): void {
+    this.manageRecords.controls['venue'].patchValue(event.option.value, {emitEvent: false, onlySelf: true});
   }
 
   public venuesSearch(): void {
