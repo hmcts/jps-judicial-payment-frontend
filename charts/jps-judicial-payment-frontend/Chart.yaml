@@ -1,7 +1,7 @@
 apiVersion: v2
 appVersion: '1.0'
 description: A Helm chart for jps-judicial-payment-frontend App
-name: jps-judicial-payment-frontend
+name: jps
 home: https://github.com/hmcts/jps-judicial-payment-frontend
 version: 0.0.4
 dependencies:
