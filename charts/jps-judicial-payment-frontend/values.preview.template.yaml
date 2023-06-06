@@ -14,3 +14,5 @@ nodejs:
         - mc-idam-client-secret
   autoscaling:
     enabled: false
+idam-pr:
+  enabled: true
