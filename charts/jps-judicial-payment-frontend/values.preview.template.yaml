@@ -14,8 +14,3 @@ nodejs:
         - mc-idam-client-secret
   autoscaling:
     enabled: false
-idam-pr:
-  enabled: true
-  redirect_uris:
-    XUI:
-      - https://${SERVICE_FQDN}/oauth2/callback
