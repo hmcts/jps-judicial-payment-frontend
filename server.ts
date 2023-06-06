@@ -16,6 +16,8 @@ export function app(): express.Express {
   const distFolder = join(process.cwd(), 'dist/jps-judicial-payment-frontend/browser');
   const indexHtml = existsSync(join(distFolder, 'index.original.html')) ? 'index.original.html' : 'index';
 
+  server.use(getXuiNodeMiddleware());
+
   // Our Universal express-engine (found @ https://github.com/angular/universal/tree/main/modules/express-engine)
   server.engine('html', ngExpressEngine({
     bootstrap: AppServerModule,
@@ -26,7 +28,6 @@ export function app(): express.Express {
 
   new HealthCheck().enableFor(server);
 
-  server.use(getXuiNodeMiddleware());
 
   // Example Express Rest API endpoints
   // server.get('/api/**', (req, res) => { });
