@@ -26,6 +26,8 @@ export function app(): express.Express {
 
   new HealthCheck().enableFor(server);
 
+  server.use(getXuiNodeMiddleware());
+
   // Example Express Rest API endpoints
   // server.get('/api/**', (req, res) => { });
   // Serve static files from /browser
@@ -46,7 +48,6 @@ function run(): void {
 
   // Start up the Node server
   const server = app();
-  //server.use(getXuiNodeMiddleware());
   server.listen(port, () => {
     console.log(`Node Express server listening on http://localhost:${port}`);
   });
