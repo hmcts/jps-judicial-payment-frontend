@@ -32,3 +32,4 @@ nodejs:
   # Don't modify below here
   image: 'hmctspublic.azurecr.io/jps/judicial-payment-frontend:latest'
   ingressHost: judicial-payments.{{ .Values.global.environment }}.platform.hmcts.net
+
