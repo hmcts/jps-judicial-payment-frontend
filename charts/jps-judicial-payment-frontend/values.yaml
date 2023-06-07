@@ -27,6 +27,7 @@ nodejs:
     cpuLimits: "2500m"
   keyVaults:
     jps:
+      resourceGroup: jpsx
       secrets:
         - mc-s2s-client-secret
         - mc-idam-client-secret
