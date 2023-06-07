@@ -8,7 +8,6 @@ nodejs:
     DEBUG: xuiNode:*,-xuiNode:auth:s2s,-xuiNode:auth:oauth2
   keyVaults:
     jps:
-      resourceGroup: jps
       secrets:
         - mc-s2s-client-secret
         - mc-idam-client-secret
@@ -19,5 +18,5 @@ tags:
 idam-pr:
   enabled: true
   redirect_uris:
-    jps_judicial_payment_frontend:
+    JPS:
       - https://${SERVICE_FQDN}/oauth2/callback
