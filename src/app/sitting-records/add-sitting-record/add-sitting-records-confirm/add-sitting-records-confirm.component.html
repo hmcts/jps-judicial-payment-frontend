@@ -1,0 +1,46 @@
+<main class="govuk-main-wrapper " id="main-content" role="main">
+
+    <h2 class="govuk-heading-l">Confirm new sitting record(s)</h2>
+
+    <dl class="govuk-summary-list" *ngIf="newSittingRecords">
+        <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+                Name
+            </dt>
+            <dt class="govuk-summary-list__key">
+                Role
+            </dt>
+            <dt class="govuk-summary-list__key">
+                Period
+            </dt>
+            <dt class="govuk-summary-list__key">
+                Entered By
+            </dt>
+        </div>
+        <div class="govuk-summary-list__row" *ngFor="let joh of newSittingRecords.controls['JOH'].controls">
+            <dd class="govuk-summary-list__value">
+                {{joh.controls['johName']?.value?.fullName}}
+            </dd>
+            <dd class="govuk-summary-list__value">
+                {{joh.controls['johRole']?.value}}
+            </dd>
+            <dd class="govuk-summary-list__value">
+                {{convertPeriod(newSittingRecords.controls['period'].value)}}
+            </dd>
+            <dd class="govuk-summary-list__value">
+                XXX
+            </dd>
+        </div>
+    </dl>
+    <div class="govuk-button-group">
+        <button class="govuk-button govuk-button--secondary" data-module="govuk-button" (click)="goBack()">
+            Previous
+        </button>
+        <button class="govuk-button" data-module="govuk-button" (click)="submitNewRecords()">
+            Save record(s)
+        </button>
+    </div>
+    <div>
+        <a class="govuk-link" (click)="cancelAdd()">Cancel</a>
+    </div>
+</main>

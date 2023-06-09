@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-workflow.service';
 import { DateService } from '../../_services/date-service/date-service';
 import { Router } from '@angular/router';
@@ -12,6 +12,7 @@ import { HttpClient } from '@angular/common/http';
 import { debounceTime, filter, mergeMap, tap } from 'rxjs/operators';
 import { UserService } from '../../_services/user-service/user.service'
 import { AutoCompleteValidator } from '../../_validators/autoCompleteValidator/auto-complete-validator'
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-add-sitting-record',
@@ -19,7 +20,7 @@ import { AutoCompleteValidator } from '../../_validators/autoCompleteValidator/a
   styleUrls: ['./add-sitting-record.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AddSittingRecordComponent implements OnInit {
+export class AddSittingRecordComponent implements OnInit, OnDestroy {
 
   addSittingRecordsFG: FormGroup;
 
@@ -31,9 +32,10 @@ export class AddSittingRecordComponent implements OnInit {
   userRoleList: any[] = [ {}, {}, {} ];
   searchTerm = [ "", "", "" ];
   usersFound = [ true, true, true ]
+  subscriptions: Subscription[] = [];
 
   goBack() {
-    this.router.navigate(['sittingRecords', 'view'])
+    this.router.navigate(['sittingRecords', 'manage'])
   }
 
   get johFormArray() {
@@ -41,9 +43,8 @@ export class AddSittingRecordComponent implements OnInit {
   }
 
   submitNewSittingRecord() {
-    this.srWorkFlow.formAndPostNewSittingRecord(this.addSittingRecordsFG, () =>{
-      this.router.navigate(['sittingRecords', 'addSuccess'])
-    })
+    this.srWorkFlow.setAddSittingRecords(this.addSittingRecordsFG)
+    this.router.navigate(['sittingRecords', 'addConfirm'])
   }
 
   addNewJoh() {
@@ -68,7 +69,7 @@ export class AddSittingRecordComponent implements OnInit {
   }
 
   createValueChangesListener(index) {
-    this.johFormArray.controls[index].get('johName')?.valueChanges
+    const subscription = this.johFormArray.controls[index].get('johName')?.valueChanges
       .pipe(
           tap(() => this.usersFound[index] = true),
           tap(() => this.userList[index] = []),
@@ -83,6 +84,8 @@ export class AddSittingRecordComponent implements OnInit {
           this.usersFound[index] = false
         }
       })
+
+    this.subscriptions.push(subscription as Subscription)
   }
 
   public showUserName(value) {
@@ -104,7 +107,10 @@ export class AddSittingRecordComponent implements OnInit {
   }
 
   removeJoh(index: number) {
+    console.log(this.subscriptions)
+    console.log(index)
     this.johFormArray.removeAt(index)
+    this.subscriptions[index].unsubscribe();
   }
 
   constructor(
@@ -138,6 +144,18 @@ export class AddSittingRecordComponent implements OnInit {
     this.venue = venue.court_name;
     this.venueEpims = venue.epimms_id;
     this.date = this.dateSvc.formatDateFromForm(dateSelected);
+
+    if(this.srWorkFlow.getAddSittingRecords() && this.srWorkFlow.checkCameFromConfirm()){
+      this.addSittingRecordsFG = this.srWorkFlow.getAddSittingRecords();
+      const johInData = this.addSittingRecordsFG.controls['JOH'] as FormArray
+      for(let i = 0; i < johInData.length; i++){
+        this.createValueChangesListener(i);
+      }
+    }
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
 }

@@ -16,6 +16,8 @@ export class AddSittingRecordSuccessComponent implements OnInit {
   navigateBackToStart(){
     this.srWorkFlow.resetFormData();
     this.srWorkFlow.resetVisitedManaged();
+    this.srWorkFlow.resetAddSittingRecords();
+    this.srWorkFlow.resetCameFromConfirm();
     this.router.navigate(['sittingRecords','manage']);
   }
 
@@ -23,15 +25,13 @@ export class AddSittingRecordSuccessComponent implements OnInit {
     private srWorkFlow: SittingRecordWorkflowService,
     private dateSvc: DateService,
     private router: Router,
-    ){
-
-    }
+    ){}
 
   ngOnInit(){
     const formData = this.srWorkFlow.getFormData().value;
     const { dateSelected, tribunalService, venue } = formData;
     this.tribService = tribunalService;
-    this.venue = venue;
+    this.venue = venue.court_name;
     this.date = this.dateSvc.formatDateFromForm(dateSelected);
   }
 }

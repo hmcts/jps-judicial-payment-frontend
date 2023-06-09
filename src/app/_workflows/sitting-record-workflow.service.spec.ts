@@ -74,8 +74,8 @@ describe('SittingRecordWorkflowService', () => {
       service.setFormData(formDataMock)
   
       const callback = jasmine.createSpy('callback');
-  
-      service.formAndPostNewSittingRecord(postFormData, callback);
+      service.setAddSittingRecords(postFormData)
+      service.formAndPostNewSittingRecord(callback);
   
       expect(callback).toHaveBeenCalled();
 
@@ -99,8 +99,9 @@ describe('SittingRecordWorkflowService', () => {
       service.setFormData(formDataMock)
   
       const callback = jasmine.createSpy('callback');
-  
-      service.formAndPostNewSittingRecord(postFormData, callback);
+
+      service.setAddSittingRecords(postFormData)
+      service.formAndPostNewSittingRecord(callback);
   
       expect(callback).toHaveBeenCalled();
 
@@ -125,7 +126,8 @@ describe('SittingRecordWorkflowService', () => {
   
       const callback = jasmine.createSpy('callback');
   
-      service.formAndPostNewSittingRecord(postFormData, callback);
+      service.setAddSittingRecords(postFormData)
+      service.formAndPostNewSittingRecord(callback);
 
       expect(callback).toHaveBeenCalled();
 

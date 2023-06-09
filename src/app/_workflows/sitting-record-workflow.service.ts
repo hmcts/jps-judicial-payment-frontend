@@ -9,7 +9,9 @@ import { DateService } from '../_services/date-service/date-service'
 export class SittingRecordWorkflowService {
 
   formData!: FormGroup;
+  addSittingRecords!: FormGroup;
   hasVisitedManage = false;
+  cameFromConfirm = false;
     
   constructor(
     private dateSvc: DateService,
@@ -24,6 +26,10 @@ export class SittingRecordWorkflowService {
     return this.hasVisitedManage;
   }
 
+  resetVisitedManaged(){
+    this.hasVisitedManage = false;
+  }
+
   setFormData(data : FormGroup){
     this.formData = data;
   }
@@ -35,13 +41,34 @@ export class SittingRecordWorkflowService {
   resetFormData(){
     this.formData.reset();
   }
-  
-  resetVisitedManaged(){
-    this.hasVisitedManage = false;
+
+  setAddSittingRecords(data: FormGroup){
+    this.addSittingRecords = data;
   }
 
-  formAndPostNewSittingRecord(postFormData: FormGroup, callback){
-    const { JOH, period } = postFormData.controls;
+  getAddSittingRecords(){
+    return this.addSittingRecords;
+  }
+
+  resetAddSittingRecords(){
+    this.addSittingRecords.reset();
+  }
+
+  // confirmation get, set, reset
+  checkCameFromConfirm(){
+    return this.cameFromConfirm
+  }
+
+  setCameFromConfirm(){
+    this.cameFromConfirm = true;
+  }
+
+  resetCameFromConfirm(){
+    this.cameFromConfirm = false;
+  }
+
+  formAndPostNewSittingRecord(callback){
+    const { JOH, period } = this.addSittingRecords.controls;
     const { dateSelected, tribunalService, venue } = this.formData.value;
     const postObj = new sittingRecordsPostBody();
   

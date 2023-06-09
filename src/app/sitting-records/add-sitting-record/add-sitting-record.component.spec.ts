@@ -47,20 +47,20 @@ describe('AddSittingRecordComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should navigate to sittingRecords/view when goBack() is called', () => {
+  it('should navigate to sittingRecords/manage when goBack() is called', () => {
     spyOn(router, 'navigate');
 
     component.goBack();
 
-    expect(router.navigate).toHaveBeenCalledWith(['sittingRecords', 'view']);
+    expect(router.navigate).toHaveBeenCalledWith(['sittingRecords', 'manage']);
   });
 
-  it('should navigate to sittingRecords/addSuccess when submitNewSittingRecord() is called', () => {
+  it('should navigate to sittingRecords/addConfirm when submitNewSittingRecord() is called', () => {
     const navigateSpy = spyOn(router, 'navigate');
 
     component.submitNewSittingRecord();
 
-    expect(navigateSpy).toHaveBeenCalledWith(['sittingRecords', 'addSuccess']);
+    expect(navigateSpy).toHaveBeenCalledWith(['sittingRecords', 'addConfirm']);
   });
 
   it('should add a new JOH to the form', () => {
@@ -82,23 +82,6 @@ describe('AddSittingRecordComponent', () => {
     expect(johFormArray.length).toBe(1);
   });
 
-  it('should set JOH name and fetch user roles on selection change', () => {
-    const mockUser = { personalCode: '12345' };
-    const mockUserRoles = ['Role1', 'Role2'];
-    spyOn(userService, 'getUserInfo').and.returnValue(of(mockUserRoles));
-
-    component.onSelectionChange(mockUser, 0);
-
-    const johFormArray = component.addSittingRecordsFG.get('JOH') as FormArray;
-    const johFormGroup = johFormArray.at(0) as FormGroup;
-    const johNameControl = johFormGroup.get('johName') as FormControl;
-    const johRoleControl = johFormGroup.get('johRole') as FormControl;
-
-    expect(johNameControl.value).toEqual(mockUser);
-    expect(userService.getUserInfo).toHaveBeenCalledWith(mockUser.personalCode);
-    expect(component.userRoleList[0]).toEqual(mockUserRoles);
-  });
-
   it('should get users from the user service', () => {
     const mockUsers = ['User1', 'User2'];
     spyOn(userService, 'getUsers').and.returnValue(of(mockUsers));
@@ -110,4 +93,40 @@ describe('AddSittingRecordComponent', () => {
 
     expect(userService.getUsers).toHaveBeenCalledWith(searchString, component.venueEpims);
   });
+  
+  it('should set JOH name, clear user list, and fetch user roles on optionSelected', () => {
+    const mockUser = { personalCode: '12345' };
+    const mockUserRoles = ['Role1', 'Role2'];
+  
+    spyOn(userService, 'getUserInfo').and.returnValue(of(mockUserRoles));
+  
+    component.optionSelected({ option: { value: mockUser } }, 0);
+  
+    expect(component.johFormArray.at(0).get('johName')?.value).toEqual(mockUser);
+    expect(userService.getUserInfo).toHaveBeenCalledWith(mockUser.personalCode);
+    expect(component.userList[0]).toEqual([]);
+  });
+  
+  it('should initialize component properties and set value change listeners for JOH form controls', () => {
+    component.ngOnInit();
+    srWorkflowService.setAddSittingRecords(component.addSittingRecordsFG)
+    srWorkflowService.setCameFromConfirm();
+    
+    spyOn(srWorkflowService, 'getAddSittingRecords').and.returnValue(component.addSittingRecordsFG);
+    spyOn(srWorkflowService, 'checkCameFromConfirm').and.returnValue(true);
+  
+    const johFormArray = new FormArray([
+      new FormGroup({
+        johName: new FormControl(),
+        johRole: new FormControl()
+      })
+    ]);
+    component.ngOnInit();
+  
+    for (let i = 0; i < johFormArray.length; i++) {
+      expect(component.subscriptions[i]).toBeTruthy();
+    }
+  });
+  
+
 });

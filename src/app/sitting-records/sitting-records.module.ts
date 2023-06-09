@@ -9,10 +9,11 @@ import { PhaseBannerComponent } from '../phase-banner/phase-banner.component';
 import { ViewSittingRecordsComponent } from './view-sitting-records/view-sitting-records.component';
 import { NumberDirective } from '../_directives/numbers-only.directive';
 import { AddSittingRecordComponent } from './add-sitting-record/add-sitting-record.component';
-import { AddSittingRecordSuccessComponent } from './add-sitting-record-success/add-sitting-record-success.component'
+import { AddSittingRecordSuccessComponent } from './add-sitting-record/add-sitting-record-success/add-sitting-record-success.component'
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { HttpClientModule } from '@angular/common/http';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import { AddSittingRecordsConfirmComponent } from './add-sitting-record/add-sitting-records-confirm/add-sitting-records-confirm.component';
 
 @NgModule({
   imports: [
@@ -32,7 +33,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     NumberDirective,
     AddSittingRecordComponent,
     AddSittingRecordSuccessComponent,
-    NumberDirective
+    NumberDirective,
+    AddSittingRecordsConfirmComponent
   ]
 })
 export class SittingRecordsModule { }

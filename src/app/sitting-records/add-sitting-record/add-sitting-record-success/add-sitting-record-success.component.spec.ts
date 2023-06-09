@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AddSittingRecordSuccessComponent } from './add-sitting-record-success.component';
-import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-workflow.service';
-import { DateService } from '../../_services/date-service/date-service';
+import { SittingRecordWorkflowService } from '../../../_workflows/sitting-record-workflow.service';
+import { DateService } from '../../../_services/date-service/date-service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
@@ -30,9 +30,9 @@ describe('AddSittingRecordSuccessComponent', () => {
     const formDataMock: FormGroup = new FormBuilder().group({
       dateSelected: ['2022-01-01'],
       tribunalService: ['Tribunal 1'],
-      venue: ['Venue 1'],
+      venue: [{court_name: 'Venue 1'}],
     });
-
+    srWorkflowService.setCameFromConfirm()
     srWorkflowService.setFormData(formDataMock)
     fixture.detectChanges();
   });
@@ -42,19 +42,22 @@ describe('AddSittingRecordSuccessComponent', () => {
   });
 
   it('should reset form data and visited managed flags on navigateBackToStart()', () => {
-    const srWorkFlow = TestBed.inject(SittingRecordWorkflowService);
-    const resetFormDataSpy = spyOn(srWorkFlow, 'resetFormData');
-    const resetVisitedManagedSpy = spyOn(srWorkFlow, 'resetVisitedManaged');
-    const navigateSpy = spyOn(router, 'navigate');
+    spyOn(srWorkflowService, 'resetFormData');
+    spyOn(srWorkflowService, 'resetVisitedManaged');
+    spyOn(srWorkflowService, 'resetAddSittingRecords');
+    spyOn(srWorkflowService, 'resetCameFromConfirm');
+    spyOn(router, 'navigate');
+
     component.navigateBackToStart();
-    expect(resetFormDataSpy).toHaveBeenCalled();
-    expect(resetVisitedManagedSpy).toHaveBeenCalled();
-    expect(navigateSpy).toHaveBeenCalledWith(['sittingRecords', 'manage']);
+
+    expect(srWorkflowService.resetFormData).toHaveBeenCalled();
+    expect(srWorkflowService.resetVisitedManaged).toHaveBeenCalled();
+    expect(srWorkflowService.resetAddSittingRecords).toHaveBeenCalled();
+    expect(srWorkflowService.resetCameFromConfirm).toHaveBeenCalled();
+    expect(router.navigate).toHaveBeenCalledWith(['sittingRecords', 'manage']);
   });
 
   it('should initialize tribService, venue, and date on ngOnInit()', () => {
-      const dateSvc = TestBed.inject(DateService);
-    const formatDateFromFormSpy = spyOn(dateSvc, 'formatDateFromForm');
     component.ngOnInit();
     expect(component.tribService).toEqual('Tribunal 1');
     expect(component.venue).toEqual('Venue 1');
