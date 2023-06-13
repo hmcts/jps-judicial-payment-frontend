@@ -107,8 +107,6 @@ export class AddSittingRecordComponent implements OnInit, OnDestroy {
   }
 
   removeJoh(index: number) {
-    console.log(this.subscriptions)
-    console.log(index)
     this.johFormArray.removeAt(index)
     this.subscriptions[index].unsubscribe();
   }

@@ -12,6 +12,7 @@ export class AddSittingRecordSuccessComponent implements OnInit {
   tribService: any;
   venue: any;
   date: any;
+  newSittingRecords: any;
 
   navigateBackToStart(){
     this.srWorkFlow.resetFormData();
@@ -19,6 +20,19 @@ export class AddSittingRecordSuccessComponent implements OnInit {
     this.srWorkFlow.resetAddSittingRecords();
     this.srWorkFlow.resetCameFromConfirm();
     this.router.navigate(['sittingRecords','manage']);
+  }
+
+  convertPeriod(period){
+    switch(period){
+      case 'am':
+        return "Morning"
+      case 'pm':
+        return "Afternoon"
+      case 'both':
+        return "Full Day"
+      default:
+        return ''
+    }
   }
 
   constructor(
@@ -33,5 +47,8 @@ export class AddSittingRecordSuccessComponent implements OnInit {
     this.tribService = tribunalService;
     this.venue = venue.court_name;
     this.date = this.dateSvc.formatDateFromForm(dateSelected);
+
+    this.newSittingRecords = this.srWorkFlow.getAddSittingRecords();
+
   }
 }
