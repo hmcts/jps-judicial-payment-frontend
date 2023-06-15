@@ -17,7 +17,7 @@
     },
     "microservice": "jps_judicial_payment_frontend",
     "sessionSecret": "secretSauce",
-    "loginRoleMatcher": "ccd-import",
+    "loginRoleMatcher": "jps-recorder",
     "feature": {
         "secureCookieEnabled": true
     }
