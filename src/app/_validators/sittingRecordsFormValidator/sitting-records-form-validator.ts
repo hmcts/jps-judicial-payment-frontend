@@ -1,4 +1,4 @@
-import { FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { FormGroup, Validators } from '@angular/forms';
 
 // create your class that extends the angular validator class
 export class ManageSittingRecord extends Validators {

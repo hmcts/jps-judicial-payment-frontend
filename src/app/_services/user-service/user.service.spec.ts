@@ -1,8 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { CookieService } from 'ngx-cookie-service';
-import { Observable } from 'rxjs';
-
 import { UserService } from './user.service';
 import { UserModel } from '../../_models/user.model';
 
