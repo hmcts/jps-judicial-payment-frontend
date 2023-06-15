@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormArray, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DateService } from 'src/app/_services/date-service/date-service';
 import { SittingRecordWorkflowService } from 'src/app/_workflows/sitting-record-workflow.service';
@@ -9,30 +10,25 @@ import { SittingRecordWorkflowService } from 'src/app/_workflows/sitting-record-
   styleUrls: ['./add-sitting-record-success.component.scss']
 })
 export class AddSittingRecordSuccessComponent implements OnInit {
-  tribService: any;
-  venue: any;
-  date: any;
-  newSittingRecords: any;
+  tribService!: string;
+  venueSiteName!: string;
+  date!: string;
+  newSittingRecords!: FormGroup;
 
   navigateBackToStart(){
     this.srWorkFlow.resetFormData();
     this.srWorkFlow.resetVisitedManaged();
     this.srWorkFlow.resetAddSittingRecords();
     this.srWorkFlow.resetCameFromConfirm();
-    this.router.navigate(['sittingRecords','manage']);
+    void this.router.navigate(['sittingRecords','manage']);
   }
 
-  convertPeriod(period){
-    switch(period){
-      case 'am':
-        return "Morning"
-      case 'pm':
-        return "Afternoon"
-      case 'both':
-        return "Full Day"
-      default:
-        return ''
-    }
+  convertPeriod(period: string): string{
+    return this.dateSvc.convertPeriod(period);
+  }
+
+  get johFormArray(): FormArray {
+    return this.newSittingRecords?.controls['JOH'] as FormArray;
   }
 
   constructor(
@@ -45,7 +41,7 @@ export class AddSittingRecordSuccessComponent implements OnInit {
     const formData = this.srWorkFlow.getFormData().value;
     const { dateSelected, tribunalService, venue } = formData;
     this.tribService = tribunalService;
-    this.venue = venue.court_name;
+    this.venueSiteName = venue.site_name;
     this.date = this.dateSvc.formatDateFromForm(dateSelected);
 
     this.newSittingRecords = this.srWorkFlow.getAddSittingRecords();

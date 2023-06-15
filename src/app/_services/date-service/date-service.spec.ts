@@ -20,4 +20,13 @@ describe('DateService', () => {
       expect(formattedDate).toEqual('01/01/2023');
     });
   });
+
+  describe('convertPeriod', () => {
+    it('should convert the period correctly', () => {
+      expect(service.convertPeriod('am')).toBe('Morning');
+      expect(service.convertPeriod('pm')).toBe('Afternoon');
+      expect(service.convertPeriod('both')).toBe('Full Day');
+      expect(service.convertPeriod('')).toBe('');
+    });
+  });
 });

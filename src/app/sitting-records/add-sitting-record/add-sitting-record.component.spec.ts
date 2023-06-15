@@ -3,12 +3,13 @@ import { ReactiveFormsModule, FormArray, FormGroup, FormControl, FormBuilder, Va
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { AddSittingRecordComponent } from './add-sitting-record.component';
 import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-workflow.service';
 import { DateService } from '../../_services/date-service/date-service';
 import { UserService } from '../../_services/user-service/user.service';
 import { Router } from '@angular/router';
+import { UserModel, UserInfoModel } from 'src/app/_models/user.model';
 
 describe('AddSittingRecordComponent', () => {
   let component: AddSittingRecordComponent;
@@ -37,6 +38,18 @@ describe('AddSittingRecordComponent', () => {
       tribunalService: ['Tribunal 1'],
       venue: ['Venue 1'],
     });
+
+    const addSittingRecordsFGMock = new FormGroup(
+      {
+        JOH: new FormArray([
+          new FormGroup({
+            johName: new FormControl('JOH Name'),
+            johRole: new FormControl('Role1')
+          })
+        ]),
+        period: new FormControl('AM'),
+      }
+    );
 
     srWorkflowService.setFormData(formDataMock)
 
@@ -83,7 +96,17 @@ describe('AddSittingRecordComponent', () => {
   });
 
   it('should get users from the user service', () => {
-    const mockUsers = ['User1', 'User2'];
+    const mockUsers: UserModel[] = [ 
+      {
+        title: '',
+        knownAs: '',
+        surname: '',
+        fullName: '',
+        emailId: '',
+        idamId: '',
+        personalCode: '' 
+      }
+    ]
     spyOn(userService, 'getUsers').and.returnValue(of(mockUsers));
 
     const searchString = 'John';
@@ -91,16 +114,65 @@ describe('AddSittingRecordComponent', () => {
       expect(users).toEqual(mockUsers);
     });
 
-    expect(userService.getUsers).toHaveBeenCalledWith(searchString, component.venueEpims);
+    expect(userService.getUsers).toHaveBeenCalledWith(searchString, component.venueEpimmsId);
   });
   
   it('should set JOH name, clear user list, and fetch user roles on optionSelected', () => {
     const mockUser = { personalCode: '12345' };
-    const mockUserRoles = ['Role1', 'Role2'];
+    const mockUserRoles: UserInfoModel[] = [
+      {
+        sidam_id: '',
+        object_id: '',
+        known_as:  '',
+        surname:  '',
+        full_name:  '',
+        post_nominals:  '',
+        email_id:  '',
+        personal_code:  '',
+        appointments: [
+          {
+            base_location_id:  '',
+            epimms_id:  '',
+            court_name:  '',
+            cft_region_id:  '',
+            cft_region:  '',
+            location_id:  '',
+            location:  '',
+            is_principal_appointment:  '',
+            appointment:  '',
+            appointment_type:  '',
+            service_code:  '',
+            roles: [
+              '' 
+            ],
+            start_date:  '',
+            end_date:  '' 
+          }
+        ],
+        authorisations: [
+          {
+            jurisdiction:  '',
+            ticket_description:  '',
+            ticket_code:  '',
+            service_codes: [
+              '' 
+            ],
+            start_date:  '',
+            end_date:  '' 
+          }
+        ]
+      }
+    ]
   
+    const event: MatAutocompleteSelectedEvent = {
+      option: {
+        value: mockUser
+      }
+    } as MatAutocompleteSelectedEvent;
+    
     spyOn(userService, 'getUserInfo').and.returnValue(of(mockUserRoles));
   
-    component.optionSelected({ option: { value: mockUser } }, 0);
+    component.optionSelected(event, 0);
   
     expect(component.johFormArray.at(0).get('johName')?.value).toEqual(mockUser);
     expect(userService.getUserInfo).toHaveBeenCalledWith(mockUser.personalCode);

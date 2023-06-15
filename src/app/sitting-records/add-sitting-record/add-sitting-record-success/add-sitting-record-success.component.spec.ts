@@ -4,21 +4,24 @@ import { AddSittingRecordSuccessComponent } from './add-sitting-record-success.c
 import { SittingRecordWorkflowService } from '../../../_workflows/sitting-record-workflow.service';
 import { DateService } from '../../../_services/date-service/date-service';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 describe('AddSittingRecordSuccessComponent', () => {
   let component: AddSittingRecordSuccessComponent;
   let fixture: ComponentFixture<AddSittingRecordSuccessComponent>;
   let router: Router;
   let srWorkflowService: SittingRecordWorkflowService;
+  let httpMock: HttpTestingController;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ AddSittingRecordSuccessComponent ],
-      imports: [ RouterTestingModule ],
+      imports: [ RouterTestingModule,  HttpClientTestingModule],
       providers: [ SittingRecordWorkflowService, DateService ],
     })
     .compileComponents();
+    httpMock= TestBed.inject(HttpTestingController);
   });
 
   beforeEach(() => {
@@ -30,11 +33,16 @@ describe('AddSittingRecordSuccessComponent', () => {
     const formDataMock: FormGroup = new FormBuilder().group({
       dateSelected: ['2022-01-01'],
       tribunalService: ['Tribunal 1'],
-      venue: [{court_name: 'Venue 1'}],
+      venue: [{site_name: 'Venue 1'}],
     });
+    
     srWorkflowService.setCameFromConfirm()
     srWorkflowService.setFormData(formDataMock)
     fixture.detectChanges();
+  });
+
+  afterEach(() => {
+    httpMock.verify();
   });
 
   it('should create', () => {
@@ -58,9 +66,24 @@ describe('AddSittingRecordSuccessComponent', () => {
   });
 
   it('should initialize tribService, venue, and date on ngOnInit()', () => {
+    const addSittingRecordsFGMock = new FormGroup(
+      {
+        JOH: new FormArray([
+          new FormGroup({
+            johName: new FormControl('JOH Name'),
+            johRole: new FormControl('Role1')
+          })
+        ]),
+        period: new FormControl('AM'),
+      }
+    );
+
+    spyOn(srWorkflowService, 'getAddSittingRecords').and.returnValue(addSittingRecordsFGMock);
     component.ngOnInit();
     expect(component.tribService).toEqual('Tribunal 1');
-    expect(component.venue).toEqual('Venue 1');
+    expect(component.venueSiteName).toEqual('Venue 1');
+    expect(srWorkflowService.getAddSittingRecords).toHaveBeenCalled();
+    expect(component.newSittingRecords).toEqual(addSittingRecordsFGMock);
   });
 });
 

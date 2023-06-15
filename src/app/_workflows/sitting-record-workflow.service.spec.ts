@@ -1,15 +1,23 @@
 import { TestBed } from '@angular/core/testing';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { SittingRecordWorkflowService } from './sitting-record-workflow.service';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 describe('SittingRecordWorkflowService', () => {
   let service: SittingRecordWorkflowService;
+  let httpMock: HttpTestingController;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
       providers: [SittingRecordWorkflowService]
     });
     service = TestBed.inject(SittingRecordWorkflowService);
+    httpMock= TestBed.inject(HttpTestingController);
+  });
+
+  afterEach(() => {
+    httpMock.verify();
   });
 
   it('should be created', () => {
