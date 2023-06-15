@@ -19,5 +19,5 @@ tags:
 idam-pr:
   enabled: true
   redirect_uris:
-    jps_judicial_payment_service:
+    jps_judicial_payment_frontend:
       - https://${SERVICE_FQDN}/oauth2/callback
