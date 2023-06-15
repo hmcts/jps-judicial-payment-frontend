@@ -71,7 +71,7 @@ export const getXuiNodeMiddleware = () => {
     issuerURL: issuerUrl,
     logoutURL: idamApiPath,
     responseTypes: ['code'],
-    scope: 'profile openid roles manage-user create-user search-user',
+    scope: 'profile openid roles',
     sessionKey: 'jps_judicial_payment_frontend',
     tokenEndpointAuthMethod: 'client_secret_post',
     tokenURL: tokenUrl,
