@@ -7,7 +7,7 @@ nodejs:
     REFORM_ENVIRONMENT: '{{ .Values.global.environment }}'
     NODE_ENV: production
     NODE_CONFIG_ENV: production
-    MICROSERVICE: jps_webapp
+    MICROSERVICE: jps_judicial_payment_frontend
     SESSION_SECRET: secretSauce
     ALLOW_CONFIG_MUTATIONS: 1
     NOW: false
