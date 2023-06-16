@@ -12,8 +12,8 @@ def yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)
 
 def secrets = [
   'jps-${env}': [
-    secret('mc-s2s-client-secret', 'S2S_SECRET'),
-    secret('mc-idam-client-secret', 'IDAM_SECRET'),
+    secret('jps-s2s-client-secret', 'S2S_SECRET'),
+    secret('jps-idam-client-secret', 'IDAM_SECRET'),
   ],
 ]
 
