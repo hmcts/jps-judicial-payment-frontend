@@ -1,3 +1,6 @@
+## Startup the Angular service locally
+
+Run `yarn start:ng` to start up the UI.
 # Judicial Payment Frontend
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) 
@@ -7,6 +10,20 @@
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=jps-judicial-payment-frontend&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=jps-judicial-payment-frontend) 
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=jps-judicial-payment-frontend&metric=coverage)](https://sonarcloud.io/summary/new_code?id=jps-judicial-payment-frontend)
 
+
+## Startup the Node service locally
+
+1. Make sure you have local-development.json within /config, if you do not you can get this from an JPS team member.
+2. Start the Node service locally using: 
+`export IDAM_SECRET=* && export S2S_SECRET=* && export NODE_CONFIG_DIR=../config && export NODE_CONFIG_ENV=development
+&& export ALLOW_CONFIG_MUTATIONS=1 && npm run start:node`
+
+Explanation: 
+
+NODE_CONFIG_DIR tells the machine where the configuration for the Node application is located.
+NODE_CONFIG_ENV=development sets the machine so that the config that is used is local-development.json
+
+@see https://github.com/lorenwest/node-config/wiki/Configuration-Files
 ## Description
 
 An intermediate digital solution which provides the Judicial Payments team with a consistent data set, that enables the payment of sitting hours for Tribunal Judicial Office Holders once that service moves their listing processes away from legacy/heritage tools into reform, and until the strategic solution is available.

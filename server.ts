@@ -8,12 +8,15 @@ import { join } from 'path';
 
 import { AppServerModule } from './src/main.server';
 import { HealthCheck } from './src/app/server/healthcheck';
+import { getXuiNodeMiddleware } from './api/auth';
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
   const server = express();
   const distFolder = join(process.cwd(), 'dist/jps-judicial-payment-frontend/browser');
   const indexHtml = existsSync(join(distFolder, 'index.original.html')) ? 'index.original.html' : 'index';
+
+  server.use(getXuiNodeMiddleware());
 
   // Our Universal express-engine (found @ https://github.com/angular/universal/tree/main/modules/express-engine)
   server.engine('html', ngExpressEngine({
@@ -24,6 +27,7 @@ export function app(): express.Express {
   server.set('views', distFolder);
 
   new HealthCheck().enableFor(server);
+
 
   // Example Express Rest API endpoints
   // server.get('/api/**', (req, res) => { });
