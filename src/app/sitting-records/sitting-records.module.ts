@@ -15,6 +15,9 @@ import { HttpClientModule } from '@angular/common/http';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { AddSittingRecordsConfirmComponent } from './add-sitting-record/add-sitting-records-confirm/add-sitting-records-confirm.component';
 import { DuplicateSittingRecordsComponent } from './duplicate-sitting-records/duplicate-sitting-records.component';
+import { PotentialDuplicateComponent } from './duplicate-sitting-records/potential-duplicate/potential-duplicate.component';
+import { InvalidDuplicateComponent } from './duplicate-sitting-records/invalid-duplicate/invalid-duplicate.component';
+import { ErrorSummaryComponent } from '../error-summary/error-summary.component'
 
 @NgModule({
   imports: [
@@ -36,7 +39,10 @@ import { DuplicateSittingRecordsComponent } from './duplicate-sitting-records/du
     AddSittingRecordSuccessComponent,
     NumberDirective,
     AddSittingRecordsConfirmComponent,
-    DuplicateSittingRecordsComponent
+    DuplicateSittingRecordsComponent,
+    PotentialDuplicateComponent,
+    InvalidDuplicateComponent,
+    ErrorSummaryComponent
   ]
 })
 export class SittingRecordsModule { }

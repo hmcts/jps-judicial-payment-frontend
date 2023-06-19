@@ -1,0 +1,15 @@
+@import '../../../../styles.scss';
+
+.userDefinedStyling{
+    background-color: govuk-colour("blue");
+    height: 100%;
+    width: 0.5rem;
+}
+
+.errorCellStyling{
+    background-color: adjust-color($color: $govuk-error-colour, $lightness: 50%);
+}
+
+.textIndent{
+    text-indent: 0.5rem;
+}

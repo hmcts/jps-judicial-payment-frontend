@@ -1,1 +1,17 @@
-<p>duplicate-sitting-records works!</p>
+<main class="govuk-main-wrapper " id="main-content" role="main">
+    <h1 class="govuk-heading-l">Records could not be saved</h1>
+    <app-error-summary [errorMessage]="'Potential duplicate found'"></app-error-summary>
+    <div *ngFor="let record of recordsWithErrors">
+        <app-potential-duplicate *ngIf=""></app-potential-duplicate>
+        <app-invalid-duplicate *ngIf=""></app-invalid-duplicate>
+    </div>
+    <div class="govuk-button-group">
+        <button class="govuk-button govuk-button--secondary" data-module="govuk-button" (click)="navigateToPreviousPage()">
+            Previous
+        </button>
+        <button class="govuk-button" data-module="govuk-button" (click)="resubmitSittingRecords()">
+            Continue
+        </button>
+    </div>
+    <a class="govuk-link" (click)="cancelCurrentFlow()">Cancel</a>
+</main>

@@ -28,7 +28,7 @@ export class AddSittingRecordsConfirmComponent{
   }
   submitNewRecords(){
     this.srWorkFlow.formAndPostNewSittingRecord(() =>{
-      this.router.navigate(['sittingRecords', 'addSuccess'])
+      this.router.navigate(['sittingRecords', 'addDuplicates'])
     })
   }
   convertPeriod(period){
