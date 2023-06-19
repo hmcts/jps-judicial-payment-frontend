@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { sittingRecordsPostObj, sittingRecordsPostBody } from '../_models/addSIttingRecords'
+import { SittingRecordsPostObj, SittingRecordsPostBody } from '../_models/addSittingRecords.model';
 import { DateService } from '../_services/date-service/date-service'
+import { SittingRecordsService } from '../_services/sitting-records-service/sitting-records.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,7 @@ export class SittingRecordWorkflowService {
     
   constructor(
     private dateSvc: DateService,
+    private sittingRecordsSvc: SittingRecordsService
   ) {}
 
 
@@ -46,7 +48,7 @@ export class SittingRecordWorkflowService {
     this.addSittingRecords = data;
   }
 
-  getAddSittingRecords(){
+  getAddSittingRecords(): FormGroup{
     return this.addSittingRecords;
   }
 
@@ -70,11 +72,22 @@ export class SittingRecordWorkflowService {
   formAndPostNewSittingRecord(callback){
     const { JOH, period } = this.addSittingRecords.controls;
     const { dateSelected, tribunalService, venue } = this.formData.value;
-    const postObj = new sittingRecordsPostBody();
+    const postBody = new SittingRecordsPostBody();
+    postBody.recordedByIdamId = '';
+    postBody.recordedByName = '';
   
     JOH.value.forEach(joh => {
-      const newSRPostObj = new sittingRecordsPostObj();
+      const newSRPostObj = new SittingRecordsPostObj();
   
+      newSRPostObj.hmctsServiceCode = tribunalService;
+      newSRPostObj.sittingDate = this.dateSvc.formatDateFromForm(dateSelected);
+      newSRPostObj.epimmsId = venue.epimms_id;
+      newSRPostObj.personalCode = joh.johName
+      //TODO: update below properties to use data retrieved from API call on addSR page
+      newSRPostObj.contractTypeId = ''
+      newSRPostObj.judgeRoleTypeId = joh.johRole;
+      newSRPostObj.replaceDuplicate = false;
+
       switch (period.value) {
         case 'am':
           newSRPostObj.AM = true;
@@ -89,19 +102,11 @@ export class SittingRecordWorkflowService {
           newSRPostObj.PM = true;
           break;
       }
-  
-      newSRPostObj.sittingDate = this.dateSvc.formatDateFromForm(dateSelected);
-      newSRPostObj.epimmsId = venue;
-      newSRPostObj.replaceDuplicate = false;
-      newSRPostObj.judgeRoleTypeId = joh.johRole;
-      newSRPostObj.hmctsServiceCode = tribunalService;
-      //TODO: update below properties to use data retrieved from API call on addSR page
-      newSRPostObj.personalCode = joh.johName
-      newSRPostObj.contractTypeId = ''
-
-      postObj.postedSittingRecords.push(newSRPostObj);
+      
+      postBody.recordedSittingRecords.push(newSRPostObj);
     });
   
+    this.sittingRecordsSvc.postNewSittingRecord(postBody);
     callback();
   }
   

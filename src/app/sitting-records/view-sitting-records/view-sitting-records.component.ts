@@ -19,7 +19,7 @@ export class ViewSittingRecordsComponent implements OnInit {
   }
 
   addNewRecord(){
-    this.router.navigate(['sittingRecords','add'])
+    void this.router.navigate(['sittingRecords','add'])
   }
 
   constructor(

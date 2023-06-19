@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-workflow.service';
 import { DateService } from '../../_services/date-service/date-service';
 import { Router } from '@angular/router';
@@ -11,8 +11,10 @@ import {
 import { HttpClient } from '@angular/common/http';
 import { debounceTime, filter, mergeMap, tap } from 'rxjs/operators';
 import { UserService } from '../../_services/user-service/user.service'
+import { UserInfoModel, UserModel } from '../../_models/user.model';
 import { AutoCompleteValidator } from '../../_validators/autoCompleteValidator/auto-complete-validator'
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
 @Component({
   selector: 'app-add-sitting-record',
@@ -20,31 +22,32 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./add-sitting-record.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
+
 export class AddSittingRecordComponent implements OnInit, OnDestroy {
 
   addSittingRecordsFG: FormGroup;
 
   tribService = "";
-  venue = "";
+  venueSiteName = "";
   date = "";
-  venueEpims: any;
-  userList: any[] = [ [], [], [] ];
-  userRoleList: any[] = [ {}, {}, {} ];
+  venueEpimmsId = "";
+  userList: any[] = [ [] as UserModel[], [] as UserModel[], [] as UserModel[]];
+  userRoleList: any[] = [ {} as UserInfoModel, {} as UserInfoModel[], {} as UserInfoModel ];
   searchTerm = [ "", "", "" ];
   usersFound = [ true, true, true ]
   subscriptions: Subscription[] = [];
 
   goBack() {
-    this.router.navigate(['sittingRecords', 'manage'])
+    void this.router.navigate(['sittingRecords', 'manage'])
   }
 
-  get johFormArray() {
-    return <FormArray>this.addSittingRecordsFG.get('JOH');
+  get johFormArray(): FormArray {
+    return this.addSittingRecordsFG?.controls['JOH'] as FormArray;
   }
 
   submitNewSittingRecord() {
     this.srWorkFlow.setAddSittingRecords(this.addSittingRecordsFG)
-    this.router.navigate(['sittingRecords', 'addConfirm'])
+    void this.router.navigate(['sittingRecords', 'addConfirm'])
   }
 
   addNewJoh() {
@@ -56,23 +59,22 @@ export class AddSittingRecordComponent implements OnInit, OnDestroy {
         })
       )
 
-        this.createValueChangesListener(this.johFormArray.length-1)
-
+      this.createValueChangesListener(this.johFormArray.length-1)
     }
   }
 
-  optionSelected(event, index){
-    const user = event.option.value
+  optionSelected(event: MatAutocompleteSelectedEvent, index: number){
+    const user = event.option.value as UserModel
     this.johFormArray.controls[index].get('johName')?.setValue(user)
-    this.userList[index] = []
+    this.userList[index] = [] as UserModel[]
     this.getUserRoles(user.personalCode, index)
   }
 
-  createValueChangesListener(index) {
+  createValueChangesListener(index: number) {
     const subscription = this.johFormArray.controls[index].get('johName')?.valueChanges
       .pipe(
           tap(() => this.usersFound[index] = true),
-          tap(() => this.userList[index] = []),
+          tap(() => this.userList[index] = [] as UserModel[]),
           tap(term => this.searchTerm[index] = term),
           filter(value => value.length >= 3),
           debounceTime(500),
@@ -88,22 +90,22 @@ export class AddSittingRecordComponent implements OnInit, OnDestroy {
     this.subscriptions.push(subscription as Subscription)
   }
 
-  public showUserName(value) {
+  public showUserName(value: UserModel) {
     if(value) { 
       return value.fullName; 
     }
     return ""
   }
 
-  getUserRoles(userPersonalCode, index){
+  getUserRoles(userPersonalCode: string, index: number){
     this.userSvc.getUserInfo(userPersonalCode)
     .subscribe(userRoleInfo => {
       this.userRoleList[index] = userRoleInfo;
     })
   }
 
-  getUsers(searchString){
-    return this.userSvc.getUsers(searchString, this.venueEpims)
+  getUsers(searchString: string): Observable<UserModel[]>{
+    return this.userSvc.getUsers(searchString, this.venueEpimmsId)
   }
 
   removeJoh(index: number) {
@@ -139,14 +141,14 @@ export class AddSittingRecordComponent implements OnInit, OnDestroy {
     const formData = this.srWorkFlow.getFormData().value;
     const { dateSelected, tribunalService, venue } = formData;
     this.tribService = tribunalService;
-    this.venue = venue.court_name;
-    this.venueEpims = venue.epimms_id;
+    this.venueSiteName = venue.site_name;
+    this.venueEpimmsId = venue.epimms_id;
     this.date = this.dateSvc.formatDateFromForm(dateSelected);
 
     if(this.srWorkFlow.getAddSittingRecords() && this.srWorkFlow.checkCameFromConfirm()){
       this.addSittingRecordsFG = this.srWorkFlow.getAddSittingRecords();
-      const johInData = this.addSittingRecordsFG.controls['JOH'] as FormArray
-      for(let i = 0; i < johInData.length; i++){
+        
+      for(let i = 0; i < this.johFormArray.length; i++){
         this.createValueChangesListener(i);
       }
     }

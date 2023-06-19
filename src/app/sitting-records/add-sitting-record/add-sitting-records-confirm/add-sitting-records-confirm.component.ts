@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { SittingRecordWorkflowService } from '../../../_workflows/sitting-record-workflow.service';
 import { Router } from '@angular/router';
+import { FormArray, FormGroup } from '@angular/forms';
+import { DateService } from '../../../_services/date-service/date-service';
 
 @Component({
   selector: 'app-add-sitting-records-confirm',
@@ -9,39 +11,41 @@ import { Router } from '@angular/router';
 })
 export class AddSittingRecordsConfirmComponent{
 
-  newSittingRecords;
+  newSittingRecords!: FormGroup;
 
   constructor(
     public srWorkFlow: SittingRecordWorkflowService,
+    private dateSvc: DateService,
     public router: Router,
   ) {
     this.newSittingRecords = this.srWorkFlow.getAddSittingRecords();
   }
+
   cancelAdd(){
     this.srWorkFlow.resetCameFromConfirm()
     this.srWorkFlow.resetAddSittingRecords()
-    this.router.navigate(['sittingRecords', 'manage'])
+    void this.router.navigate(['sittingRecords', 'manage'])
   }
+
   goBack(){
     this.srWorkFlow.setCameFromConfirm();
-    this.router.navigate(['sittingRecords', 'add'])
+    void this.router.navigate(['sittingRecords', 'add'])
   }
+
+  get johFormArray(): FormArray {
+    return this.newSittingRecords?.controls['JOH'] as FormArray;
+  }
+
   submitNewRecords(){
     this.srWorkFlow.formAndPostNewSittingRecord(() =>{
-      this.router.navigate(['sittingRecords', 'addDuplicates'])
+      void this.router.navigate(['sittingRecords', 'addDuplicates'])
+      
+      void this.router.navigate(['sittingRecords', 'addSuccess'])
     })
   }
-  convertPeriod(period){
-    switch(period){
-      case 'am':
-        return "Morning"
-      case 'pm':
-        return "Afternoon"
-      case 'both':
-        return "Full Day"
-      default:
-        return ''
-    }
+
+  convertPeriod(period: string): string {
+    return this.dateSvc.convertPeriod(period);
   }
 
 }

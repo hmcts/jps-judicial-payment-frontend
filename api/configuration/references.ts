@@ -17,6 +17,7 @@ export const COOKIES_USER_ROLE = 'cookies.userRole';
 
 export const SERVICES_LOCATION_API_PATH = 'services.location_api';
 export const SERVICES_USER_API_PATH = 'services.users_api';
+export const SERVICES_JPS_API_URL = 'services.jps_api';
 
 export const SERVICES_IDAM_API_URL = 'services.idam.idamApiUrl';
 export const SERVICES_IDAM_CLIENT_ID = 'services.idam.idamClientID';

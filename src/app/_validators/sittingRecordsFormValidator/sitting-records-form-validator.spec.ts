@@ -20,11 +20,14 @@ describe('ManageSittingRecord', () => {
         it('should return date_invalid error when day, month or year is invalid', () => {
             control.patchValue({ dateDay: '1', dateMonth: '13', dateYear: '2023' });
             control.get('dateDay')?.markAsTouched();
+            control.get('dateMonth')?.markAsTouched();
+            control.get('dateYear')?.markAsTouched();
             expect(ManageSittingRecord.validateDateFormat(control)).toEqual({ 'date_invalid': true });
 
             control.patchValue({ dateDay: '33', dateMonth: '1', dateYear: '2023' });
             control.get('dateDay')?.markAsTouched();
             control.get('dateMonth')?.markAsTouched();
+            control.get('dateYear')?.markAsTouched();
             expect(ManageSittingRecord.validateDateFormat(control)).toEqual({ 'date_invalid': true });
 
             control.patchValue({ dateDay: '01', dateMonth: '02', dateYear: '23' });

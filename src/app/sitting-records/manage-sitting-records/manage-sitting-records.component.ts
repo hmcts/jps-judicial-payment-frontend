@@ -6,7 +6,7 @@ import {
   AbstractControl
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ManageSittingRecord } from '../../_validators/sitting-records-form-validator';
+import { ManageSittingRecord } from '../../_validators/sittingRecordsFormValidator/sitting-records-form-validator';
 import { Observable } from 'rxjs';
 import { debounceTime, filter, mergeMap, tap } from 'rxjs/operators';
 import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-workflow.service';

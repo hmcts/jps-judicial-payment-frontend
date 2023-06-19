@@ -17,6 +17,7 @@
         },
         "location_api": "http://rd-location-ref-api-aat.service.core-compute-aat.internal",
         "users_api": "http://rd-judicial-api-aat.service.core-compute-aat.internal",
+        "jps_api": "https://jps-judicial-payment-service-pr-62.preview.platform.hmcts.net",
         "s2s": "http://rpe-service-auth-provider-prod.service.core-compute-prod.internal"
     },
     "microservice": "xui_webapp",

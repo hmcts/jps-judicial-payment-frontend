@@ -1,9 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { CookieService } from 'ngx-cookie-service';
-import { Observable } from 'rxjs';
-
 import { UserService } from './user.service';
+import { UserModel } from '../../_models/user.model';
 
 describe('UserService', () => {
     let service: UserService;
@@ -26,12 +25,30 @@ describe('UserService', () => {
     });
 
     it('should retrieve users successfully', () => {
-        const mockUsers: any[] = [{ id: 1, name: 'John' }, { id: 2, name: 'Jane' }];
+        const mockUsers: UserModel[] = [
+            {
+                title: '',
+                knownAs: 'John',
+                surname: '',
+                fullName: '',
+                emailId: '',
+                idamId: '',
+                personalCode: ''
+            },
+            {
+                title: '',
+                knownAs: 'Jane',
+                surname: '',
+                fullName: '',
+                emailId: '',
+                idamId: '',
+                personalCode: ''
+            }
+        ];
         const searchTerm = 'John';
         const venueEpims = 'Venue';
 
         spyOn(cookieService, 'get').and.returnValue('token');
-
 
         service.getUsers(searchTerm, venueEpims).subscribe(users => {
             expect(users).toEqual(mockUsers);

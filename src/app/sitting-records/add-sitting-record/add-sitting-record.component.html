@@ -1,7 +1,7 @@
 <main class="govuk-main-wrapper " id="main-content" role="main">
 
     <span class="govuk-caption-l">
-        Add Sitting records for {{tribService}}, {{venue}}, for {{date}}
+        Add Sitting records for {{tribService}}, {{venueSiteName}}, for {{date}}
     </span>
     <h1 class="govuk-heading-l">
         Select the Judicial office holders (JOH) associated with this sitting
@@ -63,7 +63,7 @@
                             >
                             <option [ngValue]="null" disabled selected>--Select a value--</option>
                             <option [ngValue]="'1'">-- 1 --</option>
-                            <!-- <option [ngValue]="role" *ngFor="let role of userRoleList[i]?.appointments[0]?.roles">{{role}}</option> -->
+                            <!-- <option [ngValue]="role" *ngFor="let role of userRoleList[i]?.appointments">{{role.appointment_type}}</option> -->
                         </select>
                     </div>
                 </div>

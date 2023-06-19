@@ -1,7 +1,7 @@
 <main class="govuk-main-wrapper " id="main-content" role="main">
 
     <span class="govuk-caption-l govuk-!-static-margin-bottom-3">
-        Add Sitting records for {{tribService}}, {{venue}}, for {{date}}
+        Add Sitting records for {{tribService}}, {{venueSiteName}}, for {{date}}
     </span>
 
     <div class="govuk-panel govuk-panel--confirmation">
@@ -25,15 +25,15 @@
                 Entered By
             </dt>
         </div>
-        <div class="govuk-summary-list__row" *ngFor="let joh of newSittingRecords.controls['JOH'].controls">
+        <div class="govuk-summary-list__row" *ngFor="let joh of johFormArray?.controls">
             <dd class="govuk-summary-list__value">
-                {{joh.controls['johName']?.value?.fullName}}
+                {{joh.get('johName')?.value?.fullName}}
             </dd>
             <dd class="govuk-summary-list__value">
-                {{joh.controls['johRole']?.value}}
+                {{joh.get('johRole')?.value}}
             </dd>
             <dd class="govuk-summary-list__value">
-                {{convertPeriod(newSittingRecords.controls['period'].value)}}
+                {{convertPeriod(newSittingRecords.get('period')?.value)}}
             </dd>
             <dd class="govuk-summary-list__value">
                 XXX
