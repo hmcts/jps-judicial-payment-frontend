@@ -30,6 +30,6 @@ nodejs:
 
   # Don't modify below here
   image: 'hmctspublic.azurecr.io/jps/judicial-payment-frontend:latest'
-  ingressHost: judicial-payments.{{ .Values.global.environment }}.platform.hmcts.net
+  ingressHost: jps.{{ .Values.global.environment }}.platform.hmcts.net
 idam-pr:
   enabled: false

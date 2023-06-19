@@ -1,9 +1,0 @@
----
-service:
-  name: 'jps-judicial-payment-frontend'
-environment: 'prod'
-services:
-  jps-judicial-payment-service:
-    enabled: true
-    url: 'http://localhost:4001'
-    port: 4001
