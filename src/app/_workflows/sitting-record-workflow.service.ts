@@ -69,7 +69,7 @@ export class SittingRecordWorkflowService {
     this.cameFromConfirm = false;
   }
 
-  formAndPostNewSittingRecord(callback){
+  formAndPostNewSittingRecord(){
     const { JOH, period } = this.addSittingRecords.controls;
     const { dateSelected, tribunalService, venue } = this.formData.value;
     const postBody = new SittingRecordsPostBody();
@@ -106,8 +106,7 @@ export class SittingRecordWorkflowService {
       postBody.recordedSittingRecords.push(newSRPostObj);
     });
   
-    this.sittingRecordsSvc.postNewSittingRecord(postBody);
-    callback();
+    return this.sittingRecordsSvc.postNewSittingRecord(postBody);
   }
   
 }

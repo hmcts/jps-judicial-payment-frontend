@@ -37,10 +37,13 @@ export class AddSittingRecordsConfirmComponent{
   }
 
   submitNewRecords(){
-    this.srWorkFlow.formAndPostNewSittingRecord(() =>{
-      void this.router.navigate(['sittingRecords', 'addDuplicates'])
-      
-      void this.router.navigate(['sittingRecords', 'addSuccess'])
+    this.srWorkFlow.formAndPostNewSittingRecord()
+    .subscribe((response) => {
+      if(response['errorCodes'].length === 0){
+        void this.router.navigate(['sittingRecords', 'addSuccess'])
+      }else{
+        void this.router.navigate(['sittingRecords', 'addDuplicates'])
+      }
     })
   }
 
