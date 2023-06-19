@@ -21,7 +21,7 @@ export class ViewSittingRecordsComponent implements OnInit {
   showFilters = false;
 
   goBack(){
-    this.router.navigate(['sittingRecords','manage'])
+    void this.router.navigate(['sittingRecords','manage'])
   }
 
   getPeriod(am: string, pm: string){

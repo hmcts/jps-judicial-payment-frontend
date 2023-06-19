@@ -1,25 +1,27 @@
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-workflow.service';
-
 import { SittingRecordsGuard } from './sitting-records.guard';
 
 describe('SittingRecordsGuard', () => {
   let guard: SittingRecordsGuard;
-  let mockWorkflowService: any;
-  let mockRouter: any;
+  let mockWorkflowService: jasmine.SpyObj<SittingRecordWorkflowService>;
+  let mockRouter: Router;
 
   beforeEach(() => {
-    mockWorkflowService = jasmine.createSpyObj(['getManageVisited']);
-    mockRouter = jasmine.createSpyObj(['navigate']);
+    const mockWorkflowServiceSpy = jasmine.createSpyObj('SittingRecordWorkflowService',['getManageVisited']);
+    const mockRouterSpy = jasmine.createSpyObj('Router',['navigate']);
 
     TestBed.configureTestingModule({
       providers: [
-        { provide: SittingRecordWorkflowService, useValue: mockWorkflowService },
-        { provide: Router, useValue: mockRouter },
+        { provide: SittingRecordWorkflowService, useValue: mockWorkflowServiceSpy },
+        { provide: Router, useValue: mockRouterSpy }
       ]
     });
     guard = TestBed.inject(SittingRecordsGuard);
+    mockRouter = TestBed.inject(Router);
+    mockWorkflowService = TestBed.inject(SittingRecordWorkflowService) as jasmine.SpyObj<SittingRecordWorkflowService>;
+
   });
 
   it('should return true if manageVisited is true', () => {

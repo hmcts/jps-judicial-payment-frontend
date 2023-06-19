@@ -11,7 +11,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 describe('ViewSittingRecordsComponent', () => {
   let component: ViewSittingRecordsComponent;
   let fixture: ComponentFixture<ViewSittingRecordsComponent>;
-  let mockSrWorkflowService: SittingRecordWorkflowService
+  let mockSrWorkflowService: { getFormData: { and: { returnValue: (arg0: { value: { dateSelected: { dateDay: string; dateMonth: string; dateYear: string; }; tribunalService: string; venue: {site_name: string;} }; }) => void; }; }; };
   let mockDateService: { formatDateFromForm: { and: { returnValue: (arg0: string) => void; }; }; };
   let mockRouter: { navigate: unknown; };
 

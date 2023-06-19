@@ -11,7 +11,7 @@ export async function getLocations(req, res) {
     try {
         const headers = {
             'Content-Type': 'application/json',
-            "Authorization": 'Bearer ' + authorization,
+            'Authorization': 'Bearer ' + authorization,
             'ServiceAuthorization': serviceauthorization
         };
 
