@@ -6,7 +6,7 @@ function loginWithJPSAdminUser(username, password) {
   I.fillField('username', 'jps-admin@gmail.com');
   I.fillField('password', 'password');
   I.click("Sign in");
-  I.see("Welcome");
+  I.see("Welcomeee");
 }
 
 module.exports = { loginWithJPSAdminUser }
