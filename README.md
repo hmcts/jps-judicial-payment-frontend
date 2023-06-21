@@ -15,8 +15,7 @@ Run `yarn start:ng` to start up the UI.
 
 1. Make sure you have local-development.json within /config, if you do not you can get this from an JPS team member.
 2. Start the Node service locally using: 
-`export IDAM_SECRET=* && export S2S_SECRET=* && export NODE_CONFIG_DIR=../config && export NODE_CONFIG_ENV=development
-&& export ALLOW_CONFIG_MUTATIONS=1 && npm run start:node`
+`export IDAM_SECRET=* && export S2S_SECRET=* && export NODE_CONFIG_DIR=../config && export NODE_CONFIG_ENV=development && export ALLOW_CONFIG_MUTATIONS=1 && npm run start:node`
 
 Explanation: 
 
@@ -85,20 +84,21 @@ the following command:
 ```bash
 $ yarn test
 ```
+### Running the functional tests
+To run the functional tests locally, ensure that local-development.json is configured to point to Idam AAT.
 
-Here's how to run functional tests (to be implemented):
-
+* Here's how to run functional tests:
 ```bash
 $ yarn test:functional
 ```
-
-Running accessibility tests (to be implemented):
-
+* To tag a specific scenario or feature, the --grep option can be used. For example:
 ```bash
-$ yarn test:a11y
+$ yarn test:functional --grep @F-001
 ```
-
-Make sure all the paths in your application are covered by accessibility tests).
+* By default, tests run in headless mode. However, if you wish to see the browser window while the tests are running, you can set the HEADLESS environment variable to false:
+```bash
+$ export HEADLESS=false yarn test:functional
+```
 
 ## License
 
