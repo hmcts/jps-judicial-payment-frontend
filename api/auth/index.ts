@@ -44,7 +44,7 @@ export const successCallback = (req: EnhancedRequest, res: Response, next: NextF
 };
 
 export const failureCallback = (req: EnhancedRequest, res: Response, next: NextFunction) => {
-  const errorMsg = `Auth Error: ${res.locals.message}`;
+  const errorMsg = `Auth Error: ${res.locals['message']}`;
 }
 
 xuiNode.on(AUTH.EVENT.AUTHENTICATE_SUCCESS, successCallback);
@@ -61,6 +61,13 @@ export const getXuiNodeMiddleware = () => {
   const s2sSecret = getConfigValue(S2S_SECRET);
   const tokenUrl = `${getConfigValue(SERVICES_IDAM_API_URL)}/oauth2/token`;
 
+  console.log('IDAM SECRET: ' + secret);
+  console.log('s2sSECRET: ' + s2sSecret);
+  console.log('IDAM_LOGIN_URL: ' + idamWebUrl);
+  console.log('IDAM_CLIENT_ID: ' + idamClient);
+  console.log('IDAM_ISS_URL: ' + issuerUrl);
+  console.log('IDAM_API_URL: ' + idamApiPath);
+ 
   //TODO: we can move these out into proper config at some point to tidy up even further
   const options: AuthOptions = {
     allowRolesRegex: getConfigValue(LOGIN_ROLE_MATCHER),
@@ -72,8 +79,8 @@ export const getXuiNodeMiddleware = () => {
     issuerURL: issuerUrl,
     logoutURL: idamApiPath,
     responseTypes: ['code'],
-    scope: 'profile openid roles manage-user create-user search-user',
-    sessionKey: 'jps-webapp',
+    scope: 'profile openid roles',
+    sessionKey: 'jps_judicial_payment_frontend',
     tokenEndpointAuthMethod: 'client_secret_post',
     tokenURL: tokenUrl,
     useRoutes: true,
@@ -85,7 +92,7 @@ export const getXuiNodeMiddleware = () => {
       maxAge: 28800000,
       secure: showFeature(FEATURE_SECURE_COOKIE_ENABLED),
     },
-    name: 'jps-webapp',
+    name: 'jps_judicial_payment_frontend',
     resave: false,
     saveUninitialized: false,
     secret: getConfigValue(SESSION_SECRET),
