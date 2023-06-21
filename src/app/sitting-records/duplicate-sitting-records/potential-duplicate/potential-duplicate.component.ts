@@ -8,11 +8,12 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class PotentialDuplicateComponent {
   
   @Input() recordData;
-  @Output() valueChanges = new EventEmitter<any>();
+  @Output() valueChange = new EventEmitter<any>();
   
   selectedValue: any;
 
   updateSelection(newValue: any){
     this.selectedValue = newValue
+    this.valueChange.emit(this.selectedValue);
   }
 }

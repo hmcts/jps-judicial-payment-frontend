@@ -3,6 +3,7 @@ import { SittingRecordWorkflowService } from '../../../_workflows/sitting-record
 import { Router } from '@angular/router';
 import { FormArray, FormGroup } from '@angular/forms';
 import { DateService } from '../../../_services/date-service/date-service';
+import { DuplicateRecordWorkflowService } from '../../../_workflows/duplicate-record-workflow.service'
 
 @Component({
   selector: 'app-add-sitting-records-confirm',
@@ -15,6 +16,7 @@ export class AddSittingRecordsConfirmComponent{
 
   constructor(
     public srWorkFlow: SittingRecordWorkflowService,
+    public drWorkFlow: DuplicateRecordWorkflowService,
     private dateSvc: DateService,
     public router: Router,
   ) {
@@ -39,9 +41,11 @@ export class AddSittingRecordsConfirmComponent{
   submitNewRecords(){
     this.srWorkFlow.formAndPostNewSittingRecord()
     .subscribe((response) => {
-      if(response['errorCodes'].length === 0){
+      const errorRecords = response['errorRecords']
+      if(errorRecords.length === 0){
         void this.router.navigate(['sittingRecords', 'addSuccess'])
       }else{
+        this.drWorkFlow.setErrorRecords(errorRecords)
         void this.router.navigate(['sittingRecords', 'addDuplicates'])
       }
     })

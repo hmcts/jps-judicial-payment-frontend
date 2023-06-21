@@ -30,8 +30,8 @@
                     <div class="govuk-radios__item govuk-!-margin-0">
                         <input class="govuk-radios__input" id="changed-name" 
                             name="record-selected" 
-                            type="radio" value="inputted"
-                            (change)="updateSelection('value')"
+                            type="radio" value="true"
+                            (change)="updateSelection(true)"
                         >
                         <label class="govuk-label govuk-radios__label govuk-!-padding-0" for="changed-name">
                             &nbsp;
@@ -55,7 +55,11 @@
             <td class="govuk-table__cell"> 
                 <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
                     <div class="govuk-radios__item govuk-!-margin-0">
-                        <input class="govuk-radios__input" id="changed-name" name="record-selected" type="radio" value="existing">
+                        <input class="govuk-radios__input" id="changed-name" 
+                        name="record-selected" 
+                        type="radio" value="false"
+                        (change)="updateSelection(false)"
+                        >
                         <label class="govuk-label govuk-radios__label govuk-!-padding-0" for="changed-type">
                             &nbsp;
                         </label>

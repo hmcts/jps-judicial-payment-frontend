@@ -66,9 +66,7 @@ describe('AddSittingRecordsConfirmComponent', () => {
   });
 
   it('should call formAndPostNewSittingRecord and navigate to "sittingRecords/addSuccess" when submitNewRecords is called', () => {
-    spyOn(srWorkFlow, 'formAndPostNewSittingRecord').and.callFake((callback) => {
-      callback();
-    });
+    spyOn(srWorkFlow, 'formAndPostNewSittingRecord');
     spyOn(router, 'navigate');
 
     component.submitNewRecords();
