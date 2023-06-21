@@ -7,34 +7,30 @@ import { Router } from '@angular/router';
 import { DataTablesModule } from 'angular-datatables';
 import { HttpClientModule } from '@angular/common/http';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { ViewSittingRecordResponse } from 'src/app/_models/viewSittingRecords.model';
+import { of } from 'rxjs';
 
 describe('ViewSittingRecordsComponent', () => {
   let component: ViewSittingRecordsComponent;
   let fixture: ComponentFixture<ViewSittingRecordsComponent>;
-  let mockSrWorkflowService: { getFormData: { and: { returnValue: (arg0: { value: { dateSelected: { dateDay: string; dateMonth: string; dateYear: string; }; tribunalService: string; venue: {site_name: string;} }; }) => void; }; }; };
-  let mockDateService: { formatDateFromForm: { and: { returnValue: (arg0: string) => void; }; }; };
-  let mockRouter: { navigate: unknown; };
+  let mockRouter: Router;
+  let mockSRWorkflowService: SittingRecordWorkflowService;
+  let mockDateSvc: DateService;
 
   beforeEach(() => {
-    mockDateService = jasmine.createSpyObj(['formatDateFromForm']);
-    mockRouter = jasmine.createSpyObj(['navigate']);
-
     TestBed.configureTestingModule({
       declarations: [ ViewSittingRecordsComponent ],
-      providers: [
-        SittingRecordWorkflowService,
-        { provide: DateService, useValue: mockDateService },
-        { provide: Router, useValue: mockRouter }
-      ],
+      providers: [ SittingRecordWorkflowService, DateService ],
       imports: [RouterTestingModule, DataTablesModule, HttpClientModule]
-    })
-    .compileComponents();
+    }).compileComponents();
+  });
 
-    mockSrWorkflowService = TestBed.inject(SittingRecordWorkflowService);
-
-
+  beforeEach(() => {
     fixture = TestBed.createComponent(ViewSittingRecordsComponent);
     component = fixture.componentInstance;
+    mockRouter = TestBed.inject(Router);
+    mockSRWorkflowService = TestBed.inject(SittingRecordWorkflowService);
+    mockDateSvc = TestBed.inject(DateService)
   });
 
   it('should create', () => {
@@ -42,41 +38,41 @@ describe('ViewSittingRecordsComponent', () => {
   });
 
   it('should populate the form data on init', () => {
-    const mockFormData: FormGroup = new FormBuilder().group({
+    const formattedDate = '2022-01-01';
+    const formDataMock: FormGroup = new FormBuilder().group({
       dateSelected: ['2022-01-01'],
-      tribunalService: ['Mock Tribunal Service'],
-      venue: ['Mock Venue'],
+      tribunalService: ['Tribunal 1'],
+      venue: { site_name: 'Venue 1' }
     });
-    const formattedDate = '01/01/2022';
-    mockSrWorkflowService.setFormData(mockFormData)
-    mockDateService.formatDateFromForm.and.returnValue(formattedDate);
+    const response: ViewSittingRecordResponse = {
+      "sittingRecords": []
+    }
+
+    mockSRWorkflowService.setFormData(formDataMock);
     fixture.detectChanges();
-    expect(mockDateService.formatDateFromForm).toHaveBeenCalledWith(mockFormData.controls['dateSelected'].value);
-    expect(component.tribService).toBe(mockFormData.controls['tribunalService'].value);
-    expect(component.venue).toBe(mockFormData.controls['venue'].value);
+    spyOn(mockDateSvc, 'formatDateFromForm').and.returnValue(formattedDate);
+    spyOn(mockSRWorkflowService, 'getSittingRecordsData').and.returnValue(of(response));
+    
+    component.ngOnInit();
+    
+    expect(mockDateSvc.formatDateFromForm).toHaveBeenCalledWith(formDataMock.controls['dateSelected'].value);
+    expect(component.tribService).toBe(formDataMock.controls['tribunalService'].value);
+    expect(component.venueSiteName).toBe(formDataMock.controls['venue'].value.site_name);
     expect(component.date).toBe(formattedDate);
+    expect(component.sittingRecordData).toBe(response.sittingRecords);
   });
 
   it('should navigate to the manage page on goBack', () => {
+    spyOn(mockRouter, 'navigate');
     component.goBack();
     expect(mockRouter.navigate).toHaveBeenCalledWith(['sittingRecords','manage']);
   });
 
-  describe('getPeriod', () => {
-    it('should return "Full Day" when am and pm are true', () => {
-      expect(component.getPeriod("true", "true")).toEqual('Full Day');
-    });
+  it('getPeriod should convert the period correctly', () => {
+    spyOn(mockDateSvc,'getPeriod').and.returnValue('Full Day');
+    expect(component.getPeriod('true','true')).toEqual('Full Day');
+    expect(mockDateSvc.getPeriod).toHaveBeenCalledWith('true','true');
   
-    it('should return "Morning" when am is true and pm is false', () => {
-      expect(component.getPeriod("true", "false")).toEqual('Morning');
-    });
-  
-    it('should return "Afternoon" when pm is true and am is false', () => {
-      expect(component.getPeriod("false", "true")).toEqual('Afternoon');
-    });
-  
-    it('should return an empty string when both am and pm are false', () => {
-      expect(component.getPeriod("false", "false")).toEqual('');
-    });
   });
+ 
 });

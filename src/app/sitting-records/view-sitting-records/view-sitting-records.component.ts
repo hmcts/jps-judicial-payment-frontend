@@ -3,6 +3,7 @@ import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-wo
 import { DateService } from '../../_services/date-service/date-service';
 import { Router } from '@angular/router';
 import { defaultDtOptions }  from '../../_services/default-dt-options'
+import { SittingRecord } from 'src/app/_models/viewSittingRecords.model';
 
 @Component({
   selector: 'app-view-sitting-records',
@@ -12,11 +13,11 @@ import { defaultDtOptions }  from '../../_services/default-dt-options'
 export class ViewSittingRecordsComponent implements OnInit {
 
   tribService = "";
-  venue = "";
+  venueSiteName = "";
   date = "";
 
   dtOptions: DataTables.Settings = {};
-  sittingRecordData;
+  sittingRecordData: SittingRecord[] = [];
 
   showFilters = false;
 
@@ -24,13 +25,8 @@ export class ViewSittingRecordsComponent implements OnInit {
     void this.router.navigate(['sittingRecords','manage'])
   }
 
-  getPeriod(am: string, pm: string){
-    const amBool = am === 'true' ? true : false
-    const pmBool = pm === 'true' ? true : false
-    if(amBool && pmBool){ return "Full Day" }
-    if(amBool){ return "Morning" }
-    if(pmBool){ return "Afternoon" }
-    return ""
+  getPeriod(am: string, pm: string): string {
+    return this.dateSvc.getPeriod(am, pm);
   }
 
   constructor(
@@ -43,11 +39,12 @@ export class ViewSittingRecordsComponent implements OnInit {
     const formData = this.srWorkFlow.getFormData().value;
     const { dateSelected, tribunalService, venue } = formData;
     this.tribService = tribunalService;
-    this.venue = venue.site_name;
+    this.venueSiteName = venue.site_name;
     this.date = this.dateSvc.formatDateFromForm(dateSelected);
 
-    this.sittingRecordData = this.srWorkFlow.getTableData();
-
+    this.srWorkFlow.getSittingRecordsData().subscribe(records => {
+      this.sittingRecordData = records.sittingRecords });
+    
     this.dtOptions = {
       ...defaultDtOptions, 
       columnDefs:[

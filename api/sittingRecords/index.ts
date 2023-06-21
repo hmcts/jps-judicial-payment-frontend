@@ -1,8 +1,8 @@
 import { getConfigValue } from '../configuration';
-import { SERVICES_LOCATION_API_PATH } from '../configuration/references';
+import { SERVICES_JPS_API_URL } from '../configuration/references';
 import axios, { AxiosRequestConfig } from 'axios';
 
-const url = 'http://localhost:4550'
+const url: string = getConfigValue(SERVICES_JPS_API_URL);
 
 export async function getSittingRecords(req, res) {
     const { authorization, serviceauthorization } = req.headers;

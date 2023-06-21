@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { ViewSittingRecordHttp } from '../_services/view-sitting-records-http-service'
-import { ViewSittingRecordPost } from '../_models/view-sitting-records-post'
+import { ViewSittingRecordService } from '../_services/sitting-records-service/view-sitting-records-service'
+import { ViewSittingRecordPost } from '../_models/viewSittingRecords.model'
 import { DateService } from '../_services/date-service/date-service'
 
 @Injectable({
@@ -13,7 +13,7 @@ export class SittingRecordWorkflowService {
   hasVisitedManage = false; 
 
   constructor(
-    private ViewSittingRecordHttpService: ViewSittingRecordHttp,
+    private ViewSittingRecordService: ViewSittingRecordService,
     private dateSvc: DateService
   ){}
 
@@ -38,7 +38,7 @@ export class SittingRecordWorkflowService {
     this.formData.reset();
   }
 
-  formPostObject(){
+  getSittingRecordsData() {
     const postObj = new ViewSittingRecordPost();
     const { dateSelected, venue } = this.formData.value;
     const dateToGet = this.dateSvc.formatDateFromForm(dateSelected)
@@ -47,13 +47,8 @@ export class SittingRecordWorkflowService {
     postObj.dateRangeTo = dateToGet
     postObj.dateOrder = "ASCENDING"
     postObj.duration = "FULL_DAY"
-    //TODO: add logic below to add in filter functionality
-    console.log(postObj)
-    return postObj
-  }
 
-  getTableData() {
-    return this.ViewSittingRecordHttpService.postObject(this.formPostObject())
+    return this.ViewSittingRecordService.postObject(postObj);
   }
 
 }

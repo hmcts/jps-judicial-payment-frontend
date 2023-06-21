@@ -1,22 +1,20 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
-import { ViewSittingRecordPost } from '../_models/view-sitting-records-post'
+import { ViewSittingRecordPost, ViewSittingRecordResponse } from '../../_models/viewSittingRecords.model'
 import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ViewSittingRecordHttp {
-
-  private viewRecordsURL = '/sittingRecords/searchSittingRecords';
+export class ViewSittingRecordService {
 
   constructor(
     private http: HttpClient,
     private readonly cookies: CookieService
   ) { }
 
-  postObject(data: ViewSittingRecordPost): Observable<any> {
+  postObject(data: ViewSittingRecordPost): Observable<ViewSittingRecordResponse> {
     
     const S2SToken: string  = this.cookies.get('__serviceauth__');
     const authToken: string = this.cookies.get('__auth__')
@@ -30,16 +28,6 @@ export class ViewSittingRecordHttp {
       params: {'hmctsServiceCode': 'BBA3'}
     };
 
-    return this.http.post<ViewSittingRecordPost>(this.viewRecordsURL, data, httpOptions).pipe(
-      map(
-        (response) => {
-          if(response){
-            return response
-          }else{
-            return []
-          }
-        }
-      )
-    );
+    return this.http.post<ViewSittingRecordResponse>('/sittingRecords/searchSittingRecords', data, httpOptions);
   }
 }
