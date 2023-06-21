@@ -2,7 +2,7 @@ Feature('Login Page @functional');
 
 Scenario('Successful login @F-001.1',({ I}) => {
   I.loginWithJPSRecorderUser();
-  I.see('Welcomeee');
+  I.see('Welcome');
 });
 
 Scenario('Show an error message for invalid password @F-001.2',({ I}) => {
