@@ -129,6 +129,7 @@
               "sourceMap": true,
               "extractLicenses": false,
               "vendorChunk": true
+              
             }
           },
           "defaultConfiguration": "production"

@@ -2366,6 +2366,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@hmcts/cookie-manager@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "@hmcts/cookie-manager@npm:1.0.0"
+  checksum: 7b9aacd5510f296fad664cbce2ad3bde1dfbe6276f79e05ecd7f3a437fd6b5415b95a202354a4ad2d2bb41ad4ddda436202e757eca8d106ddf1d28d801169657
+  languageName: node
+  linkType: hard
+
 "@hmcts/nodejs-logging@npm:^4.0.4":
   version: 4.0.4
   resolution: "@hmcts/nodejs-logging@npm:4.0.4"
@@ -10784,6 +10791,7 @@ __metadata:
     "@codeceptjs/configure": ^0.10.0
     "@codeceptjs/examples": ^1.2.1
     "@codeceptjs/ui": ^0.5.0
+    "@hmcts/cookie-manager": ^1.0.0
     "@hmcts/properties-volume": ^0.0.14
     "@hmcts/rpx-xui-node-lib": ^2.26.13
     "@ngrx/store": ^15.4.0

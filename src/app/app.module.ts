@@ -7,12 +7,16 @@ import { JPHeaderComponent } from './jp-header/jp-header.component';
 import { SittingRecordsModule } from './sitting-records/sitting-records.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
+import { CookieManagerComponent } from './cookies/cookie-manager/cookie-manager.component';
+import { CookiePolicyComponent } from './cookies/cookie-policy/cookie-policy.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     JPFooterComponent,
     JPHeaderComponent,
+    CookieManagerComponent,
+    CookiePolicyComponent,
   ],
   imports: [
     HttpClientModule,

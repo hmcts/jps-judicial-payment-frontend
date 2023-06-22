@@ -9,6 +9,17 @@ import { join } from 'path';
 import { AppServerModule } from './src/main.server';
 import { HealthCheck } from './src/app/server/healthcheck';
 import { getXuiNodeMiddleware } from './api/auth';
+import refDataRouter from './api/refdata/routes';
+
+const errorHandler = ((err, req, res, next) => {
+  console.error(err);
+  res.status(err.status || 500);
+  res.json({
+    error: {
+      message: err.message || 'Internal Server Error',
+    },
+  });
+});
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
@@ -17,6 +28,7 @@ export function app(): express.Express {
   const indexHtml = existsSync(join(distFolder, 'index.original.html')) ? 'index.original.html' : 'index';
 
   server.use(getXuiNodeMiddleware());
+  server.use('/refdata', refDataRouter, errorHandler)
 
   // Our Universal express-engine (found @ https://github.com/angular/universal/tree/main/modules/express-engine)
   server.engine('html', ngExpressEngine({
@@ -45,7 +57,7 @@ export function app(): express.Express {
 }
 
 function run(): void {
-  const port = process.env['PORT'] || 4000;
+  const port = process.env['PORT'] || 3000;
 
   // Start up the Node server
   const server = app();
