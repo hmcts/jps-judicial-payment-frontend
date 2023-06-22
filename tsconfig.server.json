@@ -5,7 +5,6 @@
     "outDir": "./out-tsc/server",
     "types": [
       "node", 
-      "mocha", 
       "rxjs"
     ],
     "target": "ESNext"

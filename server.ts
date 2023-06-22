@@ -12,11 +12,11 @@ import { getXuiNodeMiddleware } from './api/auth';
 import refDataRouter from './api/refdata/routes';
 
 const errorHandler = ((err, req, res, next) => {
-  console.error(err);
-  res.status(err.status || 500);
+  const error = err.response
+  res.status(error.status || 500);
   res.json({
     error: {
-      message: err.message || 'Internal Server Error',
+      message: `${error.statusText}: ${error.data.errorDescription}` || 'Internal Server Error',
     },
   });
 });
@@ -26,6 +26,7 @@ export function app(): express.Express {
   const server = express();
   const distFolder = join(process.cwd(), 'dist/jps-judicial-payment-frontend/browser');
   const indexHtml = existsSync(join(distFolder, 'index.original.html')) ? 'index.original.html' : 'index';
+  server.use(express.json())
 
   server.use(getXuiNodeMiddleware());
   server.use('/refdata', refDataRouter, errorHandler)

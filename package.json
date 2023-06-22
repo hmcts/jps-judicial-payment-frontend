@@ -17,7 +17,7 @@
     "test:functional": "HEADLESS=true codeceptjs run -c ./test/end-to-end/codecept.conf.js --grep @functional --steps --reporter mochawesome",
     "cichecks": "yarn && yarn build:ssr && ng lint && yarn test",
     "lint": "ng lint",
-    "dev:ssr": "ng run jps-judicial-payment-frontend:serve-ssr DEBUG=xuiNode:*,-xuiNode:auth:s2s",
+    "dev:ssr": "ng run jps-judicial-payment-frontend:serve-ssr --port 3000",
     "serve:ssr": "node dist/jps-judicial-payment-frontend/server/main.js",
     "build:ssr": "yarn run ng build && yarn run ng run jps-judicial-payment-frontend:server",
     "prerender": "ng run jps-judicial-payment-frontend:prerender"
