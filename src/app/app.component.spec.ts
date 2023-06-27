@@ -4,6 +4,8 @@ import { AppComponent } from './app.component';
 import { JPFooterComponent } from './jp-footer/jp-footer.component';
 import { JPHeaderComponent } from './jp-header/jp-header.component';
 import { CookieManagerComponent } from './cookies/cookie-manager/cookie-manager.component'
+import { LogoutComponent } from './logout/logout.component';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('AppComponent', () => {
   let component: AppComponent;
@@ -12,8 +14,8 @@ describe('AppComponent', () => {
   beforeEach(async () => {
 
     await TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
-      declarations: [AppComponent, JPFooterComponent, JPHeaderComponent, CookieManagerComponent],
+      imports: [RouterTestingModule, HttpClientModule],
+      declarations: [AppComponent, JPFooterComponent, JPHeaderComponent, CookieManagerComponent, LogoutComponent],
       providers: []
     }).compileComponents();
 

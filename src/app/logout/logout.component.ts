@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-
+import { LogoutService } from '../_services/auth/logout.service'
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-logout',
   templateUrl: './logout.component.html',
@@ -7,8 +8,17 @@ import { Component } from '@angular/core';
 })
 export class LogoutComponent {
 
-  logout(){
-    console.log('ready')
+  constructor(
+    private logoutSvc: LogoutService,
+    protected router: Router,
+    ) { }
+
+  logout() {
+    this.logoutSvc.logout().subscribe(
+      () => {
+        this.router.navigate(['/'])
+      }
+    );
   }
 
 }

@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { JPFooterComponent } from '../../jp-footer/jp-footer.component';
 import { JPHeaderComponent } from '../../jp-header/jp-header.component';
 import { CookieManagerComponent } from '../../cookies/cookie-manager/cookie-manager.component'
+import { LogoutComponent } from 'src/app/logout/logout.component';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('ApplicationRoutingComponent', () => {
   let component: AppComponent;
@@ -18,8 +20,8 @@ describe('ApplicationRoutingComponent', () => {
     const cookieServiceSpy = jasmine.createSpyObj('CookieService', ['get']);
 
     await TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
-      declarations: [AppComponent, JPFooterComponent, JPHeaderComponent, CookieManagerComponent],
+      imports: [RouterTestingModule, HttpClientModule],
+      declarations: [AppComponent, JPFooterComponent, JPHeaderComponent, CookieManagerComponent, LogoutComponent],
       providers: [
         { provide: Router, useValue: routerSpy },
         { provide: CookieService, useValue: cookieServiceSpy }
