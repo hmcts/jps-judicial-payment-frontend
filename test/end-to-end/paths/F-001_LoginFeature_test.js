@@ -1,4 +1,4 @@
-Feature('Login Page @functional @F-001');
+Feature('Login Feature Tests @functional @F-001');
 
 Scenario('Successful login @S-001.1',({ I}) => {
   I.loginWithJPSRecorderUser();
