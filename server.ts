@@ -14,9 +14,13 @@ import refDataRouter from './api/refdata/routes';
 const errorHandler = ((err, req, res, next) => {
   const error = err.response
   res.status(error.status || 500);
+  let errMsg = `${error.statusText}:`
+  if(error.data.errorDescription){
+    errMsg += ` ${error.data.errorDescription}`
+  }
   res.json({
     error: {
-      message: `${error.statusText}: ${error.data.errorDescription}` || 'Internal Server Error',
+      message: errMsg || 'Internal Server Error',
     },
   });
 });

@@ -14,15 +14,9 @@ export class VenueService {
   ) { }
 
   public getAllVenues(searchTerm: string): Observable<VenueModel[]> {
-
-    // TODO: move these to service file
-    const S2SToken: string  = this.cookies.get('__serviceauth__');
-    const authToken: string = this.cookies.get('__auth__')
-
+    
     const headers = {
       'Content-Type': 'application/json',
-      'Authorization': authToken,
-      'ServiceAuthorization': S2SToken
     };
 
     return this.http.post<VenueModel[]>('/refdata/location', {searchTerm: searchTerm}, { headers: headers});

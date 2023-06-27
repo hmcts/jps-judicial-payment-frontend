@@ -1,0 +1,19 @@
+@import '../../styles.scss';
+
+.no-border{
+    border: 0; 
+}
+.flex{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.white-text{
+    color: govuk-colour("white");
+}
+
+.logout-position{
+    display: inline;
+    float: right;
+}

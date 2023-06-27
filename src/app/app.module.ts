@@ -9,6 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { CookieManagerComponent } from './cookies/cookie-manager/cookie-manager.component';
 import { CookiePolicyComponent } from './cookies/cookie-policy/cookie-policy.component';
+import { LogoutComponent } from './logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { CookiePolicyComponent } from './cookies/cookie-policy/cookie-policy.com
     JPHeaderComponent,
     CookieManagerComponent,
     CookiePolicyComponent,
+    LogoutComponent,
   ],
   imports: [
     HttpClientModule,
