@@ -8,16 +8,16 @@ import { CustomValidators } from 'src/app/_validators/sitting-records-form-valid
   styleUrls: ['./sitting-records-landing-manage-records.component.scss']
 })
 export class SittingRecordsLandingManageRecordsComponent {
-  manageRecords!: FormGroup;
+  public manageRecords!: FormGroup;
 
   constructor( private formBuilder: FormBuilder ){
     this.manageRecords = this.formBuilder.group({
-        tribunalService: ['', [Validators.required]],
-        region: ['', [Validators.required]],
+        tribunalService: [null, [Validators.required]],
+        region: [null, [Validators.required]],
         dateSelected: formBuilder.group ({
-          dateDay: ['', [Validators.required,]],
-          dateMonth: ['', [Validators.required,]],
-          dateYear: ['', [Validators.required,]],
+          dateDay: [null, [Validators.required,]],
+          dateMonth: [null, [Validators.required,]],
+          dateYear: [null, [Validators.required,]],
         },{
           validators: [
             CustomValidators.validateDateFormat

@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SittingRecordsLandingManageRecordsComponent } from './sitting-records-landing-manage-records/sitting-records-landing-manage-records.component';
@@ -8,11 +8,11 @@ import { SittingRecordsLandingManageRecordsComponent } from './sitting-records-l
   templateUrl: './sitting-records-landing.component.html',
   styleUrls: ['./sitting-records-landing.component.scss']
 })
-export class SittingRecordsLandingComponent {
+export class SittingRecordsLandingComponent implements AfterViewInit{
   userForm!: FormGroup;
   showManageRecords = false;
-  @ViewChild(SittingRecordsLandingManageRecordsComponent) childComponent!: SittingRecordsLandingManageRecordsComponent;
-  manageRecords!: FormGroup;
+  @ViewChild(SittingRecordsLandingManageRecordsComponent) childComponent: SittingRecordsLandingManageRecordsComponent | undefined;
+  manageRecords: FormGroup | undefined;
 
   constructor(
     protected router: Router,
@@ -36,7 +36,7 @@ export class SittingRecordsLandingComponent {
   }
 
   ngAfterViewInit() {
-    this.manageRecords = this.childComponent.manageRecords;
+    this.manageRecords = this.childComponent?.manageRecords;
   }
 
   submitForm(){
