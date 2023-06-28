@@ -39,10 +39,13 @@ testem.log
 /typings
 /config/local-development.json
 /api/.sessions
+/.sessions
 
 # System files
 .DS_Store
 Thumbs.db
+
+Local-development.json
 
 # Yarn V3
 .pnp.*
