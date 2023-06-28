@@ -4,8 +4,10 @@
   "compilerOptions": {
     "outDir": "./out-tsc/server",
     "types": [
-      "node"
-    ]
+      "node", 
+      "rxjs"
+    ],
+    "target": "ESNext"
   },
   "files": [
     "src/main.server.ts",

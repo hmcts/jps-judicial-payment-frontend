@@ -39,6 +39,7 @@ testem.log
 /typings
 /config/local-development.json
 /api/.sessions
+/.sessions
 
 # System files
 .DS_Store

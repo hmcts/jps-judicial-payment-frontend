@@ -7,7 +7,7 @@ import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-wo
 import { VenueService } from '../../_services/venue-service/venue.service';
 import { VenueModel } from '../../_models/venue.model';
 import { HttpClientModule } from '@angular/common/http'; 
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { of } from 'rxjs';
 
 describe('ManageSittingRecordsComponent', () => {
@@ -101,7 +101,7 @@ describe('ManageSittingRecordsComponent', () => {
     expect(result).toBe('');
   });
 
-  it('should patch the venue value without emitting an event or affecting other controls when calling onSelectionChange', () => {
+  it('should patch the venue value without emitting an event or affecting other controls when calling optionSelected', () => {
     const venue: VenueModel = {
       site_name: 'Test Site',
       court_venue_id: '',
@@ -140,7 +140,12 @@ describe('ManageSittingRecordsComponent', () => {
       service_url: '',
       fact_url: ''
     };
-    component.onSelectionChange(venue);
+    const event: MatAutocompleteSelectedEvent = {
+      option: {
+        value: venue
+      }
+    } as MatAutocompleteSelectedEvent;
+    component.optionSelected(event);
     expect(component.manageRecords.controls['venue'].value).toEqual(venue);
     expect(component.manageRecords.controls['venue'].untouched).toBeTrue();
   });

@@ -8,10 +8,9 @@
  *
  * This file should be representative of the .json files in the root /config folder
  */
-export const S2S_SECRET = 'secrets.jps.mc-s2s-client-secret';
+export const S2S_SECRET = 'secrets.jps.jps-s2s-client-secret';
 
 export const COOKIES_TOKEN = 'cookies.token';
-export const COOKIES_SERVICE_TOKEN = 'cookies.serviceToken';
 export const COOKIES_USER_ID = 'cookies.userId';
 export const COOKIES_USER_ROLE = 'cookies.userRole';
 
@@ -32,7 +31,7 @@ export const NOW = 'now';
 
 export const SESSION_SECRET = 'sessionSecret';
 
-export const IDAM_SECRET = 'secrets.jps.mc-idam-client-secret';
+export const IDAM_SECRET = 'secrets.jps.jps-idam-client-secret';
 
 export const LOGIN_ROLE_MATCHER = 'loginRoleMatcher';
 

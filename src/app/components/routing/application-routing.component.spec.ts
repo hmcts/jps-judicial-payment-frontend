@@ -1,20 +1,37 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { ApplicationRoutingComponent } from './application-routing.component';
+import { TestBed, ComponentFixture } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { AppComponent } from '../../app.component';
+import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
+import { JPFooterComponent } from '../../jp-footer/jp-footer.component';
+import { JPHeaderComponent } from '../../jp-header/jp-header.component';
+import { CookieManagerComponent } from '../../cookies/cookie-manager/cookie-manager.component'
+import { LogoutComponent } from 'src/app/logout/logout.component';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('ApplicationRoutingComponent', () => {
-  let component: ApplicationRoutingComponent;
-  let fixture: ComponentFixture<ApplicationRoutingComponent>;
+  let component: AppComponent;
+  let fixture: ComponentFixture<AppComponent>;
+  let router: Router; // Replace with the correct Router type if needed
+  let cookieService: jasmine.SpyObj<CookieService>;
 
   beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ ApplicationRoutingComponent ]
-    })
-    .compileComponents();
+    const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
+    const cookieServiceSpy = jasmine.createSpyObj('CookieService', ['get']);
 
-    fixture = TestBed.createComponent(ApplicationRoutingComponent);
+    await TestBed.configureTestingModule({
+      imports: [RouterTestingModule, HttpClientModule],
+      declarations: [AppComponent, JPFooterComponent, JPHeaderComponent, CookieManagerComponent, LogoutComponent],
+      providers: [
+        { provide: Router, useValue: routerSpy },
+        { provide: CookieService, useValue: cookieServiceSpy }
+      ]
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(AppComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    router = TestBed.inject(Router);
+    cookieService = TestBed.inject(CookieService) as jasmine.SpyObj<CookieService>;
   });
 
   it('should create', () => {

@@ -4,7 +4,6 @@ import { EnhancedRequest } from '../lib/models';
 import { getConfigValue, showFeature } from '../configuration';
 import {
   COOKIES_TOKEN,
-  COOKIES_SERVICE_TOKEN,
   COOKIES_USER_ID,
   COOKIES_USER_ROLE,
   FEATURE_SECURE_COOKIE_ENABLED,
@@ -26,15 +25,11 @@ export const successCallback = (req: EnhancedRequest, res: Response, next: NextF
   const {user} = req.session.passport;
   const {userinfo} = user;
   const {accessToken} = user.tokenset;
-  const {ServiceAuthorization} = req.headers;
   const cookieToken = getConfigValue(COOKIES_TOKEN);
-  const cookieServiceToken = getConfigValue(COOKIES_SERVICE_TOKEN);
   const cookieUserId = getConfigValue(COOKIES_USER_ID);
   const cookieUserRole = getConfigValue(COOKIES_USER_ROLE);
-  
   res.cookie(cookieUserId, userinfo.uid);
   res.cookie(cookieToken, accessToken);
-  res.cookie(cookieServiceToken, ServiceAuthorization);
   res.cookie(cookieUserRole, userinfo.roles);
 
   if (!req.isRefresh) {
@@ -44,7 +39,8 @@ export const successCallback = (req: EnhancedRequest, res: Response, next: NextF
 };
 
 export const failureCallback = (req: EnhancedRequest, res: Response, next: NextFunction) => {
-  const errorMsg = `Auth Error: ${res.locals.message}`;
+  const errorMsg = `Auth Error: ${res.locals['message']}`;
+  console.log(errorMsg)
 }
 
 xuiNode.on(AUTH.EVENT.AUTHENTICATE_SUCCESS, successCallback);
@@ -72,8 +68,8 @@ export const getXuiNodeMiddleware = () => {
     issuerURL: issuerUrl,
     logoutURL: idamApiPath,
     responseTypes: ['code'],
-    scope: 'profile openid roles manage-user create-user search-user',
-    sessionKey: 'jps-webapp',
+    scope: 'profile openid roles',
+    sessionKey: 'jps_judicial_payment_frontend',
     tokenEndpointAuthMethod: 'client_secret_post',
     tokenURL: tokenUrl,
     useRoutes: true,
@@ -85,7 +81,7 @@ export const getXuiNodeMiddleware = () => {
       maxAge: 28800000,
       secure: showFeature(FEATURE_SECURE_COOKIE_ENABLED),
     },
-    name: 'jps-webapp',
+    name: 'jps_judicial_payment_frontend',
     resave: false,
     saveUninitialized: false,
     secret: getConfigValue(SESSION_SECRET),
@@ -115,4 +111,4 @@ export const getXuiNodeMiddleware = () => {
   
   return xuiNode.configure(nodeLibOptions);
 
- };
+};

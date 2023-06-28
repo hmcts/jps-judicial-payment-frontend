@@ -2,7 +2,6 @@
     "environment": "NODE_CONFIG_ENV",
     "cookies": {
         "token": "COOKIES_TOKEN",
-        "serviceToken": "COOKIES_SERVICE_TOKEN",
         "userId": "COOKIES_USER_ID",
         "userRole": "COOKIES_USER_ROLE"
     },
@@ -27,8 +26,8 @@
     "sessionSecret": "SESSION_SECRET",
     "secrets": {
         "jps": {
-          "mc-s2s-client-secret": "S2S_SECRET",
-          "mc-idam-client-secret": "IDAM_SECRET"
+            "jps-s2s-client-secret": "S2S_SECRET",
+            "jps-idam-client-secret": "IDAM_SECRET"
         }
     },
     "feature": {
