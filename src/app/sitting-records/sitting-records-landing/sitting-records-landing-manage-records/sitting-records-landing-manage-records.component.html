@@ -16,8 +16,7 @@
         </label>
         <select class="govuk-select govuk-!-width-two-thirds" formControlName="region" id="region" name="region">
             <option [ngValue]="null" disabled selected>--Select a value--</option>
-            <option [ngValue]="'1'">Region 1</option>
-            <option [ngValue]="'2'">Region 2</option>
+            <option *ngFor="let region of regions" id="option-region-select{{region.region_id}}" [value]="region">{{region.description}}</option>
         </select>
     </div>
     <div class="govuk-form-group"

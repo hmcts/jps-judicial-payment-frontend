@@ -7,14 +7,14 @@
                     <h1 class="govuk-body-l govuk-!-margin-bottom-3">What would you like to do?</h1>
                 </legend>
                 <div class="govuk-radios" data-module="govuk-radios">
-                    <div class="govuk-radios__item">
+                    <div *ngIf="showFindAddDeleteSittingRecordsOption" class="govuk-radios__item">
                         <input class="govuk-radios__input" id="option-1" name="options" type="radio" value="opt1"
                             formControlName="options">
                         <label class="govuk-label govuk-radios__label" for="option-1">
                             Find, add or delete a sitting record
                         </label>
                     </div>
-                    <div class="govuk-radios__item">
+                    <div *ngIf="showSubmitSittingRecordsOption" class="govuk-radios__item">
                         <input class="govuk-radios__input" id="option-2" name="options" type="radio" value="opt2"
                             formControlName="options">
                         <label class="govuk-label govuk-radios__label" for="option-2">
@@ -24,11 +24,11 @@
                 </div>
             </fieldset>
         </div>
-        <div [hidden]="!showManageRecords" class="govuk-inset-text">
+        <div [hidden]="hideManageRecords" class="govuk-inset-text">
             <app-sitting-records-landing-manage-records></app-sitting-records-landing-manage-records>
         </div>
         <div class="govuk-button-group">
-            <button type="submit" class="govuk-button" data-module="govuk-button" [disabled]="showManageRecords">
+            <button type="submit" class="govuk-button" data-module="govuk-button" [disabled]="!hideManageRecords && !manageRecords?.valid">
                 Continue
             </button>
         </div>

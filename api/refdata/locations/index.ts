@@ -4,7 +4,7 @@ import axios, { AxiosRequestConfig } from 'axios';
 
 const url: string = getConfigValue(SERVICES_LOCATION_API_PATH);
 
-export async function getLocations(req, res, next) {
+export async function getVenues(req, res, next) {
     const { authorization, serviceauthorization } = req.headers;
     const { searchTerm } = req.body;
 
@@ -17,6 +17,30 @@ export async function getLocations(req, res, next) {
 
         const config: AxiosRequestConfig = {
             url: `${url}/refdata/location/court-venues/venue-search?search-string=${searchTerm}`,
+            method: 'GET',
+            headers: headers
+        };
+
+        const response = await axios(config);
+        res.json(response.data);
+    } catch (error) {
+        next(error)
+    }
+
+}
+
+export async function getRegions(req, res, next) {
+    const { authorization, serviceauthorization } = req.headers;
+    
+    try {
+        const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + authorization,
+            'ServiceAuthorization': serviceauthorization
+        };
+
+        const config: AxiosRequestConfig = {
+            url: `${url}/refdata/location/regions?regionId=ALL`,
             method: 'GET',
             headers: headers
         };

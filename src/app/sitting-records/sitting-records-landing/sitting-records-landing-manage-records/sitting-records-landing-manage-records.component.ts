@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CustomValidators } from 'src/app/_validators/sitting-records-form-validator';
+import { CustomValidators } from '../../../_validators/sitting-records-form-validator';
+import { LocationService } from '../../../_services/location-service/location.service';
+import { RegionModel } from '../../../_models/region.model';
 
 @Component({
   selector: 'app-sitting-records-landing-manage-records',
@@ -9,8 +11,12 @@ import { CustomValidators } from 'src/app/_validators/sitting-records-form-valid
 })
 export class SittingRecordsLandingManageRecordsComponent {
   public manageRecords!: FormGroup;
-
-  constructor( private formBuilder: FormBuilder ){
+  regions: RegionModel[] = [];
+  
+  constructor( 
+    private formBuilder: FormBuilder,
+    private locationService : LocationService
+    ){
     this.manageRecords = this.formBuilder.group({
         tribunalService: [null, [Validators.required]],
         region: [null, [Validators.required]],
@@ -29,6 +35,7 @@ export class SittingRecordsLandingManageRecordsComponent {
       this.manageRecords.valueChanges.subscribe(() => {
         if(this.manageRecords.controls["tribunalService"].value !== "" && this.manageRecords.controls["region"].disabled){
           this.manageRecords.controls["region"].enable();
+          this.getRegions();
         }
   
       })
@@ -42,5 +49,9 @@ export class SittingRecordsLandingManageRecordsComponent {
 
   get f() {
     return this.manageRecords?.controls;
+  }
+
+  public getRegions(): void {
+    this.locationService.getAllRegions().subscribe(regions => {this.regions = regions});
   }
 }
