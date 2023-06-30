@@ -40,12 +40,10 @@ export class SittingRecordsLandingComponent implements OnInit, AfterViewInit{
   }
 
   ngOnInit() {
-    //const userRole = this.cookies.get('__userrole__');
-    const userRole = "jps-JOH-admin";
-
-    if(userRole && userRole.indexOf('jps-JOH-admin') != -1) {
+    const userRole = this.cookies.get('__userrole__');
+    if(userRole.indexOf('jps-JOH-admin') != -1) {
       //show radio buttons visible to them
-    } else if (userRole && userRole.indexOf('jps-submitter') != -1) {
+    } else if (userRole.indexOf('jps-submitter') != -1) {
       this.showFindAddDeleteSittingRecordsOption = true;
       this.showSubmitSittingRecordsOption = true;
     } else {

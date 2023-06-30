@@ -12,15 +12,13 @@ describe('SittingRecordsLandingComponent', () => {
   let fixture: ComponentFixture<SittingRecordsLandingComponent>;
   let mockRouter: Router;
   let cookieService: jasmine.SpyObj<CookieService>;
- 
-  beforeEach(async () => {
-    const cookieServiceSpy = jasmine.createSpyObj('CookieService', ['get']);
 
+  beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ RouterTestingModule, HttpClientModule, ReactiveFormsModule],
       declarations: [ SittingRecordsLandingComponent,  SittingRecordsLandingManageRecordsComponent ],
       providers: [
-        { provide: CookieService, useValue: cookieServiceSpy }
+        { provide: CookieService }
       ]
     })
     .compileComponents();
@@ -29,7 +27,6 @@ describe('SittingRecordsLandingComponent', () => {
     component = fixture.componentInstance;
     mockRouter = TestBed.inject(Router);
     cookieService = TestBed.inject(CookieService) as jasmine.SpyObj<CookieService>;
-    fixture.detectChanges();
   });
 
   it('should create', () => {
@@ -37,29 +34,21 @@ describe('SittingRecordsLandingComponent', () => {
   });
 
   it('should not show FindAddDeleteSittingRecordsOption and SubmitSittingRecordsOption if jps-JOH-admin role signs in', () => {
-    cookieService.get.withArgs('__userrole__').and.returnValue("jps-JOH-admin");
-    console.log('jps-JOH-admin Before showFindAddDeleteSittingRecordsOption: ' + component.showFindAddDeleteSittingRecordsOption);
-    console.log('Before showSubmitSittingRecordsOption: ' + component.showSubmitSittingRecordsOption);
+    spyOn(cookieService, 'get').and.returnValue('jps-JOH-admin');
     component.ngOnInit();
-    console.log('After showFindAddDeleteSittingRecordsOption: ' + component.showFindAddDeleteSittingRecordsOption);
-    console.log('After showSubmitSittingRecordsOption: ' + component.showSubmitSittingRecordsOption);
     expect(component.showFindAddDeleteSittingRecordsOption).toEqual(false);
     expect(component.showSubmitSittingRecordsOption).toEqual(false);
   });
 
   it('should show FindAddDeleteSittingRecordsOption and SubmitSittingRecordsOption if jps-submitter role signs in', () => {
-    cookieService.get.withArgs('__userrole__').and.returnValue("jps-submitter");
-    console.log('jps-submitter Before showFindAddDeleteSittingRecordsOption: ' + component.showFindAddDeleteSittingRecordsOption);
-    console.log('Before showSubmitSittingRecordsOption: ' + component.showSubmitSittingRecordsOption);
+    spyOn(cookieService, 'get').and.returnValue('jps-submitter');
     component.ngOnInit();
-    console.log('After showFindAddDeleteSittingRecordsOption: ' + component.showFindAddDeleteSittingRecordsOption);
-    console.log('After showSubmitSittingRecordsOption: ' + component.showSubmitSittingRecordsOption);
     expect(component.showFindAddDeleteSittingRecordsOption).toEqual(true);
     expect(component.showSubmitSittingRecordsOption).toEqual(true);
   });
 
   it('should show only FindAddDeleteSittingRecordsOption if jps-publisher role signs in', () => {
-    cookieService.get.withArgs('__userrole__').and.returnValue("jps-publisher");
+    spyOn(cookieService, 'get').and.returnValue('jps-publisher');
     component.ngOnInit();
     expect(component.showFindAddDeleteSittingRecordsOption).toEqual(true);
     expect(component.showSubmitSittingRecordsOption).toEqual(false);
@@ -67,7 +56,7 @@ describe('SittingRecordsLandingComponent', () => {
 
 
   it('should show only FindAddDeleteSittingRecordsOption if jps-admin role signs in', () => {
-    cookieService.get.withArgs('__userrole__').and.returnValue("jps-admin");
+    spyOn(cookieService, 'get').and.returnValue('jps-admin');
     component.ngOnInit();
     expect(component.showFindAddDeleteSittingRecordsOption).toEqual(true);
     expect(component.showSubmitSittingRecordsOption).toEqual(false);
