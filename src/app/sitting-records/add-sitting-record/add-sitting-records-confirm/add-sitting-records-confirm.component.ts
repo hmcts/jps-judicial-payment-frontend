@@ -37,9 +37,12 @@ export class AddSittingRecordsConfirmComponent{
   }
 
   submitNewRecords(){
-    this.srWorkFlow.formAndPostNewSittingRecord(() =>{
-      void this.router.navigate(['sittingRecords', 'addSuccess'])
-    })
+    this.srWorkFlow.formAndPostNewSittingRecord().subscribe(
+      () => {
+        void this.router.navigate(['sittingRecords', 'addSuccess'])
+
+      }
+    )
   }
 
   convertPeriod(period: string): string {

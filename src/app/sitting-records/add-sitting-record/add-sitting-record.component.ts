@@ -15,6 +15,7 @@ import { UserInfoModel, UserModel } from '../../_models/user.model';
 import { AutoCompleteValidator } from '../../_validators/autoCompleteValidator/auto-complete-validator'
 import { Observable, Subscription } from 'rxjs';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { RolesModel } from '../../_models/roles.model'
 
 @Component({
   selector: 'app-add-sitting-record',
@@ -32,10 +33,11 @@ export class AddSittingRecordComponent implements OnInit, OnDestroy {
   date = "";
   venueEpimmsId = "";
   userList: any[] = [ [] as UserModel[], [] as UserModel[], [] as UserModel[]];
-  userRoleList: any[] = [ {} as UserInfoModel, {} as UserInfoModel[], {} as UserInfoModel ];
+  userRoleList: any[] = [ [] as RolesModel[], [] as RolesModel[], [] as RolesModel[] ];
   searchTerm = [ "", "", "" ];
   usersFound = [ true, true, true ]
   subscriptions: Subscription[] = [];
+  serviceCode = "";
 
   goBack() {
     void this.router.navigate(['sittingRecords', 'manage'])
@@ -100,12 +102,20 @@ export class AddSittingRecordComponent implements OnInit, OnDestroy {
   getUserRoles(userPersonalCode: string, index: number){
     this.userSvc.getUserInfo(userPersonalCode)
     .subscribe(userRoleInfo => {
-      this.userRoleList[index] = userRoleInfo;
+      const appointments = userRoleInfo[0].appointments;
+      const rolesArray: RolesModel[] = appointments.map((appointment) => {
+        const roleObject: RolesModel = {
+          appointment: appointment.appointment,
+          appointment_type: appointment.appointment_type
+        }
+        return roleObject
+      })
+      this.userRoleList[index] = rolesArray;
     })
   }
 
   getUsers(searchString: string): Observable<UserModel[]>{
-    return this.userSvc.getUsers(searchString, this.venueEpimmsId)
+    return this.userSvc.getUsers(searchString, this.serviceCode, this.venueEpimmsId)
   }
 
   removeJoh(index: number) {
@@ -140,7 +150,8 @@ export class AddSittingRecordComponent implements OnInit, OnDestroy {
   ngOnInit() {
     const formData = this.srWorkFlow.getFormData().value;
     const { dateSelected, tribunalService, venue } = formData;
-    this.tribService = tribunalService;
+    this.serviceCode = tribunalService.hmctsServiceCode;
+    this.tribService = tribunalService.service;
     this.venueSiteName = venue.site_name;
     this.venueEpimmsId = venue.epimms_id;
     this.date = this.dateSvc.formatDateFromForm(dateSelected);

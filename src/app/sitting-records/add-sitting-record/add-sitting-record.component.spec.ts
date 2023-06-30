@@ -98,11 +98,12 @@ describe('AddSittingRecordComponent', () => {
     spyOn(userService, 'getUsers').and.returnValue(of(mockUsers));
 
     const searchString = 'John';
+    const serviceCode = 'BBa3'
     component.getUsers(searchString).subscribe(users => {
       expect(users).toEqual(mockUsers);
     });
 
-    expect(userService.getUsers).toHaveBeenCalledWith(searchString, component.venueEpimmsId);
+    expect(userService.getUsers).toHaveBeenCalledWith(searchString, serviceCode, component.venueEpimmsId);
   });
   
   it('should set JOH name, clear user list, and fetch user roles on optionSelected', () => {

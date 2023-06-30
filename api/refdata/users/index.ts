@@ -1,17 +1,19 @@
 import { getConfigValue } from '../../configuration';
 import { SERVICES_USER_API_PATH } from '../../configuration/references';
 import axios, { AxiosRequestConfig } from 'axios';
+import { IdamAuthenticatorService } from '../authenticator/index';
 
+const idamAuthSvc = new IdamAuthenticatorService;
 const url: string = getConfigValue(SERVICES_USER_API_PATH);
 
-export async function getUsers(req, res) {
-    const { authorization, serviceauthorization } = req.headers;
+export async function getUsers(req, res, next) {
+    const { Authorization, ServiceAuthorization } = req.headers;
     const { searchObject } = req.body;
     try {
         const headers = {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + authorization,
-            'ServiceAuthorization': serviceauthorization
+            'Authorization': Authorization,
+            'ServiceAuthorization': ServiceAuthorization
         };
         const config: AxiosRequestConfig = {
             url: `${url}/refdata/judicial/users/search`,
@@ -23,19 +25,19 @@ export async function getUsers(req, res) {
     
         res.json(response.data);
     } catch (error) {
-        res.status(error.response.status).json({ error: 'An error occurred: '  + error.response.statusText});
+        next(error)
     }
 
 }
 
-export async function getUserInfo(req, res) {
-    const { authorization, serviceauthorization } = req.headers;
+export async function getUserInfo(req, res, next) {
+    const { access_token, s2s_token } = req;
     const { userCode } = req.body;
     try {
         const headers = {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + authorization,
-            'ServiceAuthorization': serviceauthorization
+            'Authorization': access_token,
+            'ServiceAuthorization': s2s_token
         };
         const config: AxiosRequestConfig = {
             url: `${url}/refdata/judicial/users`,
@@ -47,7 +49,7 @@ export async function getUserInfo(req, res) {
         
         res.json(response.data);
     } catch (error) {
-        res.status(error.response.status).json({ error: `An error occurred: ${error.response.statusText}; error message: ${error.response.data.errorMessage}`});
+        next(error)
     }
 
 }

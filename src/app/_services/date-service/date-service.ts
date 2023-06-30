@@ -10,6 +10,12 @@ export class DateService {
     return `${dateDay}/${dateMonth}/${dateYear}`
   }
 
+  createDateObjFromFormData(dateObj){
+    const {dateDay, dateMonth, dateYear} = dateObj;
+    const dateString = `${dateMonth}/${dateDay}/${dateYear}`
+    return new Date(dateString)
+  }
+
   convertPeriod(period: string): string {
     switch(period){
       case 'am':

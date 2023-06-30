@@ -47,10 +47,11 @@ describe('UserService', () => {
         ];
         const searchTerm = 'John';
         const venueEpims = 'Venue';
+        const serviceCode = 'BBA3'
 
         spyOn(cookieService, 'get').and.returnValue('token');
 
-        service.getUsers(searchTerm, venueEpims).subscribe(users => {
+        service.getUsers(searchTerm, serviceCode, venueEpims).subscribe(users => {
             expect(users).toEqual(mockUsers);
         });
 

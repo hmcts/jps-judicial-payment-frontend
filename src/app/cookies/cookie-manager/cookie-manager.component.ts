@@ -24,7 +24,8 @@ export class CookieManagerComponent implements OnInit {
             '__auth__',
             '__serviceauth__',
             '__userid__',
-            '__userrole__'
+            '__userrole__',
+            'XSRF-TOKEN'
           ]
         },
         {

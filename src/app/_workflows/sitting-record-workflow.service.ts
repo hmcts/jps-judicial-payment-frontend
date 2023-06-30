@@ -3,6 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { SittingRecordsPostObj, SittingRecordsPostBody } from '../_models/addSittingRecords.model';
 import { DateService } from '../_services/date-service/date-service'
 import { SittingRecordsService } from '../_services/sitting-records-service/sitting-records.service';
+import { UserInfoService } from '../_services/user-info-service/user-info-service'
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,8 @@ export class SittingRecordWorkflowService {
     
   constructor(
     private dateSvc: DateService,
-    private sittingRecordsSvc: SittingRecordsService
+    private sittingRecordsSvc: SittingRecordsService,
+    private uInfoSvc: UserInfoService
   ) {}
 
 
@@ -69,45 +71,29 @@ export class SittingRecordWorkflowService {
     this.cameFromConfirm = false;
   }
 
-  formAndPostNewSittingRecord(callback){
+  formAndPostNewSittingRecord(){
     const { JOH, period } = this.addSittingRecords.controls;
     const { dateSelected, tribunalService, venue } = this.formData.value;
     const postBody = new SittingRecordsPostBody();
-    postBody.recordedByIdamId = '';
-    postBody.recordedByName = '';
-  
+    postBody.recordedByIdamId = this.uInfoSvc.getIdamId();
+    postBody.recordedByName = this.uInfoSvc.getUserName();
     JOH.value.forEach(joh => {
       const newSRPostObj = new SittingRecordsPostObj();
-  
-      newSRPostObj.hmctsServiceCode = tribunalService;
-      newSRPostObj.sittingDate = this.dateSvc.formatDateFromForm(dateSelected);
-      newSRPostObj.epimmsId = venue.epimms_id;
-      newSRPostObj.personalCode = joh.johName
+      newSRPostObj.hmctsServiceCode = tribunalService.hmctsServiceCode;
+      newSRPostObj.sittingDate = this.dateSvc.createDateObjFromFormData(dateSelected);
+      newSRPostObj.epimsId = venue.epimms_id;
+      newSRPostObj.personalCode = joh.johName.personalCode
       //TODO: update below properties to use data retrieved from API call on addSR page
-      newSRPostObj.contractTypeId = ''
-      newSRPostObj.judgeRoleTypeId = joh.johRole;
+      newSRPostObj.contractTypeId = joh.johRole.appointment_type
+      newSRPostObj.judgeRoleTypeId = joh.johRole.appointment;
       newSRPostObj.replaceDuplicate = false;
-
-      switch (period.value) {
-        case 'am':
-          newSRPostObj.AM = true;
-          newSRPostObj.PM = false;
-          break;
-        case 'pm':
-          newSRPostObj.AM = false;
-          newSRPostObj.PM = true;
-          break;
-        case 'both':
-          newSRPostObj.AM = true;
-          newSRPostObj.PM = true;
-          break;
-      }
+      newSRPostObj.durationBoolean = period.value
+    
       
       postBody.recordedSittingRecords.push(newSRPostObj);
     });
   
-    this.sittingRecordsSvc.postNewSittingRecord(postBody);
-    callback();
+    return this.sittingRecordsSvc.postNewSittingRecord(postBody);
   }
   
 }
