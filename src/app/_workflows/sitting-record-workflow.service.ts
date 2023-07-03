@@ -41,12 +41,12 @@ export class SittingRecordWorkflowService {
   getSittingRecordsData() {
     const postObj = new ViewSittingRecordPost();
     const { dateSelected, venue } = this.formData.value;
-    const dateToGet = this.dateSvc.formatDateFromForm(dateSelected)
-    postObj.epimmsId = venue.epimms_id
-    postObj.dateRangeFrom = dateToGet
-    postObj.dateRangeTo = dateToGet
-    postObj.dateOrder = "ASCENDING"
-    postObj.duration = "FULL_DAY"
+    const dateToGet = this.dateSvc.formatDateFromForm(dateSelected);
+    postObj.epimsId = venue.epimms_id;
+    postObj.regionId = venue.region_id;
+    postObj.dateRangeFrom = dateToGet;
+    postObj.dateRangeTo = dateToGet;
+    postObj.dateOrder = "ASCENDING";
 
     return this.ViewSittingRecordService.postObject(postObj);
   }

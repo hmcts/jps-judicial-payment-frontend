@@ -11,8 +11,8 @@ export class DateService {
   }
 
   getPeriod(am: string, pm: string): string {
-    const amBool = am === 'true' ? true : false
-    const pmBool = pm === 'true' ? true : false
+    const amBool = am === 'AM' ? true : false
+    const pmBool = pm === 'PM' ? true : false
     if(amBool && pmBool){ return "Full Day" }
     if(amBool){ return "Morning" }
     if(pmBool){ return "Afternoon" }

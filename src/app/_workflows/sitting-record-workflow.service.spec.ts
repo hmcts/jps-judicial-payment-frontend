@@ -63,7 +63,7 @@ describe('SittingRecordWorkflowService', () => {
         offset: 0,
         dateOrder: 'ASCENDING',
         regionId: '',
-        epimmsId: '',
+        epimsId: '',
         createdByUserId: '',
         personalCode: '',
         judgeRoleTypeId: '',

@@ -4,6 +4,7 @@ import { DateService } from '../../_services/date-service/date-service';
 import { Router } from '@angular/router';
 import { defaultDtOptions }  from '../../_services/default-dt-options'
 import { SittingRecord } from 'src/app/_models/viewSittingRecords.model';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-view-sitting-records',
@@ -17,6 +18,7 @@ export class ViewSittingRecordsComponent implements OnInit {
   date = "";
 
   dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject<any>();
   sittingRecordData: SittingRecord[] = [];
 
   showFilters = false;
@@ -42,18 +44,10 @@ export class ViewSittingRecordsComponent implements OnInit {
     this.venueSiteName = venue.site_name;
     this.date = this.dateSvc.formatDateFromForm(dateSelected);
 
-    this.srWorkFlow.getSittingRecordsData().subscribe(records => {
-      this.sittingRecordData = records.sittingRecords });
-    
     this.dtOptions = {
-      ...defaultDtOptions, 
+      ...defaultDtOptions,
       columnDefs:[
-        {orderData: 0, targets: [0]},
-        {orderData: 1, targets: [1]},
-        {orderData: 2, targets: [2]},
-        {orderData: 3, targets: [3]},
-        {orderData: 4, targets: [4]},
-        {orderData: 5, targets: [5], orderable: false},
+        { targets: [5], orderable: false },
       ],
       
       drawCallback: 
@@ -63,10 +57,22 @@ export class ViewSittingRecordsComponent implements OnInit {
         document
           .querySelectorAll(`#sittingRecordViewTable_info`)
           .forEach((elem) => elem.classList.add('govuk-body'))
-      },
-      
+
+        document
+          .querySelectorAll(`#sittingRecordViewTable_paginate`)
+          .forEach((elem) => elem.classList.add('govuk-body'))
+
+      }
     };
 
+    this.loadViewSittingRecords();
+  } 
+
+  loadViewSittingRecords() {
+    this.srWorkFlow.getSittingRecordsData().subscribe(records => {
+      this.sittingRecordData = records.sittingRecords;
+      this.dtTrigger.next(null); 
+    });
   }
 
 }

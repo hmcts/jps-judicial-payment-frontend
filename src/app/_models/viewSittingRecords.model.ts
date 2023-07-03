@@ -3,7 +3,7 @@ export class ViewSittingRecordPost {
     offset = 0;
     dateOrder = "ASCENDING";
     regionId!: string;
-    epimmsId!: string;
+    epimsId!: string;
     createdByUserId!: string;
     personalCode!: string;
     judgeRoleTypeId!: string;
@@ -29,8 +29,8 @@ export class SittingRecord {
     personalName!: string;
     contractTypeId!: number;
     judgeRoleTypeId!: string;
-    AM!: string;
-    PM!: string;
+    am!: string;
+    pm!: string;
     createdDateTime!: string;
     createdByUserId!: string;
     createdByUserName!: string;

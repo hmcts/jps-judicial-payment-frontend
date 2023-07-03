@@ -22,20 +22,20 @@ describe('DateService', () => {
   });
 
   describe('getPeriod', () => {
-    it('should return "Full Day" when am and pm are true', () => {
-      expect(service.getPeriod("true", "true")).toEqual('Full Day');
+    it('should return "Full Day" when am and pm are passed', () => {
+      expect(service.getPeriod("AM", "PM")).toEqual('Full Day');
     });
   
-    it('should return "Morning" when am is true and pm is false', () => {
-      expect(service.getPeriod("true", "false")).toEqual('Morning');
+    it('should return "Morning" when AM is passed and PM is null', () => {
+      expect(service.getPeriod("AM", "null")).toEqual('Morning');
     });
   
-    it('should return "Afternoon" when pm is true and am is false', () => {
-      expect(service.getPeriod("false", "true")).toEqual('Afternoon');
+    it('should return "Afternoon" when PM is passed and am is null', () => {
+      expect(service.getPeriod("null", "PM")).toEqual('Afternoon');
     });
   
-    it('should return an empty string when both am and pm are false', () => {
-      expect(service.getPeriod("false", "false")).toEqual('');
+    it('should return an empty string when both am and pm are null', () => {
+      expect(service.getPeriod("null", "null")).toEqual('');
     });
   });
 
