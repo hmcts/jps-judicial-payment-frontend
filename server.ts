@@ -10,6 +10,8 @@ import { AppServerModule } from './src/main.server';
 import { HealthCheck } from './src/app/server/healthcheck';
 import { getXuiNodeMiddleware } from './api/auth';
 import refDataRouter from './api/refdata/routes';
+import { Logger } from '@hmcts/nodejs-logging';
+const logger = Logger.getLogger()
 
 const errorHandler = ((err, req, res, next) => {
   const error = err.response
@@ -18,6 +20,10 @@ const errorHandler = ((err, req, res, next) => {
   if(error.data.errorDescription){
     errMsg += ` ${error.data.errorDescription}`
   }
+  logger.log({
+    level: 'error',
+    message: errMsg
+  })
   res.json({
     error: {
       message: errMsg || 'Internal Server Error',

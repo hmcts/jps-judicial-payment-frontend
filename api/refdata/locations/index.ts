@@ -1,12 +1,18 @@
 import { getConfigValue } from '../../configuration';
 import { SERVICES_LOCATION_API_PATH } from '../../configuration/references';
 import axios, { AxiosRequestConfig } from 'axios';
+import { Logger } from '@hmcts/nodejs-logging';
 
 const url: string = getConfigValue(SERVICES_LOCATION_API_PATH);
+const logger = Logger.getLogger()
 
 export async function getLocations(req, res, next) {
     const { Authorization, ServiceAuthorization } = req.headers;
     const { searchTerm } = req.body;
+    logger.log({
+        level: 'info',
+        message: 'Calling getLocations()'
+    })
     try {
         const headers = {
             'Content-Type': 'application/json',

@@ -20,7 +20,7 @@
     },
     "microservice": "jps_judicial_payment_frontend",
     "sessionSecret": "secretSauce",
-    "loginRoleMatcher": "jps-recorder",
+    "loginRoleMatcher": "(jps-recorder|jps-publisher)",
     "feature": {
         "secureCookieEnabled": true
     }
