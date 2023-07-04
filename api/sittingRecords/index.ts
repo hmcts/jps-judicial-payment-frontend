@@ -4,15 +4,15 @@ import axios, { AxiosRequestConfig } from 'axios';
 
 const url: string = getConfigValue(SERVICES_JPS_API_URL);
 
-export async function getSittingRecords(req, res) {
-    const { authorization, serviceauthorization } = req.headers;
+export async function getSittingRecords(req, res, next) {
+    const { Authorization, ServiceAuthorization } = req.headers;
     const { hmctsServiceCode } = req.query;
     const body = req.body
     try {
         const headers = {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + authorization,
-            'ServiceAuthorization': serviceauthorization
+            'Authorization': Authorization,
+            'ServiceAuthorization': ServiceAuthorization
         };
 
         const config: AxiosRequestConfig = {
@@ -23,12 +23,11 @@ export async function getSittingRecords(req, res) {
         };
 
         const response = await axios(config);
-     
+    
         res.json(response.data);
 
     } catch (error) {
-        console.log(error)
-        res.status(error.response.status).json({ error: 'An error occurred: '  + error.response.statusText});
+        next()
     }
 
 }

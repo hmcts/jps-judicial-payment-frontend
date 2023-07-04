@@ -15,15 +15,10 @@ export class ViewSittingRecordService {
   ) { }
 
   postObject(data: ViewSittingRecordPost): Observable<ViewSittingRecordResponse> {
-    
-    const S2SToken: string  = this.cookies.get('__serviceauth__');
-    const authToken: string = this.cookies.get('__auth__')
 
     const httpOptions = {
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': authToken,
-        'ServiceAuthorization': S2SToken
+        'Content-Type': 'application/json'
       },
       params: {'hmctsServiceCode': 'BBA3'}
     };
