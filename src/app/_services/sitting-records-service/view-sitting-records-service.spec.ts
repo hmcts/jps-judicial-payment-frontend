@@ -2,27 +2,22 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { ViewSittingRecordService } from './view-sitting-records-service';
 import { ViewSittingRecordPost, ViewSittingRecordResponse } from '../../_models/viewSittingRecords.model';
-import { CookieService } from 'ngx-cookie-service';
 
 describe('ViewSittingRecordService', () => {
   let service: ViewSittingRecordService;
   let httpMock: HttpTestingController;
-  let cookieService: jasmine.SpyObj<CookieService>;
 
   beforeEach(() => {
-    const cookieServiceSpy = jasmine.createSpyObj('CookieService', ['get']);
 
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [
         ViewSittingRecordService,
-        { provide: CookieService, useValue: cookieServiceSpy }
       ]
     });
 
     service = TestBed.inject(ViewSittingRecordService);
     httpMock = TestBed.inject(HttpTestingController);
-    cookieService = TestBed.inject(CookieService) as jasmine.SpyObj<CookieService>;
 
   });
 
