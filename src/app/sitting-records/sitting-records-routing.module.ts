@@ -9,14 +9,9 @@ import { AuthGuard } from '../_guards/auth/auth.guard';
 
 const routes: Routes = [
     {
-        path: "",
+        path: "sittingRecords",
         component: SittingRecordsComponent,
         children: [
-          {
-            path: '',
-            redirectTo: 'manage',
-            pathMatch: 'prefix'
-          },
           {
             path: 'manage',
             canActivate: [AuthGuard],

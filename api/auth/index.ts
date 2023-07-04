@@ -4,7 +4,6 @@ import { EnhancedRequest } from '../lib/models';
 import { getConfigValue, showFeature } from '../configuration';
 import {
   COOKIES_TOKEN,
-  COOKIES_SERVICE_TOKEN,
   COOKIES_USER_ID,
   COOKIES_USER_ROLE,
   FEATURE_SECURE_COOKIE_ENABLED,
@@ -26,15 +25,11 @@ export const successCallback = (req: EnhancedRequest, res: Response, next: NextF
   const {user} = req.session.passport;
   const {userinfo} = user;
   const {accessToken} = user.tokenset;
-  const {ServiceAuthorization} = req.headers;
   const cookieToken = getConfigValue(COOKIES_TOKEN);
-  const cookieServiceToken = getConfigValue(COOKIES_SERVICE_TOKEN);
   const cookieUserId = getConfigValue(COOKIES_USER_ID);
   const cookieUserRole = getConfigValue(COOKIES_USER_ROLE);
-  
   res.cookie(cookieUserId, userinfo.uid);
   res.cookie(cookieToken, accessToken);
-  res.cookie(cookieServiceToken, ServiceAuthorization);
   res.cookie(cookieUserRole, userinfo.roles);
 
   if (!req.isRefresh) {
@@ -45,6 +40,7 @@ export const successCallback = (req: EnhancedRequest, res: Response, next: NextF
 
 export const failureCallback = (req: EnhancedRequest, res: Response, next: NextFunction) => {
   const errorMsg = `Auth Error: ${res.locals['message']}`;
+  console.log(errorMsg)
 }
 
 xuiNode.on(AUTH.EVENT.AUTHENTICATE_SUCCESS, successCallback);
@@ -61,13 +57,6 @@ export const getXuiNodeMiddleware = () => {
   const s2sSecret = getConfigValue(S2S_SECRET);
   const tokenUrl = `${getConfigValue(SERVICES_IDAM_API_URL)}/oauth2/token`;
 
-  console.log('IDAM SECRET: ' + secret);
-  console.log('s2sSECRET: ' + s2sSecret);
-  console.log('IDAM_LOGIN_URL: ' + idamWebUrl);
-  console.log('IDAM_CLIENT_ID: ' + idamClient);
-  console.log('IDAM_ISS_URL: ' + issuerUrl);
-  console.log('IDAM_API_URL: ' + idamApiPath);
- 
   //TODO: we can move these out into proper config at some point to tidy up even further
   const options: AuthOptions = {
     allowRolesRegex: getConfigValue(LOGIN_ROLE_MATCHER),
@@ -122,4 +111,4 @@ export const getXuiNodeMiddleware = () => {
   
   return xuiNode.configure(nodeLibOptions);
 
- };
+};
