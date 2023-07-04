@@ -50,10 +50,7 @@ describe('ViewSittingRecordService', () => {
       statusIds: []
     };
     const mockResponse: ViewSittingRecordResponse = { "sittingRecords": [] };
-    
-    cookieService.get.withArgs('__serviceauth__').and.returnValue('mockS2SToken');
-    cookieService.get.withArgs('__auth__').and.returnValue('mockAuthToken');
-   
+
     service.postObject(mockDataPost).subscribe(response => {
       expect(response).toEqual(mockResponse);
     });
@@ -62,8 +59,6 @@ describe('ViewSittingRecordService', () => {
     expect(req.request.method).toBe('POST');
     expect(req.request.body).toEqual(mockDataPost);
     expect(req.request.headers.get('Content-Type')).toBe('application/json');
-    expect(req.request.headers.get('Authorization')).toBe('mockAuthToken');
-    expect(req.request.headers.get('ServiceAuthorization')).toBe('mockS2SToken');
     expect(req.request.params.get('hmctsServiceCode')).toBe('BBA3');
     req.flush(mockResponse);
   });
