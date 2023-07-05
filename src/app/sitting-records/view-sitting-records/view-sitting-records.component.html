@@ -1,5 +1,8 @@
 <main class="govuk-main-wrapper " id="main-content" role="main">
     <h1 class="govuk-heading-l">Judicial Sitting Records</h1>
+    <p class="govuk-body govuk-!-margin-bottom-4">
+      Sitting records for {{tribService}}, {{venueSiteName}}, for {{date}}
+    </p>
 
     <div class="govuk-button-group">
       <button class="govuk-button govuk-button--secondary" data-module="govuk-button" (click)="goBack()">
@@ -11,17 +14,102 @@
     </div>
 
     <div class="govuk-button-group">
-      <button class="govuk-button govuk-button--secondary" data-module="govuk-button">
+      <button class="govuk-button govuk-button--secondary" data-module="govuk-button" (click)="showFilters = !showFilters">
         Show Filters
       </button>
     </div>
 
     <div class="govuk-grid-row">
-      <div [ngClass]="showFilters ? 'govuk-grid-column-three-quarters' : 'govuk-grid-column-full'">
-        <p class="govuk-body govuk-!-margin-bottom-4">
-          Sitting records for {{tribService}}, {{venueSiteName}}, for {{date}}
-        </p>
-    
+
+      <div class="govuk-grid-column-one-third filter-border govuk-!-padding-3" *ngIf="showFilters">
+        <h3 class="govuk-heading-s">Filters</h3>
+
+        <div class="govuk-form-group govuk-!-margin-bottom-3">
+          <label class="govuk-label" for="venue-filter-value">
+            Venue:
+          </label>
+          <input class="govuk-input" id="venue-filter-value" disabled value="{{venueSiteName}}">
+        </div>
+
+        <div class="govuk-form-group govuk-!-margin-bottom-3">
+          <label class="govuk-label" for="entered-by-filter">
+            Entered by:  
+          </label>
+          <select class="govuk-select govuk-!-width-full" 
+              id="entered-by-filter" name="entered-by-filter"
+          >
+            <option [ngValue]="''" disabled selected>--Select a value--</option>
+            <option [ngValue]="'1'">1</option>
+          </select>
+        </div>
+
+        <div class="govuk-form-group govuk-!-margin-bottom-3">
+          <label class="govuk-label" for="joh-filter">
+            Judicial office holder name:  
+          </label>
+          <select class="govuk-select govuk-!-width-full" 
+              id="joh-filter" name="joh-filter"
+          >
+            <option [ngValue]="''" disabled selected>--Select a value--</option>
+            <option [ngValue]="'1'">1</option>
+          </select>
+        </div>
+
+        <div class="govuk-form-group govuk-!-margin-bottom-3">
+          <label class="govuk-label" for="role-filter">
+            Role:  
+          </label>
+          <select class="govuk-select govuk-!-width-full" 
+              id="role-filter" name="role-filter"
+          >
+            <option [ngValue]="''" disabled selected>--Select a value--</option>
+            <option [ngValue]="'1'">1</option>
+
+          </select>
+        </div>
+
+        <div class="govuk-form-group govuk-!-margin-bottom-3">
+          <label class="govuk-label" for="period-filter">
+            Period:  
+          </label>
+          <select class="govuk-select govuk-!-width-full" 
+              id="period-filter" name="period-filter"
+          >
+            <option [ngValue]="''" disabled selected>--Select a value--</option>
+            <option [ngValue]="'1'">1</option>
+          </select>
+        </div>
+
+        <div class="govuk-form-group govuk-!-margin-bottom-3">
+          <label class="govuk-label" for="sitting-date-value">
+            Sitting date:
+          </label>
+          <input class="govuk-input" id="sitting-date-value" disabled value="{{date}}">
+        </div>
+
+        <div class="govuk-form-group govuk-!-margin-bottom-3">
+          <label class="govuk-label" for="status-filter">
+            Status:  
+          </label>
+          <select class="govuk-select govuk-!-width-full" 
+              id="status-filter" name="status-filter"
+          >
+            <option [ngValue]="''" disabled selected>--Select a value--</option>
+            <option [ngValue]="'1'">1</option>
+          </select>
+        </div>
+
+        <div class="govuk-button-group">
+          <button class="govuk-button govuk-button--secondary" data-module="govuk-button">
+            Reset
+          </button>
+          <button class="govuk-button" data-module="govuk-button">
+            Apply
+          </button>
+        </div>
+      </div>
+
+      <div [ngClass]="showFilters ? 'govuk-grid-column-two-thirds' : 'govuk-grid-column-full'">
         <ng-container style="width: 100%;">
           <table 
             datatable 
