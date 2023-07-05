@@ -9,6 +9,7 @@ import { VenueModel } from '../../_models/venue.model';
 import { HttpClientModule } from '@angular/common/http'; 
 import { MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { of } from 'rxjs';
+import { CookieService } from 'ngx-cookie-service';
 
 describe('ManageSittingRecordsComponent', () => {
   let component: ManageSittingRecordsComponent;
@@ -16,6 +17,7 @@ describe('ManageSittingRecordsComponent', () => {
   let router: Router;
   let srWorkflowService: SittingRecordWorkflowService;
   let locationService: LocationService;
+  let mockCookieService: jasmine.SpyObj<CookieService>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -31,6 +33,7 @@ describe('ManageSittingRecordsComponent', () => {
     router = TestBed.inject(Router);
     srWorkflowService = TestBed.inject(SittingRecordWorkflowService);
     locationService = TestBed.inject(LocationService);
+    mockCookieService = TestBed.inject(CookieService) as jasmine.SpyObj<CookieService>;
     fixture.detectChanges();
   });
 
@@ -217,5 +220,19 @@ describe('ManageSittingRecordsComponent', () => {
     component.getVenues(searchTerm).subscribe((result) => {
       expect(result).toEqual(venues);
     });
+  });
+
+  it('should hide Previous Button when jps-recorder role is logged in', () => {
+    spyOn(mockCookieService, 'get').and.returnValue('jps-recorder')
+
+    expect(component.showPreviousButton).toBeFalse;
+
+  });
+
+  it('should show Previous Button when jps-recorder role is not logged in', () => {
+    spyOn(mockCookieService, 'get').and.returnValue('jps-submitter')
+
+    expect(component.showPreviousButton).toBeTrue;
+
   });
 });

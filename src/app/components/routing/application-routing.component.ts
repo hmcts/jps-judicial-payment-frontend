@@ -19,11 +19,12 @@ export class ApplicationRoutingComponent implements OnInit{
   navigateBasedOnUserRole(){
     // TODO: move below role collection out of cookies and into a user service file.
     const userRole = this.cookies.get('__userrole__');
+
     if(userRole.indexOf('jps-recorder') != -1){
-      void this.router.navigate(['sittingRecords', 'manage'])
+      void this.router.navigate(['sittingRecords', 'manage']);
     }
     else {
-      void this.router.navigate(['sittingRecords', 'home'])
+      void this.router.navigate(['sittingRecords', 'home']);
     }
   }
 
