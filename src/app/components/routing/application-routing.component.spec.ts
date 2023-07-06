@@ -1,38 +1,49 @@
-import { TestBed, ComponentFixture } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { AppComponent } from '../../app.component';
-import { CookieService } from 'ngx-cookie-service';
+import { ApplicationRoutingComponent } from './application-routing.component';
 import { Router } from '@angular/router';
-import { JPFooterComponent } from '../../jp-footer/jp-footer.component';
-import { JPHeaderComponent } from '../../jp-header/jp-header.component';
-import { CookieManagerComponent } from '../../cookies/cookie-manager/cookie-manager.component'
+import { CookieService } from 'ngx-cookie-service';
 
 describe('ApplicationRoutingComponent', () => {
-  let component: AppComponent;
-  let fixture: ComponentFixture<AppComponent>;
-  let router: Router; // Replace with the correct Router type if needed
-  let cookieService: jasmine.SpyObj<CookieService>;
+  let component: ApplicationRoutingComponent;
+  let fixture: ComponentFixture<ApplicationRoutingComponent>;
+  let router: Router;
+  let cookieService: CookieService;
 
   beforeEach(async () => {
-    const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
-    const cookieServiceSpy = jasmine.createSpyObj('CookieService', ['get']);
-
     await TestBed.configureTestingModule({
+      declarations: [ApplicationRoutingComponent],
       imports: [RouterTestingModule],
-      declarations: [AppComponent, JPFooterComponent, JPHeaderComponent, CookieManagerComponent],
-      providers: [
-        { provide: Router, useValue: routerSpy },
-        { provide: CookieService, useValue: cookieServiceSpy }
-      ]
+      providers: [CookieService],
     }).compileComponents();
-
-    fixture = TestBed.createComponent(AppComponent);
-    component = fixture.componentInstance;
-    router = TestBed.inject(Router);
-    cookieService = TestBed.inject(CookieService) as jasmine.SpyObj<CookieService>;
   });
 
-  it('should create', () => {
+  beforeEach(() => {
+    fixture = TestBed.createComponent(ApplicationRoutingComponent);
+    component = fixture.componentInstance;
+    router = TestBed.inject(Router);
+    cookieService = TestBed.inject(CookieService);
+  });
+
+  it('should create the component', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should navigate to sittingRecords/manage if userRole contains "jps-recorder"', () => {
+    spyOn(cookieService, 'get').and.returnValue('jps-recorder');
+    const navigateSpy = spyOn(router, 'navigate');
+
+    component.ngOnInit();
+
+    expect(navigateSpy).toHaveBeenCalledWith(['sittingRecords', 'manage']);
+  });
+
+  it('should not navigate if userRole does not contain "jps-recorder"', () => {
+    spyOn(cookieService, 'get').and.returnValue('other-role');
+    const navigateSpy = spyOn(router, 'navigate');
+
+    component.ngOnInit();
+
+    expect(navigateSpy).toHaveBeenCalledWith(['sittingRecords', 'home']);
   });
 });

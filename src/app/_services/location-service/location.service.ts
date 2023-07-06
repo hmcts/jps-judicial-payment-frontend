@@ -15,15 +15,9 @@ export class LocationService {
   ) { }
 
   public getAllVenues(searchTerm: string): Observable<VenueModel[]> {
-
-    // TODO: move these to service file
-    const S2SToken: string  = this.cookies.get('__serviceauth__');
-    const authToken: string = this.cookies.get('__auth__')
-
+    
     const headers = {
       'Content-Type': 'application/json',
-      'Authorization': authToken,
-      'ServiceAuthorization': S2SToken
     };
 
     return this.http.post<VenueModel[]>('/refdata/location', {searchTerm: searchTerm}, { headers: headers});
@@ -32,14 +26,8 @@ export class LocationService {
 
   public getAllRegions(): Observable<RegionModel[]> {
 
-    // TODO: move these to service file
-    const S2SToken: string  = this.cookies.get('__serviceauth__');
-    const authToken: string = this.cookies.get('__auth__')
-
     const headers = {
       'Content-Type': 'application/json',
-      'Authorization': authToken,
-      'ServiceAuthorization': S2SToken
     };
 
     return this.http.post<RegionModel[]>('/refdata/location/regions', null, { headers: headers});

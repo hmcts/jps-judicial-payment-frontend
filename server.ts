@@ -10,13 +10,23 @@ import { AppServerModule } from './src/main.server';
 import { HealthCheck } from './src/app/server/healthcheck';
 import { getXuiNodeMiddleware } from './api/auth';
 import refDataRouter from './api/refdata/routes';
+import { Logger } from '@hmcts/nodejs-logging';
+const logger = Logger.getLogger()
 
 const errorHandler = ((err, req, res, next) => {
   const error = err.response
   res.status(error.status || 500);
+  let errMsg = `${error.statusText}:`
+  if(error.data.errorDescription){
+    errMsg += ` ${error.data.errorDescription}`
+  }
+  logger.log({
+    level: 'error',
+    message: errMsg
+  })
   res.json({
     error: {
-      message: `${error.statusText}: ${error.data.errorDescription}` || 'Internal Server Error',
+      message: errMsg || 'Internal Server Error',
     },
   });
 });
