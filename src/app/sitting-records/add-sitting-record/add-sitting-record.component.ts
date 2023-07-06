@@ -11,7 +11,7 @@ import {
 import { HttpClient } from '@angular/common/http';
 import { debounceTime, filter, mergeMap, tap } from 'rxjs/operators';
 import { UserService } from '../../_services/user-service/user.service'
-import { UserInfoModel, UserModel } from '../../_models/user.model';
+import { UserModel } from '../../_models/user.model';
 import { AutoCompleteValidator } from '../../_validators/autoCompleteValidator/auto-complete-validator'
 import { Observable, Subscription } from 'rxjs';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
@@ -49,6 +49,7 @@ export class AddSittingRecordComponent implements OnInit, OnDestroy {
 
   submitNewSittingRecord() {
     this.srWorkFlow.setAddSittingRecords(this.addSittingRecordsFG)
+    this.srWorkFlow.setSittingRecordsRoleList(this.userRoleList)
     void this.router.navigate(['sittingRecords', 'addConfirm'])
   }
 
@@ -57,10 +58,9 @@ export class AddSittingRecordComponent implements OnInit, OnDestroy {
       this.johFormArray.push(
         new FormGroup({
           johName: new FormControl(null, [Validators.required, AutoCompleteValidator.requireSelection]),
-          johRole: new FormControl(null, [Validators.required])
+          johRole: new FormControl({value: null, disabled: true}, [Validators.required])
         })
       )
-
       this.createValueChangesListener(this.johFormArray.length-1)
     }
   }
@@ -75,6 +75,10 @@ export class AddSittingRecordComponent implements OnInit, OnDestroy {
   createValueChangesListener(index: number) {
     const subscription = this.johFormArray.controls[index].get('johName')?.valueChanges
       .pipe(
+          tap(() => {
+            this.johFormArray.controls[index].get('johRole')?.reset()
+            this.johFormArray.controls[index].get('johRole')?.disable()
+          } ),
           tap(() => this.usersFound[index] = true),
           tap(() => this.userList[index] = [] as UserModel[]),
           tap(term => this.searchTerm[index] = term),
@@ -111,6 +115,7 @@ export class AddSittingRecordComponent implements OnInit, OnDestroy {
         return roleObject
       })
       this.userRoleList[index] = rolesArray;
+      this.johFormArray.controls[index].get('johRole')?.enable()
     })
   }
 
@@ -137,7 +142,7 @@ export class AddSittingRecordComponent implements OnInit, OnDestroy {
         JOH: new FormArray([
           new FormGroup({
             johName: new FormControl(null, [Validators.required, AutoCompleteValidator.requireSelection]),
-            johRole: new FormControl(null, [Validators.required])
+            johRole: new FormControl({value: null, disabled: true}, [Validators.required])
           })
         ]),
         period: new FormControl(null, [Validators.required]),
@@ -158,7 +163,7 @@ export class AddSittingRecordComponent implements OnInit, OnDestroy {
 
     if(this.srWorkFlow.getAddSittingRecords() && this.srWorkFlow.checkCameFromConfirm()){
       this.addSittingRecordsFG = this.srWorkFlow.getAddSittingRecords();
-        
+      this.userRoleList = this.srWorkFlow.getSittingRecordsRoleList()
       for(let i = 0; i < this.johFormArray.length; i++){
         this.createValueChangesListener(i);
       }

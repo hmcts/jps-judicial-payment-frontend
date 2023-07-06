@@ -14,6 +14,7 @@ export class SittingRecordWorkflowService {
   addSittingRecords!: FormGroup;
   hasVisitedManage = false;
   cameFromConfirm = false;
+  sittingRecordsRoleList;
     
   constructor(
     private dateSvc: DateService,
@@ -69,6 +70,18 @@ export class SittingRecordWorkflowService {
 
   resetCameFromConfirm(){
     this.cameFromConfirm = false;
+  }
+
+  setSittingRecordsRoleList(userRolesList){
+    this.sittingRecordsRoleList = userRolesList
+  }
+
+  getSittingRecordsRoleList(){
+    return this.sittingRecordsRoleList
+  }
+
+  resetSittingRecordsRoleList(){
+    this.sittingRecordsRoleList = null;
   }
 
   formAndPostNewSittingRecord(){
