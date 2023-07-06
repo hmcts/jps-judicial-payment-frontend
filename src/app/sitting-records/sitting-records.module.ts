@@ -13,12 +13,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { SittingRecordsLandingComponent } from './sitting-records-landing/sitting-records-landing.component';
 import { SittingRecordsLandingManageRecordsComponent } from './sitting-records-landing/sitting-records-landing-manage-records/sitting-records-landing-manage-records.component';
 
+import { DataTablesModule } from "angular-datatables";
+
+
 @NgModule({
   imports: [
     CommonModule,
     SittingRecordsRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    DataTablesModule,
     MatAutocompleteModule,
     HttpClientModule
   ],
