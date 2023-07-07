@@ -7,10 +7,10 @@ import { DateService } from '../_services/date-service/date-service'
 @Injectable({
   providedIn: 'root'
 })
-export class SittingRecordWorkflowService {
+export class RecorderWorkflowService {
   
   formData!: FormGroup;
-  hasVisitedManage = false; 
+  hasVisitedManage = false;
 
   constructor(
     private ViewSittingRecordService: ViewSittingRecordService,
@@ -28,6 +28,7 @@ export class SittingRecordWorkflowService {
 
   setFormData(data : FormGroup){
     this.formData = data;
+    console.log(this.formData);
   }
 
   getFormData(){

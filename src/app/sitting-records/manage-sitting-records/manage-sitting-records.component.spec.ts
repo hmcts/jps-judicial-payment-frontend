@@ -3,7 +3,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ManageSittingRecordsComponent } from './manage-sitting-records.component';
-import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-workflow.service';
+import { RecorderWorkflowService } from '../../_workflows/recorder-workflow.service';
 import { LocationService } from '../../_services/location-service/location.service';
 import { VenueModel } from '../../_models/venue.model';
 import { HttpClientModule } from '@angular/common/http'; 
@@ -15,7 +15,7 @@ describe('ManageSittingRecordsComponent', () => {
   let component: ManageSittingRecordsComponent;
   let fixture: ComponentFixture<ManageSittingRecordsComponent>;
   let router: Router;
-  let srWorkflowService: SittingRecordWorkflowService;
+  let srWorkflowService: RecorderWorkflowService;
   let locationService: LocationService;
   let mockCookieService: jasmine.SpyObj<CookieService>;
 
@@ -23,7 +23,7 @@ describe('ManageSittingRecordsComponent', () => {
     await TestBed.configureTestingModule({
       imports: [ReactiveFormsModule, RouterTestingModule, HttpClientModule, MatAutocompleteModule],
       declarations: [ManageSittingRecordsComponent],
-      providers: [SittingRecordWorkflowService, LocationService],
+      providers: [RecorderWorkflowService, LocationService],
     }).compileComponents();
   });
 
@@ -31,7 +31,7 @@ describe('ManageSittingRecordsComponent', () => {
     fixture = TestBed.createComponent(ManageSittingRecordsComponent);
     component = fixture.componentInstance;
     router = TestBed.inject(Router);
-    srWorkflowService = TestBed.inject(SittingRecordWorkflowService);
+    srWorkflowService = TestBed.inject(RecorderWorkflowService);
     locationService = TestBed.inject(LocationService);
     mockCookieService = TestBed.inject(CookieService) as jasmine.SpyObj<CookieService>;
     fixture.detectChanges();

@@ -9,7 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { debounceTime, filter, mergeMap, tap } from 'rxjs/operators';
 import { CustomValidators } from '../../_validators/sitting-records-form-validator';
-import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-workflow.service';
+import { RecorderWorkflowService } from '../../_workflows/recorder-workflow.service';
 import { LocationService } from '../../_services/location-service/location.service'
 import { VenueModel } from '../../_models/venue.model';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
@@ -46,7 +46,7 @@ export class ManageSittingRecordsComponent implements OnInit {
     private cookies: CookieService,
     protected activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private srWorkFlow: SittingRecordWorkflowService,
+    private srWorkFlow: RecorderWorkflowService,
     private locationService : LocationService
   ){
     this.manageRecords = this.formBuilder.group(

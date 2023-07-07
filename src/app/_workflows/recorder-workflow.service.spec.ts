@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
-import { SittingRecordWorkflowService } from './sitting-record-workflow.service';
+import { RecorderWorkflowService } from './recorder-workflow.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ViewSittingRecordPost, ViewSittingRecordResponse } from '../_models/viewSittingRecords.model';
 import { ViewSittingRecordService } from '../_services/sitting-records-service/view-sitting-records-service';
@@ -8,18 +8,18 @@ import { DateService } from '../_services/date-service/date-service';
 import { of } from 'rxjs';
 
 describe('SittingRecordWorkflowService', () => {
-  let mockSRWorkflowService: SittingRecordWorkflowService;
+  let mockSRWorkflowService: RecorderWorkflowService;
   let mockViewSittingRecordService: ViewSittingRecordService;
   let mockformData: FormGroup;
   let mockDateSvc: DateService
   
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [SittingRecordWorkflowService, ViewSittingRecordService, DateService],
+      providers: [RecorderWorkflowService, ViewSittingRecordService, DateService],
       imports: [HttpClientModule]
     });
 
-    mockSRWorkflowService = TestBed.inject(SittingRecordWorkflowService);
+    mockSRWorkflowService = TestBed.inject(RecorderWorkflowService);
     mockViewSittingRecordService = TestBed.inject(ViewSittingRecordService);
     mockDateSvc = TestBed.inject(DateService);
     mockformData= new FormBuilder().group({

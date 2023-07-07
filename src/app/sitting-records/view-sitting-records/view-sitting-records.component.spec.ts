@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ViewSittingRecordsComponent } from './view-sitting-records.component';
-import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-workflow.service';
+import { RecorderWorkflowService } from '../../_workflows/recorder-workflow.service';
 import { DateService } from '../../_services/date-service/date-service';
 import { Router } from '@angular/router';
 import { DataTablesModule } from 'angular-datatables';
@@ -14,13 +14,13 @@ describe('ViewSittingRecordsComponent', () => {
   let component: ViewSittingRecordsComponent;
   let fixture: ComponentFixture<ViewSittingRecordsComponent>;
   let mockRouter: Router;
-  let mockSRWorkflowService: SittingRecordWorkflowService;
+  let mockSRWorkflowService: RecorderWorkflowService;
   let mockDateSvc: DateService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [ ViewSittingRecordsComponent ],
-      providers: [ SittingRecordWorkflowService, DateService ],
+      providers: [ RecorderWorkflowService, DateService ],
       imports: [RouterTestingModule, DataTablesModule, HttpClientModule]
     }).compileComponents();
   });
@@ -29,7 +29,7 @@ describe('ViewSittingRecordsComponent', () => {
     fixture = TestBed.createComponent(ViewSittingRecordsComponent);
     component = fixture.componentInstance;
     mockRouter = TestBed.inject(Router);
-    mockSRWorkflowService = TestBed.inject(SittingRecordWorkflowService);
+    mockSRWorkflowService = TestBed.inject(RecorderWorkflowService);
     mockDateSvc = TestBed.inject(DateService)
   });
 

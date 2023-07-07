@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CustomValidators } from '../../../_validators/sitting-records-form-validator';
 import { LocationService } from '../../../_services/location-service/location.service';
 import { RegionModel } from '../../../_models/region.model';
+import { PublisherWorkflowService } from '../../../_workflows/publisher-workflow.service';
 
 @Component({
   selector: 'app-sitting-records-landing-manage-records',
@@ -15,7 +16,8 @@ export class SittingRecordsLandingManageRecordsComponent {
   
   constructor( 
     private formBuilder: FormBuilder,
-    private locationService : LocationService
+    private locationService : LocationService,
+    private srWorkFlow: PublisherWorkflowService,
     ){
     this.manageRecords = this.formBuilder.group({
         tribunalService: [null, [Validators.required]],
@@ -45,6 +47,12 @@ export class SittingRecordsLandingManageRecordsComponent {
           this.manageRecords.controls["region"].reset();
         }
       });
+  }
+
+  ngOnInit(): void {
+    if(this.srWorkFlow.getFormData()){
+      this.manageRecords = this.srWorkFlow.getFormData();
+    }
   }
 
   get f() {

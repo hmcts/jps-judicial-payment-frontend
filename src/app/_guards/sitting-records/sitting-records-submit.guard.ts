@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router, UrlTree } from '@angular/router';
+import { CanActivate, UrlTree, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { RecorderWorkflowService } from '../../_workflows/recorder-workflow.service';
+import { PublisherWorkflowService } from '../../_workflows/publisher-workflow.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SittingRecordsViewGuard implements CanActivate {
+export class SittingRecordsSubmitGuard implements CanActivate {
 
   constructor(
-    private srWorkflow: RecorderWorkflowService,
+    private srWorkflow: PublisherWorkflowService,
     private router: Router
   ){}
 
@@ -17,10 +17,9 @@ export class SittingRecordsViewGuard implements CanActivate {
     if(this.srWorkflow.getManageVisited()) {
       return true;
     } else {
-      void this.router.navigate(['sittingRecords','manage']);
+      void this.router.navigate(['sittingRecords','home']);
       return false;
     }
-    
   }
   
 }

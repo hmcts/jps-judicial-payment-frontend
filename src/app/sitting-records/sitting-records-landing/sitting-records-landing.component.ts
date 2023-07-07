@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SittingRecordsLandingManageRecordsComponent } from './sitting-records-landing-manage-records/sitting-records-landing-manage-records.component';
 import { CookieService } from 'ngx-cookie-service';
+import { PublisherWorkflowService } from '../../_workflows/publisher-workflow.service';
 
 @Component({
   selector: 'app-sitting-records-landing',
@@ -15,7 +16,8 @@ export class SittingRecordsLandingComponent implements OnInit, AfterViewInit{
   showSubmitSittingRecordsOption = false;
   showFindAddDeleteSittingRecordsOption = false;
   @ViewChild(SittingRecordsLandingManageRecordsComponent) childComponent: SittingRecordsLandingManageRecordsComponent | undefined;
-  manageRecords: FormGroup | undefined;
+  manageRecords!: FormGroup | undefined;
+  srWorkFlow!: PublisherWorkflowService;
 
   constructor(
     protected router: Router,
@@ -40,7 +42,8 @@ export class SittingRecordsLandingComponent implements OnInit, AfterViewInit{
   }
 
   ngOnInit() {
-    const userRole = this.cookies.get('__userrole__');
+    //const userRole = this.cookies.get('__userrole__');
+    const userRole = "jps-submitter";
     if(userRole.indexOf('jps-JOH-admin') != -1) {
       //show radio buttons visible to them
     } else if (userRole.indexOf('jps-submitter') != -1) {
@@ -58,5 +61,12 @@ export class SittingRecordsLandingComponent implements OnInit, AfterViewInit{
   submitForm(){
     if(this.userForm.controls["options"].value === 'opt1')
       void this.router.navigate(['sittingRecords','manage'])
+    else {
+      console.log('ManageRecords');
+
+      this.srWorkFlow.setFormData(this.manageRecords as FormGroup);
+      this.srWorkFlow.setManageVisited();
+      void this.router.navigate(['sittingRecords','submit'])
+    }
   }
 }

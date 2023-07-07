@@ -14,6 +14,7 @@ import { SittingRecordsLandingComponent } from './sitting-records-landing/sittin
 import { SittingRecordsLandingManageRecordsComponent } from './sitting-records-landing/sitting-records-landing-manage-records/sitting-records-landing-manage-records.component';
 
 import { DataTablesModule } from "angular-datatables";
+import { SubmitSittingRecordsComponent } from './submit-sitting-records/submit-sitting-records.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { DataTablesModule } from "angular-datatables";
     ViewSittingRecordsComponent,
     NumberDirective,
     SittingRecordsLandingComponent,
-    SittingRecordsLandingManageRecordsComponent
+    SittingRecordsLandingManageRecordsComponent,
+    SubmitSittingRecordsComponent
   ]
 })
 export class SittingRecordsModule { }
