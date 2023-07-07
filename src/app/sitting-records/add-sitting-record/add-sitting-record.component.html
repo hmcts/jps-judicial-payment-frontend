@@ -61,7 +61,7 @@
                         </div>
                         <select class="govuk-select govuk-!-width-full" id="role" name="role" formControlName="johRole" required>
                             <option [ngValue]="null" disabled selected>--Select a value--</option>
-                            <option [ngValue]="role" *ngFor="let role of userRoleList[i]">{{role.appointment}}</option>
+                            <option [ngValue]="role" *ngFor="let role of userRoleList[i]">{{role?.appointment}}</option>
                         </select>
                     </div>
                 </div>

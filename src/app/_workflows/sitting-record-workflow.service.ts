@@ -81,32 +81,21 @@ export class SittingRecordWorkflowService {
   }
 
   resetSittingRecordsRoleList(){
-    this.sittingRecordsRoleList = null;
+    this.sittingRecordsRoleList = undefined;
   }
 
-  formAndPostNewSittingRecord(){
+  formAndPostNewSittingRecord() {
     const { JOH, period } = this.addSittingRecords.controls;
     const { dateSelected, tribunalService, venue } = this.formData.value;
-    const postBody = new SittingRecordsPostBody();
-    postBody.recordedByIdamId = this.uInfoSvc.getIdamId();
-    postBody.recordedByName = this.uInfoSvc.getUserName();
-    JOH.value.forEach(joh => {
-      const newSRPostObj = new SittingRecordsPostObj();
-      newSRPostObj.hmctsServiceCode = tribunalService.hmctsServiceCode;
-      newSRPostObj.sittingDate = this.dateSvc.createDateObjFromFormData(dateSelected);
-      newSRPostObj.epimsId = venue.epimms_id;
-      newSRPostObj.personalCode = joh.johName.personalCode
-      //TODO: update below properties to use data retrieved from API call on addSR page
-      newSRPostObj.contractTypeId = joh.johRole.appointment_type
-      newSRPostObj.judgeRoleTypeId = joh.johRole.appointment;
-      newSRPostObj.replaceDuplicate = false;
-      newSRPostObj.durationBoolean = period.value
-    
-      
-      postBody.recordedSittingRecords.push(newSRPostObj);
-    });
-  
+
+    const postBody = {
+      recordedByIdamId: this.uInfoSvc.getIdamId(),
+      recordedByName: this.uInfoSvc.getUserName(),
+      recordedSittingRecords: JOH.value.map(joh => this.sittingRecordsSvc.createNewSRPostObj(joh, tribunalService, dateSelected, venue, period))
+    };
+    console.log(postBody)
     return this.sittingRecordsSvc.postNewSittingRecord(postBody);
   }
+
   
 }

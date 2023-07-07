@@ -14,7 +14,7 @@ import sittingRecordsRouter from './api/sittingrecords/routes';
 import { IdamAuthenticatorService } from './api/refdata/authenticator/index';
 
 const errorHandler = ((err, req, res, next) => {
-  console.log(err)
+  console.log(err.request)
   if (err) {
     const error = err.response
     res.status(error.status || 500);

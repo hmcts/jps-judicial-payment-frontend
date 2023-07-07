@@ -27,19 +27,20 @@ import { RolesModel } from '../../_models/roles.model'
 export class AddSittingRecordComponent implements OnInit, OnDestroy {
 
   addSittingRecordsFG: FormGroup;
-
+  MAX_JOH_COUNT = 3;
   tribService = "";
   venueSiteName = "";
   date = "";
   venueEpimmsId = "";
-  userList: any[] = [ [] as UserModel[], [] as UserModel[], [] as UserModel[]];
-  userRoleList: any[] = [ [] as RolesModel[], [] as RolesModel[], [] as RolesModel[] ];
-  searchTerm = [ "", "", "" ];
-  usersFound = [ true, true, true ]
+  userList: any[] = [[] as UserModel[], [] as UserModel[], [] as UserModel[]];
+  userRoleList: any[] = [[] as RolesModel[], [] as RolesModel[], [] as RolesModel[]];
+  searchTerm = ["", "", ""];
+  usersFound = [true, true, true]
   subscriptions: Subscription[] = [];
   serviceCode = "";
 
   goBack() {
+    this.srWorkFlow.resetCameFromConfirm()
     void this.router.navigate(['sittingRecords', 'manage'])
   }
 
@@ -53,76 +54,137 @@ export class AddSittingRecordComponent implements OnInit, OnDestroy {
     void this.router.navigate(['sittingRecords', 'addConfirm'])
   }
 
+  /**
+   *
+   *  Function to create a new JOH in JOH form array
+   * 
+   * @return {*}  {FormGroup}
+   * @memberof AddSittingRecordComponent
+   */
+  createJohFormGroup(): FormGroup {
+    return new FormGroup({
+      johName: new FormControl(null, [Validators.required, AutoCompleteValidator.requireSelection]),
+      johRole: new FormControl({ value: null, disabled: true }, [Validators.required])
+    });
+  }
+
+  /**
+   *
+   * Function to create the JOH array using createJohFormGroup 
+   * and create event listener for newly created JOH
+   *
+   * @memberof AddSittingRecordComponent
+   */
   addNewJoh() {
-    if (this.johFormArray.length != 3) {
-      this.johFormArray.push(
-        new FormGroup({
-          johName: new FormControl(null, [Validators.required, AutoCompleteValidator.requireSelection]),
-          johRole: new FormControl({value: null, disabled: true}, [Validators.required])
-        })
-      )
-      this.createValueChangesListener(this.johFormArray.length-1)
+    if (this.johFormArray.length != this.MAX_JOH_COUNT) {
+      this.johFormArray.push(this.createJohFormGroup());
+      this.createValueChangesListener(this.johFormArray.length - 1)
     }
   }
 
-  optionSelected(event: MatAutocompleteSelectedEvent, index: number){
+  /**
+   *
+   *  Function to get the user roles based on the user selecting a JOH from the autoComplete
+   * 
+   * @param {MatAutocompleteSelectedEvent} event
+   * @param {number} index  - index of the JOH element in array the user is editing
+   * @memberof AddSittingRecordComponent
+   */
+  optionSelected(event: MatAutocompleteSelectedEvent, index: number) {
     const user = event.option.value as UserModel
     this.johFormArray.controls[index].get('johName')?.setValue(user)
     this.userList[index] = [] as UserModel[]
     this.getUserRoles(user.personalCode, index)
   }
 
+  /**
+   *
+   * Dynamically generate the required event listeners to make autocompletes functional 
+   *
+   * @param {number} index - index in array of the JOH that needs to have eventListener added
+   * @memberof AddSittingRecordComponent
+   */
   createValueChangesListener(index: number) {
     const subscription = this.johFormArray.controls[index].get('johName')?.valueChanges
       .pipe(
-          tap(() => {
-            this.johFormArray.controls[index].get('johRole')?.reset()
-            this.johFormArray.controls[index].get('johRole')?.disable()
-          } ),
-          tap(() => this.usersFound[index] = true),
-          tap(() => this.userList[index] = [] as UserModel[]),
-          tap(term => this.searchTerm[index] = term),
-          filter(value => value.length >= 3),
-          debounceTime(500),
-          mergeMap(value => this.getUsers(value))
+        tap(() => {
+          this.johFormArray.controls[index].get('johRole')?.reset()
+          this.johFormArray.controls[index].get('johRole')?.disable()
+        }),
+        tap(() => this.usersFound[index] = true),
+        tap(() => this.userList[index] = [] as UserModel[]),
+        tap(term => this.searchTerm[index] = term),
+        filter(value => value.length >= 3),
+        debounceTime(500),
+        mergeMap(value => this.getUsers(value))
       ).subscribe(users => {
         this.changeDetector.markForCheck()
         this.userList[index] = users;
-        if(users.length === 0){
+        if (users.length === 0) {
           this.usersFound[index] = false
         }
       })
 
     this.subscriptions.push(subscription as Subscription)
   }
-
+  /**
+   *
+   * Used to display only the users full name on selection in auto complete
+   *
+   * @param {UserModel} value - user object returned from refData call
+   * @return {*} 
+   * @memberof AddSittingRecordComponent
+   */
   public showUserName(value: UserModel) {
-    if(value) { 
-      return value.fullName; 
+    if (value) {
+      return value.fullName;
     }
     return ""
   }
 
-  getUserRoles(userPersonalCode: string, index: number){
+  /**
+   *
+   * Function to make the refdata call to get users roles 
+   *
+   * @param {string} userPersonalCode - personal code 
+   * @param {number} index - index of the JOH to store the roles against
+   * @memberof AddSittingRecordComponent
+   */
+  getUserRoles(userPersonalCode: string, index: number) {
     this.userSvc.getUserInfo(userPersonalCode)
-    .subscribe(userRoleInfo => {
-      const appointments = userRoleInfo[0].appointments;
-      const rolesArray: RolesModel[] = appointments.map((appointment) => {
-        const roleObject: RolesModel = {
-          appointment: appointment.appointment,
-          appointment_type: appointment.appointment_type
-        }
-        return roleObject
+      .subscribe(userRoleInfo => {
+        const appointments = userRoleInfo[0].appointments;
+        const rolesArray: RolesModel[] = appointments.map((appointment) => {
+          const roleObject: RolesModel = {
+            appointment: appointment.appointment,
+            appointment_type: appointment.appointment_type
+          }
+          return roleObject
+        })
+        this.userRoleList[index] = rolesArray;
+        this.johFormArray.controls[index].get('johRole')?.enable()
       })
-      this.userRoleList[index] = rolesArray;
-      this.johFormArray.controls[index].get('johRole')?.enable()
-    })
   }
 
-  getUsers(searchString: string): Observable<UserModel[]>{
+  /**
+   *
+   * Function to make the refdata call to search for users matching user input string
+   *
+   * @param {string} searchString - partial search string passed into refdata call 
+   * @return {*}  {Observable<UserModel[]>}
+   * @memberof AddSittingRecordComponent
+   */
+  getUsers(searchString: string): Observable<UserModel[]> {
     return this.userSvc.getUsers(searchString, this.serviceCode, this.venueEpimmsId)
   }
 
+  /**
+   *
+   * function to remove the JOH from the form array and delete the eventListener assigned to form controls
+   *
+   * @param {number} index - index of JOH 
+   * @memberof AddSittingRecordComponent
+   */
   removeJoh(index: number) {
     this.johFormArray.removeAt(index)
     this.subscriptions[index].unsubscribe();
@@ -140,15 +202,12 @@ export class AddSittingRecordComponent implements OnInit, OnDestroy {
     this.addSittingRecordsFG = new FormGroup(
       {
         JOH: new FormArray([
-          new FormGroup({
-            johName: new FormControl(null, [Validators.required, AutoCompleteValidator.requireSelection]),
-            johRole: new FormControl({value: null, disabled: true}, [Validators.required])
-          })
+          this.createJohFormGroup()
         ]),
         period: new FormControl(null, [Validators.required]),
       }
     );
-    
+
     this.createValueChangesListener(0);
   }
 
@@ -161,10 +220,10 @@ export class AddSittingRecordComponent implements OnInit, OnDestroy {
     this.venueEpimmsId = venue.epimms_id;
     this.date = this.dateSvc.formatDateFromForm(dateSelected);
 
-    if(this.srWorkFlow.getAddSittingRecords() && this.srWorkFlow.checkCameFromConfirm()){
+    if (this.srWorkFlow.getAddSittingRecords() && this.srWorkFlow.checkCameFromConfirm()) {
       this.addSittingRecordsFG = this.srWorkFlow.getAddSittingRecords();
       this.userRoleList = this.srWorkFlow.getSittingRecordsRoleList()
-      for(let i = 0; i < this.johFormArray.length; i++){
+      for (let i = 0; i < this.johFormArray.length; i++) {
         this.createValueChangesListener(i);
       }
     }

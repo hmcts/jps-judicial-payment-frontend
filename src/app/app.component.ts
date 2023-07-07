@@ -20,7 +20,8 @@ export class AppComponent {
   setUserInfoValues(){
     if(this.cookies.get('__userid__')){
       const userInfoCookie = this.cookies.get('__userid__')
-      this.uInfoSvc.setUserInfo(userInfoCookie);
+      const userRoleCookie = this.cookies.get('__userrole__')
+      this.uInfoSvc.setUserInfo(userInfoCookie, userRoleCookie);
     }
   }
 }
