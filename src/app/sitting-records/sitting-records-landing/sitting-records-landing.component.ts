@@ -17,13 +17,13 @@ export class SittingRecordsLandingComponent implements OnInit, AfterViewInit{
   showFindAddDeleteSittingRecordsOption = false;
   @ViewChild(SittingRecordsLandingManageRecordsComponent) childComponent: SittingRecordsLandingManageRecordsComponent | undefined;
   manageRecords!: FormGroup | undefined;
-  srWorkFlow!: SubmitterWorkflowService;
 
   constructor(
     protected router: Router,
     private cookies: CookieService,
     protected activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
+    private submitterWorkflow : SubmitterWorkflowService
 
   ){
       this.userForm = this.formBuilder.group(
@@ -62,10 +62,8 @@ export class SittingRecordsLandingComponent implements OnInit, AfterViewInit{
     if(this.userForm.controls["options"].value === 'opt1')
       void this.router.navigate(['sittingRecords','manage'])
     else {
-      console.log('ManageRecords');
-
-      this.srWorkFlow.setFormData(this.manageRecords as FormGroup);
-      this.srWorkFlow.setManageVisited();
+      this.submitterWorkflow.setFormData(this.manageRecords as FormGroup);
+      this.submitterWorkflow.setManageVisited();
       void this.router.navigate(['sittingRecords','submit'])
     }
   }
