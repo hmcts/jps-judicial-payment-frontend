@@ -7,7 +7,7 @@ import { ViewSittingRecordService } from '../_services/sitting-records-service/v
 import { DateService } from '../_services/date-service/date-service';
 import { of } from 'rxjs';
 
-describe('SittingRecordWorkflowService', () => {
+describe('RecorderWorkflowService', () => {
   let mockSRWorkflowService: RecorderWorkflowService;
   let mockViewSittingRecordService: ViewSittingRecordService;
   let mockformData: FormGroup;

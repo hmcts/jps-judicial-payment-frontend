@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, UrlTree, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { PublisherWorkflowService } from '../../_workflows/publisher-workflow.service';
+import { SubmitterWorkflowService } from '../../_workflows/submitter-workflow.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +9,7 @@ import { PublisherWorkflowService } from '../../_workflows/publisher-workflow.se
 export class SittingRecordsSubmitGuard implements CanActivate {
 
   constructor(
-    private srWorkflow: PublisherWorkflowService,
+    private srWorkflow: SubmitterWorkflowService,
     private router: Router
   ){}
 

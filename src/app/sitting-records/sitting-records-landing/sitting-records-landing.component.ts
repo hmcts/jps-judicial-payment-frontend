@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SittingRecordsLandingManageRecordsComponent } from './sitting-records-landing-manage-records/sitting-records-landing-manage-records.component';
 import { CookieService } from 'ngx-cookie-service';
-import { PublisherWorkflowService } from '../../_workflows/publisher-workflow.service';
+import { SubmitterWorkflowService } from '../../_workflows/submitter-workflow.service';
 
 @Component({
   selector: 'app-sitting-records-landing',
@@ -17,7 +17,7 @@ export class SittingRecordsLandingComponent implements OnInit, AfterViewInit{
   showFindAddDeleteSittingRecordsOption = false;
   @ViewChild(SittingRecordsLandingManageRecordsComponent) childComponent: SittingRecordsLandingManageRecordsComponent | undefined;
   manageRecords!: FormGroup | undefined;
-  srWorkFlow!: PublisherWorkflowService;
+  srWorkFlow!: SubmitterWorkflowService;
 
   constructor(
     protected router: Router,

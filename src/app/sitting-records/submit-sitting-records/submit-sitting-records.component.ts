@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PublisherWorkflowService } from '../../_workflows/publisher-workflow.service';
+import { SubmitterWorkflowService } from '../../_workflows/submitter-workflow.service';
 import { DateService } from '../../_services/date-service/date-service';
 import { Router } from '@angular/router';
 import { defaultDtOptions }  from '../../_services/default-dt-options'
@@ -32,7 +32,7 @@ export class SubmitSittingRecordsComponent implements OnInit {
   }*/
 
   constructor(
-    private srWorkFlow: PublisherWorkflowService,
+    private srWorkFlow: SubmitterWorkflowService,
     private dateSvc: DateService,
     private router: Router
   ){}

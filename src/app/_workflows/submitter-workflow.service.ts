@@ -5,7 +5,7 @@ import { DateService } from '../_services/date-service/date-service';
 @Injectable({
   providedIn: 'root'
 })
-export class PublisherWorkflowService {
+export class SubmitterWorkflowService {
 
   formData!: FormGroup;
   hasVisitedManage = false;
