@@ -12,6 +12,8 @@ import { getXuiNodeMiddleware } from './api/auth';
 import refDataRouter from './api/refdata/routes';
 import sittingRecordsRouter from './api/sittingrecords/routes';
 import { IdamAuthenticatorService } from './api/refdata/authenticator/index';
+import { Logger } from '@hmcts/nodejs-logging';
+const logger = Logger.getLogger()
 
 const errorHandler = ((err, req, res, next) => {
   console.log(err.request)
@@ -26,13 +28,17 @@ const errorHandler = ((err, req, res, next) => {
       console.log(JSON.stringify(error.data.errors))
       errMsg += ` ${error.data.errors}`
     }
+
+    logger.log({
+      level: 'error',
+      message: errMsg
+    })
     res.json({
       error: {
         message: errMsg || 'Internal Server Error',
       },
     });
   }
-
 });
 const IdamAuthSvc = new IdamAuthenticatorService()
 
