@@ -9,12 +9,12 @@ import { SubmitterWorkflowService } from '../../_workflows/submitter-workflow.se
 export class SittingRecordsSubmitGuard implements CanActivate {
 
   constructor(
-    private srWorkflow: SubmitterWorkflowService,
+    private submitterWorkflow: SubmitterWorkflowService,
     private router: Router
   ){}
 
   canActivate(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    if(this.srWorkflow.getManageVisited()) {
+    if(this.submitterWorkflow.getManageVisited()) {
       return true;
     } else {
       void this.router.navigate(['sittingRecords','home']);

@@ -17,9 +17,10 @@ export class SittingRecordsLandingManageRecordsComponent {
   constructor( 
     private formBuilder: FormBuilder,
     private locationService : LocationService,
-    private srWorkFlow: SubmitterWorkflowService,
+    private submitterWorkflow: SubmitterWorkflowService,
     ){
     this.manageRecords = this.formBuilder.group({
+        selectedOption: ['opt2'],
         tribunalService: [null, [Validators.required]],
         region: [null, [Validators.required]],
         dateSelected: formBuilder.group ({
@@ -37,7 +38,6 @@ export class SittingRecordsLandingManageRecordsComponent {
       this.manageRecords.valueChanges.subscribe(() => {
         if(this.manageRecords.controls["tribunalService"].value !== "" && this.manageRecords.controls["region"].disabled){
           this.manageRecords.controls["region"].enable();
-          this.getRegions();
         }
   
       })
@@ -50,9 +50,11 @@ export class SittingRecordsLandingManageRecordsComponent {
   }
 
   ngOnInit(): void {
-    if(this.srWorkFlow.getFormData()){
-      this.manageRecords = this.srWorkFlow.getFormData();
+    if(this.submitterWorkflow.getFormData()){
+      this.manageRecords = this.submitterWorkflow.getFormData();
     }
+
+    this.getRegions();
   }
 
   get f() {

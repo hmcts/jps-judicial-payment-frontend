@@ -32,14 +32,13 @@ export class SubmitSittingRecordsComponent implements OnInit {
   }*/
 
   constructor(
-    private srWorkFlow: SubmitterWorkflowService,
+    private submitterWorkflow: SubmitterWorkflowService,
     private dateSvc: DateService,
     private router: Router
   ){}
     
   ngOnInit(){
-    console.log(this.srWorkFlow.getFormData().value);
-    const formData = this.srWorkFlow.getFormData().value;
+    const formData = this.submitterWorkflow.getFormData().value;
     const { dateSelected, tribunalService, region } = formData;
     this.tribService = tribunalService;
     this.region = region.description;
