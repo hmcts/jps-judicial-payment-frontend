@@ -8,6 +8,7 @@ import { DateService } from '../_services/date-service/date-service';
 export class SubmitterWorkflowService {
 
   formData!: FormGroup;
+  userFormData!: FormGroup;
   hasVisitedManage = false;
 
   constructor(
@@ -27,8 +28,16 @@ export class SubmitterWorkflowService {
     this.formData = data;
   }
 
+  setUserFormData(data : FormGroup){
+    this.userFormData = data;
+  }
+
   getFormData(){
     return this.formData;
+  }
+
+  getUserFormData(){
+    return this.userFormData;
   }
 
   resetFormData(){

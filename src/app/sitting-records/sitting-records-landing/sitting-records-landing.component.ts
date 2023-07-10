@@ -52,21 +52,27 @@ export class SittingRecordsLandingComponent implements OnInit, AfterViewInit{
     } else {
       this.showFindAddDeleteSittingRecordsOption = true;
     }
+
+    if (this.submitterWorkflow.getUserFormData()) {
+      this.userForm = this.submitterWorkflow.getUserFormData();
+      if(this.userForm.controls['options'].value === 'opt2'){
+        this.hideManageRecords = false;
+      }
+      else {
+        this.hideManageRecords = true;
+      }
+    }
   }
 
   ngAfterViewInit() {
     this.manageRecords = this.childComponent?.manageRecords;
-    console.log('Option:');
-    console.log(this.manageRecords?.controls["selectedOption"].value);
-    /*if (this.manageRecords?.controls["selectedOption"].value === 'opt2') {
-      this.userForm.controls["options"].patchValue = this.manageRecords?.controls["selectedOption"].value;
-    }*/
   }
 
   submitForm(){
     if(this.userForm.controls["options"].value === 'opt1')
       void this.router.navigate(['sittingRecords','manage'])
     else {
+      this.submitterWorkflow.setUserFormData(this.userForm);
       this.submitterWorkflow.setFormData(this.manageRecords as FormGroup);
       this.submitterWorkflow.setManageVisited();
       void this.router.navigate(['sittingRecords','submit'])

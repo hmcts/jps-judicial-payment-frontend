@@ -20,7 +20,6 @@ export class SittingRecordsLandingManageRecordsComponent {
     private submitterWorkflow: SubmitterWorkflowService,
     ){
     this.manageRecords = this.formBuilder.group({
-        selectedOption: ['opt2'],
         tribunalService: [null, [Validators.required]],
         region: [null, [Validators.required]],
         dateSelected: formBuilder.group ({
@@ -52,6 +51,7 @@ export class SittingRecordsLandingManageRecordsComponent {
   ngOnInit(): void {
     if(this.submitterWorkflow.getFormData()){
       this.manageRecords = this.submitterWorkflow.getFormData();
+      //this.manageRecords.get("region")?.patchValue(this.manageRecords.controls["region"].value.description);
     }
 
     this.getRegions();
