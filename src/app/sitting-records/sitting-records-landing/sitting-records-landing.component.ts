@@ -66,6 +66,9 @@ export class SittingRecordsLandingComponent implements OnInit, AfterViewInit{
 
   ngAfterViewInit() {
     this.manageRecords = this.childComponent?.manageRecords;
+    if (this.manageRecords?.controls["selectedOption"].value === 'opt2') {
+      this.userForm.controls["options"].patchValue = this.manageRecords?.controls["selectedOption"].value;
+    }
   }
 
   submitForm(){

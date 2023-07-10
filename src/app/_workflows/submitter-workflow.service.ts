@@ -10,6 +10,7 @@ export class SubmitterWorkflowService {
   formData!: FormGroup;
   userFormData!: FormGroup;
   hasVisitedManage = false;
+  financeRegions;
 
   constructor(
     private dateSvc: DateService
@@ -44,16 +45,12 @@ export class SubmitterWorkflowService {
     this.formData.reset();
   }
 
-  /*getSittingRecordsData() {
-    const postObj = new ViewSittingRecordPost();
-    const { dateSelected, venue } = this.formData.value;
-    const dateToGet = this.dateSvc.formatDateFromForm(dateSelected);
-    postObj.epimsId = venue.epimms_id;
-    postObj.regionId = venue.region_id;
-    postObj.dateRangeFrom = dateToGet;
-    postObj.dateRangeTo = dateToGet;
-    postObj.dateOrder = "ASCENDING";
+  setFincanceRegions(regions){
+    this.financeRegions = regions;
+  }
 
-    return this.ViewSittingRecordService.postObject(postObj);
-  }*/
+  getFinanceRegions(){
+    return this.financeRegions;
+  }
+
 }

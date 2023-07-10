@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CustomValidators } from '../../../_validators/sitting-records-form-validator';
 import { LocationService } from '../../../_services/location-service/location.service';
@@ -10,7 +10,7 @@ import { SubmitterWorkflowService } from '../../../_workflows/submitter-workflow
   templateUrl: './sitting-records-landing-manage-records.component.html',
   styleUrls: ['./sitting-records-landing-manage-records.component.scss']
 })
-export class SittingRecordsLandingManageRecordsComponent {
+export class SittingRecordsLandingManageRecordsComponent implements OnInit{
   public manageRecords!: FormGroup;
   regions: RegionModel[] = [];
   
@@ -50,11 +50,12 @@ export class SittingRecordsLandingManageRecordsComponent {
 
   ngOnInit(): void {
     if(this.submitterWorkflow.getFormData()){
+      this.regions = this.submitterWorkflow.getFinanceRegions();
       this.manageRecords = this.submitterWorkflow.getFormData();
-      //this.manageRecords.get("region")?.patchValue(this.manageRecords.controls["region"].value.description);
+    }else{
+      // as we get all regions we only need to do this on the first load of the page
+      this.getRegions();
     }
-
-    this.getRegions();
   }
 
   get f() {
@@ -62,6 +63,9 @@ export class SittingRecordsLandingManageRecordsComponent {
   }
 
   public getRegions(): void {
-    this.locationService.getAllRegions().subscribe(regions => {this.regions = regions});
+    this.locationService.getAllRegions().subscribe(regions => {
+      this.regions = regions
+      this.submitterWorkflow.setFincanceRegions(regions)
+    });
   }
 }
