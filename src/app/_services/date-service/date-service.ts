@@ -18,11 +18,11 @@ export class DateService {
 
   convertPeriod(period: string): string {
     switch(period){
-      case 'am':
+      case 'AM':
         return "Morning"
-      case 'pm':
+      case 'PM':
         return "Afternoon"
-      case 'both':
+      case 'FULL_DAY':
         return "Full Day"
       default:
         return ''

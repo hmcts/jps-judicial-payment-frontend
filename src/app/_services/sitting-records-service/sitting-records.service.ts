@@ -33,8 +33,21 @@ export class SittingRecordsService{
             contractTypeId: this.changeContractNameToId(joh.johRole.appointment_type),
             judgeRoleTypeId: this.changeRoleToRoleId(joh.johRole.appointment),
             replaceDuplicate: false,
-            durationBoolean: period.value
+            am: this.getPeriodValues(period.value, 'am'),
+            pm: this.getPeriodValues(period.value, 'pm')
         };
+    }
+
+    getPeriodValues(value, time){
+        if(value == "FULL_DAY"){
+            return true
+        }else if(value == "AM" && time == "am"){
+            return true
+        }else if(value == "PM" && time == "pm"){
+            return true
+        }else{
+            return false
+        }
     }
 
     //Temp functions until refdata calls are updated:

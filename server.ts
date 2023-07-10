@@ -16,7 +16,7 @@ import { Logger } from '@hmcts/nodejs-logging';
 const logger = Logger.getLogger()
 
 const errorHandler = ((err, req, res, next) => {
-  console.log(err.request)
+  console.log(err)
   if (err) {
     const error = err.response
     res.status(error.status || 500);
