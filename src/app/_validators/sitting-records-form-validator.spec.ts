@@ -58,4 +58,14 @@ describe('CustomValidators', () => {
 
     });
 
+    describe('requireVenueMatch', () => {
+        const control = new FormControl('');
+
+        it('should return value_not_selected error when the control value is string', () => {
+            control.patchValue('some value');
+            const result = CustomValidators.requireVenueMatch(control);
+            expect(result).toEqual({ 'value_not_selected': true });
+        })
+    });
+
 })

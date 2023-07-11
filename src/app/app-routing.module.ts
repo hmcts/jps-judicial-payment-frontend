@@ -1,10 +1,23 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ApplicationRoutingComponent } from './components/routing/application-routing.component';
+import { CookiePolicyComponent } from './cookies/cookie-policy/cookie-policy.component'
+import { AuthGuard } from './_guards/auth/auth.guard';
 
 const routes: Routes = [
-  {
-    path: '',
-    loadChildren: () => import('./sitting-records/sitting-records.module').then(m => m.SittingRecordsModule)
+  { 
+    path: '', 
+    canActivate: [AuthGuard], 
+    component: ApplicationRoutingComponent, 
+    pathMatch:'full' 
+  },
+  { 
+    path: 'cookies', 
+    component: CookiePolicyComponent, 
+  }, 
+  { 
+    path: '', 
+    loadChildren: () => import('./sitting-records/sitting-records.module').then(m => m.SittingRecordsModule) 
   }
 ];
 

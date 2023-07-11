@@ -16,3 +16,5 @@
 !tsconfig.server.json
 !src/**
 !server.ts
+!api/**
+!config/**

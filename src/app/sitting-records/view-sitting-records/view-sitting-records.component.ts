@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-workflow.service';
-import { DateService } from '../../_services/date-service';
+import { DateService } from '../../_services/date-service/date-service';
 import { Router } from '@angular/router';
 import { defaultDtOptions }  from '../../_services/default-dt-options'
 import { tableService } from '../../_services/table-services'
+import { SittingRecord } from 'src/app/_models/viewSittingRecords.model';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-view-sitting-records',
@@ -13,20 +15,21 @@ import { tableService } from '../../_services/table-services'
 export class ViewSittingRecordsComponent implements OnInit {
 
   tribService = "";
-  venue = "";
+  venueSiteName = "";
   date = "";
 
   dtOptions: DataTables.Settings = {};
-  sittingRecordData;
+  dtTrigger: Subject<any> = new Subject<any>();
+  sittingRecordData: SittingRecord[] = [];
 
   showFilters = false;
 
   goBack(){
-    this.router.navigate(['sittingRecords','manage'])
+    void this.router.navigate(['sittingRecords','manage'])
   }
 
-  getPeriod(am: string, pm: string){
-    return this.tsvc.getPeriod(am, pm)
+  getPeriod(am: string, pm: string): string {
+    return this.dateSvc.getPeriod(am, pm);
   }
 
   constructor(
@@ -40,20 +43,13 @@ export class ViewSittingRecordsComponent implements OnInit {
     const formData = this.srWorkFlow.getFormData().value;
     const { dateSelected, tribunalService, venue } = formData;
     this.tribService = tribunalService;
-    this.venue = venue;
+    this.venueSiteName = venue.site_name;
     this.date = this.dateSvc.formatDateFromForm(dateSelected);
 
-    this.sittingRecordData = this.srWorkFlow.getTableData();
-
     this.dtOptions = {
-      ...defaultDtOptions, 
+      ...defaultDtOptions,
       columnDefs:[
-        {orderData: 0, targets: [0]},
-        {orderData: 1, targets: [1]},
-        {orderData: 2, targets: [2]},
-        {orderData: 3, targets: [3]},
-        {orderData: 4, targets: [4]},
-        {orderData: 5, targets: [5], orderable: false},
+        { targets: [5], orderable: false },
       ],
       
       drawCallback: 
@@ -63,10 +59,22 @@ export class ViewSittingRecordsComponent implements OnInit {
         document
           .querySelectorAll(`#sittingRecordViewTable_info`)
           .forEach((elem) => elem.classList.add('govuk-body'))
-      },
-      
+
+        document
+          .querySelectorAll(`#sittingRecordViewTable_paginate`)
+          .forEach((elem) => elem.classList.add('govuk-body'))
+
+      }
     };
 
+    this.loadViewSittingRecords();
+  } 
+
+  loadViewSittingRecords() {
+    this.srWorkFlow.getSittingRecordsData().subscribe(records => {
+      this.sittingRecordData = records.sittingRecords;
+      this.dtTrigger.next(null); 
+    });
   }
 
   navigateDeleteSittingRecord(sittingRecord){

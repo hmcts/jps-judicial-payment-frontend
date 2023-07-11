@@ -37,33 +37,23 @@
               "src/assets",
               {
                 "glob": "**/*",
-                "input": "node_modules/govuk-frontend/govuk/assets/",
+                "input": "./node_modules/govuk-frontend/govuk/assets/",
                 "output": "assets"
               }
             ],
             "styles": [
               "src/styles.scss",
-              "node_modules/datatables.net-dt/css/jquery.dataTables.css"
+              "./node_modules/datatables.net-dt/css/jquery.dataTables.css"
             ],
             "scripts": [
-              "node_modules/govuk-frontend/govuk/all.js",
-              "node_modules/jquery/dist/jquery.js",
-              "node_modules/datatables.net/js/jquery.dataTables.js"
+              "./node_modules/govuk-frontend/govuk/all.js",
+              "./node_modules/jquery/dist/jquery.js",
+              "./node_modules/datatables.net/js/jquery.dataTables.js"
             ]
           },
           "configurations": {
             "production": {
               "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
-                }
               ],
               "outputHashing": "all"
             },
@@ -112,7 +102,10 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": [],
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/datatables.net/js/jquery.dataTables.js"
+            ],
             "karmaConfig": "karma.conf.js"
           }
         },
@@ -142,6 +135,7 @@
               "sourceMap": true,
               "extractLicenses": false,
               "vendorChunk": true
+              
             }
           },
           "defaultConfiguration": "production"

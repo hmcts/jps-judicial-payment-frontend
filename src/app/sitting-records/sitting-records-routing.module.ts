@@ -4,9 +4,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { SittingRecordsComponent } from './sitting-records.component';
 import { ManageSittingRecordsComponent } from './manage-sitting-records/manage-sitting-records.component';
 import { ViewSittingRecordsComponent } from './view-sitting-records/view-sitting-records.component';
-import { SittingRecordsGuard } from '../_guards/sitting-records.guard';
 import { DeleteSittingRecordsComponent } from './delete-sitting-records/delete-sitting-records.component'
 import { DeleteSuccessComponent } from './delete-sitting-records/delete-success/delete-success.component'
+import { SittingRecordsGuard } from '../_guards/sitting-records/sitting-records.guard';
+import { AuthGuard } from '../_guards/auth/auth.guard';
 
 const routes: Routes = [
     {
@@ -14,12 +15,8 @@ const routes: Routes = [
         component: SittingRecordsComponent,
         children: [
           {
-            path: '',
-            redirectTo: 'manage',
-            pathMatch: 'prefix'
-          },
-          {
             path: 'manage',
+            canActivate: [AuthGuard],
             component: ManageSittingRecordsComponent
           },
           {

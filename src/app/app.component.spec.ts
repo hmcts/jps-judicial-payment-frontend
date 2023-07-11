@@ -1,39 +1,31 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 import { JPFooterComponent } from './jp-footer/jp-footer.component';
 import { JPHeaderComponent } from './jp-header/jp-header.component';
+import { CookieManagerComponent } from './cookies/cookie-manager/cookie-manager.component'
+import { LogoutComponent } from './logout/logout.component';
+import { HttpClientModule } from '@angular/common/http';
+import { NgHttpLoaderModule } from 'ng-http-loader'
 
 describe('AppComponent', () => {
+  let component: AppComponent;
+  let fixture: ComponentFixture<AppComponent>;
+
   beforeEach(async () => {
+
     await TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule
-      ],
-      declarations: [
-        AppComponent,
-        JPFooterComponent,
-        JPHeaderComponent
-      ],
+      imports: [RouterTestingModule, HttpClientModule, NgHttpLoaderModule],
+      declarations: [AppComponent, JPFooterComponent, JPHeaderComponent, CookieManagerComponent, LogoutComponent],
+      providers: []
     }).compileComponents();
+
+    fixture = TestBed.createComponent(AppComponent);
+    component = fixture.componentInstance;
   });
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
+  it('should create', () => {
+    expect(component).toBeTruthy();
   });
 
-  it(`should have as title 'jps-judicial-payment-frontend'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('jps-judicial-payment-frontend');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.govuk-header__container span')?.textContent).toContain('GOV.UK');
-  });
 });

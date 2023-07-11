@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { ViewSittingRecordHttp } from '../_services/view-sitting-records-http-service'
-import { ViewSittingRecordPost } from '../_models/view-sitting-records-post'
-import { DateService } from '../_services/date-service'
+import { ViewSittingRecordService } from '../_services/sitting-records-service/view-sitting-records-service'
+import { ViewSittingRecordPost } from '../_models/viewSittingRecords.model'
+import { DateService } from '../_services/date-service/date-service'
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ export class SittingRecordWorkflowService {
   sittingRecordToDelete = {};
 
   constructor(
-    private ViewSittingRecordHttpService: ViewSittingRecordHttp,
+    private ViewSittingRecordService: ViewSittingRecordService,
     private dateSvc: DateService
   ){}
 
@@ -51,50 +51,18 @@ export class SittingRecordWorkflowService {
     this.sittingRecordToDelete = {};
   }
 
-  formPostObject(){
+  getSittingRecordsData() {
     const postObj = new ViewSittingRecordPost();
     const { dateSelected, venue } = this.formData.value;
-    const dateToGet = this.dateSvc.formatDateFromForm(dateSelected)
-    postObj.epimmsId = venue
-    postObj.dateRangeFrom = dateToGet
-    postObj.dateRangeTo = dateToGet
+    const dateToGet = this.dateSvc.formatDateFromForm(dateSelected);
+    postObj.epimsId = venue.epimms_id;
+    postObj.regionId = venue.region_id;
+    postObj.dateRangeFrom = dateToGet;
+    postObj.dateRangeTo = dateToGet;
+    postObj.dateOrder = "ASCENDING";
 
     //TODO: add logic below to add in filter functionality
-    
-    return postObj
-  }
-
-  getTableData() {
-
-    return [{
-      "pageSize": 100,
-      "offset": 0,
-      "dateOrder": "ASCENDING",
-      "regionId": "string",
-      "epimmsId": "string",
-      "createdByUserId": "string",
-      "personalCode": "string",
-      "judgeRoleTypeId": "string",
-      "duration": "string",
-      "dateRangeFrom": "string",
-      "dateRangeTo": "string",
-      "statusIds": "string"
-    },{
-      "pageSize": 100,
-      "offset": 0,
-      "dateOrder": "ASCENDING",
-      "regionId": "string2",
-      "epimmsId": "string2",
-      "createdByUserId": "string2",
-      "personalCode": "string2",
-      "judgeRoleTypeId": "string2",
-      "duration": "string2",
-      "dateRangeFrom": "string2",
-      "dateRangeTo": "string2",
-      "statusIds": "string2"
-    },]
-
-    //return this.ViewSittingRecordHttpService.postObject(this.formPostObject())
+    return this.ViewSittingRecordService.postObject(postObj);
   }
 
 }
