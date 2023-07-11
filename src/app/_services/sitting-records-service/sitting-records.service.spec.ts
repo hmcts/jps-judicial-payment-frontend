@@ -7,7 +7,6 @@ import { CookieService } from 'ngx-cookie-service';
 describe('SittingRecordsService', () => {
   let service: SittingRecordsService;
   let httpMock: HttpTestingController;
-  let cookieService: jasmine.SpyObj<CookieService>;
 
   beforeEach(() => {
     const cookieServiceSpy = jasmine.createSpyObj('CookieService', ['get']);
@@ -22,7 +21,6 @@ describe('SittingRecordsService', () => {
 
     service = TestBed.inject(SittingRecordsService);
     httpMock = TestBed.inject(HttpTestingController);
-    cookieService = TestBed.inject(CookieService) as jasmine.SpyObj<CookieService>;
   });
 
   afterEach(() => {
@@ -41,19 +39,41 @@ describe('SittingRecordsService', () => {
         recordedSittingRecords: []
       };
 
-      cookieService.get.withArgs('__serviceauth__').and.returnValue('mockS2SToken');
-      cookieService.get.withArgs('__auth__').and.returnValue('mockAuthToken');
-
       service.postNewSittingRecord(record).subscribe();
 
-      const req = httpMock.expectOne('/sittingrecords/add');
+      const req = httpMock.expectOne('/sittingrecord/add');
       expect(req.request.method).toEqual('POST');
       expect(req.request.body).toEqual({ sittingRecords: record });
       expect(req.request.headers.get('Content-Type')).toEqual('application/json');
-      expect(req.request.headers.get('Authorization')).toBe('mockAuthToken');
-      expect(req.request.headers.get('ServiceAuthorization')).toBe('mockS2SToken');
 
       req.flush({});
     });
   });
+
+  describe('getPeriodValues', () => {
+    it('should return true for FULL_DAY', () => {
+      const value = 'FULL_DAY';
+      const result = service.getPeriodValues(value, 'am');
+      expect(result).toBeTrue();
+    });
+
+    it('should return true for AM when time is am', () => {
+      const value = 'AM';
+      const result = service.getPeriodValues(value, 'am');
+      expect(result).toBeTrue();
+    });
+
+    it('should return true for PM when time is pm', () => {
+      const value = 'PM';
+      const result = service.getPeriodValues(value, 'pm');
+      expect(result).toBeTrue();
+    });
+
+    it('should return false for any other combination', () => {
+      const value = 'AM';
+      const result = service.getPeriodValues(value, 'pm');
+      expect(result).toBeFalse();
+    });
+
+  })
 });

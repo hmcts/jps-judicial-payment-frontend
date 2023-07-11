@@ -93,7 +93,6 @@ export class SittingRecordWorkflowService {
       recordedByName: this.uInfoSvc.getUserName(),
       recordedSittingRecords: JOH.value.map(joh => this.sittingRecordsSvc.createNewSRPostObj(joh, tribunalService, dateSelected, venue, period))
     };
-    console.log(postBody)
     return this.sittingRecordsSvc.postNewSittingRecord(postBody);
   }
 

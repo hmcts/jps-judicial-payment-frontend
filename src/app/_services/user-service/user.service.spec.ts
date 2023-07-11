@@ -59,10 +59,6 @@ describe('UserService', () => {
         expect(req.request.method).toBe('POST');
         expect(req.request.headers.has('Content-Type')).toBeTruthy();
         expect(req.request.headers.get('Content-Type')).toBe('application/json');
-        expect(req.request.headers.has('Authorization')).toBeTruthy();
-        expect(req.request.headers.get('Authorization')).toBe('token');
-        expect(req.request.headers.has('ServiceAuthorization')).toBeTruthy();
-        expect(req.request.headers.get('ServiceAuthorization')).toBe('token');
 
         req.flush(mockUsers);
     });
@@ -81,10 +77,6 @@ describe('UserService', () => {
         expect(req.request.method).toBe('POST');
         expect(req.request.headers.has('Content-Type')).toBeTruthy();
         expect(req.request.headers.get('Content-Type')).toBe('application/json');
-        expect(req.request.headers.has('Authorization')).toBeTruthy();
-        expect(req.request.headers.get('Authorization')).toBe('token');
-        expect(req.request.headers.has('ServiceAuthorization')).toBeTruthy();
-        expect(req.request.headers.get('ServiceAuthorization')).toBe('token');
 
         req.flush(mockUserInfo);
     });

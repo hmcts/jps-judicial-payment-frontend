@@ -213,12 +213,9 @@ export class AddSittingRecordComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     const formData = this.srWorkFlow.getFormData().value;
-    const { dateSelected, tribunalService, venue } = formData;
+    const { tribunalService, venue } = formData;
     this.serviceCode = tribunalService.hmctsServiceCode;
-    this.tribService = tribunalService.service;
-    this.venueSiteName = venue.site_name;
     this.venueEpimmsId = venue.epimms_id;
-    this.date = this.dateSvc.formatDateFromForm(dateSelected);
 
     if (this.srWorkFlow.getAddSittingRecords() && this.srWorkFlow.checkCameFromConfirm()) {
       this.addSittingRecordsFG = this.srWorkFlow.getAddSittingRecords();

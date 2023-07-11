@@ -14,6 +14,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { HttpClientModule } from '@angular/common/http';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { AddSittingRecordsConfirmComponent } from './add-sitting-record/add-sitting-records-confirm/add-sitting-records-confirm.component';
+import { SittingRecordsInfoBannerComponent } from '../sitting-records-info-banner/sitting-records-info-banner.component';
 
 @NgModule({
   imports: [
@@ -34,6 +35,7 @@ import { AddSittingRecordsConfirmComponent } from './add-sitting-record/add-sitt
     AddSittingRecordComponent,
     AddSittingRecordSuccessComponent,
     NumberDirective,
+    SittingRecordsInfoBannerComponent,
     AddSittingRecordsConfirmComponent
   ]
 })

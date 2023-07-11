@@ -1,6 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-workflow.service';
-import { DateService } from '../../_services/date-service/date-service';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,7 +6,7 @@ import { Router } from '@angular/router';
   templateUrl: './view-sitting-records.component.html',
   styleUrls: ['./view-sitting-records.component.scss']
 })
-export class ViewSittingRecordsComponent implements OnInit {
+export class ViewSittingRecordsComponent {
 
   tribService = "";
   venue = "";
@@ -23,17 +21,9 @@ export class ViewSittingRecordsComponent implements OnInit {
   }
 
   constructor(
-    private srWorkFlow: SittingRecordWorkflowService,
-    private dateSvc: DateService,
     private router: Router
   ){}
     
-  ngOnInit(){
-    const formData = this.srWorkFlow.getFormData().value;
-    const { dateSelected, tribunalService, venue } = formData;
-    this.tribService = tribunalService.service;
-    this.venue = venue.site_name;
-    this.date = this.dateSvc.formatDateFromForm(dateSelected);
-  }
+
 
 }

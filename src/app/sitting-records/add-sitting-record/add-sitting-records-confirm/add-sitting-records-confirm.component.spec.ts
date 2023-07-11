@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { DateService } from '../../../_services/date-service/date-service';
+import { of } from 'rxjs';
 
 describe('AddSittingRecordsConfirmComponent', () => {
   let component: AddSittingRecordsConfirmComponent;
@@ -66,9 +67,7 @@ describe('AddSittingRecordsConfirmComponent', () => {
   });
 
   it('should call formAndPostNewSittingRecord and navigate to "sittingRecords/addSuccess" when submitNewRecords is called', () => {
-    spyOn(srWorkFlow, 'formAndPostNewSittingRecord').and.callFake((callback) => {
-      callback();
-    });
+    spyOn(srWorkFlow, 'formAndPostNewSittingRecord').and.returnValue(of({}));
     spyOn(router, 'navigate');
 
     component.submitNewRecords();
