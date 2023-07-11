@@ -30,15 +30,6 @@ export class SittingRecordsLandingComponent implements OnInit, AfterViewInit{
       {
         options: [null],
       });
-
-      this.userForm.controls['options'].valueChanges.subscribe(() => {
-        if(this.userForm.controls['options'].value === 'opt2'){
-          this.hideManageRecords = false;
-        }
-        else {
-          this.hideManageRecords = true;
-        }
-      })
   }
 
   ngOnInit() {
@@ -62,13 +53,21 @@ export class SittingRecordsLandingComponent implements OnInit, AfterViewInit{
         this.hideManageRecords = true;
       }
     }
+
+    this.userForm.controls['options'].valueChanges.subscribe(() => {
+      if(this.userForm.controls['options'].value === 'opt2'){
+        this.hideManageRecords = false;
+      }
+      else {
+        this.hideManageRecords = true;
+      }
+    })
   }
 
   ngAfterViewInit() {
-    this.manageRecords = this.childComponent?.manageRecords;
-    if (this.manageRecords?.controls["selectedOption"].value === 'opt2') {
-      this.userForm.controls["options"].patchValue = this.manageRecords?.controls["selectedOption"].value;
-    }
+    setTimeout(() => {
+      this.manageRecords = this.childComponent?.manageRecords;
+    });
   }
 
   submitForm(){

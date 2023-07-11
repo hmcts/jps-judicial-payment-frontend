@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { DateService } from '../_services/date-service/date-service';
+import { RegionModel } from '../_models/region.model'
+import { ViewSittingRecordPost } from '../_models/viewSittingRecords.model';
+import { ViewSittingRecordService } from '../_services/sitting-records-service/view-sitting-records-service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,10 +13,11 @@ export class SubmitterWorkflowService {
   formData!: FormGroup;
   userFormData!: FormGroup;
   hasVisitedManage = false;
-  financeRegions;
+  financeRegions: RegionModel[] = [];
 
   constructor(
-    private dateSvc: DateService
+    private dateSvc: DateService,
+    private ViewSittingRecordService: ViewSittingRecordService,
   ){}
 
 
@@ -45,12 +49,25 @@ export class SubmitterWorkflowService {
     this.formData.reset();
   }
 
-  setFincanceRegions(regions){
+  setFinanceRegions(regions: RegionModel[]){
     this.financeRegions = regions;
   }
 
-  getFinanceRegions(){
+  getFinanceRegions(): RegionModel[]{
     return this.financeRegions;
+  }
+
+  getSittingRecordsData() {
+    const postObj = new ViewSittingRecordPost();
+    const { dateSelected, region } = this.formData.value;
+    const dateToGet = this.dateSvc.formatDateFromForm(dateSelected);
+    postObj.epimsId = '12345';
+    postObj.regionId = region.region_id;
+    postObj.statusIds = ['RECORDED'];
+    postObj.dateRangeFrom = dateToGet;
+    postObj.dateRangeTo = dateToGet;
+
+    return this.ViewSittingRecordService.postObject(postObj);
   }
 
 }

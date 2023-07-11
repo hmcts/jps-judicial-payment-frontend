@@ -52,7 +52,7 @@ export class SittingRecordsLandingManageRecordsComponent implements OnInit{
     if(this.submitterWorkflow.getFormData()){
       this.regions = this.submitterWorkflow.getFinanceRegions();
       this.manageRecords = this.submitterWorkflow.getFormData();
-    }else{
+    } else {
       // as we get all regions we only need to do this on the first load of the page
       this.getRegions();
     }
@@ -65,7 +65,7 @@ export class SittingRecordsLandingManageRecordsComponent implements OnInit{
   public getRegions(): void {
     this.locationService.getAllRegions().subscribe(regions => {
       this.regions = regions
-      this.submitterWorkflow.setFincanceRegions(regions)
+      this.submitterWorkflow.setFinanceRegions(regions)
     });
   }
 }

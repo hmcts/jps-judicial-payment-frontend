@@ -62,18 +62,18 @@ export class SubmitSittingRecordsComponent implements OnInit {
       }
     };
 
-    //this.loadViewSittingRecords();
+    this.loadViewSittingRecords();
   } 
 
   getPeriod(am: string, pm: string): string {
     return this.dateSvc.getPeriod(am, pm);
   }
 
-  /*loadViewSittingRecords() {
-    this.srWorkFlow.getSittingRecordsData().subscribe(records => {
+  loadViewSittingRecords() {
+    this.submitterWorkflow.getSittingRecordsData().subscribe(records => {
       this.sittingRecordData = records.sittingRecords;
       this.dtTrigger.next(null); 
     });
-  }*/
+  }
 
 }
