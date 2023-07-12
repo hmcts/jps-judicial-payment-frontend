@@ -3,7 +3,6 @@ import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-wo
 import { DateService } from '../../_services/date-service/date-service';
 import { Router } from '@angular/router';
 import { defaultDtOptions }  from '../../_services/default-dt-options'
-import { tableService } from '../../_services/table-services'
 import { SittingRecord } from 'src/app/_models/viewSittingRecords.model';
 import { Subject } from 'rxjs';
 
@@ -36,7 +35,6 @@ export class ViewSittingRecordsComponent implements OnInit {
     private srWorkFlow: SittingRecordWorkflowService,
     private dateSvc: DateService,
     private router: Router,
-    private tsvc: tableService
   ){}
     
   ngOnInit(){

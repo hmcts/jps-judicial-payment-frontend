@@ -13,7 +13,10 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { DataTablesModule } from "angular-datatables";
 import { DeleteSuccessComponent } from './delete-sitting-records/delete-success/delete-success.component';
+import { DeleteSittingRecordsComponent } from './delete-sitting-records/delete-sitting-records.component'
 
+import { StringFromDatePipe } from '../_pipes/string-date-pipe'
+import { ConvertToStringPeriodPipe } from '../_pipes/convert-period-pipe'
 @NgModule({
   imports: [
     CommonModule,
@@ -29,8 +32,11 @@ import { DeleteSuccessComponent } from './delete-sitting-records/delete-success/
     ManageSittingRecordsComponent,
     PhaseBannerComponent,
     ViewSittingRecordsComponent,
+    DeleteSittingRecordsComponent,
     DeleteSuccessComponent,
-    NumberDirective
+    NumberDirective,
+    StringFromDatePipe,
+    ConvertToStringPeriodPipe
   ]
 })
 export class SittingRecordsModule { }

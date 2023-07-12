@@ -7,7 +7,7 @@ import { Observable, map } from 'rxjs';
 })
 export class DeleteSittingRecordHttp {
 
-  private deleteRecordsURL = '/sittingrecords';
+  private deleteRecordsURL = '';
 
   constructor(private http: HttpClient) { }
 
@@ -18,18 +18,8 @@ export class DeleteSittingRecordHttp {
       })
     };
 
-    const deleteUrlWithId = `${this.deleteRecordsURL}/${recordID}` 
+    const deleteUrlWithId = `/sittingRecords/${recordID}` 
 
-    return this.http.delete<string>(deleteUrlWithId, httpOptions).pipe(
-      map(
-        (response) => {
-          if(response){
-            return response
-          }else{
-            return []
-          }
-        }
-      )
-    );
+    return this.http.delete<string>(deleteUrlWithId, httpOptions)
   }
 }

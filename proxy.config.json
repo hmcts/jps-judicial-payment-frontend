@@ -18,7 +18,11 @@
     "secure": false
   },
   "/sittingRecords/searchSittingRecords": {
-    "target": "http://localhost:3001",
+    "target": "http://localhost:3000",
+    "secure": false
+  },
+  "/sittingRecords/": {
+    "target": "http://localhost:3000",
     "secure": false
   }
 }

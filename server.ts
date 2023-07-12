@@ -12,7 +12,7 @@ import { getXuiNodeMiddleware } from './api/auth';
 import refDataRouter from './api/refdata/routes';
 import sittingRecordsRouter from './api/sittingRecords/routes';
 import { Logger } from '@hmcts/nodejs-logging';
-const logger = Logger.getLogger()
+const logger = Logger.getLogger('server.ts')
 
 const errorHandler = ((err, req, res, next) => {
   const error = err.response
@@ -21,10 +21,7 @@ const errorHandler = ((err, req, res, next) => {
   if(error.data.errorDescription){
     errMsg += ` ${error.data.errorDescription}`
   }
-  logger.log({
-    level: 'error',
-    message: errMsg
-  })
+  logger.error(errMsg)
   res.json({
     error: {
       message: errMsg || 'Internal Server Error',
@@ -70,7 +67,6 @@ export function app(): express.Express {
 
 function run(): void {
   const port = process.env['PORT'] || 4000;
-
   // Start up the Node server
   const server = app();
   server.listen(port, () => {

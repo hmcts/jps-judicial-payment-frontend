@@ -15,7 +15,6 @@ export class DeleteSuccessComponent {
   ){}
 
   navigateToView(){
-    this.srWorkFlow.getTableData()
     this.router.navigate(['sittingRecords', 'view'])
   }
 

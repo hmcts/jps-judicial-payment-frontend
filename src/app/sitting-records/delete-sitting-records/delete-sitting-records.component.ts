@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { DateService } from '../../_services/date-service';
-import { tableService } from '../../_services/table-services';
+import { DateService } from '../../_services/date-service/date-service';
 import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-workflow.service';
 import { DeleteSittingRecordHttp } from '../../_services/delete-sitting-records-http-service'
 
@@ -16,40 +15,36 @@ export class DeleteSittingRecordsComponent implements OnInit{
   date!: string;
   recordToDelete: any;
   apiError = false;
+  selectedVenue: string | undefined;
 
   constructor(
     private srWorkFlow: SittingRecordWorkflowService,
     private dateSvc: DateService,
     private router: Router,
-    private tsvc: tableService,
     private deleteRecordHttp: DeleteSittingRecordHttp
   ){}
 
   ngOnInit(){
-    const formData = this.srWorkFlow.getFormData().value;
-    const { dateSelected, tribunalService, venue } = formData;
-    this.tribService = tribunalService;
-    this.venue = venue;
-    this.date = this.dateSvc.formatDateFromForm(dateSelected);
-
     this.recordToDelete = this.srWorkFlow.getSittingRecordToDelete();
+    const {venue} = this.srWorkFlow.getFormData().value
+    this.selectedVenue = venue.site_name;
   }
-
-
-  getPeriod(am: string, pm: string){
-    return this.tsvc.getPeriod(am, pm)
-  }
-
-  confirmDelete(){
-    this.apiError = false
-    this.deleteRecordHttp.deleteRecord(this.recordToDelete.recordID).subscribe(
-      () => {
-        this.router.navigate(['sittingRecords', 'deleteSuccess'])
-      },  
-      () => {
-        this.apiError = true
-      }
-    )
+  
+  confirmDelete() {
+    this.apiError = false;
+    this.deleteRecordHttp.deleteRecord(this.recordToDelete.sittingRecordId)
+      .subscribe({
+        next: () => {
+          void this.router.navigate(['sittingRecords', 'deleteSuccess'])
+        },
+        error: (error) => {
+          if (error.status === 404) {
+            console.error('Error 404: Record not found');
+          }
+          this.apiError = true;
+          console.error('An error occurred:', error);
+        }
+      });
   }
 
   goBack(){

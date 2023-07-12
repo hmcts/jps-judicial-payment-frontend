@@ -36,10 +36,10 @@
                     <tr class="govuk-table__row">
                         <td class="govuk-table__cell">{{recordToDelete.personalName}}</td>
                         <td class="govuk-table__cell">{{recordToDelete.judgeRoleTypeId}}</td>
-                        <td class="govuk-table__cell">{{getPeriod(recordToDelete.AM, recordToDelete.PM)}}</td>
+                        <td class="govuk-table__cell">{{recordToDelete.am | convertToStringPeriod: recordToDelete.pm}}</td>
                         <td class="govuk-table__cell">{{recordToDelete.createdByUserId}}</td>
-                        <td class="govuk-table__cell">{{recordToDelete.statusId}}</td>
-                        <td class="govuk-table__cell">{{venue}}</td>
+                        <td class="govuk-table__cell">{{recordToDelete.sittingDate | stringFromDate}}</td>
+                        <td class="govuk-table__cell">{{selectedVenue}}</td>
                     </tr>
                 </tbody>
             </table>
