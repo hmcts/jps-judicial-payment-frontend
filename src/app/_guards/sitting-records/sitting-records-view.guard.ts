@@ -9,12 +9,12 @@ import { RecorderWorkflowService } from '../../_workflows/recorder-workflow.serv
 export class SittingRecordsViewGuard implements CanActivate {
 
   constructor(
-    private srWorkflow: RecorderWorkflowService,
+    private recorderWorkflow: RecorderWorkflowService,
     private router: Router
   ){}
 
   canActivate(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    if(this.srWorkflow.getManageVisited()) {
+    if(this.recorderWorkflow.getManageVisited()) {
       return true;
     } else {
       void this.router.navigate(['sittingRecords','manage']);

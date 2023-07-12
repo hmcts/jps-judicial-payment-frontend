@@ -13,8 +13,7 @@ export class SittingRecordsLandingGuard implements CanActivate {
   ) { }
 
   canActivate(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    //const userRole = this.cookies.get('__userrole__');
-    const userRole = "jps-submitter";
+    const userRole = this.cookies.get('__userrole__');
     if(userRole.indexOf('jps-recorder') != -1){
       return false;
     }

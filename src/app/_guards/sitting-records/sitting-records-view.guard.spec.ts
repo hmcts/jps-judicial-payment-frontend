@@ -2,14 +2,17 @@ import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RecorderWorkflowService } from '../../_workflows/recorder-workflow.service';
 import { SittingRecordsViewGuard } from './sitting-records-view.guard';
+import { HttpClientModule } from '@angular/common/http';
 
-describe('SittingRecordsGuard', () => {
+describe('SittingRecordsViewGuard', () => {
   let guard: SittingRecordsViewGuard;
   let mockWorkflowService: RecorderWorkflowService;
   let mockRouter: Router;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      imports: [HttpClientModule]
+    });
     guard = TestBed.inject(SittingRecordsViewGuard);
     mockRouter = TestBed.inject(Router);
     mockWorkflowService = TestBed.inject(RecorderWorkflowService);

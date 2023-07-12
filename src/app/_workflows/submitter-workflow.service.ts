@@ -17,7 +17,7 @@ export class SubmitterWorkflowService {
 
   constructor(
     private dateSvc: DateService,
-    private ViewSittingRecordService: ViewSittingRecordService,
+    private viewSittingRecordService: ViewSittingRecordService,
   ){}
 
 
@@ -49,6 +49,10 @@ export class SubmitterWorkflowService {
     this.formData.reset();
   }
 
+  resetUserFormData() {
+    this.userFormData.reset();
+  }
+
   setFinanceRegions(regions: RegionModel[]){
     this.financeRegions = regions;
   }
@@ -61,13 +65,12 @@ export class SubmitterWorkflowService {
     const postObj = new ViewSittingRecordPost();
     const { dateSelected, region } = this.formData.value;
     const dateToGet = this.dateSvc.formatDateFromForm(dateSelected);
-    postObj.epimsId = '12345';
     postObj.regionId = region.region_id;
     postObj.statusIds = ['RECORDED'];
     postObj.dateRangeFrom = dateToGet;
     postObj.dateRangeTo = dateToGet;
 
-    return this.ViewSittingRecordService.postObject(postObj);
+    return this.viewSittingRecordService.postObject(postObj);
   }
 
 }

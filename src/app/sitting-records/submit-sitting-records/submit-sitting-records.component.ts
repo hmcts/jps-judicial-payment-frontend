@@ -23,14 +23,6 @@ export class SubmitSittingRecordsComponent implements OnInit {
 
   showFilters = false;
 
-  goBack(){
-    void this.router.navigate(['sittingRecords','home'])
-  }
-
-  /*getPeriod(am: string, pm: string): string {
-    return this.dateSvc.getPeriod(am, pm);
-  }*/
-
   constructor(
     private submitterWorkflow: SubmitterWorkflowService,
     private dateSvc: DateService,
@@ -74,6 +66,10 @@ export class SubmitSittingRecordsComponent implements OnInit {
       this.sittingRecordData = records.sittingRecords;
       this.dtTrigger.next(null); 
     });
+  }
+
+  goBack(){
+    void this.router.navigate(['sittingRecords','home'])
   }
 
 }

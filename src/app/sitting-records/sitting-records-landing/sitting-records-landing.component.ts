@@ -33,8 +33,8 @@ export class SittingRecordsLandingComponent implements OnInit, AfterViewInit{
   }
 
   ngOnInit() {
-    //const userRole = this.cookies.get('__userrole__');
-    const userRole = "jps-submitter";
+    const userRole = this.cookies.get('__userrole__');
+
     if(userRole.indexOf('jps-JOH-admin') != -1) {
       //show radio buttons visible to them
     } else if (userRole.indexOf('jps-submitter') != -1) {

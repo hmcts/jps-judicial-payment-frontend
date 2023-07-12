@@ -8,7 +8,7 @@ import { DateService } from '../_services/date-service/date-service';
 import { of } from 'rxjs';
 
 describe('RecorderWorkflowService', () => {
-  let mockSRWorkflowService: RecorderWorkflowService;
+  let mockWorkflowService: RecorderWorkflowService;
   let mockViewSittingRecordService: ViewSittingRecordService;
   let mockformData: FormGroup;
   let mockDateSvc: DateService
@@ -19,7 +19,7 @@ describe('RecorderWorkflowService', () => {
       imports: [HttpClientModule]
     });
 
-    mockSRWorkflowService = TestBed.inject(RecorderWorkflowService);
+    mockWorkflowService = TestBed.inject(RecorderWorkflowService);
     mockViewSittingRecordService = TestBed.inject(ViewSittingRecordService);
     mockDateSvc = TestBed.inject(DateService);
     mockformData= new FormBuilder().group({
@@ -28,31 +28,31 @@ describe('RecorderWorkflowService', () => {
       venue: ['Venue 1'],
     });
 
-    mockSRWorkflowService.setFormData(mockformData);
+    mockWorkflowService.setFormData(mockformData);
   });
 
   it('should be created', () => {
-    expect(mockSRWorkflowService).toBeTruthy();
+    expect(mockWorkflowService).toBeTruthy();
   });
 
   describe('setManageVisited', () => {
     it('should set hasVisitedManage to true', () => {
-      mockSRWorkflowService.setManageVisited();
-      expect(mockSRWorkflowService.getManageVisited()).toBe(true);
+      mockWorkflowService.setManageVisited();
+      expect(mockWorkflowService.getManageVisited()).toBe(true);
     });
   });
 
   describe('setFormData and getFormData', () => {
     it('should set and get the form data', () => {
-      expect(mockSRWorkflowService.getFormData()).toBe(mockformData);
+      expect(mockWorkflowService.getFormData()).toBe(mockformData);
     });
   });
 
   describe('resetFormData', () => {
     it('should reset the form data', () => {
-      expect(mockSRWorkflowService.getFormData()).toBe(mockformData);
-      mockSRWorkflowService.resetFormData();
-      expect(mockSRWorkflowService.getFormData().getRawValue()).toEqual({ dateSelected: null, tribunalService: null, venue: null });
+      expect(mockWorkflowService.getFormData()).toBe(mockformData);
+      mockWorkflowService.resetFormData();
+      expect(mockWorkflowService.getFormData().getRawValue()).toEqual({ dateSelected: null, tribunalService: null, venue: null });
     });
   });
 
@@ -78,7 +78,7 @@ describe('RecorderWorkflowService', () => {
       spyOn(mockDateSvc,'formatDateFromForm').and.returnValue(dateSelected);
       spyOn(mockViewSittingRecordService,'postObject').and.returnValue(of(mockResponse))
   
-      mockSRWorkflowService.getSittingRecordsData().subscribe(response => expect(response).toEqual(mockResponse));
+      mockWorkflowService.getSittingRecordsData().subscribe(response => expect(response).toEqual(mockResponse));
     });
   });
   
