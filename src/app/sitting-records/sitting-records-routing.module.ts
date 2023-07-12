@@ -6,12 +6,16 @@ import { ManageSittingRecordsComponent } from './manage-sitting-records/manage-s
 import { ViewSittingRecordsComponent } from './view-sitting-records/view-sitting-records.component';
 import { DeleteSittingRecordsComponent } from './delete-sitting-records/delete-sitting-records.component'
 import { DeleteSuccessComponent } from './delete-sitting-records/delete-success/delete-success.component'
+import { AddSittingRecordComponent } from './add-sitting-record/add-sitting-record.component'
+import { AddSittingRecordSuccessComponent } from './add-sitting-record/add-sitting-record-success/add-sitting-record-success.component';
+import { AddSittingRecordsConfirmComponent } from './add-sitting-record/add-sitting-records-confirm/add-sitting-records-confirm.component'
 import { SittingRecordsGuard } from '../_guards/sitting-records/sitting-records.guard';
 import { AuthGuard } from '../_guards/auth/auth.guard';
 
 const routes: Routes = [
     {
         path: "sittingRecords",
+        canActivate:[AuthGuard],
         component: SittingRecordsComponent,
         children: [
           {
@@ -33,6 +37,21 @@ const routes: Routes = [
             path: 'deleteSuccess',
             component: DeleteSuccessComponent,
             canActivate: [SittingRecordsGuard],
+          },
+          {
+            path: 'add',
+            component: AddSittingRecordComponent,
+            canActivate: [SittingRecordsGuard]
+          },
+          {
+            path: 'addConfirm',
+            component: AddSittingRecordsConfirmComponent,
+            canActivate: [SittingRecordsGuard]
+          },
+          {
+            path: 'addSuccess',
+            component: AddSittingRecordSuccessComponent,
+            canActivate: [SittingRecordsGuard]
           }
         ]
     }

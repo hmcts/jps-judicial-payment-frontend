@@ -16,7 +16,7 @@ export class LogoutComponent {
   logout() {
     this.logoutSvc.logout().subscribe(
       () => {
-        this.router.navigate(['/'])
+        void this.router.navigate(['/'])
       }
     );
   }

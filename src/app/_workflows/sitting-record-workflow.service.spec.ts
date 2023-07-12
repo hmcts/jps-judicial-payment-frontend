@@ -84,10 +84,10 @@ describe('SittingRecordWorkflowService', () => {
 
   describe('resetSittingRecordToDelete', () => {
     it('should reset the sittingRecordToDelete to an empty object', () => {
-      service.setSittingRecordToDelete({'recordID': 123})
-      expect(service.sittingRecordToDelete).toEqual({'recordID': 123})
-      service.resetSittingRecordToDelete();
-      expect(service.sittingRecordToDelete).toEqual({})
+      mockSRWorkflowService.setSittingRecordToDelete({'recordID': 123})
+      expect(mockSRWorkflowService.sittingRecordToDelete).toEqual({'recordID': 123})
+      mockSRWorkflowService.resetSittingRecordToDelete();
+      expect(mockSRWorkflowService.sittingRecordToDelete).toEqual({})
     })
     
   })

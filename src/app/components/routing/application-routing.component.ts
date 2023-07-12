@@ -9,11 +9,11 @@ export class ApplicationRoutingComponent implements OnInit{
 
   constructor(
     private router: Router,
-    private cookies: CookieService
+    private cookies: CookieService,
   ){}
 
   ngOnInit(){
-    this.navigateBasedOnUserRole()
+    this.navigateBasedOnUserRole();
   }
 
   navigateBasedOnUserRole(){

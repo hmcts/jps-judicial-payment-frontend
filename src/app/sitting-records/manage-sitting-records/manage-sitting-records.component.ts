@@ -6,13 +6,15 @@ import {
   AbstractControl
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ManageSittingRecord } from '../../_validators/sittingRecordsFormValidator/sitting-records-form-validator';
 import { Observable } from 'rxjs';
 import { debounceTime, filter, mergeMap, tap } from 'rxjs/operators';
-import { CustomValidators } from '../../_validators/sitting-records-form-validator';
 import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-workflow.service';
 import { VenueService } from '../../_services/venue-service/venue.service'
 import { VenueModel } from '../../_models/venue.model';
+import { AutoCompleteValidator } from '../../_validators/autoCompleteValidator/auto-complete-validator'
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { environment } from '../../environments/environment'
 
 @Component({
   selector: 'app-manage-sitting-records',
@@ -27,6 +29,7 @@ export class ManageSittingRecordsComponent implements OnInit {
   delay = 500;
   refDataFound = true;
   venueValueChange: any;
+  tribunalServices = environment.tribunalServices;
   
   submitForm(){
     this.srWorkFlow.setFormData(this.manageRecords)
@@ -48,15 +51,15 @@ export class ManageSittingRecordsComponent implements OnInit {
   ){
     this.manageRecords = this.formBuilder.group(
       {
-        tribunalService: ['', Validators.required],
-        venue: ['', [Validators.required, CustomValidators.requireVenueMatch]],
+        tribunalService: [null, Validators.required],
+        venue: [null, [Validators.required, AutoCompleteValidator.requireSelection]],
         dateSelected: formBuilder.group({
-          dateDay: ['', [Validators.required,]],
-          dateMonth: ['', [Validators.required,]],
-          dateYear: ['', [Validators.required,]],
+          dateDay: [null, [Validators.required,]],
+          dateMonth: [null, [Validators.required,]],
+          dateYear: [null, [Validators.required,]],
         },{
           validators: [
-            CustomValidators.validateDateFormat
+            ManageSittingRecord.validateDateFormat
           ]
         })
       }

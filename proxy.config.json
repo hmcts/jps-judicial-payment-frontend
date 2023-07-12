@@ -24,5 +24,17 @@
   "/sittingRecords/": {
     "target": "http://localhost:3000",
     "secure": false
+  },
+  "/refdata/user/*": {
+    "target": "http://localhost:3001",
+    "secure": false
+  },
+  "/refdata/userInfo/*": {
+    "target": "http://localhost:3001",
+    "secure": false
+  },
+  "/sittingrecords/add/*" : {
+    "target": "http://localhost:3001",
+    "secure": false
   }
 }

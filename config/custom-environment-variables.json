@@ -17,7 +17,8 @@
             "oauthCallbackUrl": "SERVICES_IDAM_OAUTH_CALLBACK_URL",
             "iss": "SERVICES_IDAM_ISS_URL"
         },
-        "location_api": "SERVICES_LOCATION_API_URL",
+        "location_api": "SERVICES_LOCATION_REF_API_URL",
+        "users_api": "SERVICES_USERS_REF_API_URL",
         "jps_api": "SERVICES_JPS_API_URL",
         "s2s": "SERVICES_S2S"
     },
@@ -26,7 +27,9 @@
     "secrets": {
         "jps": {
             "jps-s2s-client-secret": "S2S_SECRET",
-            "jps-idam-client-secret": "IDAM_SECRET"
+            "jps-idam-client-secret": "IDAM_SECRET",
+            "idam-jps-system-username": "JPS_SYSTEM_USERNAME",
+            "idam-jps-system-password": "JPS_SYSTEM_PASSWORD"
         }
     },
     "feature": {
