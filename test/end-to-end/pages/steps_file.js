@@ -1,4 +1,6 @@
 module.exports = function () {
+
+  const { Playwright } = require('codeceptjs');
   const recorderUsername = process.env.JPS_RECORDER_USERNAME || 'jps-recorder-role@gmail.com';
   const recorderPassword = process.env.JPS_RECORDER_PASSWORD || 'PesZvqrb78';
   const submitterUsername = process.env.JPS_SUBMITTER_USERNAME || 'jps-submitter-role@gmail.com';
@@ -39,6 +41,20 @@ module.exports = function () {
       I.fillField('Email address', invalidUsername);
       I.fillField('Password', invalidPassword);
       I.click('Sign in');
-    }
+    },
+
+    dontSeeElementEnabled: async function (selector) {
+      const playwright = this.helpers.Playwright;
+
+      const page = await playwright.page;
+      const isEnabled = await page.$eval(
+        selector,
+        (element) => !element.disabled
+      );
+
+      await this.expect(isEnabled).notOk(
+        `Expected element "${selector}" to be disabled, but it is enabled.`
+      );
+    },
   });
 }
