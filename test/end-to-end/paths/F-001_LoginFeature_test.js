@@ -2,7 +2,7 @@ Feature('Login Page @functional @F-001');
 
 Scenario('Successful login @S-001.1',({ I}) => {
   I.loginWithJPSRecorderUser();
-  I.see('Welcome');
+  I.see('Manage Judicial Sitting Records');
 });
 
 Scenario('Show an error message for invalid password @S-001.2',({ I}) => {
