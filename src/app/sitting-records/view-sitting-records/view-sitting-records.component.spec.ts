@@ -9,6 +9,7 @@ import { ViewSittingRecordResponse } from '../../_models/viewSittingRecords.mode
 import { of } from 'rxjs';
 import { HttpClientModule } from '@angular/common/http';
 import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-workflow.service';
+import { SittingRecordsInfoBannerComponent } from '../../sitting-records-info-banner/sitting-records-info-banner.component';
 
 describe('ViewSittingRecordsComponent', () => {
   let component: ViewSittingRecordsComponent;
@@ -19,7 +20,7 @@ describe('ViewSittingRecordsComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ ViewSittingRecordsComponent ],
+      declarations: [ ViewSittingRecordsComponent, SittingRecordsInfoBannerComponent ],
       providers: [ SittingRecordWorkflowService, DateService ],
       imports: [RouterTestingModule, DataTablesModule, HttpClientModule]
     }).compileComponents();

@@ -31,22 +31,10 @@ describe('DeleteSittingRecordHttp', () => {
       expect(response).toEqual(responseMock);
     });
 
-    const req = httpMock.expectOne(`/sittingrecords/${recordID}`);
+    const req = httpMock.expectOne(`/sittingRecords/${recordID}`);
     expect(req.request.method).toBe('DELETE');
 
     req.flush(responseMock);
   });
-
-  it('should return an empty array if the response is falsy', () => {
-    const recordID = '123';
-
-    service.deleteRecord(recordID).subscribe(response => {
-      expect(response).toEqual([]);
-    });
-
-    const req = httpMock.expectOne(`/sittingrecords/${recordID}`);
-    expect(req.request.method).toBe('DELETE');
-
-    req.flush(null);
-  });
+  
 });

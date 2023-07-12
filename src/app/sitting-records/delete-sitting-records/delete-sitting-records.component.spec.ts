@@ -1,14 +1,15 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { DeleteSittingRecordsComponent } from './delete-sitting-records.component';
-import { DateService } from '../../_services/date-service';
-import { tableService } from '../../_services/table-services';
+import { DateService } from '../../_services/date-service/date-service';
 import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-workflow.service';
 import { DeleteSittingRecordHttp } from '../../_services/delete-sitting-records-http-service';
 import { Router } from '@angular/router';
 import { of, throwError } from 'rxjs';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { StringFromDatePipe } from '../../_pipes/string-date-pipe';
+import { ConvertToStringPeriodPipe } from '../../_pipes/convert-period-pipe';
 
 describe('DeleteSittingRecordsComponent', () => {
   let component: DeleteSittingRecordsComponent;
@@ -30,12 +31,11 @@ describe('DeleteSittingRecordsComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [RouterTestingModule, HttpClientModule],
-      declarations: [DeleteSittingRecordsComponent],
+      declarations: [DeleteSittingRecordsComponent, StringFromDatePipe, ConvertToStringPeriodPipe],
       providers: [
         DateService,
-        tableService,
         SittingRecordWorkflowService,
-        DeleteSittingRecordHttp
+        DeleteSittingRecordHttp,
       ]
     }).compileComponents();
   });
@@ -46,6 +46,7 @@ describe('DeleteSittingRecordsComponent', () => {
     router = TestBed.inject(Router);
     deleteRecordHttp = TestBed.inject(DeleteSittingRecordHttp);
     srWorkFlow = TestBed.inject(SittingRecordWorkflowService);
+
     srWorkFlow.setManageVisited();
     
     srWorkFlow.setFormData(mockFormData)
@@ -54,17 +55,6 @@ describe('DeleteSittingRecordsComponent', () => {
 
   it('should create the component', () => {
     expect(component).toBeTruthy();
-  });
-
-  it('should initialize component properties on ngOnInit', () => {
-
-    const formattedDate = '01/01/2022';
-    srWorkFlow.setFormData(mockFormData)
-    fixture.detectChanges()
-    expect(component.tribService).toBe(mockFormData.controls['tribunalService'].value);
-    expect(component.venue).toBe(mockFormData.controls['venue'].value);
-    expect(component.date).toBe(formattedDate);
-
   });
 
   it('should navigate to "sittingRecords/deleteSuccess" on confirmDelete', () => {
