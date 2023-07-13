@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { defaultDtOptions }  from '../../_services/default-dt-options'
 import { SittingRecord } from '../../_models/viewSittingRecords.model';
@@ -11,7 +11,7 @@ import { DateService } from '../../_services/date-service/date-service';
   templateUrl: './view-sitting-records.component.html',
   styleUrls: ['./view-sitting-records.component.scss']
 })
-export class ViewSittingRecordsComponent {
+export class ViewSittingRecordsComponent implements OnInit{
 
   tribService = "";
   venueSiteName = "";

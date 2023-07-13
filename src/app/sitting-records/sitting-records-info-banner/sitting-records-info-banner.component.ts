@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { SittingRecordWorkflowService } from '../_workflows/sitting-record-workflow.service';
-import { DateService } from '../_services/date-service/date-service';
+import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-workflow.service';
+import { DateService } from '../../_services/date-service/date-service';
 
 @Component({
   selector: 'app-sitting-records-info-banner',
