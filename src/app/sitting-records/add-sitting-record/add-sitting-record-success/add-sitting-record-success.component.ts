@@ -25,10 +25,6 @@ export class AddSittingRecordSuccessComponent implements OnInit {
     void this.router.navigate(['sittingRecords','manage']);
   }
 
-  convertPeriod(period: string): string{
-    return this.dateSvc.convertPeriod(period);
-  }
-
   get johFormArray(): FormArray {
     return this.newSittingRecords?.controls['JOH'] as FormArray;
   }

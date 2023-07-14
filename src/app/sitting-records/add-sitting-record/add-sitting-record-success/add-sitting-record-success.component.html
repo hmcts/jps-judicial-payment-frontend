@@ -33,7 +33,7 @@
                 {{joh.get('johRole')?.value?.appointment}}
             </dd>
             <dd class="govuk-summary-list__value">
-                {{convertPeriod(newSittingRecords.get('period')?.value)}}
+                {{newSittingRecords.get('period')?.value | convertAddPeriodToString}}
             </dd>
             <dd class="govuk-summary-list__value">
                 {{recordedByName}}

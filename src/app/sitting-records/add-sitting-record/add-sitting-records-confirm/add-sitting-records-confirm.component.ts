@@ -49,8 +49,4 @@ export class AddSittingRecordsConfirmComponent{
     )
   }
 
-  convertPeriod(period: string): string {
-    return this.dateSvc.convertPeriod(period);
-  }
-
 }

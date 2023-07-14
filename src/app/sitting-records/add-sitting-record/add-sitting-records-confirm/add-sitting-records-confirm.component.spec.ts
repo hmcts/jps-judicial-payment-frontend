@@ -76,9 +76,4 @@ describe('AddSittingRecordsConfirmComponent', () => {
     expect(router.navigate).toHaveBeenCalledWith(['sittingRecords', 'addSuccess']);
   });
 
-  it('should convert the period correctly', () => {
-    spyOn(dateSvc, 'convertPeriod').and.returnValue('Morning');
-    expect(component.convertPeriod('am')).toBe('Morning');
-    expect(dateSvc.convertPeriod).toHaveBeenCalled();
-  });
 });

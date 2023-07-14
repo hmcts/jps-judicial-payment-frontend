@@ -21,30 +21,17 @@ describe('DateService', () => {
     });
   });
 
-  describe('getPeriod', () => {
-    it('should return "Full Day" when am and pm are passed', () => {
-      expect(service.getPeriod("AM", "PM")).toEqual('Full Day');
-    });
-  
-    it('should return "Morning" when AM is passed and PM is null', () => {
-      expect(service.getPeriod("AM", "null")).toEqual('Morning');
-    });
-  
-    it('should return "Afternoon" when PM is passed and am is null', () => {
-      expect(service.getPeriod("null", "PM")).toEqual('Afternoon');
-    });
-  
-    it('should return an empty string when both am and pm are null', () => {
-      expect(service.getPeriod("null", "null")).toEqual('');
-    });
-  });
 
-  describe('convertPeriod', () => {
-    it('should convert the period correctly', () => {
-      expect(service.convertPeriod('AM')).toBe('Morning');
-      expect(service.convertPeriod('PM')).toBe('Afternoon');
-      expect(service.convertPeriod('FULL_DAY')).toBe('Full Day');
-      expect(service.convertPeriod('')).toBe('');
+  describe('createDateObjFromFormData', () => {
+    it('should create a Date object from form data', () => {
+      const dateObj = {
+        dateDay: '01',
+        dateMonth: '01',
+        dateYear: '2020'
+      };
+      const result = service.createDateObjFromFormData(dateObj);
+      expect(result).toEqual(new Date('01/01/2020'));
     });
-  });
+  })
+
 });

@@ -21,7 +21,7 @@ import { DeleteSuccessComponent } from './delete-sitting-records/delete-success/
 import { DeleteSittingRecordsComponent } from './delete-sitting-records/delete-sitting-records.component'
 
 import { StringFromDatePipe } from '../_pipes/string-date-pipe'
-import { ConvertToStringPeriodPipe } from '../_pipes/convert-period-pipe'
+import { ConvertToStringPeriodPipe, ConvertAddPeriodPipe } from '../_pipes/convert-period-pipe'
 import { JPFooterComponent } from '../static-elements/jp-footer/jp-footer.component';
 import { JPHeaderComponent } from '../static-elements/jp-header/jp-header.component';
 import { CookieManagerComponent } from '../static-elements/cookies/cookie-manager/cookie-manager.component';
@@ -47,6 +47,7 @@ import { LogoutComponent } from '../static-elements/logout/logout.component';
     NumberDirective,
     StringFromDatePipe,
     ConvertToStringPeriodPipe,
+    ConvertAddPeriodPipe,
     AddSittingRecordComponent,
     AddSittingRecordSuccessComponent,
     NumberDirective,
