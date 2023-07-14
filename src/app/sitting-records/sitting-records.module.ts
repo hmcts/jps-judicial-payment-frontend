@@ -22,6 +22,10 @@ import { DeleteSittingRecordsComponent } from './delete-sitting-records/delete-s
 
 import { StringFromDatePipe } from '../_pipes/string-date-pipe'
 import { ConvertToStringPeriodPipe } from '../_pipes/convert-period-pipe'
+import { JPFooterComponent } from '../static-elements/jp-footer/jp-footer.component';
+import { JPHeaderComponent } from '../static-elements/jp-header/jp-header.component';
+import { CookieManagerComponent } from '../static-elements/cookies/cookie-manager/cookie-manager.component';
+import { LogoutComponent } from '../static-elements/logout/logout.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -47,7 +51,11 @@ import { ConvertToStringPeriodPipe } from '../_pipes/convert-period-pipe'
     AddSittingRecordSuccessComponent,
     NumberDirective,
     SittingRecordsInfoBannerComponent,
-    AddSittingRecordsConfirmComponent
+    AddSittingRecordsConfirmComponent,
+    JPFooterComponent,
+    JPHeaderComponent,
+    CookieManagerComponent,
+    LogoutComponent,
   ]
 })
 export class SittingRecordsModule { }
