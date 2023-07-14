@@ -101,14 +101,14 @@ describe('SittingRecordsLandingComponent', () => {
     options.setValue('opt2');
     spyOn(mockWorkflowService, 'setUserFormData');
     spyOn(mockWorkflowService, 'setFormData');
-    spyOn(mockWorkflowService, 'setManageVisited');
+    spyOn(mockWorkflowService, 'setLandingVisited');
     spyOn(mockRouter, 'navigate');
 
     component.submitForm();
 
     expect(mockWorkflowService.setUserFormData).toHaveBeenCalled();
     expect(mockWorkflowService.setFormData).toHaveBeenCalled();
-    expect(mockWorkflowService.setManageVisited).toHaveBeenCalled();
+    expect(mockWorkflowService.setLandingVisited).toHaveBeenCalled();
     expect(mockRouter.navigate).toHaveBeenCalledWith(['sittingRecords', 'submit']);
   });
 });
