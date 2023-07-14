@@ -32,12 +32,6 @@ export class ViewSittingRecordsComponent implements OnInit{
   goBack(){
     void this.router.navigate(['sittingRecords','manage'])
   }
-
-  getPeriod(am: string, pm: string): string {
-    return this.dateSvc.getPeriod(am, pm);
-  }
-
-  
     
   ngOnInit(){
     const formData = this.srWorkFlow.getFormData().value;
@@ -81,6 +75,7 @@ export class ViewSittingRecordsComponent implements OnInit{
     this.srWorkFlow.setSittingRecordToDelete(sittingRecord);
     this.router.navigate(['sittingRecords', 'delete'])
   }
+  
   addNewRecord(){
     void this.router.navigate(['sittingRecords','add'])
   }

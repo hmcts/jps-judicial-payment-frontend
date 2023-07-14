@@ -69,10 +69,4 @@ describe('ViewSittingRecordsComponent', () => {
     expect(mockRouter.navigate).toHaveBeenCalledWith(['sittingRecords','manage']);
   });
 
-  it('getPeriod should convert the period correctly', () => {
-    spyOn(mockDateSvc,'getPeriod').and.returnValue('Full Day');
-    expect(component.getPeriod('AM','PM')).toEqual('Full Day');
-    expect(mockDateSvc.getPeriod).toHaveBeenCalledWith('AM','PM');
-  
-  });
 });

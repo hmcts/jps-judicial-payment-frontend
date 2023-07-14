@@ -64,7 +64,8 @@ export class SittingRecordWorkflowService {
 
   getSittingRecordsData() {
     const postObj = new ViewSittingRecordPost();
-    const { dateSelected, venue } = this.formData.value;
+    const { dateSelected, venue, tribunalService } = this.formData.value;
+    const hmctsServiceCode = tribunalService.hmctsServiceCode;
     const dateToGet = this.dateSvc.formatDateFromForm(dateSelected);
     postObj.epimsId = venue.epimms_id;
     postObj.regionId = venue.region_id;
@@ -73,7 +74,7 @@ export class SittingRecordWorkflowService {
     postObj.dateOrder = "ASCENDING";
 
     //TODO: add logic below to add in filter functionality
-    return this.ViewSittingRecordService.postObject(postObj);
+    return this.ViewSittingRecordService.postObject(postObj, hmctsServiceCode);
   }
 
   setAddSittingRecords(data: FormGroup){

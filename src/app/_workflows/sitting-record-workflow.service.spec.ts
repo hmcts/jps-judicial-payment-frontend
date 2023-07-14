@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { SittingRecordWorkflowService } from './sitting-record-workflow.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ViewSittingRecordPost, ViewSittingRecordResponse } from '../_models/viewSittingRecords.model';
@@ -58,20 +58,6 @@ describe('SittingRecordWorkflowService', () => {
 
   describe('getSittingRecordsData', () => {
     it('should return a valid ViewSittingRecordResponse object', () => {
-      const postObj: ViewSittingRecordPost = {
-        pageSize: 100,
-        offset: 0,
-        dateOrder: 'ASCENDING',
-        regionId: '',
-        epimsId: '',
-        createdByUserId: '',
-        personalCode: '',
-        judgeRoleTypeId: '',
-        duration: '',
-        dateRangeFrom: '',
-        dateRangeTo: '',
-        statusIds: []
-      };
       const mockResponse: ViewSittingRecordResponse = { "sittingRecords": [] };
       const dateSelected = '2022-01-01';
 
@@ -91,5 +77,5 @@ describe('SittingRecordWorkflowService', () => {
     })
     
   })
-  
+
 });

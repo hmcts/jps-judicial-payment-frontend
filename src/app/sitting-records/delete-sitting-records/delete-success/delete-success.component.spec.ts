@@ -1,16 +1,13 @@
 import { DeleteSuccessComponent } from './delete-success.component';
 import { Router } from '@angular/router';
-import { SittingRecordWorkflowService } from '../../../_workflows/sitting-record-workflow.service';
 
 describe('DeleteSuccessComponent', () => {
   let component: DeleteSuccessComponent;
   let router: Router;
-  let srWorkflow: SittingRecordWorkflowService;
 
   beforeEach(() => {
     router = jasmine.createSpyObj('Router', ['navigate']);
-    srWorkflow = jasmine.createSpyObj('SittingRecordWorkflowService', ['getSittingRecordsData']);
-    component = new DeleteSuccessComponent(srWorkflow, router);
+    component = new DeleteSuccessComponent(router);
   });
 
   it('should create', () => {

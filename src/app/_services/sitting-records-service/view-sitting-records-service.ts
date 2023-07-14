@@ -14,13 +14,13 @@ export class ViewSittingRecordService {
     private readonly cookies: CookieService
   ) { }
 
-  postObject(data: ViewSittingRecordPost): Observable<ViewSittingRecordResponse> {
+  postObject(data: ViewSittingRecordPost, serviceCode: string): Observable<ViewSittingRecordResponse> {
 
     const httpOptions = {
       headers: {
         'Content-Type': 'application/json'
       },
-      params: {'hmctsServiceCode': 'BBA3'}
+      params: {'hmctsServiceCode': serviceCode}
     };
 
     return this.http.post<ViewSittingRecordResponse>('/sittingRecords/searchSittingRecords', data, httpOptions);
