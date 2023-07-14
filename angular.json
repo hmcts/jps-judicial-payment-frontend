@@ -103,8 +103,8 @@
               "src/styles.scss"
             ],
             "scripts": [
-              "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/datatables.net/js/jquery.dataTables.js"
+              "./node_modules/jquery/dist/jquery.min.js",
+              "./node_modules/datatables.net/js/jquery.dataTables.js"
             ],
             "karmaConfig": "karma.conf.js"
           }
