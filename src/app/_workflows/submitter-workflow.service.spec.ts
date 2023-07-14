@@ -45,8 +45,8 @@ describe('SubmitterWorkflowService', () => {
 
   describe('setManageVisited', () => {
     it('should set hasVisitedManage to true', () => {
-      mockWorkflowService.setManageVisited();
-      expect(mockWorkflowService.getManageVisited()).toBe(true);
+      mockWorkflowService.setLandingVisited();
+      expect(mockWorkflowService.getLandingVisited()).toBe(true);
     });
   });
 

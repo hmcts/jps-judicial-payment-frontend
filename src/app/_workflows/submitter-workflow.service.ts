@@ -12,7 +12,7 @@ export class SubmitterWorkflowService {
 
   formData!: FormGroup;
   userFormData!: FormGroup;
-  hasVisitedManage = false;
+  hasLandingVisited = false;
   financeRegions: RegionModel[] = [];
 
   constructor(
@@ -21,12 +21,12 @@ export class SubmitterWorkflowService {
   ){}
 
 
-  setManageVisited(){
-    this.hasVisitedManage = true;
+  setLandingVisited(){
+    this.hasLandingVisited = true;
   }
 
-  getManageVisited(){
-    return this.hasVisitedManage;
+  getLandingVisited(){
+    return this.hasLandingVisited;
   }
 
   setFormData(data : FormGroup){

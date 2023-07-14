@@ -15,7 +15,7 @@ describe('ManageSittingRecordsComponent', () => {
   let component: ManageSittingRecordsComponent;
   let fixture: ComponentFixture<ManageSittingRecordsComponent>;
   let router: Router;
-  let srWorkflowService: RecorderWorkflowService;
+  let recorderWorkFlowService: RecorderWorkflowService;
   let locationService: LocationService;
   let mockCookieService: jasmine.SpyObj<CookieService>;
 
@@ -31,7 +31,7 @@ describe('ManageSittingRecordsComponent', () => {
     fixture = TestBed.createComponent(ManageSittingRecordsComponent);
     component = fixture.componentInstance;
     router = TestBed.inject(Router);
-    srWorkflowService = TestBed.inject(RecorderWorkflowService);
+    recorderWorkFlowService = TestBed.inject(RecorderWorkflowService);
     locationService = TestBed.inject(LocationService);
     mockCookieService = TestBed.inject(CookieService) as jasmine.SpyObj<CookieService>;
     fixture.detectChanges();
@@ -65,16 +65,16 @@ describe('ManageSittingRecordsComponent', () => {
   });
 
   it('should navigate to view-sitting-records when the form is submitted', () => {
-    spyOn(srWorkflowService, 'setFormData');
-    spyOn(srWorkflowService, 'setManageVisited');
+    spyOn(recorderWorkFlowService, 'setFormData');
+    spyOn(recorderWorkFlowService, 'setManageVisited');
     spyOn(router, 'navigate');
     spyOn(component.venueValueChange, 'unsubscribe')
 
     component.venueValueChange = component.manageRecords.valueChanges.subscribe()
     component.submitForm();
 
-    expect(srWorkflowService.setFormData).toHaveBeenCalled();
-    expect(srWorkflowService.setManageVisited).toHaveBeenCalled();
+    expect(recorderWorkFlowService.setFormData).toHaveBeenCalled();
+    expect(recorderWorkFlowService.setManageVisited).toHaveBeenCalled();
     expect(router.navigate).toHaveBeenCalledWith(['sittingRecords', 'view']);
   });
 

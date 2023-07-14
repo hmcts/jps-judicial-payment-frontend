@@ -23,7 +23,7 @@ describe('SittingRecordsSubmitGuard', () => {
   });
 
   it('should return true if manageVisited is true', () => {
-    spyOn(mockWorkflowService, 'getManageVisited').and.returnValue(true);
+    spyOn(mockWorkflowService, 'getLandingVisited').and.returnValue(true);
   
     const result = guard.canActivate();
 
@@ -32,7 +32,7 @@ describe('SittingRecordsSubmitGuard', () => {
 
   it('should navigate to /sittingRecords/home and return false if manageVisited is false', () => {
     spyOn(mockRouter, 'navigate');
-    spyOn(mockWorkflowService, 'getManageVisited').and.returnValue(false);
+    spyOn(mockWorkflowService, 'getLandingVisited').and.returnValue(false);
 
     const result = guard.canActivate();
 

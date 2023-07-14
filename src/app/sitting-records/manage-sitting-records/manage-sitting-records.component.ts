@@ -31,8 +31,8 @@ export class ManageSittingRecordsComponent implements OnInit {
   showPreviousButton = true;
   
   submitForm(){
-    this.srWorkFlow.setFormData(this.manageRecords)
-    this.srWorkFlow.setManageVisited()
+    this.recorderWorkFlowService.setFormData(this.manageRecords)
+    this.recorderWorkFlowService.setManageVisited()
     this.venueValueChange.unsubscribe()
     void this.router.navigate(['sittingRecords','view'])
   }
@@ -46,7 +46,7 @@ export class ManageSittingRecordsComponent implements OnInit {
     private cookies: CookieService,
     protected activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private srWorkFlow: RecorderWorkflowService,
+    private recorderWorkFlowService: RecorderWorkflowService,
     private locationService : LocationService
   ){
     this.manageRecords = this.formBuilder.group(
@@ -82,8 +82,8 @@ export class ManageSittingRecordsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if(this.srWorkFlow.getFormData()){
-      this.manageRecords = this.srWorkFlow.getFormData();
+    if(this.recorderWorkFlowService.getFormData()){
+      this.manageRecords = this.recorderWorkFlowService.getFormData();
     }
 
     this.venuesSearch();

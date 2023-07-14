@@ -76,7 +76,7 @@ export class SittingRecordsLandingComponent implements OnInit, AfterViewInit{
     else {
       this.submitterWorkflow.setUserFormData(this.userForm);
       this.submitterWorkflow.setFormData(this.manageRecords as FormGroup);
-      this.submitterWorkflow.setManageVisited();
+      this.submitterWorkflow.setLandingVisited();
       void this.router.navigate(['sittingRecords','submit'])
     }
   }

@@ -14,7 +14,7 @@ export class SittingRecordsSubmitGuard implements CanActivate {
   ){}
 
   canActivate(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    if(this.submitterWorkflow.getManageVisited()) {
+    if(this.submitterWorkflow.getLandingVisited()) {
       return true;
     } else {
       void this.router.navigate(['sittingRecords','home']);
