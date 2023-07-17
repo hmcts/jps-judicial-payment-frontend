@@ -1,6 +1,6 @@
 <main class="govuk-main-wrapper " id="main-content" role="main">
     
-    <h1 class="govuk-heading-l govuk-!-margin-bottom-3">Manage Judicial Sitting Records</h1>
+    <h1 class="govuk-heading-l govuk-!-margin-bottom-3">Manage judicial sitting records</h1>
     <h1 class="govuk-body-l govuk-!-margin-bottom-5">Find, add or delete judicial sitting records</h1>
 
     <form 
@@ -17,9 +17,7 @@
                 id="sort" name="sort"
             >
               <option [ngValue]="''" disabled selected>--Select a value--</option>
-              <option [ngValue]="'1'">1</option>
-              <option [ngValue]="'2'">2</option>
-
+              <option *ngFor="let service of tribunalServices" [ngValue]="service">{{service.service}}</option>
             </select>
           </div>
 
@@ -38,11 +36,11 @@
                 placeholder="Start typing to search for a venue"
                 [matAutocomplete]="autoSearchVenue"
                 required>
-              <mat-autocomplete class="mat-autocomplete-panel-extend" id="auto-venue-select" autoActiveFirstOption #autoSearchVenue="matAutocomplete" (optionSelected)="optionSelected($event)" [displayWith]="showVenue">
-                <mat-option *ngFor="let venue of venues" id="option-venue-select{{venue.site_name}}" (mousedown)=$event.preventDefault() [value]="venue" >
+              <mat-autocomplete class="mat-autocomplete-panel-extend" id="auto-venue-select" #autoSearchVenue="matAutocomplete" (optionSelected)="optionSelected($event)" [displayWith]="showVenue">
+                <mat-option *ngFor="let venue of filteredVenues | async" id="option-venue-select-{{venue.site_name}}" (mousedown)=$event.preventDefault() [value]="venue" >
                   {{ venue.site_name }}
                 </mat-option>
-                <mat-option *ngIf="!venues.length && !refDataFound && searchTerm.length >= this.minSearchCharacters">No results found</mat-option>
+                <mat-option *ngIf="!typeaheadResultsFound && searchTerm.length >= this.minSearchCharacters" disabled>No results found</mat-option>
               </mat-autocomplete>
               
             </div>
