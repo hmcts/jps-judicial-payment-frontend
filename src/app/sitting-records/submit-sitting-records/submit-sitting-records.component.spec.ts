@@ -1,35 +1,34 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { ViewSittingRecordsComponent } from './view-sitting-records.component';
-import { RecorderWorkflowService } from '../../_workflows/recorder-workflow.service';
-import { DateService } from '../../_services/date-service/date-service';
-import { Router } from '@angular/router';
-import { DataTablesModule } from 'angular-datatables';
 import { HttpClientModule } from '@angular/common/http';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ViewSittingRecordResponse } from 'src/app/_models/viewSittingRecords.model';
+import { Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { DataTablesModule } from 'angular-datatables';
 import { of } from 'rxjs';
+import { ViewSittingRecordResponse } from '../../_models/viewSittingRecords.model';
+import { DateService } from '../../_services/date-service/date-service';
+import { SubmitterWorkflowService } from '../../_workflows/submitter-workflow.service';
+import { SubmitSittingRecordsComponent } from './submit-sitting-records.component';
 
-describe('ViewSittingRecordsComponent', () => {
-  let component: ViewSittingRecordsComponent;
-  let fixture: ComponentFixture<ViewSittingRecordsComponent>;
+describe('SubmitSittingRecordsComponent', () => {
+  let component: SubmitSittingRecordsComponent;
+  let fixture: ComponentFixture<SubmitSittingRecordsComponent>;
   let mockRouter: Router;
-  let mockWorkflowService: RecorderWorkflowService;
+  let mockWorkflowService: SubmitterWorkflowService;
   let mockDateSvc: DateService;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [ ViewSittingRecordsComponent ],
-      providers: [ RecorderWorkflowService, DateService ],
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [ SubmitSittingRecordsComponent ],
+      providers: [ SubmitterWorkflowService, DateService ],
       imports: [RouterTestingModule, DataTablesModule, HttpClientModule]
-    }).compileComponents();
-  });
+    })
+    .compileComponents();
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ViewSittingRecordsComponent);
+    fixture = TestBed.createComponent(SubmitSittingRecordsComponent);
     component = fixture.componentInstance;
     mockRouter = TestBed.inject(Router);
-    mockWorkflowService = TestBed.inject(RecorderWorkflowService);
+    mockWorkflowService = TestBed.inject(SubmitterWorkflowService);
     mockDateSvc = TestBed.inject(DateService)
   });
 
@@ -42,7 +41,7 @@ describe('ViewSittingRecordsComponent', () => {
     const formDataMock: FormGroup = new FormBuilder().group({
       dateSelected: ['2022-01-01'],
       tribunalService: ['Tribunal 1'],
-      venue: { site_name: 'Venue 1' }
+      region: { description: 'Region 1' }
     });
     const response: ViewSittingRecordResponse = {
       "sittingRecords": []
@@ -57,15 +56,15 @@ describe('ViewSittingRecordsComponent', () => {
     
     expect(mockDateSvc.formatDateFromForm).toHaveBeenCalledWith(formDataMock.controls['dateSelected'].value);
     expect(component.tribService).toBe(formDataMock.controls['tribunalService'].value);
-    expect(component.venueSiteName).toBe(formDataMock.controls['venue'].value.site_name);
+    expect(component.region).toBe(formDataMock.controls['region'].value.description);
     expect(component.date).toBe(formattedDate);
     expect(component.sittingRecordData).toBe(response.sittingRecords);
   });
 
-  it('should navigate to the manage page on goBack', () => {
+  it('should navigate to the home page on goBack', () => {
     spyOn(mockRouter, 'navigate');
     component.goBack();
-    expect(mockRouter.navigate).toHaveBeenCalledWith(['sittingRecords','manage']);
+    expect(mockRouter.navigate).toHaveBeenCalledWith(['sittingRecords','home']);
   });
 
   it('getPeriod should convert the period correctly', () => {
@@ -74,5 +73,4 @@ describe('ViewSittingRecordsComponent', () => {
     expect(mockDateSvc.getPeriod).toHaveBeenCalledWith('AM','PM');
   
   });
- 
 });

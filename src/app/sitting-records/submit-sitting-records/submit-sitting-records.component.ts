@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RecorderWorkflowService } from '../../_workflows/recorder-workflow.service';
+import { SubmitterWorkflowService } from '../../_workflows/submitter-workflow.service';
 import { DateService } from '../../_services/date-service/date-service';
 import { Router } from '@angular/router';
 import { defaultDtOptions }  from '../../_services/default-dt-options'
@@ -7,48 +7,37 @@ import { SittingRecord } from 'src/app/_models/viewSittingRecords.model';
 import { Subject } from 'rxjs';
 
 @Component({
-  selector: 'app-view-sitting-records',
-  templateUrl: './view-sitting-records.component.html',
-  styleUrls: ['./view-sitting-records.component.scss']
+  selector: 'app-submit-sitting-records',
+  templateUrl: './submit-sitting-records.component.html',
+  styleUrls: ['./submit-sitting-records.component.scss']
 })
-export class ViewSittingRecordsComponent implements OnInit {
+export class SubmitSittingRecordsComponent implements OnInit {
 
   tribService = "";
-  venueSiteName = "";
+  region = "";
   date = "";
-
+ 
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
   sittingRecordData: SittingRecord[] = [];
 
   showFilters = false;
 
-  goBack(){
-    void this.router.navigate(['sittingRecords','manage'])
-  }
-
-  getPeriod(am: string, pm: string): string {
-    return this.dateSvc.getPeriod(am, pm);
-  }
-
   constructor(
-    private srWorkFlow: RecorderWorkflowService,
+    private submitterWorkflow: SubmitterWorkflowService,
     private dateSvc: DateService,
     private router: Router
   ){}
     
   ngOnInit(){
-    const formData = this.srWorkFlow.getFormData().value;
-    const { dateSelected, tribunalService, venue } = formData;
+    const formData = this.submitterWorkflow.getFormData().value;
+    const { dateSelected, tribunalService, region } = formData;
     this.tribService = tribunalService;
-    this.venueSiteName = venue.site_name;
+    this.region = region.description;
     this.date = this.dateSvc.formatDateFromForm(dateSelected);
 
     this.dtOptions = {
       ...defaultDtOptions,
-      columnDefs:[
-        { targets: [5], orderable: false },
-      ],
       
       drawCallback: 
         /* istanbul ignore next */ 
@@ -68,11 +57,19 @@ export class ViewSittingRecordsComponent implements OnInit {
     this.loadViewSittingRecords();
   } 
 
+  getPeriod(am: string, pm: string): string {
+    return this.dateSvc.getPeriod(am, pm);
+  }
+
   loadViewSittingRecords() {
-    this.srWorkFlow.getSittingRecordsData().subscribe(records => {
+    this.submitterWorkflow.getSittingRecordsData().subscribe(records => {
       this.sittingRecordData = records.sittingRecords;
       this.dtTrigger.next(null); 
     });
+  }
+
+  goBack(){
+    void this.router.navigate(['sittingRecords','home'])
   }
 
 }
