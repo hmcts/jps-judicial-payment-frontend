@@ -1,4 +1,5 @@
 module.exports = function () {
+
   const recorderUsername = process.env.JPS_RECORDER_USERNAME || 'jps-recorder-role@gmail.com';
   const recorderPassword = process.env.JPS_RECORDER_PASSWORD || 'PesZvqrb78';
   const submitterUsername = process.env.JPS_SUBMITTER_USERNAME || 'jps-submitter-role@gmail.com';
@@ -11,7 +12,8 @@ module.exports = function () {
   return actor({
     loginWithJPSRecorderUser: function(){
       const I = this;
-      I.amOnPage('/')
+      I.amOnPage('/');
+      I.waitForElement('#username');
       I.fillField('Email address', recorderUsername);
       I.fillField('Password', recorderPassword);
       I.click('Sign in');
@@ -19,7 +21,8 @@ module.exports = function () {
 
     loginWithJPSSubmitterUser: function(){
       const I = this;
-      I.amOnPage('/')
+      I.amOnPage('/');
+      I.waitForElement('#username');
       I.fillField('Email address', submitterUsername);
       I.fillField('Password', submitterPassword);
       I.click('Sign in');
@@ -27,7 +30,8 @@ module.exports = function () {
 
     loginWithJPSPublisherUser: function(){
       const I = this;
-      I.amOnPage('/')
+      I.amOnPage('/');
+      I.waitForElement('#username');
       I.fillField('Email address', publisherUsername);
       I.fillField('Password', publisherPassword);
       I.click('Sign in');
@@ -35,7 +39,8 @@ module.exports = function () {
 
     loginWithJPSInvalidUser: function(){
       const I = this;
-      I.amOnPage('/')
+      I.amOnPage('/');
+      I.waitForElement('#username');
       I.fillField('Email address', invalidUsername);
       I.fillField('Password', invalidPassword);
       I.click('Sign in');
