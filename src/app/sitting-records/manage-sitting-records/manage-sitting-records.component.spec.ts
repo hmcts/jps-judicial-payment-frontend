@@ -3,7 +3,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ManageSittingRecordsComponent } from './manage-sitting-records.component';
-import { RecorderWorkflowService } from '../../_workflows/recorder-workflow.service';
+import { SharedWorkflowService } from '../../_workflows/shared-workflow.service';
 import { LocationService } from '../../_services/location-service/location.service';
 import { VenueModel } from '../../_models/venue.model';
 import { HttpClientModule } from '@angular/common/http'; 
@@ -15,7 +15,7 @@ describe('ManageSittingRecordsComponent', () => {
   let component: ManageSittingRecordsComponent;
   let fixture: ComponentFixture<ManageSittingRecordsComponent>;
   let router: Router;
-  let recorderWorkFlowService: RecorderWorkflowService;
+  let sharedWorkFlowService: SharedWorkflowService;
   let locationService: LocationService;
   let mockCookieService: jasmine.SpyObj<CookieService>;
 
@@ -23,7 +23,7 @@ describe('ManageSittingRecordsComponent', () => {
     await TestBed.configureTestingModule({
       imports: [ReactiveFormsModule, RouterTestingModule, HttpClientModule, MatAutocompleteModule],
       declarations: [ManageSittingRecordsComponent],
-      providers: [RecorderWorkflowService, LocationService],
+      providers: [SharedWorkflowService, LocationService],
     }).compileComponents();
   });
 
@@ -31,7 +31,7 @@ describe('ManageSittingRecordsComponent', () => {
     fixture = TestBed.createComponent(ManageSittingRecordsComponent);
     component = fixture.componentInstance;
     router = TestBed.inject(Router);
-    recorderWorkFlowService = TestBed.inject(RecorderWorkflowService);
+    sharedWorkFlowService = TestBed.inject(SharedWorkflowService);
     locationService = TestBed.inject(LocationService);
     mockCookieService = TestBed.inject(CookieService) as jasmine.SpyObj<CookieService>;
     fixture.detectChanges();
@@ -65,16 +65,16 @@ describe('ManageSittingRecordsComponent', () => {
   });
 
   it('should navigate to view-sitting-records when the form is submitted', () => {
-    spyOn(recorderWorkFlowService, 'setFormData');
-    spyOn(recorderWorkFlowService, 'setManageVisited');
+    spyOn(sharedWorkFlowService, 'setFormData');
+    spyOn(sharedWorkFlowService, 'setManageVisited');
     spyOn(router, 'navigate');
     spyOn(component.venueValueChange, 'unsubscribe')
 
     component.venueValueChange = component.manageRecords.valueChanges.subscribe()
     component.submitForm();
 
-    expect(recorderWorkFlowService.setFormData).toHaveBeenCalled();
-    expect(recorderWorkFlowService.setManageVisited).toHaveBeenCalled();
+    expect(sharedWorkFlowService.setFormData).toHaveBeenCalled();
+    expect(sharedWorkFlowService.setManageVisited).toHaveBeenCalled();
     expect(router.navigate).toHaveBeenCalledWith(['sittingRecords', 'view']);
   });
 

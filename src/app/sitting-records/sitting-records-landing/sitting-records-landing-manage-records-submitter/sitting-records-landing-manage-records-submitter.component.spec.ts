@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LocationService } from '../../../_services/location-service/location.service';
-import { SittingRecordsLandingManageRecordsComponent } from './sitting-records-landing-manage-records.component';
+import { SittingRecordsLandingManageRecordsSubmitterComponent } from './sitting-records-landing-manage-records-submitter.component';
 import { RegionModel } from '../../../_models/region.model';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -8,19 +8,19 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { of } from 'rxjs';
 
 describe('SittingRecordsLandingManageRecordsComponent', () => {
-  let component: SittingRecordsLandingManageRecordsComponent;
-  let fixture: ComponentFixture<SittingRecordsLandingManageRecordsComponent>;
+  let component: SittingRecordsLandingManageRecordsSubmitterComponent;
+  let fixture: ComponentFixture<SittingRecordsLandingManageRecordsSubmitterComponent>;
   let locationService: LocationService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ HttpClientModule, ReactiveFormsModule, HttpClientTestingModule],
-      declarations: [ SittingRecordsLandingManageRecordsComponent ],
+      declarations: [ SittingRecordsLandingManageRecordsSubmitterComponent ],
       providers: [ LocationService]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(SittingRecordsLandingManageRecordsComponent);
+    fixture = TestBed.createComponent(SittingRecordsLandingManageRecordsSubmitterComponent);
     component = fixture.componentInstance;
     locationService = TestBed.inject(LocationService);
     fixture.detectChanges();

@@ -9,7 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { debounceTime, filter, mergeMap, tap } from 'rxjs/operators';
 import { CustomValidators } from '../../_validators/sitting-records-form-validator';
-import { RecorderWorkflowService } from '../../_workflows/recorder-workflow.service';
+import { SharedWorkflowService } from '../../_workflows/shared-workflow.service';
 import { LocationService } from '../../_services/location-service/location.service'
 import { VenueModel } from '../../_models/venue.model';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
@@ -31,8 +31,8 @@ export class ManageSittingRecordsComponent implements OnInit {
   showPreviousButton = true;
   
   submitForm(){
-    this.recorderWorkFlowService.setFormData(this.manageRecords)
-    this.recorderWorkFlowService.setManageVisited()
+    this.sharedWorkFlowService.setFormData(this.manageRecords)
+    this.sharedWorkFlowService.setManageVisited()
     this.venueValueChange.unsubscribe()
     void this.router.navigate(['sittingRecords','view'])
   }
@@ -46,7 +46,7 @@ export class ManageSittingRecordsComponent implements OnInit {
     private cookies: CookieService,
     protected activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private recorderWorkFlowService: RecorderWorkflowService,
+    private sharedWorkFlowService: SharedWorkflowService,
     private locationService : LocationService
   ){
     this.manageRecords = this.formBuilder.group(
@@ -82,13 +82,14 @@ export class ManageSittingRecordsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if(this.recorderWorkFlowService.getFormData()){
-      this.manageRecords = this.recorderWorkFlowService.getFormData();
+    if(this.sharedWorkFlowService.getFormData()){
+      this.manageRecords = this.sharedWorkFlowService.getFormData();
     }
 
     this.venuesSearch();
 
     const userRole = this.cookies.get('__userrole__');
+
     if (userRole.indexOf('jps-recorder') != -1)
       this.showPreviousButton = false;
   }

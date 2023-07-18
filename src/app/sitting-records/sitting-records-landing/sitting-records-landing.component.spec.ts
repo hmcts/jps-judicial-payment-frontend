@@ -4,22 +4,25 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { SittingRecordsLandingComponent } from './sitting-records-landing.component';
-import { SittingRecordsLandingManageRecordsComponent } from './sitting-records-landing-manage-records/sitting-records-landing-manage-records.component';
+import { SittingRecordsLandingManageRecordsSubmitterComponent } from './sitting-records-landing-manage-records-submitter/sitting-records-landing-manage-records-submitter.component';
+import { SittingRecordsLandingManageRecordsPublisherComponent } from './sitting-records-landing-manage-records-publisher/sitting-records-landing-manage-records-publisher.component';
 import { CookieService } from 'ngx-cookie-service';
 import { SubmitterWorkflowService } from '../../_workflows/submitter-workflow.service';
+import { PublisherWorkflowService } from '../../_workflows/publisher-workflow.service';
 
 describe('SittingRecordsLandingComponent', () => {
   let component: SittingRecordsLandingComponent;
   let fixture: ComponentFixture<SittingRecordsLandingComponent>;
   let mockRouter: Router;
-  let mockWorkflowService: SubmitterWorkflowService;
+  let mockSubmitterWorkflowService: SubmitterWorkflowService;
+  let mockPublisherWorkflowService: PublisherWorkflowService;
   let cookieService: jasmine.SpyObj<CookieService>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ RouterTestingModule, HttpClientModule, ReactiveFormsModule],
-      declarations: [ SittingRecordsLandingComponent,  SittingRecordsLandingManageRecordsComponent ],
-      providers: [ SubmitterWorkflowService,
+      declarations: [ SittingRecordsLandingComponent,  SittingRecordsLandingManageRecordsSubmitterComponent, SittingRecordsLandingManageRecordsPublisherComponent ],
+      providers: [ SubmitterWorkflowService, PublisherWorkflowService,
         { provide: CookieService }
       ]
     })
@@ -28,7 +31,8 @@ describe('SittingRecordsLandingComponent', () => {
     fixture = TestBed.createComponent(SittingRecordsLandingComponent);
     component = fixture.componentInstance;
     mockRouter = TestBed.inject(Router);
-    mockWorkflowService = TestBed.inject(SubmitterWorkflowService);
+    mockSubmitterWorkflowService = TestBed.inject(SubmitterWorkflowService);
+    mockPublisherWorkflowService = TestBed.inject(PublisherWorkflowService);
     cookieService = TestBed.inject(CookieService) as jasmine.SpyObj<CookieService>;
   });
 
@@ -36,11 +40,14 @@ describe('SittingRecordsLandingComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should not show FindAddDeleteSittingRecordsOption and SubmitSittingRecordsOption if jps-JOH-admin role signs in', () => {
+  it('should not show FindAddDeleteSittingRecordsOption, SubmitSittingRecordsOption, ViewExportSittingRecordsOption and CreatePayrollFilePublishSittingRecordsOption if jps-JOH-admin role signs in', () => {
     spyOn(cookieService, 'get').and.returnValue('jps-JOH-admin');
     component.ngOnInit();
+    expect(component.showHeadingForPublisher).toEqual(false);
     expect(component.showFindAddDeleteSittingRecordsOption).toEqual(false);
     expect(component.showSubmitSittingRecordsOption).toEqual(false);
+    expect(component.showViewExportSittingRecordsOption).toEqual(false);
+    expect(component.showCreatePayrollFilePublishSittingRecordsOption).toEqual(false);
   });
 
   it('should not show FindAddDeleteSittingRecordsOption and SubmitSittingRecordsOption if jps-publisher role signs in', () => {
@@ -57,35 +64,77 @@ describe('SittingRecordsLandingComponent', () => {
     expect(component.showSubmitSittingRecordsOption).toEqual(true);
   });
 
+  it('should not show ViewExportSittingRecordsOption and CreatePayrollFilePublishSittingRecordsOption if jps-submitter role signs in', () => {
+    spyOn(cookieService, 'get').and.returnValue('jps-submitter');
+    component.ngOnInit();
+    expect(component.showHeadingForPublisher).toEqual(false);
+    expect(component.showViewExportSittingRecordsOption).toEqual(false);
+    expect(component.showCreatePayrollFilePublishSittingRecordsOption).toEqual(false);
+  });
+
+  it('should show ViewExportSittingRecordsOption and CreatePayrollFilePublishSittingRecordsOption if jps-publisher role signs in', () => {
+    spyOn(cookieService, 'get').and.returnValue('jps-publisher');
+    component.ngOnInit();
+    expect(component.showHeadingForPublisher).toEqual(true);
+    expect(component.showViewExportSittingRecordsOption).toEqual(true);
+    expect(component.showCreatePayrollFilePublishSittingRecordsOption).toEqual(true);
+  });
+
   it('should show only FindAddDeleteSittingRecordsOption if jps-admin role signs in', () => {
     spyOn(cookieService, 'get').and.returnValue('jps-admin');
     component.ngOnInit();
     expect(component.showFindAddDeleteSittingRecordsOption).toEqual(true);
+    expect(component.showHeadingForPublisher).toEqual(false);
     expect(component.showSubmitSittingRecordsOption).toEqual(false);
+    expect(component.showViewExportSittingRecordsOption).toEqual(false);
+    expect(component.showCreatePayrollFilePublishSittingRecordsOption).toEqual(false);
   });
 
-  it('should select correct options when user returns to the page', () => {
-    const mockUserFormData = new FormBuilder().group({
-      option: ['opt2'],
+  it('should select correct options when submitter user returns to the page', () => {
+    const mockUserFormData: FormGroup = new FormBuilder().group({
+      options: ['opt2'],
     });
 
-    spyOn(mockWorkflowService, 'getUserFormData').and.returnValue(mockUserFormData);
-    expect(component.hideManageRecords).toEqual(true);
+    spyOn(mockSubmitterWorkflowService, 'getUserFormData').and.returnValue(mockUserFormData);
+    component.ngOnInit();
+    expect(component.hideManageRecordsSubmitter).toEqual(false);
   });
 
-  it('should hide manageRecords when FindAddDeleteSittingRecordsOption is selected', () => {
+  it('should select correct options when publisher user returns to the page', () => {
+    const mockUserFormData: FormGroup = new FormBuilder().group({
+      options: ['opt4'],
+    });
+
+    spyOn(mockPublisherWorkflowService, 'getUserFormData').and.returnValue(mockUserFormData);
+    component.ngOnInit();
+    expect(component.hideManageRecordsPublisher).toEqual(false);
+  });
+
+  it('should hide manageRecordsSubmitter section when FindAddDeleteSittingRecordsOption is selected', () => {
     const options = component.userForm.controls['options'];
     options.setValue('opt1');
-    options.valueChanges.subscribe(result => expect(component.hideManageRecords).toEqual(true));
+    options.valueChanges.subscribe(result => expect(component.hideManageRecordsSubmitter).toEqual(true));
   });
 
-  it('should not hide manageRecords when SubmitSittingRecordsOption is selected', () => {
+  it('should not hide manageRecordsSubmitter section when SubmitSittingRecordsOption is selected', () => {
     const options = component.userForm.controls['options'];
     options.setValue('opt2');
-    options.valueChanges.subscribe(result => expect(component.hideManageRecords).toEqual(false));
+    options.valueChanges.subscribe(result => expect(component.hideManageRecordsSubmitter).toEqual(false));
   });
 
-  it('should navigate to manage-sitting-records when the form is submitted', () => {
+  it('should hide manageRecordsPublisher section when ViewExportSittingRecordsOption is selected', () => {
+    const options = component.userForm.controls['options'];
+    options.setValue('opt3');
+    options.valueChanges.subscribe(result => expect(component.hideManageRecordsPublisher).toEqual(true));
+  });
+
+  it('should not hide manageRecordsPublisher section when CreatePayrollFilePublishSittingRecordsOption is selected', () => {
+    const options = component.userForm.controls['options'];
+    options.setValue('opt4');
+    options.valueChanges.subscribe(result => expect(component.hideManageRecordsPublisher).toEqual(false));
+  });
+
+  it('should navigate to manage-sitting-records when Opt-1 is selected and the form is submitted', () => {
     const options = component.userForm.controls['options'];
     options.setValue('opt1');
     spyOn(mockRouter, 'navigate');
@@ -95,19 +144,36 @@ describe('SittingRecordsLandingComponent', () => {
     expect(mockRouter.navigate).toHaveBeenCalledWith(['sittingRecords', 'manage']);
   });
 
-  it('should navigate to submit-sitting-records when the form is submitted', () => {
+  it('should navigate to submit-sitting-records when Opt-2 is selected and the form is submitted by Submiiter role', () => {
     const options = component.userForm.controls['options'];
     options.setValue('opt2');
-    spyOn(mockWorkflowService, 'setUserFormData');
-    spyOn(mockWorkflowService, 'setFormData');
-    spyOn(mockWorkflowService, 'setLandingVisited');
+    spyOn(mockSubmitterWorkflowService, 'setUserFormData');
+    spyOn(mockSubmitterWorkflowService, 'setFormData');
+    spyOn(mockSubmitterWorkflowService, 'setLandingVisited');
     spyOn(mockRouter, 'navigate');
 
     component.submitForm();
 
-    expect(mockWorkflowService.setUserFormData).toHaveBeenCalled();
-    expect(mockWorkflowService.setFormData).toHaveBeenCalled();
-    expect(mockWorkflowService.setLandingVisited).toHaveBeenCalled();
+    expect(mockSubmitterWorkflowService.setUserFormData).toHaveBeenCalled();
+    expect(mockSubmitterWorkflowService.setFormData).toHaveBeenCalled();
+    expect(mockSubmitterWorkflowService.setLandingVisited).toHaveBeenCalled();
     expect(mockRouter.navigate).toHaveBeenCalledWith(['sittingRecords', 'submit']);
+  });
+
+  /* Add a navigate line when it is known */
+  it('should navigate to xxxxx when Opt-4 is selected and the form is submitted by Publisher role', () => {
+    const options = component.userForm.controls['options'];
+    options.setValue('opt4');
+    spyOn(mockPublisherWorkflowService, 'setUserFormData');
+    spyOn(mockPublisherWorkflowService, 'setFormData');
+    spyOn(mockPublisherWorkflowService, 'setLandingVisited');
+    //spyOn(mockRouter, 'navigate');
+
+    component.submitForm();
+
+    expect(mockPublisherWorkflowService.setUserFormData).toHaveBeenCalled();
+    expect(mockPublisherWorkflowService.setFormData).toHaveBeenCalled();
+    expect(mockPublisherWorkflowService.setLandingVisited).toHaveBeenCalled();
+    //expect(mockRouter.navigate).toHaveBeenCalledWith(['sittingRecords', '']);
   });
 });

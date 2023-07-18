@@ -7,7 +7,7 @@ import { DateService } from '../_services/date-service/date-service'
 @Injectable({
   providedIn: 'root'
 })
-export class RecorderWorkflowService {
+export class SharedWorkflowService {
   
   formData!: FormGroup;
   hasVisitedManage = false;

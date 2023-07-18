@@ -11,10 +11,11 @@ import { NumberDirective } from '../_directives/numbers-only.directive';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { HttpClientModule } from '@angular/common/http';
 import { SittingRecordsLandingComponent } from './sitting-records-landing/sitting-records-landing.component';
-import { SittingRecordsLandingManageRecordsComponent } from './sitting-records-landing/sitting-records-landing-manage-records/sitting-records-landing-manage-records.component';
+import { SittingRecordsLandingManageRecordsSubmitterComponent } from './sitting-records-landing/sitting-records-landing-manage-records-submitter/sitting-records-landing-manage-records-submitter.component';
 
 import { DataTablesModule } from "angular-datatables";
 import { SubmitSittingRecordsComponent } from './submit-sitting-records/submit-sitting-records.component';
+import { SittingRecordsLandingManageRecordsPublisherComponent } from './sitting-records-landing/sitting-records-landing-manage-records-publisher/sitting-records-landing-manage-records-publisher.component';
 
 
 @NgModule({
@@ -34,8 +35,9 @@ import { SubmitSittingRecordsComponent } from './submit-sitting-records/submit-s
     ViewSittingRecordsComponent,
     NumberDirective,
     SittingRecordsLandingComponent,
-    SittingRecordsLandingManageRecordsComponent,
-    SubmitSittingRecordsComponent
+    SittingRecordsLandingManageRecordsSubmitterComponent,
+    SubmitSittingRecordsComponent,
+    SittingRecordsLandingManageRecordsPublisherComponent
   ]
 })
 export class SittingRecordsModule { }

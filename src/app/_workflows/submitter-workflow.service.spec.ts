@@ -43,8 +43,8 @@ describe('SubmitterWorkflowService', () => {
     expect(mockWorkflowService).toBeTruthy();
   });
 
-  describe('setManageVisited', () => {
-    it('should set hasVisitedManage to true', () => {
+  describe('setLandingVisited', () => {
+    it('should set hasLandingVisited to true', () => {
       mockWorkflowService.setLandingVisited();
       expect(mockWorkflowService.getLandingVisited()).toBe(true);
     });

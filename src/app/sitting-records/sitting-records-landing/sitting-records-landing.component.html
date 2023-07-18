@@ -4,6 +4,9 @@
         <div class="govuk-form-group">
             <fieldset class="govuk-fieldset">
                 <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                    <h1 class="govuk-body-l govuk-!-margin-bottom-3" *ngIf="showHeadingForPublisher">View and export sitting records or publish records for payroll</h1>
+                </legend>
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
                     <h1 class="govuk-body-l govuk-!-margin-bottom-3">What would you like to do?</h1>
                 </legend>
                 <div class="govuk-radios" data-module="govuk-radios">
@@ -21,14 +24,32 @@
                             Submit sitting records to Finance
                         </label>
                     </div>
+                    <div *ngIf="showViewExportSittingRecordsOption" class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="option-3" name="options" type="radio" value="opt3"
+                            formControlName="options">
+                        <label class="govuk-label govuk-radios__label" for="option-3">
+                            View or export a collection of sitting records
+                        </label>
+                    </div>
+                    <div *ngIf="showCreatePayrollFilePublishSittingRecordsOption" class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="option-4" name="options" type="radio" value="opt4"
+                            formControlName="options">
+                        <label class="govuk-label govuk-radios__label" for="option-4">
+                            Create payroll file and publish records
+                        </label>
+                    </div>
+
                 </div>
             </fieldset>
         </div>
-        <div [hidden]="hideManageRecords" class="govuk-inset-text">
-            <app-sitting-records-landing-manage-records></app-sitting-records-landing-manage-records>
+        <div [hidden]="hideManageRecordsSubmitter" class="govuk-inset-text">
+            <app-sitting-records-landing-manage-records-submitter></app-sitting-records-landing-manage-records-submitter>
+        </div>
+        <div [hidden]="hideManageRecordsPublisher" class="govuk-inset-text">
+            <app-sitting-records-landing-manage-records-publisher></app-sitting-records-landing-manage-records-publisher>
         </div>
         <div class="govuk-button-group">
-            <button type="submit" class="govuk-button" data-module="govuk-button" [disabled]="!hideManageRecords && !manageRecords?.valid">
+            <button type="submit" class="govuk-button" data-module="govuk-button" [disabled]="(!hideManageRecordsSubmitter && !manageRecordsSubmitter?.valid) || (!hideManageRecordsPublisher && !manageRecordsPublisher?.valid)">
                 Continue
             </button>
         </div>

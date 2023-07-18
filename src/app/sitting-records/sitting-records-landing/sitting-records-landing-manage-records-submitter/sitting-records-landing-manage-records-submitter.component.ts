@@ -6,11 +6,11 @@ import { RegionModel } from '../../../_models/region.model';
 import { SubmitterWorkflowService } from '../../../_workflows/submitter-workflow.service';
 
 @Component({
-  selector: 'app-sitting-records-landing-manage-records',
-  templateUrl: './sitting-records-landing-manage-records.component.html',
-  styleUrls: ['./sitting-records-landing-manage-records.component.scss']
+  selector: 'app-sitting-records-landing-manage-records-submitter',
+  templateUrl: './sitting-records-landing-manage-records-submitter.component.html',
+  styleUrls: ['./sitting-records-landing-manage-records-submitter.component.scss']
 })
-export class SittingRecordsLandingManageRecordsComponent implements OnInit{
+export class SittingRecordsLandingManageRecordsSubmitterComponent implements OnInit {
   public manageRecords!: FormGroup;
   regions: RegionModel[] = [];
   
