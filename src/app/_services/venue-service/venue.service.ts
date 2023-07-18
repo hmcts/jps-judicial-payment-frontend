@@ -19,7 +19,7 @@ export class VenueService {
       'Content-Type': 'application/json',
     };
 
-    return this.http.post<VenueModel[]>('/refdata/location', {searchTerm: searchTerm}, { headers: headers});
+    return this.http.post<VenueModel[]>('/refdata/locationss', {searchTerm: searchTerm}, { headers: headers});
 
   }
 
