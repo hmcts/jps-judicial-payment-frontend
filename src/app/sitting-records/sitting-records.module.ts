@@ -10,6 +10,7 @@ import { ViewSittingRecordsComponent } from './view-sitting-records/view-sitting
 import { NumberDirective } from '../_directives/numbers-only.directive';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { HttpClientModule } from '@angular/common/http';
+import { TribunalServiceComponent } from './shared-components/tribunal-service/tribunal-service.component';
 
 @NgModule({
   imports: [
@@ -25,7 +26,8 @@ import { HttpClientModule } from '@angular/common/http';
     ManageSittingRecordsComponent,
     PhaseBannerComponent,
     ViewSittingRecordsComponent,
-    NumberDirective
+    NumberDirective,
+    TribunalServiceComponent
   ]
 })
 export class SittingRecordsModule { }

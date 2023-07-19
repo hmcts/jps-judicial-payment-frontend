@@ -9,21 +9,10 @@
     >
 
         <div class="govuk-form-group govuk-!-margin-bottom-3">
-            <label class="govuk-label" for="sort">
-              Select a tribunal service 
-            </label>
-            <select class="govuk-select govuk-!-width-two-thirds" 
-                formControlName="tribunalService"
-                id="sort" name="sort"
-            >
-              <option [ngValue]="''" disabled selected>--Select a value--</option>
-              <option [ngValue]="'1'">1</option>
-              <option [ngValue]="'2'">2</option>
+          <app-tribunal-service (tribunal_ValueChanges) = "tribunalValueChanges($event)"></app-tribunal-service>
+        </div>
 
-            </select>
-          </div>
-
-          <div class="govuk-form-group govuk-!-margin-bottom-3"                 
+        <div class="govuk-form-group govuk-!-margin-bottom-3"                 
           [class.govuk-form-group--error] = "f['venue'].errors !== null && f['venue'].dirty && f['venue'].touched">
             <label class="govuk-label" for="venue-select">
               Select a venue
@@ -46,9 +35,9 @@
               </mat-autocomplete>
               
             </div>
-          </div>
+        </div>
       
-          <div 
+        <div 
             class="govuk-form-group"
             [class.govuk-form-group--error]="f['dateSelected'].errors !== null && f['dateSelected'].dirty"
             formGroupName="dateSelected"
@@ -123,9 +112,9 @@
                 </div>
               </div>
             </fieldset>
-          </div>
+        </div>
 
-          <div class="govuk-button-group">
+        <div class="govuk-button-group">
             
             <button type="button" class="govuk-button govuk-button--secondary" data-module="govuk-button">
               Previous
@@ -134,7 +123,7 @@
               Continue
             </button>
             
-          </div>
+        </div>
 
     </form>
 
