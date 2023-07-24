@@ -1,11 +1,14 @@
-<label class="govuk-label" for="sort">
-    Select a tribunal service 
-</label>
-<select class="govuk-select govuk-!-width-two-thirds" 
-      formControlName="tribunalService"
-      id="sort" name="sort"
-      (change)="onChange($event)">
-    <option [ngValue]="''" disabled selected>--Select a value--</option>
-    <option [ngValue]="'1'">1</option>
-    <option [ngValue]="'2'">2</option>
-</select>
+<ng-container [formGroup]="form">
+    <div class="govuk-form-group govuk-!-margin-bottom-3">
+        <label class="govuk-label" for="sort">
+            Select a tribunal service 
+        </label>
+        <select class="govuk-select govuk-!-width-two-thirds" 
+            formControlName="tribunalService"
+            id="sort" name="sort">
+            <option [ngValue]="''" disabled selected>--Select a value--</option>
+            <option [ngValue]="'1'">1</option>
+            <option [ngValue]="'2'">2</option>
+        </select>
+    </div>
+</ng-container>

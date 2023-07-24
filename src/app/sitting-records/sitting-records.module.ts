@@ -11,6 +11,8 @@ import { NumberDirective } from '../_directives/numbers-only.directive';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { HttpClientModule } from '@angular/common/http';
 import { TribunalServiceComponent } from './shared-components/tribunal-service/tribunal-service.component';
+import { VenueComponent } from './shared-components/venue/venue.component';
+import { SittingDateComponent } from './shared-components/sitting-date/sitting-date.component';
 
 @NgModule({
   imports: [
@@ -27,7 +29,9 @@ import { TribunalServiceComponent } from './shared-components/tribunal-service/t
     PhaseBannerComponent,
     ViewSittingRecordsComponent,
     NumberDirective,
-    TribunalServiceComponent
+    TribunalServiceComponent,
+    VenueComponent,
+    SittingDateComponent
   ]
 })
 export class SittingRecordsModule { }

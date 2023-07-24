@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import { 
   FormBuilder, 
   FormGroup, 
@@ -20,25 +20,14 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
   styleUrls: ['./manage-sitting-records.component.scss']
 })
 export class ManageSittingRecordsComponent implements OnInit {
-  manageRecords: FormGroup;
-  venues: VenueModel[] = [];
-  readonly minSearchCharacters = 3;
+  manageRecords!: FormGroup;
+  /*venues: VenueModel[] = [];*/
+  /*readonly minSearchCharacters = 3;
   public searchTerm = '';
   delay = 500;
   refDataFound = true;
-  venueValueChange: any;
+  venueValueChange: any;*/
   
-  submitForm(){
-    this.srWorkFlow.setFormData(this.manageRecords)
-    this.srWorkFlow.setManageVisited()
-    this.venueValueChange.unsubscribe()
-    void this.router.navigate(['sittingRecords','view'])
-  }
-
-  get f(): { [key: string]: AbstractControl } {
-    return this.manageRecords?.controls;
-  }
-
   constructor(
     protected router: Router,
     protected activatedRoute: ActivatedRoute,
@@ -48,9 +37,13 @@ export class ManageSittingRecordsComponent implements OnInit {
   ){
     this.manageRecords = this.formBuilder.group(
       {
-        tribunalService: ['', Validators.required],
-        venue: ['', [Validators.required, CustomValidators.requireVenueMatch]],
-        dateSelected: formBuilder.group({
+        tribunalService: this.formBuilder.group({
+          tribunalService: ['', Validators.required]
+        }),
+        venue: this.formBuilder.group({
+          venue: ['', [Validators.required, CustomValidators.requireVenueMatch]]
+        }),
+        dateSelected: this.formBuilder.group({
           dateDay: ['', [Validators.required,]],
           dateMonth: ['', [Validators.required,]],
           dateYear: ['', [Validators.required,]],
@@ -59,8 +52,10 @@ export class ManageSittingRecordsComponent implements OnInit {
             CustomValidators.validateDateFormat
           ]
         })
+
       }
     );
+    
     this.manageRecords.controls['venue'].disable();
     
     this.manageRecords.valueChanges.subscribe(() => {
@@ -83,21 +78,34 @@ export class ManageSittingRecordsComponent implements OnInit {
       this.manageRecords = this.srWorkFlow.getFormData();
     }
 
-    this.venuesSearch();
+    //this.venuesSearch();
   }
 
-  public showVenue(value) {
+  submitForm(){
+    this.srWorkFlow.setFormData(this.manageRecords)
+    this.srWorkFlow.setManageVisited()
+    //this.venueValueChange.unsubscribe()
+    void this.router.navigate(['sittingRecords','view'])
+  }
+
+  /*get f(): { [key: string]: AbstractControl } {
+    return this.manageRecords?.controls;
+  }*/
+
+
+
+  /*public showVenue(value) {
     if(value) { 
       return value.site_name; 
     }
     return ""
-  }
+  }*/
 
-  public optionSelected(event: MatAutocompleteSelectedEvent): void {
+  /*public optionSelected(event: MatAutocompleteSelectedEvent): void {
     this.manageRecords.controls['venue'].patchValue(event.option.value, {emitEvent: false, onlySelf: true});
-  }
+  }*/
 
-  public venuesSearch(): void {
+  /*public venuesSearch(): void {
     this.venueValueChange = this.manageRecords.controls['venue'].valueChanges
       .pipe(
         tap(() => this.venues = []),
@@ -116,7 +124,6 @@ export class ManageSittingRecordsComponent implements OnInit {
 
   public getVenues(searchTerm: string): Observable<VenueModel[]> {
     return this.venueService.getAllVenues(searchTerm);
-  }
-
+  }*/
 }
 
