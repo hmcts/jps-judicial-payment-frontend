@@ -1,18 +1,14 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { 
   FormBuilder, 
+  FormControl, 
   FormGroup, 
   Validators, 
-  AbstractControl
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { debounceTime, filter, mergeMap, tap } from 'rxjs/operators';
 import { CustomValidators } from '../../_validators/sitting-records-form-validator';
 import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-workflow.service';
 import { VenueService } from '../../_services/venue-service/venue.service'
-import { VenueModel } from '../../_models/venue.model';
-import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
 @Component({
   selector: 'app-manage-sitting-records',
@@ -20,13 +16,8 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
   styleUrls: ['./manage-sitting-records.component.scss']
 })
 export class ManageSittingRecordsComponent implements OnInit {
+
   manageRecords!: FormGroup;
-  /*venues: VenueModel[] = [];*/
-  /*readonly minSearchCharacters = 3;
-  public searchTerm = '';
-  delay = 500;
-  refDataFound = true;
-  venueValueChange: any;*/
   
   constructor(
     protected router: Router,
@@ -37,12 +28,8 @@ export class ManageSittingRecordsComponent implements OnInit {
   ){
     this.manageRecords = this.formBuilder.group(
       {
-        tribunalService: this.formBuilder.group({
-          tribunalService: ['', Validators.required]
-        }),
-        venue: this.formBuilder.group({
-          venue: ['', [Validators.required, CustomValidators.requireVenueMatch]]
-        }),
+        tribunalService: new FormControl('', Validators.required),
+        venue: ['', [Validators.required, CustomValidators.requireVenueMatch]],
         dateSelected: this.formBuilder.group({
           dateDay: ['', [Validators.required,]],
           dateMonth: ['', [Validators.required,]],
@@ -52,10 +39,9 @@ export class ManageSittingRecordsComponent implements OnInit {
             CustomValidators.validateDateFormat
           ]
         })
-
       }
     );
-    
+
     this.manageRecords.controls['venue'].disable();
     
     this.manageRecords.valueChanges.subscribe(() => {
@@ -66,6 +52,7 @@ export class ManageSittingRecordsComponent implements OnInit {
     })
 
     this.manageRecords.controls['tribunalService'].valueChanges.subscribe(() => {
+      console.log(this.manageRecords)
       if(this.manageRecords.controls['venue'].value !== ""){
         this.manageRecords.controls['venue'].reset();
       }
