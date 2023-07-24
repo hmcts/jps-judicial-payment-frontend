@@ -29,7 +29,7 @@ export class ManageSittingRecordsComponent implements OnInit {
     this.manageRecords = this.formBuilder.group(
       {
         tribunalService: new FormControl('', Validators.required),
-        venue: ['', [Validators.required, CustomValidators.requireVenueMatch]],
+        venue: new FormControl('', [Validators.required, CustomValidators.requireVenueMatch]),
         dateSelected: this.formBuilder.group({
           dateDay: ['', [Validators.required,]],
           dateMonth: ['', [Validators.required,]],
@@ -64,53 +64,13 @@ export class ManageSittingRecordsComponent implements OnInit {
     if(this.srWorkFlow.getFormData()){
       this.manageRecords = this.srWorkFlow.getFormData();
     }
-
-    //this.venuesSearch();
   }
 
   submitForm(){
     this.srWorkFlow.setFormData(this.manageRecords)
     this.srWorkFlow.setManageVisited()
-    //this.venueValueChange.unsubscribe()
     void this.router.navigate(['sittingRecords','view'])
   }
-
-  /*get f(): { [key: string]: AbstractControl } {
-    return this.manageRecords?.controls;
-  }*/
-
-
-
-  /*public showVenue(value) {
-    if(value) { 
-      return value.site_name; 
-    }
-    return ""
-  }*/
-
-  /*public optionSelected(event: MatAutocompleteSelectedEvent): void {
-    this.manageRecords.controls['venue'].patchValue(event.option.value, {emitEvent: false, onlySelf: true});
-  }*/
-
-  /*public venuesSearch(): void {
-    this.venueValueChange = this.manageRecords.controls['venue'].valueChanges
-      .pipe(
-        tap(() => this.venues = []),
-        tap(() => this.refDataFound = true),
-        tap((term) => this.searchTerm = term),
-        filter(term => !!term && term.length >= this.minSearchCharacters),
-        debounceTime(this.delay),
-        mergeMap(value => this.getVenues(value)),
-      ).subscribe(venues => {
-        this.venues = venues;
-        if (venues.length === 0) {
-          this.refDataFound = false;
-        }
-      });
-  }
-
-  public getVenues(searchTerm: string): Observable<VenueModel[]> {
-    return this.venueService.getAllVenues(searchTerm);
-  }*/
+  
 }
 

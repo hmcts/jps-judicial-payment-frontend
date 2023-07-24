@@ -4,14 +4,11 @@
     <h1 class="govuk-body-l govuk-!-margin-bottom-5">Find, add or delete judicial sitting records</h1>
 
     <form [formGroup]="manageRecords" (ngSubmit)="submitForm()">
-      <app-tribunal-service 
-        [controlName]="'tribunalService'" 
-        [parentForm]="manageRecords"
-      ></app-tribunal-service>
+      <app-tribunal-service> </app-tribunal-service>
 
-      <!-- <app-venue formGroupName="venue"></app-venue> -->
+      <app-venue> </app-venue>
 
-      <!-- <app-sitting-date formGroupName="dateSelected"></app-sitting-date> -->
+      <app-sitting-date> </app-sitting-date> 
       
       <div class="govuk-button-group">
             

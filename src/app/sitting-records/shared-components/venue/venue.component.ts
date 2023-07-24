@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormGroup, FormGroupDirective } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { Observable } from 'rxjs';
@@ -12,31 +12,27 @@ import { VenueService } from '../../../_services/venue-service/venue.service'
   styleUrls: ['./venue.component.scss']
 })
 export class VenueComponent implements OnInit{
-  @Input() formGroupName!: string;
-  form!: FormGroup;
   venues: VenueModel[] = [];
   readonly minSearchCharacters = 3;
   public searchTerm = '';
   delay = 500;
   refDataFound = true;
   venueValueChange: any;
-  
+ 
   constructor(
-    private manageRecordsFormGroup: FormGroupDirective,
-    private venueService : VenueService) {
-    this.form = this.manageRecordsFormGroup.control.get(this.formGroupName) as FormGroup;
-  }
+    private venueService : VenueService,
+    public manageRecordsFormGroup: FormGroupDirective ) { }
 
   ngOnInit() {
     this.venuesSearch();
   }
 
   get f(): { [key: string]: AbstractControl } {
-    return this.form?.controls;
+    return this.manageRecordsFormGroup?.control.controls;
   }
 
   public optionSelected(event: MatAutocompleteSelectedEvent): void {
-    this.form.controls['venue'].patchValue(event.option.value, {emitEvent: false, onlySelf: true});
+    this.manageRecordsFormGroup?.control.controls['venue'].patchValue(event.option.value, {emitEvent: false, onlySelf: true});
   }
 
   public showVenue(value) {
@@ -47,7 +43,7 @@ export class VenueComponent implements OnInit{
   }
 
   public venuesSearch(): void {
-    this.venueValueChange = this.form.controls['venue'].valueChanges
+    this.venueValueChange = this.manageRecordsFormGroup?.control.controls['venue'].valueChanges
       .pipe(
         tap(() => this.venues = []),
         tap(() => this.refDataFound = true),

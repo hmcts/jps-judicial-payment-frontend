@@ -1,4 +1,4 @@
-<ng-container [formGroup]="form">
+<ng-container [formGroup]="manageRecordsFormGroup.control">
     <div class="govuk-form-group govuk-!-margin-bottom-3"                 
     [class.govuk-form-group--error] = "f['venue'].errors !== null && f['venue'].dirty && f['venue'].touched">
         <label class="govuk-label" for="venue-select">
