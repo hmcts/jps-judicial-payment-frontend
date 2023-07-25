@@ -14,6 +14,9 @@ export async function getLocations(req, res, next) {
         message: 'Calling getLocations()'
     })
     try {
+
+        console.log(Authorization)
+        console.log(ServiceAuthorization)
         const headers = {
             'Content-Type': 'application/json',
             'Authorization': Authorization,
