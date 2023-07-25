@@ -13,6 +13,8 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { DataTablesModule } from "angular-datatables";
 
+import { CapitalizeFirstLetterPipe } from '../_pipes/convertTableStatus'
+
 
 @NgModule({
   imports: [
@@ -29,7 +31,8 @@ import { DataTablesModule } from "angular-datatables";
     ManageSittingRecordsComponent,
     PhaseBannerComponent,
     ViewSittingRecordsComponent,
-    NumberDirective
+    NumberDirective,
+    CapitalizeFirstLetterPipe
   ]
 })
 export class SittingRecordsModule { }
