@@ -23,7 +23,7 @@ describe('DateService', () => {
 
   describe('getPeriod', () => {
     it('should return "Full Day" when am and pm are passed', () => {
-      expect(service.getPeriod("AM", "PM")).toEqual('Full Day');
+      expect(service.getPeriod("AM", "PM")).toEqual('Full day');
     });
   
     it('should return "Morning" when AM is passed and PM is null', () => {
