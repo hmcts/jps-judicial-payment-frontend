@@ -8,7 +8,6 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { CustomValidators } from '../../_validators/sitting-records-form-validator';
 import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-workflow.service';
-import { VenueService } from '../../_services/venue-service/venue.service'
 
 @Component({
   selector: 'app-manage-sitting-records',
@@ -23,8 +22,7 @@ export class ManageSittingRecordsComponent implements OnInit {
     protected router: Router,
     protected activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private srWorkFlow: SittingRecordWorkflowService,
-    private venueService : VenueService
+    private srWorkFlow: SittingRecordWorkflowService
   ){
     this.manageRecords = this.formBuilder.group(
       {
