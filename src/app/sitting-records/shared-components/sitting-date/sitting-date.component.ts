@@ -8,9 +8,9 @@ import { AbstractControl, FormGroupDirective } from '@angular/forms';
 })
 export class SittingDateComponent {
 
-  constructor(public manageRecordsFormGroup: FormGroupDirective) { }
+  constructor(public parentFormGroup: FormGroupDirective) { }
 
   get f(): { [key: string]: AbstractControl } {
-    return this.manageRecordsFormGroup?.control.controls;
+    return this.parentFormGroup?.control.controls;
   }
 }

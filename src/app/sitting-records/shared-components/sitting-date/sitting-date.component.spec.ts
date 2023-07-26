@@ -18,7 +18,7 @@ describe('SittingDateComponent', () => {
     fixture = TestBed.createComponent(SittingDateComponent);
     component = fixture.componentInstance;
 
-    component.manageRecordsFormGroup.form = new FormBuilder().group({
+    component.parentFormGroup.form = new FormBuilder().group({
       dateSelected: new FormBuilder().group({
         dateDay: [''],
         dateMonth: [''],

@@ -21,18 +21,18 @@ export class VenueComponent implements OnInit{
  
   constructor(
     private venueService : VenueService,
-    public manageRecordsFormGroup: FormGroupDirective ) { }
+    public parentFormGroup: FormGroupDirective ) { }
 
   ngOnInit() {
     this.venuesSearch();
   }
 
   get f(): { [key: string]: AbstractControl } {
-    return this.manageRecordsFormGroup?.control.controls;
+    return this.parentFormGroup?.control.controls;
   }
 
   public optionSelected(event: MatAutocompleteSelectedEvent): void {
-    this.manageRecordsFormGroup?.control.controls['venue'].patchValue(event.option.value, {emitEvent: false, onlySelf: true});
+    this.parentFormGroup?.control.controls['venue'].patchValue(event.option.value, {emitEvent: false, onlySelf: true});
   }
 
   public showVenue(value) {
@@ -43,7 +43,7 @@ export class VenueComponent implements OnInit{
   }
 
   public venuesSearch(): void {
-    this.venueValueChange = this.manageRecordsFormGroup?.control.controls['venue'].valueChanges
+    this.venueValueChange = this.parentFormGroup?.control.controls['venue'].valueChanges
       .pipe(
         tap(() => this.venues = []),
         tap(() => this.refDataFound = true),

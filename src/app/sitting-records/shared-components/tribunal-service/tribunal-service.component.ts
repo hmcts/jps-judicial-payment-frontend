@@ -8,6 +8,6 @@ import { FormGroupDirective } from '@angular/forms';
 })
 export class TribunalServiceComponent {
 
-  constructor(public manageRecordsFormGroup: FormGroupDirective) { }
+  constructor(public parentFormGroup: FormGroupDirective) { }
 
 }

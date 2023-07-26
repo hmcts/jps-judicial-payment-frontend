@@ -24,7 +24,7 @@ describe('VenueComponent', () => {
     component = fixture.componentInstance;
     venueService = TestBed.inject(VenueService);
 
-    component.manageRecordsFormGroup.form = new FormBuilder().group({
+    component.parentFormGroup.form = new FormBuilder().group({
       venue: ['Venue 1'],
     });
 
@@ -91,8 +91,8 @@ describe('VenueComponent', () => {
       }
     } as MatAutocompleteSelectedEvent;
     component.optionSelected(event);
-    expect(component.manageRecordsFormGroup.control.controls['venue'].value).toEqual(venue);
-    expect(component.manageRecordsFormGroup.control.controls['venue'].untouched).toBeTrue();
+    expect(component.parentFormGroup.control.controls['venue'].value).toEqual(venue);
+    expect(component.parentFormGroup.control.controls['venue'].untouched).toBeTrue();
   });
 
   it('should call the venueService and return venues when calling getVenues', () => {

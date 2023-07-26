@@ -16,7 +16,7 @@ describe('TribunalServiceComponent', () => {
 
     fixture = TestBed.createComponent(TribunalServiceComponent);
     component = fixture.componentInstance;
-    component.manageRecordsFormGroup.form = new FormBuilder().group({
+    component.parentFormGroup.form = new FormBuilder().group({
       tribunalService: ['Tribunal 1'],
     });
 
