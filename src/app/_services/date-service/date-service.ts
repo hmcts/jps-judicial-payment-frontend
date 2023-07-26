@@ -7,7 +7,7 @@ export class DateService {
 
   formatDateFromForm(dateObj: dateObj): string {
     const {dateDay, dateMonth, dateYear} = dateObj;
-    return `${dateYear}-${dateMonth}-${dateDay}`
+    return new Date(Number(dateYear), Number(dateMonth)-1, Number(dateDay)).toLocaleDateString('en-GB')
   }
 
   getPeriod(am: string, pm: string): string {
