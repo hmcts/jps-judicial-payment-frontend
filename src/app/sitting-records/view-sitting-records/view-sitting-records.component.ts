@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-workflow.service';
 import { DateService } from '../../_services/date-service/date-service';
 import { Router } from '@angular/router';
+import { defaultDtOptions }  from '../../_services/default-dt-options'
+import { SittingRecord } from 'src/app/_models/viewSittingRecords.model';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-view-sitting-records',
@@ -11,11 +14,21 @@ import { Router } from '@angular/router';
 export class ViewSittingRecordsComponent implements OnInit {
 
   tribService = "";
-  venue = "";
+  venueSiteName = "";
   date = "";
+
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject<any>();
+  sittingRecordData: SittingRecord[] = [];
+
+  showFilters = false;
 
   goBack(){
     void this.router.navigate(['sittingRecords','manage'])
+  }
+
+  getPeriod(am: string, pm: string): string {
+    return this.dateSvc.getPeriod(am, pm);
   }
 
   constructor(
@@ -28,8 +41,45 @@ export class ViewSittingRecordsComponent implements OnInit {
     const formData = this.srWorkFlow.getFormData().value;
     const { dateSelected, tribunalService, venue } = formData;
     this.tribService = tribunalService;
-    this.venue = venue.site_name;
+    this.venueSiteName = venue.site_name;
     this.date = this.dateSvc.formatDateFromForm(dateSelected);
+
+    this.dtOptions = {
+      ...defaultDtOptions,
+      columnDefs:[
+        { targets: [5], orderable: false },
+      ],
+      
+      drawCallback: 
+        /* istanbul ignore next */ 
+        () => {
+        /* istanbul ignore next */
+        document
+          .querySelectorAll(`#sittingRecordViewTable_info`)
+          .forEach((elem) => elem.classList.add('govuk-body'))
+
+        document
+          .querySelectorAll(`#sittingRecordViewTable_paginate`)
+          .forEach((elem) => elem.classList.add('govuk-body'))
+
+      }
+    };
+
+    this.loadViewSittingRecords();
+  } 
+
+  loadViewSittingRecords() {
+    this.srWorkFlow.getSittingRecordsData().subscribe(
+      records => {
+        this.sittingRecordData = records.sittingRecords;
+        this.dtTrigger.next(null); 
+      },
+      () => {
+        this.sittingRecordData = []
+        this.dtTrigger.next(null);
+      }
+    );
+    
   }
 
 }

@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { JPFooterComponent } from './jp-footer/jp-footer.component';
 import { JPHeaderComponent } from './jp-header/jp-header.component';
 import { SittingRecordsModule } from './sitting-records/sitting-records.module';
+import { DataTablesModule } from 'angular-datatables';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { NgHttpLoaderModule } from 'ng-http-loader'
@@ -29,6 +30,7 @@ import { LoaderComponent } from './loader/loader.component';
     NgHttpLoaderModule.forRoot(),
     AppRoutingModule,
     SittingRecordsModule,
+    DataTablesModule,
     BrowserAnimationsModule,
   ],
   providers: [],

@@ -5,12 +5,32 @@ import { Injectable } from '@angular/core';
 })
 export class DateService {
 
-  formatDateFromForm(dateObj: dateObj){
+  formatDateFromForm(dateObj: dateObj): string {
     const {dateDay, dateMonth, dateYear} = dateObj;
-    return `${dateDay}/${dateMonth}/${dateYear}`
+    return new Date(Number(dateYear), Number(dateMonth)-1, Number(dateDay)).toLocaleDateString('en-GB')
+  }
+
+  formatDateForPost(dateObj: dateObj): string{
+    const {dateDay, dateMonth, dateYear} = dateObj;
+    const date = new Date(Number(dateYear), Number(dateMonth)-1, Number(dateDay));
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
+  }
+
+  getPeriod(am: string, pm: string): string {
+    const amBool = am === 'AM' ? true : false
+    const pmBool = pm === 'PM' ? true : false
+    if(amBool && pmBool){ return "Full day" }
+    if(amBool){ return "Morning" }
+    if(pmBool){ return "Afternoon" }
+    return ""
   }
 
 }
+
 export class dateObj{
   dateDay: string | undefined;
   dateMonth: string | undefined;

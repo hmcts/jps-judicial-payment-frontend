@@ -20,4 +20,23 @@ describe('DateService', () => {
       expect(formattedDate).toEqual('01/01/2023');
     });
   });
+
+  describe('getPeriod', () => {
+    it('should return "Full Day" when am and pm are passed', () => {
+      expect(service.getPeriod("AM", "PM")).toEqual('Full day');
+    });
+  
+    it('should return "Morning" when AM is passed and PM is null', () => {
+      expect(service.getPeriod("AM", "null")).toEqual('Morning');
+    });
+  
+    it('should return "Afternoon" when PM is passed and am is null', () => {
+      expect(service.getPeriod("null", "PM")).toEqual('Afternoon');
+    });
+  
+    it('should return an empty string when both am and pm are null', () => {
+      expect(service.getPeriod("null", "null")).toEqual('');
+    });
+  });
+
 });

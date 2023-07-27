@@ -11,12 +11,18 @@ import { NumberDirective } from '../_directives/numbers-only.directive';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { HttpClientModule } from '@angular/common/http';
 
+import { DataTablesModule } from "angular-datatables";
+
+import { CapitalizeFirstLetterPipe } from '../_pipes/convertTableStatus'
+
+
 @NgModule({
   imports: [
     CommonModule,
     SittingRecordsRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    DataTablesModule,
     MatAutocompleteModule,
     HttpClientModule
   ],
@@ -25,7 +31,8 @@ import { HttpClientModule } from '@angular/common/http';
     ManageSittingRecordsComponent,
     PhaseBannerComponent,
     ViewSittingRecordsComponent,
-    NumberDirective
+    NumberDirective,
+    CapitalizeFirstLetterPipe
   ]
 })
 export class SittingRecordsModule { }
