@@ -21,7 +21,7 @@ describe('ManageSittingRecordsComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ReactiveFormsModule, RouterTestingModule, HttpClientModule, MatAutocompleteModule],
-      providers: [SharedWorkflowService, LocationService],
+      providers: [SharedWorkflowService],
       declarations: [ManageSittingRecordsComponent, TribunalServiceComponent, SittingDateComponent, VenueComponent],
     }).compileComponents();
   });
@@ -31,7 +31,6 @@ describe('ManageSittingRecordsComponent', () => {
     component = fixture.componentInstance;
     router = TestBed.inject(Router);
     sharedWorkFlowService = TestBed.inject(SharedWorkflowService);
-    locationService = TestBed.inject(LocationService);
     mockCookieService = TestBed.inject(CookieService) as jasmine.SpyObj<CookieService>;
     fixture.detectChanges();
   });
