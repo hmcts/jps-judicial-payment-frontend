@@ -3,7 +3,8 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 import { SittingRecordsLandingManageRecordsPublisherComponent } from './sitting-records-landing-manage-records-publisher.component';
 import { PublisherWorkflowService } from '../../../_workflows/publisher-workflow.service';
-import { mock } from 'webdriverio/build/commands/browser';
+import { TribunalServiceComponent } from '../../shared-components/tribunal-service/tribunal-service.component';
+import { SittingDateComponent } from '../../shared-components/sitting-date/sitting-date.component';
 
 describe('SittingRecordsLandingManageRecordsPublisherComponent', () => {
   let component: SittingRecordsLandingManageRecordsPublisherComponent;
@@ -13,7 +14,7 @@ describe('SittingRecordsLandingManageRecordsPublisherComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ ReactiveFormsModule ],
-      declarations: [ SittingRecordsLandingManageRecordsPublisherComponent ]
+      declarations: [ SittingRecordsLandingManageRecordsPublisherComponent, TribunalServiceComponent, SittingDateComponent ]
     })
     .compileComponents();
 
@@ -37,5 +38,5 @@ describe('SittingRecordsLandingManageRecordsPublisherComponent', () => {
     component.ngOnInit();
     expect(publisherWorkflowService.getFormData()).toEqual(mockFormData);
 
-  })
+  });
 });

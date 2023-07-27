@@ -1,18 +1,15 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { 
   FormBuilder, 
+  FormControl, 
   FormGroup, 
   Validators, 
-  AbstractControl
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { debounceTime, filter, mergeMap, tap } from 'rxjs/operators';
 import { CustomValidators } from '../../_validators/sitting-records-form-validator';
 import { SharedWorkflowService } from '../../_workflows/shared-workflow.service';
 import { LocationService } from '../../_services/location-service/location.service'
 import { VenueModel } from '../../_models/venue.model';
-import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { CookieService } from 'ngx-cookie-service';
 
 @Component({
@@ -22,38 +19,20 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class ManageSittingRecordsComponent implements OnInit {
   manageRecords: FormGroup;
-  venues: VenueModel[] = [];
-  readonly minSearchCharacters = 3;
-  public searchTerm = '';
-  delay = 500;
-  refDataFound = true;
-  venueValueChange: any;
   showPreviousButton = true;
   
-  submitForm(){
-    this.sharedWorkFlowService.setFormData(this.manageRecords)
-    this.sharedWorkFlowService.setManageVisited()
-    this.venueValueChange.unsubscribe()
-    void this.router.navigate(['sittingRecords','view'])
-  }
-
-  get f(): { [key: string]: AbstractControl } {
-    return this.manageRecords?.controls;
-  }
-
   constructor(
     protected router: Router,
     private cookies: CookieService,
     protected activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
     private sharedWorkFlowService: SharedWorkflowService,
-    private locationService : LocationService
   ){
     this.manageRecords = this.formBuilder.group(
       {
-        tribunalService: ['', Validators.required],
-        venue: ['', [Validators.required, CustomValidators.requireVenueMatch]],
-        dateSelected: formBuilder.group({
+        tribunalService: new FormControl('', Validators.required),
+        venue: new FormControl('', [Validators.required, CustomValidators.requireVenueMatch]),
+        dateSelected: this.formBuilder.group({
           dateDay: ['', [Validators.required,]],
           dateMonth: ['', [Validators.required,]],
           dateYear: ['', [Validators.required,]],
@@ -64,6 +43,7 @@ export class ManageSittingRecordsComponent implements OnInit {
         })
       }
     );
+
     this.manageRecords.controls['venue'].disable();
     
     this.manageRecords.valueChanges.subscribe(() => {
@@ -74,6 +54,7 @@ export class ManageSittingRecordsComponent implements OnInit {
     })
 
     this.manageRecords.controls['tribunalService'].valueChanges.subscribe(() => {
+      console.log(this.manageRecords)
       if(this.manageRecords.controls['venue'].value !== ""){
         this.manageRecords.controls['venue'].reset();
       }
@@ -86,49 +67,21 @@ export class ManageSittingRecordsComponent implements OnInit {
       this.manageRecords = this.sharedWorkFlowService.getFormData();
     }
 
-    this.venuesSearch();
-
     const userRole = this.cookies.get('__userrole__');
 
     if (userRole.indexOf('jps-recorder') != -1)
       this.showPreviousButton = false;
   }
 
-  public showVenue(value) {
-    if(value) { 
-      return value.site_name; 
-    }
-    return ""
-  }
-
-  public optionSelected(event: MatAutocompleteSelectedEvent): void {
-    this.manageRecords.controls['venue'].patchValue(event.option.value, {emitEvent: false, onlySelf: true});
-  }
-
-  public venuesSearch(): void {
-    this.venueValueChange = this.manageRecords.controls['venue'].valueChanges
-      .pipe(
-        tap(() => this.venues = []),
-        tap(() => this.refDataFound = true),
-        tap((term) => this.searchTerm = term),
-        filter(term => !!term && term.length >= this.minSearchCharacters),
-        debounceTime(this.delay),
-        mergeMap(value => this.getVenues(value)),
-      ).subscribe(venues => {
-        this.venues = venues;
-        if (venues.length === 0) {
-          this.refDataFound = false;
-        }
-      });
-  }
-
-  public getVenues(searchTerm: string): Observable<VenueModel[]> {
-    return this.locationService.getAllVenues(searchTerm);
+  submitForm(){
+    this.sharedWorkFlowService.setFormData(this.manageRecords)
+    this.sharedWorkFlowService.setManageVisited()
+    void this.router.navigate(['sittingRecords','view'])
   }
 
   goBack(){
     void this.router.navigate(['sittingRecords','home'])
   }
-
+  
 }
 

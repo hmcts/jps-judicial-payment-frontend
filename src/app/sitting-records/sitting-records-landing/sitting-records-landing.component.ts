@@ -6,6 +6,7 @@ import { SittingRecordsLandingManageRecordsPublisherComponent } from './sitting-
 import { CookieService } from 'ngx-cookie-service';
 import { SubmitterWorkflowService } from '../../_workflows/submitter-workflow.service';
 import { PublisherWorkflowService } from '../../_workflows/publisher-workflow.service';
+import { AdminWorkflowService } from '../../_workflows/admin-workflow.service';
 
 @Component({
   selector: 'app-sitting-records-landing',
@@ -25,6 +26,7 @@ export class SittingRecordsLandingComponent implements OnInit, AfterViewInit{
   @ViewChild(SittingRecordsLandingManageRecordsPublisherComponent) childComponentPublisher: SittingRecordsLandingManageRecordsPublisherComponent | undefined;
   manageRecordsSubmitter!: FormGroup | undefined;
   manageRecordsPublisher!: FormGroup | undefined;
+  userRole = '';
 
   constructor(
     protected router: Router,
@@ -33,6 +35,7 @@ export class SittingRecordsLandingComponent implements OnInit, AfterViewInit{
     private formBuilder: FormBuilder,
     private submitterWorkflow : SubmitterWorkflowService,
     private publisherWorkflow : PublisherWorkflowService,
+    private adminWorkflow: AdminWorkflowService
 
   ){
       this.userForm = this.formBuilder.group(
@@ -42,16 +45,16 @@ export class SittingRecordsLandingComponent implements OnInit, AfterViewInit{
   }
 
   ngOnInit() {
-    const userRole = this.cookies.get('__userrole__');
+    this.userRole = this.cookies.get('__userrole__');
   
-    if(userRole.indexOf('jps-JOH-admin') != -1) {
+    if(this.userRole.indexOf('jps-JOH-admin') != -1) {
       //show radio buttons visible to them
-    } else if (userRole.indexOf('jps-publisher') != -1) {
+    } else if (this.userRole.indexOf('jps-publisher') != -1) {
       this.showHeadingForPublisher = true;
       this.showViewExportSittingRecordsOption = true;
       this.showCreatePayrollFilePublishSittingRecordsOption = true;
     }
-    else if (userRole.indexOf('jps-submitter') != -1) {
+    else if (this.userRole.indexOf('jps-submitter') != -1) {
       this.showFindAddDeleteSittingRecordsOption = true;
       this.showSubmitSittingRecordsOption = true;
     } else {
@@ -109,8 +112,18 @@ export class SittingRecordsLandingComponent implements OnInit, AfterViewInit{
   }
 
   submitForm(){
-    if(this.userForm.controls["options"].value === 'opt1')
+    if(this.userForm.controls["options"].value === 'opt1') {
+      if (this.userRole.indexOf('jps-submitter') != -1) {
+        this.submitterWorkflow.setUserFormData(this.userForm);
+        this.submitterWorkflow.setLandingVisited();
+      }
+
+      if (this.userRole.indexOf('jps-admin') != -1) {
+        this.adminWorkflow.setUserFormData(this.userForm);
+        this.adminWorkflow.setLandingVisited();
+      }
       void this.router.navigate(['sittingRecords','manage']);
+    }
     else if (this.userForm.controls["options"].value === 'opt2') {
       this.submitterWorkflow.setUserFormData(this.userForm);
       this.submitterWorkflow.setFormData(this.manageRecordsSubmitter as FormGroup);

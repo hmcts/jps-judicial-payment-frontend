@@ -9,6 +9,9 @@ import { SittingRecordsLandingManageRecordsPublisherComponent } from './sitting-
 import { CookieService } from 'ngx-cookie-service';
 import { SubmitterWorkflowService } from '../../_workflows/submitter-workflow.service';
 import { PublisherWorkflowService } from '../../_workflows/publisher-workflow.service';
+import { TribunalServiceComponent } from '../shared-components/tribunal-service/tribunal-service.component';
+import { RegionComponent } from '../shared-components/region/region.component';
+import { SittingDateComponent } from '../shared-components/sitting-date/sitting-date.component';
 
 describe('SittingRecordsLandingComponent', () => {
   let component: SittingRecordsLandingComponent;
@@ -21,7 +24,8 @@ describe('SittingRecordsLandingComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ RouterTestingModule, HttpClientModule, ReactiveFormsModule],
-      declarations: [ SittingRecordsLandingComponent,  SittingRecordsLandingManageRecordsSubmitterComponent, SittingRecordsLandingManageRecordsPublisherComponent ],
+      declarations: [ SittingRecordsLandingComponent,  SittingRecordsLandingManageRecordsSubmitterComponent, SittingRecordsLandingManageRecordsPublisherComponent,
+        TribunalServiceComponent, RegionComponent, SittingDateComponent ],
       providers: [ SubmitterWorkflowService, PublisherWorkflowService,
         { provide: CookieService }
       ]

@@ -1,28 +1,30 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LocationService } from '../../../_services/location-service/location.service';
 import { SittingRecordsLandingManageRecordsSubmitterComponent } from './sitting-records-landing-manage-records-submitter.component';
-import { RegionModel } from '../../../_models/region.model';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { ReactiveFormsModule } from '@angular/forms';
-import { of } from 'rxjs';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { SubmitterWorkflowService } from '../../../_workflows/submitter-workflow.service';
+import { TribunalServiceComponent } from '../../shared-components/tribunal-service/tribunal-service.component';
+import { RegionComponent } from '../../shared-components/region/region.component';
+import { SittingDateComponent } from '../../shared-components/sitting-date/sitting-date.component';
 
-describe('SittingRecordsLandingManageRecordsComponent', () => {
+describe('SittingRecordsLandingManageRecordsSubmitterComponent', () => {
   let component: SittingRecordsLandingManageRecordsSubmitterComponent;
   let fixture: ComponentFixture<SittingRecordsLandingManageRecordsSubmitterComponent>;
-  let locationService: LocationService;
+  let submitterWorkflowService: SubmitterWorkflowService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ HttpClientModule, ReactiveFormsModule, HttpClientTestingModule],
-      declarations: [ SittingRecordsLandingManageRecordsSubmitterComponent ],
+      declarations: [ SittingRecordsLandingManageRecordsSubmitterComponent, TribunalServiceComponent, RegionComponent, SittingDateComponent ],
       providers: [ LocationService]
     })
     .compileComponents();
 
     fixture = TestBed.createComponent(SittingRecordsLandingManageRecordsSubmitterComponent);
     component = fixture.componentInstance;
-    locationService = TestBed.inject(LocationService);
+    submitterWorkflowService = TestBed.inject(SubmitterWorkflowService);
     fixture.detectChanges();
   });
 
@@ -53,24 +55,17 @@ describe('SittingRecordsLandingManageRecordsComponent', () => {
     expect(region.value).toBeNull();
   });
 
-  it('should call the LocationService and return regions when calling getRegions', () => {
-    const regions: RegionModel[] = [
-      { region_id: '1',
-      description: 'Region1',
-      welsh_region: '',
-      },
-      { region_id: '2',
-      description: 'Region2',
-      welsh_region: '',
-      }
-    ];
+  it('should return formData onInit', () => {
+    const mockFormData: FormGroup = new FormBuilder().group({
+      dateSelected: ['2022-01-01'],
+      tribunalService: ['Tribunal 1'],
+      region: ['Region 1'],
+    });
 
-    spyOn(locationService, 'getAllRegions').and.returnValue(of(regions));
-
-    component.getRegions();
-    expect(locationService.getAllRegions).toHaveBeenCalled();
+    spyOn(submitterWorkflowService, 'getFormData').and.returnValue(mockFormData);
+    component.ngOnInit();
+    expect(submitterWorkflowService.getFormData()).toEqual(mockFormData);
 
   });
-
 
 });

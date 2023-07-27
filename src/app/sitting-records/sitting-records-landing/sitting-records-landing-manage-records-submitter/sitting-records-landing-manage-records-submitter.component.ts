@@ -12,8 +12,7 @@ import { SubmitterWorkflowService } from '../../../_workflows/submitter-workflow
 })
 export class SittingRecordsLandingManageRecordsSubmitterComponent implements OnInit {
   public manageRecords!: FormGroup;
-  regions: RegionModel[] = [];
-  
+   
   constructor( 
     private formBuilder: FormBuilder,
     private locationService : LocationService,
@@ -50,22 +49,8 @@ export class SittingRecordsLandingManageRecordsSubmitterComponent implements OnI
 
   ngOnInit(): void {
     if(this.submitterWorkflow.getFormData()){
-      this.regions = this.submitterWorkflow.getFinanceRegions();
       this.manageRecords = this.submitterWorkflow.getFormData();
-    } else {
-      // as we get all regions we only need to do this on the first load of the page
-      this.getRegions();
     }
   }
-
-  get f() {
-    return this.manageRecords?.controls;
-  }
-
-  public getRegions(): void {
-    this.locationService.getAllRegions().subscribe(regions => {
-      this.regions = regions
-      this.submitterWorkflow.setFinanceRegions(regions)
-    });
-  }
+  
 }

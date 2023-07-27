@@ -34,9 +34,4 @@ export class SittingRecordsLandingManageRecordsPublisherComponent implements OnI
       this.manageRecords = this.publisherWorkflow.getFormData();
     }
   }
-
-  get f() {
-    return this.manageRecords?.controls;
-  }
-
 }

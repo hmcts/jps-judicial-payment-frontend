@@ -17,6 +17,10 @@ import { DataTablesModule } from "angular-datatables";
 import { SubmitSittingRecordsComponent } from './submit-sitting-records/submit-sitting-records.component';
 import { SittingRecordsLandingManageRecordsPublisherComponent } from './sitting-records-landing/sitting-records-landing-manage-records-publisher/sitting-records-landing-manage-records-publisher.component';
 
+import { TribunalServiceComponent } from './shared-components/tribunal-service/tribunal-service.component';
+import { VenueComponent } from './shared-components/venue/venue.component';
+import { SittingDateComponent } from './shared-components/sitting-date/sitting-date.component';
+import { RegionComponent } from './shared-components/region/region.component';
 
 @NgModule({
   imports: [
@@ -37,7 +41,11 @@ import { SittingRecordsLandingManageRecordsPublisherComponent } from './sitting-
     SittingRecordsLandingComponent,
     SittingRecordsLandingManageRecordsSubmitterComponent,
     SubmitSittingRecordsComponent,
-    SittingRecordsLandingManageRecordsPublisherComponent
+    SittingRecordsLandingManageRecordsPublisherComponent,
+    TribunalServiceComponent,
+    VenueComponent,
+    SittingDateComponent,
+    RegionComponent
   ]
 })
 export class SittingRecordsModule { }
