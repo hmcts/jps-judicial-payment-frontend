@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ManageSittingRecordsComponent } from './manage-sitting-records.component';
 import { SharedWorkflowService } from '../../_workflows/shared-workflow.service';
-import { LocationService } from '../../_services/location-service/location.service';
 import { CookieService } from 'ngx-cookie-service';
 import { HttpClientModule } from '@angular/common/http'; 
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -17,7 +16,6 @@ describe('ManageSittingRecordsComponent', () => {
   let fixture: ComponentFixture<ManageSittingRecordsComponent>;
   let router: Router;
   let sharedWorkFlowService: SharedWorkflowService;
-  let locationService: LocationService;
   let mockCookieService: jasmine.SpyObj<CookieService>;
 
   beforeEach(async () => {

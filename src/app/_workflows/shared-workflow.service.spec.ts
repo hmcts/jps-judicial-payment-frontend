@@ -58,20 +58,6 @@ describe('RecorderWorkflowService', () => {
 
   describe('getSittingRecordsData', () => {
     it('should return a valid ViewSittingRecordResponse object', () => {
-      const postObj: ViewSittingRecordPost = {
-        pageSize: 100,
-        offset: 0,
-        dateOrder: 'ASCENDING',
-        regionId: '',
-        epimsId: '',
-        createdByUserId: '',
-        personalCode: '',
-        judgeRoleTypeId: '',
-        duration: '',
-        dateRangeFrom: '',
-        dateRangeTo: '',
-        statusIds: []
-      };
       const mockResponse: ViewSittingRecordResponse = { "sittingRecords": [] };
       const dateSelected = '2022-01-01';
 

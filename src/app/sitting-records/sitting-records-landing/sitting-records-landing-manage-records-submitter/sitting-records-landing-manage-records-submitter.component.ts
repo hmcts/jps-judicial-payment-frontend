@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CustomValidators } from '../../../_validators/sitting-records-form-validator';
-import { LocationService } from '../../../_services/location-service/location.service';
-import { RegionModel } from '../../../_models/region.model';
 import { SubmitterWorkflowService } from '../../../_workflows/submitter-workflow.service';
 
 @Component({
@@ -15,7 +13,6 @@ export class SittingRecordsLandingManageRecordsSubmitterComponent implements OnI
    
   constructor( 
     private formBuilder: FormBuilder,
-    private locationService : LocationService,
     private submitterWorkflow: SubmitterWorkflowService,
     ){
     this.manageRecords = this.formBuilder.group({

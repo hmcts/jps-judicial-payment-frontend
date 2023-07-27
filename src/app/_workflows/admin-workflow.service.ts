@@ -9,8 +9,6 @@ export class AdminWorkflowService {
   userFormData!: FormGroup;
   hasLandingVisited = false;
 
-  constructor() { }
-
   setLandingVisited(){
     this.hasLandingVisited = true;
   }

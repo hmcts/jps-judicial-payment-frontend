@@ -8,8 +8,6 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { CustomValidators } from '../../_validators/sitting-records-form-validator';
 import { SharedWorkflowService } from '../../_workflows/shared-workflow.service';
-import { LocationService } from '../../_services/location-service/location.service'
-import { VenueModel } from '../../_models/venue.model';
 import { CookieService } from 'ngx-cookie-service';
 
 @Component({
