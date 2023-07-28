@@ -12,7 +12,7 @@ Scenario('Successfully continue to "Judicial sitting records" page @S-006.1',({ 
 
 Scenario('"Manage judicial sitting records" page is not displayed for a user that does not have recorder role @S-006.2',({ I}) => {
   I.loginWithJPSPublisherUser();
-  I.dontSee('Manage Judicial Sitting Records');
+  I.dontSee('Find, add or delete judicial sitting records');
 });
 
 Scenario('Venue field should be enabled only after tribunal service is selected @S-006.3',  ({ I}) => {
