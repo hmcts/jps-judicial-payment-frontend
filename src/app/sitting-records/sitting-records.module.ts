@@ -18,6 +18,11 @@ import { DataTablesModule } from "angular-datatables";
 import { CapitalizeFirstLetterPipe } from '../_pipes/convertTableStatus'
 
 
+import { DataTablesModule } from "angular-datatables";
+
+import { CapitalizeFirstLetterPipe } from '../_pipes/convertTableStatus'
+
+
 @NgModule({
   imports: [
     CommonModule,
