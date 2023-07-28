@@ -6,10 +6,6 @@ module.exports = function () {
   const submitterPassword = process.env.JPS_SUBMITTER_PASSWORD || 'password';
   const publisherUsername = process.env.JPS_PUBLISHER_USERNAME || 'jps-publisher-role@gmail.com';
   const publisherPassword = process.env.JPS_PUBLISHER_PASSWORD || 'password';
-  const adminUsername = process.env.JPS_ADMIN_USERNAME || 'jps-admin-role@gmail.com';
-  const adminPassword = process.env.JPS_ADMIN_PASSWORD || 'password';
-  const johAdminUsername = process.env.JPS_JOH_ADMIN_USERNAME || 'jps-JOH-admin-role@gmail.com';
-  const johAdminPassword = process.env.JPS_JOH_ADMIN_PASSWORD || 'password';
   const invalidUsername = process.env.JPS_INVALID_USERNAME || 'jps-invalid-role@gmail.com';
   const invalidPassword = process.env.JPS_INVALID_PASSWORD || 'password';
 
