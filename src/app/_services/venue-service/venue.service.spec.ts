@@ -33,7 +33,7 @@ describe('VenueService', () => {
       expect(venues).toEqual(mockResponse);
     });
 
-    const req = httpMock.expectOne('/refdata/location');
+    const req = httpMock.expectOne('/refdata/locationss');
     expect(req.request.method).toBe('POST');
     expect(req.request.body).toEqual({ searchTerm: mockSearchTerm });
     expect(req.request.headers.get('Content-Type')).toBe('application/json');
