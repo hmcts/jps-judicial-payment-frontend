@@ -89,7 +89,6 @@ Scenario('If date value is after today\'s date error should be displayed @S-006.
   I.loginWithJPSSubmitterUser();
   ManageJudicialSittingRecordsPage.seeCommonLandingPage();
   ManageJudicialSittingRecordsPage.selectSittingRecordsToSubmitToFinance('1', 'London', '11', '03', '2040');
-  I.click('Continue');
-  I.see('error message here');
+  I.see('The date you have selected is in the future');
 });
 
