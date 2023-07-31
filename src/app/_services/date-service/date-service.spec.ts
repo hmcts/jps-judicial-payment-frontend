@@ -29,8 +29,8 @@ describe('DateService', () => {
         dateMonth: '01',
         dateYear: '2020'
       };
-      const result = service.createDateObjFromFormData(dateObj);
-      expect(result).toEqual(new Date('01/01/2020'));
+      const result = service.formatDateFromForm(dateObj);
+      expect(result).toEqual('01/01/2020');
     });
   })
 

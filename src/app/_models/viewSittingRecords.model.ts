@@ -3,7 +3,7 @@ export class ViewSittingRecordPost {
     offset = 0;
     dateOrder = "ASCENDING";
     regionId!: string;
-    epimsId!: string;
+    epimmsId!: string;
     createdByUserId!: string;
     personalCode!: string;
     judgeRoleTypeId!: string;

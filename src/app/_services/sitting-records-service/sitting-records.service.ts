@@ -27,7 +27,7 @@ export class SittingRecordsService{
     createNewSRPostObj(joh: any, tribunalService: any, dateSelected: any, venue: any, period:any) {
         return {
             hmctsServiceCode: tribunalService.hmctsServiceCode,
-            sittingDate: this.dateSvc.createDateObjFromFormData(dateSelected),
+            sittingDate: this.dateSvc.formatDateForPost(dateSelected),
             epimsId: venue.epimms_id,
             personalCode: joh.johName.personalCode,
             contractTypeId: this.changeContractNameToId(joh.johRole.appointment_type),
