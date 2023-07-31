@@ -7,3 +7,18 @@ services:
     enabled: true
     url: 'http://localhost:4001'
     port: 4001
+redis:
+  host: 'localhost'
+  port: 6379
+  password: 'dummy_password'
+  useTLS: 'false'
+  enabled: false
+  secret: 'OVERWRITE_THIS'
+  proxy: true
+  resave: false
+  saveUninitialized: false
+  ttl: 28800 # ms (8 hours)
+  cookie:
+    secure: false
+    httpOnly: true
+    sameSite: 'lax'

@@ -1,3 +1,4 @@
+<app-cookie-manager></app-cookie-manager>
 <app-jp-header></app-jp-header>
 
 <div class="govuk-width-container ">
@@ -5,3 +6,15 @@
 </div>
 
 <app-jp-footer></app-jp-footer>
+
+<ng-http-loader
+  [backdrop]="true"
+  [debounceDelay]="100"
+  [extraDuration]="300"
+  [minDuration]="300"
+  [opacity]="'.7'"
+  [backdropBackgroundColor]="'#777777'"
+  [entryComponent]="spinnerComponent"
+  [filteredUrlPatterns]="['refdata/location']"
+> 
+</ng-http-loader>

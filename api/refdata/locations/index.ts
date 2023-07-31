@@ -1,17 +1,19 @@
 import { getConfigValue } from '../../configuration';
-import { SERVICES_LOCATION_API_PATH } from '../../configuration/references';
+import { SERVICES_LOCATION_API_URL } from '../../configuration/references';
 import axios, { AxiosRequestConfig } from 'axios';
+import { Logger } from '@hmcts/nodejs-logging';
 
-const url: string = getConfigValue(SERVICES_LOCATION_API_PATH);
+const url: string = getConfigValue(SERVICES_LOCATION_API_URL);
+const logger = Logger.getLogger()
 
-export async function getLocations(req, res) {
-    const { authorization, serviceauthorization } = req.headers;
+export async function getLocations(req, res, next) {
+    const { Authorization, ServiceAuthorization } = req.headers;
     const { searchTerm } = req.body;
     try {
         const headers = {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + authorization,
-            'ServiceAuthorization': serviceauthorization
+            'Authorization': Authorization,
+            'ServiceAuthorization': ServiceAuthorization
         };
         const config: AxiosRequestConfig = {
             url: `${url}/refdata/location/court-venues/venue-search?search-string=${searchTerm}`,
@@ -21,7 +23,31 @@ export async function getLocations(req, res) {
         const response = await axios(config);
         res.json(response.data);
     } catch (error) {
-        res.status(error.response.status).json({ error: 'An error occurred: '  + error.response.statusText});
+        next(error)
+    }
+
+}
+
+export async function getRegions(req, res, next) {
+    const { Authorization, ServiceAuthorization } = req.headers;
+    
+    try {
+        const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': Authorization,
+            'ServiceAuthorization': ServiceAuthorization
+        };
+
+        const config: AxiosRequestConfig = {
+            url: `${url}/refdata/location/regions?regionId=ALL`,
+            method: 'GET',
+            headers: headers
+        };
+
+        const response = await axios(config);
+        res.json(response.data);
+    } catch (error) {
+        next(error)
     }
 
 }

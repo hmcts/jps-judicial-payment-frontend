@@ -3,12 +3,14 @@ import { FormGroup } from '@angular/forms';
 import { SittingRecordsPostObj, SittingRecordsPostBody } from '../_models/addSittingRecords.model';
 import { DateService } from '../_services/date-service/date-service'
 import { SittingRecordsService } from '../_services/sitting-records-service/sitting-records.service';
+import { ViewSittingRecordService } from '../_services/sitting-records-service/view-sitting-records-service'
+import { ViewSittingRecordPost } from '../_models/viewSittingRecords.model'
 
 @Injectable({
   providedIn: 'root'
 })
 export class SittingRecordWorkflowService {
-
+  
   formData!: FormGroup;
   addSittingRecords!: FormGroup;
   hasVisitedManage = false;
@@ -16,9 +18,10 @@ export class SittingRecordWorkflowService {
     
   constructor(
     private dateSvc: DateService,
-    private sittingRecordsSvc: SittingRecordsService
-  ) {}
+    private sittingRecordsSvc: SittingRecordsService,
+    private ViewSittingRecordService: ViewSittingRecordService,
 
+  ) {}
 
   setManageVisited(){
     this.hasVisitedManage = true;
@@ -109,4 +112,17 @@ export class SittingRecordWorkflowService {
     return this.sittingRecordsSvc.postNewSittingRecord(postBody);
   }
   
+  getSittingRecordsData() {
+    const postObj = new ViewSittingRecordPost();
+    const { dateSelected, venue } = this.formData.value;
+    const dateToGet = this.dateSvc.formatDateForPost(dateSelected);
+    postObj.epimsId = venue.epimms_id;
+    postObj.regionId = venue.region_id;
+    postObj.dateRangeFrom = dateToGet;
+    postObj.dateRangeTo = dateToGet;
+    postObj.dateOrder = "ASCENDING";
+
+    return this.ViewSittingRecordService.postObject(postObj);
+  }
+
 }

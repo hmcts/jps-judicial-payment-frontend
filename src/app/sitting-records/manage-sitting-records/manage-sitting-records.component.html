@@ -38,8 +38,8 @@
                 placeholder="Start typing to search for a venue"
                 [matAutocomplete]="autoSearchVenue"
                 required>
-              <mat-autocomplete class="mat-autocomplete-panel-extend" autoActiveFirstOption #autoSearchVenue="matAutocomplete" [displayWith]="showVenue">
-                <mat-option *ngFor="let venue of venues" (onSelectionChange)="onSelectionChange(venue)" [value]="venue" >
+              <mat-autocomplete class="mat-autocomplete-panel-extend" id="auto-venue-select" autoActiveFirstOption #autoSearchVenue="matAutocomplete" (optionSelected)="optionSelected($event)" [displayWith]="showVenue">
+                <mat-option *ngFor="let venue of venues" id="option-venue-select{{venue.site_name}}" (mousedown)=$event.preventDefault() [value]="venue" >
                   {{ venue.site_name }}
                 </mat-option>
                 <mat-option *ngIf="!venues.length && !refDataFound && searchTerm.length >= this.minSearchCharacters">No results found</mat-option>
@@ -127,7 +127,7 @@
 
           <div class="govuk-button-group">
             
-            <button type="button" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+            <button type="button" class="govuk-button govuk-button--secondary" data-module="govuk-button" (click)="goBack()" *ngIf="showPreviousButton">
               Previous
             </button>
             <button type="submit" class="govuk-button" data-module="govuk-button" [disabled]="!manageRecords.valid">

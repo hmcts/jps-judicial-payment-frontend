@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { JPHeaderComponent } from './jp-header.component';
+import { LogoutComponent } from '../logout/logout.component';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('JPHeaderComponent', () => {
   let component: JPHeaderComponent;
@@ -8,7 +10,8 @@ describe('JPHeaderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ JPHeaderComponent ]
+      imports: [HttpClientModule],
+      declarations: [ JPHeaderComponent, LogoutComponent ]
     })
     .compileComponents();
 

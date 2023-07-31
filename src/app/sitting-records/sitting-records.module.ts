@@ -18,6 +18,12 @@ import { DuplicateSittingRecordsComponent } from './duplicate-sitting-records/du
 import { PotentialDuplicateComponent } from './duplicate-sitting-records/potential-duplicate/potential-duplicate.component';
 import { InvalidDuplicateComponent } from './duplicate-sitting-records/invalid-duplicate/invalid-duplicate.component';
 import { ErrorSummaryComponent } from '../error-summary/error-summary.component'
+import { SittingRecordsLandingComponent } from './sitting-records-landing/sitting-records-landing.component';
+import { SittingRecordsLandingManageRecordsComponent } from './sitting-records-landing/sitting-records-landing-manage-records/sitting-records-landing-manage-records.component';
+
+import { DataTablesModule } from "angular-datatables";
+
+import { CapitalizeFirstLetterPipe } from '../_pipes/convertTableStatus'
 
 @NgModule({
   imports: [
@@ -25,6 +31,7 @@ import { ErrorSummaryComponent } from '../error-summary/error-summary.component'
     SittingRecordsRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    DataTablesModule,
     MatAutocompleteModule,
     HttpClientModule,
     MatFormFieldModule
@@ -42,7 +49,10 @@ import { ErrorSummaryComponent } from '../error-summary/error-summary.component'
     DuplicateSittingRecordsComponent,
     PotentialDuplicateComponent,
     InvalidDuplicateComponent,
-    ErrorSummaryComponent
+    ErrorSummaryComponent,
+    SittingRecordsLandingComponent,
+    SittingRecordsLandingManageRecordsComponent,
+    CapitalizeFirstLetterPipe
   ]
 })
 export class SittingRecordsModule { }

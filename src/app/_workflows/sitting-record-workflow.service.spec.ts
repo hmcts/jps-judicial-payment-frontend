@@ -1,65 +1,66 @@
 import { TestBed } from '@angular/core/testing';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { SittingRecordWorkflowService } from './sitting-record-workflow.service';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpClientModule } from '@angular/common/http';
+import { ViewSittingRecordPost, ViewSittingRecordResponse } from '../_models/viewSittingRecords.model';
+import { ViewSittingRecordService } from '../_services/sitting-records-service/view-sitting-records-service';
+import { DateService } from '../_services/date-service/date-service';
+import { of } from 'rxjs';
 
 describe('SittingRecordWorkflowService', () => {
-  let service: SittingRecordWorkflowService;
-  let httpMock: HttpTestingController;
-
+  let mockSRWorkflowService: SittingRecordWorkflowService;
+  let mockViewSittingRecordService: ViewSittingRecordService;
+  let mockformData: FormGroup;
+  let mockDateSvc: DateService
+  
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [SittingRecordWorkflowService]
+      providers: [SittingRecordWorkflowService, ViewSittingRecordService, DateService],
+      imports: [HttpClientModule]
     });
-    service = TestBed.inject(SittingRecordWorkflowService);
-    httpMock= TestBed.inject(HttpTestingController);
-  });
 
-  afterEach(() => {
-    httpMock.verify();
+    mockSRWorkflowService = TestBed.inject(SittingRecordWorkflowService);
+    mockViewSittingRecordService = TestBed.inject(ViewSittingRecordService);
+    mockDateSvc = TestBed.inject(DateService);
+    mockformData= new FormBuilder().group({
+      dateSelected: ['2022-01-01'],
+      tribunalService: ['Tribunal 1'],
+      venue: ['Venue 1'],
+    });
+
+    mockSRWorkflowService.setFormData(mockformData);
   });
 
   it('should be created', () => {
-    expect(service).toBeTruthy();
+    expect(mockSRWorkflowService).toBeTruthy();
   });
 
   describe('setManageVisited', () => {
     it('should set hasVisitedManage to true', () => {
-      service.setManageVisited();
-      expect(service.getManageVisited()).toBe(true);
+      mockSRWorkflowService.setManageVisited();
+      expect(mockSRWorkflowService.getManageVisited()).toBe(true);
     });
   });
 
   describe('setFormData and getFormData', () => {
     it('should set and get the form data', () => {
-      const form = new FormGroup({
-        name: new FormControl('John'),
-        age: new FormControl(30)
-      });
-      service.setFormData(form);
-      expect(service.getFormData()).toBe(form);
+      expect(mockSRWorkflowService.getFormData()).toBe(mockformData);
     });
   });
 
   describe('resetFormData', () => {
     it('should reset the form data', () => {
-      const form = new FormGroup({
-        name: new FormControl('John'),
-        age: new FormControl(30)
-      });
-      service.setFormData(form);
-      expect(service.getFormData()).toBe(form);
-      service.resetFormData();
-      expect(service.getFormData().getRawValue()).toEqual({ name: null, age: null });
+      expect(mockSRWorkflowService.getFormData()).toBe(mockformData);
+      mockSRWorkflowService.resetFormData();
+      expect(mockSRWorkflowService.getFormData().getRawValue()).toEqual({ dateSelected: null, tribunalService: null, venue: null });
     });
   });
 
   describe('resetVisitedManaged', () => {
     it('should set hasVisitedManaged to false', () => {
-      service.setManageVisited()
-      service.resetVisitedManaged()
-      expect(service.getManageVisited()).toBe(false);
+      mockSRWorkflowService.setManageVisited()
+      mockSRWorkflowService.resetVisitedManaged()
+      expect(mockSRWorkflowService.getManageVisited()).toBe(false);
     });
   });
 
@@ -79,11 +80,11 @@ describe('SittingRecordWorkflowService', () => {
         venue: ['Venue 1'],
       });
   
-      service.setFormData(formDataMock)
+      mockSRWorkflowService.setFormData(formDataMock)
   
       const callback = jasmine.createSpy('callback');
-      service.setAddSittingRecords(postFormData)
-      service.formAndPostNewSittingRecord(callback);
+      mockSRWorkflowService.setAddSittingRecords(postFormData)
+      mockSRWorkflowService.formAndPostNewSittingRecord();
   
       expect(callback).toHaveBeenCalled();
 
@@ -104,12 +105,12 @@ describe('SittingRecordWorkflowService', () => {
         venue: ['Venue 1'],
       });
   
-      service.setFormData(formDataMock)
+      mockSRWorkflowService.setFormData(formDataMock)
   
       const callback = jasmine.createSpy('callback');
 
-      service.setAddSittingRecords(postFormData)
-      service.formAndPostNewSittingRecord(callback);
+      mockSRWorkflowService.setAddSittingRecords(postFormData)
+      mockSRWorkflowService.formAndPostNewSittingRecord();
   
       expect(callback).toHaveBeenCalled();
 
@@ -130,15 +131,41 @@ describe('SittingRecordWorkflowService', () => {
         venue: ['Venue 1'],
       });
   
-      service.setFormData(formDataMock)
+      mockSRWorkflowService.setFormData(formDataMock)
   
       const callback = jasmine.createSpy('callback');
   
-      service.setAddSittingRecords(postFormData)
-      service.formAndPostNewSittingRecord(callback);
+      mockSRWorkflowService.setAddSittingRecords(postFormData)
+      mockSRWorkflowService.formAndPostNewSittingRecord();
 
       expect(callback).toHaveBeenCalled();
 
     });
   });
+  describe('getSittingRecordsData', () => {
+    it('should return a valid ViewSittingRecordResponse object', () => {
+      const postObj: ViewSittingRecordPost = {
+        pageSize: 100,
+        offset: 0,
+        dateOrder: 'ASCENDING',
+        regionId: '',
+        epimsId: '',
+        createdByUserId: '',
+        personalCode: '',
+        judgeRoleTypeId: '',
+        duration: '',
+        dateRangeFrom: '',
+        dateRangeTo: '',
+        statusIds: []
+      };
+      const mockResponse: ViewSittingRecordResponse = { "sittingRecords": [] };
+      const dateSelected = '2022-01-01';
+
+      spyOn(mockDateSvc,'formatDateFromForm').and.returnValue(dateSelected);
+      spyOn(mockViewSittingRecordService,'postObject').and.returnValue(of(mockResponse))
+  
+      mockSRWorkflowService.getSittingRecordsData().subscribe(response => expect(response).toEqual(mockResponse));
+    });
+  });
+  
 });

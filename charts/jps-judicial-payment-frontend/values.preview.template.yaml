@@ -10,13 +10,16 @@ nodejs:
     SERVICES_USERS_REF_API_URL: http://rd-judicial-api-aat.service.core-compute-aat.internal
   keyVaults:
     jps:
+      resourceGroup: jps
       secrets:
-        - mc-s2s-client-secret
-        - mc-idam-client-secret
+        - jps-s2s-client-secret
+        - jps-idam-client-secret
   autoscaling:
     enabled: false
+tags:
+  idam-pr: true
 idam-pr:
   enabled: true
   redirect_uris:
-    XUI:
+    jps_judicial_payment_frontend:
       - https://${SERVICE_FQDN}/oauth2/callback
