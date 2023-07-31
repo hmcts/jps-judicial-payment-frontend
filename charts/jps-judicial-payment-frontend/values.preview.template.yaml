@@ -14,6 +14,8 @@ nodejs:
       secrets:
         - jps-s2s-client-secret
         - jps-idam-client-secret
+        - idam-jps-system-username
+        - idam-jps-system-password
   autoscaling:
     enabled: false
 tags:

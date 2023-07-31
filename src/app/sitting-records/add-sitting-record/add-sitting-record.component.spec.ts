@@ -9,7 +9,8 @@ import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-wo
 import { DateService } from '../../_services/date-service/date-service';
 import { UserService } from '../../_services/user-service/user.service';
 import { Router } from '@angular/router';
-import { UserModel, UserInfoModel } from 'src/app/_models/user.model';
+import { UserModel, UserInfoModel } from '../../_models/user.model';
+import { SittingRecordsInfoBannerComponent } from '../../sitting-records-info-banner/sitting-records-info-banner.component';
 
 describe('AddSittingRecordComponent', () => {
   let component: AddSittingRecordComponent;
@@ -21,7 +22,7 @@ describe('AddSittingRecordComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ReactiveFormsModule, HttpClientTestingModule, RouterTestingModule, MatAutocompleteModule],
-      declarations: [AddSittingRecordComponent],
+      declarations: [AddSittingRecordComponent, SittingRecordsInfoBannerComponent],
       providers: [SittingRecordWorkflowService, DateService, UserService]
     }).compileComponents();
   });
@@ -98,11 +99,12 @@ describe('AddSittingRecordComponent', () => {
     spyOn(userService, 'getUsers').and.returnValue(of(mockUsers));
 
     const searchString = 'John';
+    component.serviceCode = 'BBa3'
     component.getUsers(searchString).subscribe(users => {
       expect(users).toEqual(mockUsers);
     });
 
-    expect(userService.getUsers).toHaveBeenCalledWith(searchString, component.venueEpimmsId);
+    expect(userService.getUsers).toHaveBeenCalledWith(searchString, component.serviceCode, component.venueEpimmsId);
   });
   
   it('should set JOH name, clear user list, and fetch user roles on optionSelected', () => {

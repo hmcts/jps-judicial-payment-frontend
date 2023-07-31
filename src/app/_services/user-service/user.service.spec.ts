@@ -47,10 +47,11 @@ describe('UserService', () => {
         ];
         const searchTerm = 'John';
         const venueEpims = 'Venue';
+        const serviceCode = 'BBA3'
 
         spyOn(cookieService, 'get').and.returnValue('token');
 
-        service.getUsers(searchTerm, venueEpims).subscribe(users => {
+        service.getUsers(searchTerm, serviceCode, venueEpims).subscribe(users => {
             expect(users).toEqual(mockUsers);
         });
 
@@ -58,10 +59,6 @@ describe('UserService', () => {
         expect(req.request.method).toBe('POST');
         expect(req.request.headers.has('Content-Type')).toBeTruthy();
         expect(req.request.headers.get('Content-Type')).toBe('application/json');
-        expect(req.request.headers.has('Authorization')).toBeTruthy();
-        expect(req.request.headers.get('Authorization')).toBe('token');
-        expect(req.request.headers.has('ServiceAuthorization')).toBeTruthy();
-        expect(req.request.headers.get('ServiceAuthorization')).toBe('token');
 
         req.flush(mockUsers);
     });
@@ -80,10 +77,6 @@ describe('UserService', () => {
         expect(req.request.method).toBe('POST');
         expect(req.request.headers.has('Content-Type')).toBeTruthy();
         expect(req.request.headers.get('Content-Type')).toBe('application/json');
-        expect(req.request.headers.has('Authorization')).toBeTruthy();
-        expect(req.request.headers.get('Authorization')).toBe('token');
-        expect(req.request.headers.has('ServiceAuthorization')).toBeTruthy();
-        expect(req.request.headers.get('ServiceAuthorization')).toBe('token');
 
         req.flush(mockUserInfo);
     });

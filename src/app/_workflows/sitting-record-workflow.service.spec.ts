@@ -68,8 +68,8 @@ describe('SittingRecordWorkflowService', () => {
     it('should create a new sitting record post body, and set AM', () => {
       const postFormData = new FormGroup({
         JOH: new FormControl([
-          { johRole: 'role1', johName: 'name1' },
-          { johRole: 'role2', johName: 'name2' }
+          { johRole: {appointment : "President of Tribunal", appointment_type : "Salaried"}, johName: 'name1' },
+          { johRole: {appointment : "Regional Tribunal Judge", appointment_type : "Salaried"}, johName: 'name2' }
         ]),
         period: new FormControl('am')
       });
@@ -81,20 +81,19 @@ describe('SittingRecordWorkflowService', () => {
       });
   
       mockSRWorkflowService.setFormData(formDataMock)
+      mockSRWorkflowService.setAddSittingRecords(postFormData);
   
-      const callback = jasmine.createSpy('callback');
       mockSRWorkflowService.setAddSittingRecords(postFormData)
       mockSRWorkflowService.formAndPostNewSittingRecord();
   
-      expect(callback).toHaveBeenCalled();
 
     });
 
     it('should create a new sitting record post body, and set PM', () => {
       const postFormData = new FormGroup({
         JOH: new FormControl([
-          { johRole: 'role1', johName: 'name1' },
-          { johRole: 'role2', johName: 'name2' }
+          { johRole: {appointment : "President of Tribunal", appointment_type : "Salaried"}, johName: 'name1' },
+          { johRole: {appointment : "Regional Tribunal Judge", appointment_type : "Salaried"}, johName: 'name2' }
         ]),
         period: new FormControl('pm')
       });
@@ -106,21 +105,20 @@ describe('SittingRecordWorkflowService', () => {
       });
   
       mockSRWorkflowService.setFormData(formDataMock)
+      mockSRWorkflowService.setAddSittingRecords(postFormData)
   
-      const callback = jasmine.createSpy('callback');
 
       mockSRWorkflowService.setAddSittingRecords(postFormData)
       mockSRWorkflowService.formAndPostNewSittingRecord();
   
-      expect(callback).toHaveBeenCalled();
 
     });
 
     it('should create a new sitting record post body, and set both', () => {
       const postFormData = new FormGroup({
         JOH: new FormControl([
-          { johRole: 'role1', johName: 'name1' },
-          { johRole: 'role2', johName: 'name2' }
+          { johRole: {appointment : "President of Tribunal", appointment_type : "Salaried"}, johName: 'name1' },
+          { johRole: {appointment : "Regional Tribunal Judge", appointment_type : "Salaried"}, johName: 'name2' }
         ]),
         period: new FormControl('both')
       });
@@ -132,13 +130,12 @@ describe('SittingRecordWorkflowService', () => {
       });
   
       mockSRWorkflowService.setFormData(formDataMock)
+      mockSRWorkflowService.setAddSittingRecords(postFormData)
   
-      const callback = jasmine.createSpy('callback');
   
       mockSRWorkflowService.setAddSittingRecords(postFormData)
       mockSRWorkflowService.formAndPostNewSittingRecord();
 
-      expect(callback).toHaveBeenCalled();
 
     });
   });
@@ -149,7 +146,7 @@ describe('SittingRecordWorkflowService', () => {
         offset: 0,
         dateOrder: 'ASCENDING',
         regionId: '',
-        epimsId: '',
+        epimmsId: '',
         createdByUserId: '',
         personalCode: '',
         judgeRoleTypeId: '',

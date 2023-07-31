@@ -1,17 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-workflow.service';
-import { DateService } from '../../_services/date-service/date-service';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { defaultDtOptions }  from '../../_services/default-dt-options'
 import { SittingRecord } from 'src/app/_models/viewSittingRecords.model';
 import { Subject } from 'rxjs';
+import { SittingRecordWorkflowService } from 'src/app/_workflows/sitting-record-workflow.service';
+import { DateService } from 'src/app/_services/date-service/date-service';
 
 @Component({
   selector: 'app-view-sitting-records',
   templateUrl: './view-sitting-records.component.html',
   styleUrls: ['./view-sitting-records.component.scss']
 })
-export class ViewSittingRecordsComponent implements OnInit {
+export class ViewSittingRecordsComponent {
 
   tribService = "";
   venueSiteName = "";
@@ -36,9 +36,9 @@ export class ViewSittingRecordsComponent implements OnInit {
   }
 
   constructor(
+    private router: Router,
     private srWorkFlow: SittingRecordWorkflowService,
-    private dateSvc: DateService,
-    private router: Router
+    private dateSvc: DateService
   ){}
     
   ngOnInit(){

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { FormArray, FormGroup } from '@angular/forms';
 import { DateService } from '../../../_services/date-service/date-service';
 import { DuplicateRecordWorkflowService } from '../../../_workflows/duplicate-record-workflow.service'
+import { UserInfoService } from '../../../_services/user-info-service/user-info-service';
 
 @Component({
   selector: 'app-add-sitting-records-confirm',
@@ -13,14 +14,17 @@ import { DuplicateRecordWorkflowService } from '../../../_workflows/duplicate-re
 export class AddSittingRecordsConfirmComponent{
 
   newSittingRecords!: FormGroup;
+  recordedByName;
 
   constructor(
     public srWorkFlow: SittingRecordWorkflowService,
     public drWorkFlow: DuplicateRecordWorkflowService,
     private dateSvc: DateService,
+    private uInfoSvc: UserInfoService,
     public router: Router,
   ) {
     this.newSittingRecords = this.srWorkFlow.getAddSittingRecords();
+    this.recordedByName = this.uInfoSvc.getUserName()
   }
 
   cancelAdd(){
@@ -49,6 +53,12 @@ export class AddSittingRecordsConfirmComponent{
         void this.router.navigate(['sittingRecords', 'addDuplicates'])
       }
     })
+    this.srWorkFlow.formAndPostNewSittingRecord().subscribe(
+      () => {
+        void this.router.navigate(['sittingRecords', 'addSuccess'])
+
+      }
+    )
   }
 
   convertPeriod(period: string): string {

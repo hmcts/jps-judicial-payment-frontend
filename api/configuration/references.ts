@@ -33,6 +33,10 @@ export const SESSION_SECRET = 'sessionSecret';
 
 export const IDAM_SECRET = 'secrets.jps.jps-idam-client-secret';
 
+export const JPS_SYSTEM_USERNAME = 'secrets.jps.idam-jps-system-username';
+export const JPS_SYSTEM_PASSWORD = 'secrets.jps.idam-jps-system-password';
+
+
 export const LOGIN_ROLE_MATCHER = 'loginRoleMatcher';
 
 export const FEATURE_SECURE_COOKIE_ENABLED = 'secureCookieEnabled';

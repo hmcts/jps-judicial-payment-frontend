@@ -5,6 +5,7 @@ import { DateService } from '../_services/date-service/date-service'
 import { SittingRecordsService } from '../_services/sitting-records-service/sitting-records.service';
 import { ViewSittingRecordService } from '../_services/sitting-records-service/view-sitting-records-service'
 import { ViewSittingRecordPost } from '../_models/viewSittingRecords.model'
+import { UserInfoService } from '../_services/user-info-service/user-info-service'
 
 @Injectable({
   providedIn: 'root'
@@ -15,12 +16,13 @@ export class SittingRecordWorkflowService {
   addSittingRecords!: FormGroup;
   hasVisitedManage = false;
   cameFromConfirm = false;
+  sittingRecordsRoleList;
     
   constructor(
     private dateSvc: DateService,
     private sittingRecordsSvc: SittingRecordsService,
     private ViewSittingRecordService: ViewSittingRecordService,
-
+    private uInfoSvc: UserInfoService
   ) {}
 
   setManageVisited(){
@@ -72,45 +74,30 @@ export class SittingRecordWorkflowService {
     this.cameFromConfirm = false;
   }
 
-  formAndPostNewSittingRecord(){
+  setSittingRecordsRoleList(userRolesList){
+    this.sittingRecordsRoleList = userRolesList
+  }
+
+  getSittingRecordsRoleList(){
+    return this.sittingRecordsRoleList
+  }
+
+  resetSittingRecordsRoleList(){
+    this.sittingRecordsRoleList = undefined;
+  }
+
+  formAndPostNewSittingRecord() {
     const { JOH, period } = this.addSittingRecords.controls;
     const { dateSelected, tribunalService, venue } = this.formData.value;
-    const postBody = new SittingRecordsPostBody();
-    postBody.recordedByIdamId = '';
-    postBody.recordedByName = '';
-  
-    JOH.value.forEach(joh => {
-      const newSRPostObj = new SittingRecordsPostObj();
-  
-      newSRPostObj.hmctsServiceCode = tribunalService;
-      newSRPostObj.sittingDate = this.dateSvc.formatDateFromForm(dateSelected);
-      newSRPostObj.epimmsId = venue.epimms_id;
-      newSRPostObj.personalCode = joh.johName
-      //TODO: update below properties to use data retrieved from API call on addSR page
-      newSRPostObj.contractTypeId = ''
-      newSRPostObj.judgeRoleTypeId = joh.johRole;
-      newSRPostObj.replaceDuplicate = false;
 
-      switch (period.value) {
-        case 'am':
-          newSRPostObj.AM = true;
-          newSRPostObj.PM = false;
-          break;
-        case 'pm':
-          newSRPostObj.AM = false;
-          newSRPostObj.PM = true;
-          break;
-        case 'both':
-          newSRPostObj.AM = true;
-          newSRPostObj.PM = true;
-          break;
-      }
-      
-      postBody.recordedSittingRecords.push(newSRPostObj);
-    });
-  
+    const postBody = {
+      recordedByIdamId: this.uInfoSvc.getIdamId(),
+      recordedByName: this.uInfoSvc.getUserName(),
+      recordedSittingRecords: JOH.value.map(joh => this.sittingRecordsSvc.createNewSRPostObj(joh, tribunalService, dateSelected, venue, period))
+    };
     return this.sittingRecordsSvc.postNewSittingRecord(postBody);
   }
+
   
   getSittingRecordsData() {
     const postObj = new ViewSittingRecordPost();

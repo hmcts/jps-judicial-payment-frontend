@@ -1,7 +1,7 @@
 <main class="govuk-main-wrapper " id="main-content" role="main">
 
     <span class="govuk-caption-l">
-        Add Sitting records for {{tribService}}, {{venueSiteName}}, for {{date}}
+        <app-sitting-records-info-banner></app-sitting-records-info-banner>
     </span>
     <h1 class="govuk-heading-l">
         Select the Judicial office holders (JOH) associated with this sitting
@@ -59,11 +59,9 @@
                         <div id="role-hint" class="govuk-hint">
                             Role
                         </div>
-                        <select class="govuk-select govuk-!-width-full" id="role" name="role" formControlName="johRole">
-                            >
+                        <select class="govuk-select govuk-!-width-full" id="role" name="role" formControlName="johRole" required>
                             <option [ngValue]="null" disabled selected>--Select a value--</option>
-                            <option [ngValue]="'1'">-- 1 --</option>
-                            <!-- <option [ngValue]="role" *ngFor="let role of userRoleList[i]?.appointments">{{role.appointment_type}}</option> -->
+                            <option [ngValue]="role" *ngFor="let role of userRoleList[i]">{{role?.appointment}}</option>
                         </select>
                     </div>
                 </div>
@@ -84,21 +82,21 @@
                 </legend>
                 <div class="govuk-radios" data-module="govuk-radios">
                     <div class="govuk-radios__item">
-                        <input class="govuk-radios__input" id="period" name="period" type="radio" value="am"
+                        <input class="govuk-radios__input" id="period" name="period" type="radio" value="AM"
                             formControlName="period">
                         <label class="govuk-label govuk-radios__label" for="period">
                             Morning
                         </label>
                     </div>
                     <div class="govuk-radios__item">
-                        <input class="govuk-radios__input" id="period-2" name="period" type="radio" value="pm"
+                        <input class="govuk-radios__input" id="period-2" name="period" type="radio" value="PM"
                             formControlName="period">
                         <label class="govuk-label govuk-radios__label" for="period-2">
                             Afternoon
                         </label>
                     </div>
                     <div class="govuk-radios__item">
-                        <input class="govuk-radios__input" id="period-3" name="period" type="radio" value="both"
+                        <input class="govuk-radios__input" id="period-3" name="period" type="radio" value="FULL_DAY"
                             formControlName="period">
                         <label class="govuk-label govuk-radios__label" for="period-3">
                             Full Day

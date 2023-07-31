@@ -6,7 +6,6 @@
         <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
                 Name
-            </dt>
             <dt class="govuk-summary-list__key">
                 Role
             </dt>
@@ -22,13 +21,13 @@
                 {{joh.get('johName')?.value?.fullName}}
             </dd>
             <dd class="govuk-summary-list__value">
-                {{joh.get('johRole')?.value}}
+                {{joh.get('johRole')?.value.appointment}}
             </dd>
             <dd class="govuk-summary-list__value">
                 {{convertPeriod(newSittingRecords.get('period')?.value)}}
             </dd>
             <dd class="govuk-summary-list__value">
-                XXX
+                {{recordedByName}}
             </dd>
         </div>
     </dl>

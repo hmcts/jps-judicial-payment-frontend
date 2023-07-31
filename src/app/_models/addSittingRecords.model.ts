@@ -1,12 +1,11 @@
 export class SittingRecordsPostObj {
     hmctsServiceCode!: string;
-    sittingDate!: string;
-    epimmsId!: string;
+    sittingDate!: Date;
+    epimsId!: string;
     personalCode!: string;
     contractTypeId!: string;
     judgeRoleTypeId!: string;
-    AM!: boolean;
-    PM!: boolean;
+    durationBoolean!: string;
     replaceDuplicate!: boolean;
 }
 

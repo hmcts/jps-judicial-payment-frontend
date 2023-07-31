@@ -14,22 +14,16 @@ export class UserService {
     private readonly cookies: CookieService
   ) { }
 
-  public getUsers(searchTerm: string, venueEpims: string): Observable<UserModel[]> {
-
-    // TODO: move these to service file
-    const S2SToken: string  = this.cookies.get('__serviceauth__');
-    const authToken: string = this.cookies.get('__auth__')
+  public getUsers(searchTerm: string, serviceCode: string, venueEpims: string): Observable<UserModel[]> {
 
     const requestBody = {
         "searchString": searchTerm,
-        "serviceCode": "BFA1",
+        "serviceCode": serviceCode,
         "location": venueEpims
       }
 
     const headers = {
       'Content-Type': 'application/json',
-      'Authorization': authToken,
-      'ServiceAuthorization': S2SToken
     };
 
     return this.http.post<UserModel[]>('/refdata/user', {searchObject: requestBody}, { headers: headers });
@@ -38,18 +32,12 @@ export class UserService {
 
   public getUserInfo(userCode: string): Observable<UserInfoModel[]> {
 
-    // TODO: move these to service file
-    const S2SToken: string  = this.cookies.get('__serviceauth__');
-    const authToken: string = this.cookies.get('__auth__')
-
     const requestBody = {
         "personal_code": [userCode]
       }
 
     const headers = {
       'Content-Type': 'application/json',
-      'Authorization': authToken,
-      'ServiceAuthorization': S2SToken
     };
 
     return this.http.post<UserInfoModel[]>('/refdata/userInfo', {userCode: requestBody}, { headers: headers });

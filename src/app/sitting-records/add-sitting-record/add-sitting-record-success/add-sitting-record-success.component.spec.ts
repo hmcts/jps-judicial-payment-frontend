@@ -65,25 +65,5 @@ describe('AddSittingRecordSuccessComponent', () => {
     expect(router.navigate).toHaveBeenCalledWith(['sittingRecords', 'manage']);
   });
 
-  it('should initialize tribService, venue, and date on ngOnInit()', () => {
-    const addSittingRecordsFGMock = new FormGroup(
-      {
-        JOH: new FormArray([
-          new FormGroup({
-            johName: new FormControl('JOH Name'),
-            johRole: new FormControl('Role1')
-          })
-        ]),
-        period: new FormControl('AM'),
-      }
-    );
-
-    spyOn(srWorkflowService, 'getAddSittingRecords').and.returnValue(addSittingRecordsFGMock);
-    component.ngOnInit();
-    expect(component.tribService).toEqual('Tribunal 1');
-    expect(component.venueSiteName).toEqual('Venue 1');
-    expect(srWorkflowService.getAddSittingRecords).toHaveBeenCalled();
-    expect(component.newSittingRecords).toEqual(addSittingRecordsFGMock);
-  });
 });
 

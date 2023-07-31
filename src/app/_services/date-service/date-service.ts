@@ -29,13 +29,19 @@ export class DateService {
     return ""
   }
 
+  createDateObjFromFormData(dateObj){
+    const {dateDay, dateMonth, dateYear} = dateObj;
+    const dateString = `${dateMonth}/${dateDay}/${dateYear}`
+    return new Date(dateString)
+  }
+
   convertPeriod(period: string): string {
     switch(period){
-      case 'am':
+      case 'AM':
         return "Morning"
-      case 'pm':
+      case 'PM':
         return "Afternoon"
-      case 'both':
+      case 'FULL_DAY':
         return "Full Day"
       default:
         return ''

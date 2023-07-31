@@ -15,6 +15,7 @@ import { VenueModel } from '../../_models/venue.model';
 import { AutoCompleteValidator } from '../../_validators/autoCompleteValidator/auto-complete-validator'
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { CookieService } from 'ngx-cookie-service';
+import { environment } from '../../environments/environment'
 
 @Component({
   selector: 'app-manage-sitting-records',
@@ -30,6 +31,7 @@ export class ManageSittingRecordsComponent implements OnInit {
   refDataFound = true;
   venueValueChange: any;
   showPreviousButton = true;
+  tribunalServices = environment.tribunalServices;
   
   submitForm(){
     this.srWorkFlow.setFormData(this.manageRecords)
@@ -52,12 +54,12 @@ export class ManageSittingRecordsComponent implements OnInit {
   ){
     this.manageRecords = this.formBuilder.group(
       {
-        tribunalService: ['', Validators.required],
-        venue: ['', [Validators.required, AutoCompleteValidator.requireSelection]],
+        tribunalService: [null, Validators.required],
+        venue: [null, [Validators.required, AutoCompleteValidator.requireSelection]],
         dateSelected: formBuilder.group({
-          dateDay: ['', [Validators.required,]],
-          dateMonth: ['', [Validators.required,]],
-          dateYear: ['', [Validators.required,]],
+          dateDay: [null, [Validators.required,]],
+          dateMonth: [null, [Validators.required,]],
+          dateYear: [null, [Validators.required,]],
         },{
           validators: [
             ManageSittingRecord.validateDateFormat
