@@ -4,7 +4,7 @@ import axios, { AxiosRequestConfig } from 'axios';
 
 const url: string = getConfigValue(SERVICES_USER_API_PATH);
 
-export async function getUsers(req, res) {
+export async function getUsers(req, res, next) {
     const { authorization, serviceauthorization } = req.headers;
     const { searchObject } = req.body;
     try {
@@ -23,12 +23,12 @@ export async function getUsers(req, res) {
     
         res.json(response.data);
     } catch (error) {
-        res.status(error.response.status).json({ error: 'An error occurred: '  + error.response.statusText});
+        next(error);
     }
 
 }
 
-export async function getUserInfo(req, res) {
+export async function getUserInfo(req, res, next) {
     const { authorization, serviceauthorization } = req.headers;
     const { userCode } = req.body;
     try {
@@ -47,7 +47,7 @@ export async function getUserInfo(req, res) {
         
         res.json(response.data);
     } catch (error) {
-        res.status(error.response.status).json({ error: `An error occurred: ${error.response.statusText}; error message: ${error.response.data.errorMessage}`});
+        next(error)
     }
 
 }
