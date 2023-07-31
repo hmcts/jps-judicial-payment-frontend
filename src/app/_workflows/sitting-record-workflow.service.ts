@@ -66,7 +66,7 @@ export class SittingRecordWorkflowService {
     const postObj = new ViewSittingRecordPost();
     const { dateSelected, venue, tribunalService } = this.formData.value;
     const hmctsServiceCode = tribunalService.hmctsServiceCode;
-    const dateToGet = this.dateSvc.formatDateFromForm(dateSelected);
+    const dateToGet = this.dateSvc.formatDateForPost(dateSelected);
     postObj.epimsId = venue.epimms_id;
     postObj.regionId = venue.region_id;
     postObj.dateRangeFrom = dateToGet;

@@ -27,4 +27,29 @@ export async function getLocations(req, res, next) {
     } catch (error) {
         next(error)
     }
+
+}
+
+export async function getRegions(req, res, next) {
+    const { Authorization, ServiceAuthorization } = req.headers;
+    
+    try {
+        const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': Authorization,
+            'ServiceAuthorization': ServiceAuthorization
+        };
+
+        const config: AxiosRequestConfig = {
+            url: `${url}/refdata/location/regions?regionId=ALL`,
+            method: 'GET',
+            headers: headers
+        };
+
+        const response = await axios(config);
+        res.json(response.data);
+    } catch (error) {
+        next(error)
+    }
+
 }

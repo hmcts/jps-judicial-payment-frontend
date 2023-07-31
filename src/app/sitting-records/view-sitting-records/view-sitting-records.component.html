@@ -24,7 +24,6 @@
 
     <div class="govuk-grid-row">
       <div [ngClass]="showFilters ? 'govuk-grid-column-three-quarters' : 'govuk-grid-column-full'">
-    
         <ng-container style="width: 100%;">
           <table 
             datatable 
@@ -38,7 +37,7 @@
                 <th class="govuk-table__header"> Name </th>
                 <th class="govuk-table__header"> Role </th>
                 <th class="govuk-table__header"> Period </th>
-                <th class="govuk-table__header"> Entered By </th>
+                <th class="govuk-table__header"> Entered by </th>
                 <th class="govuk-table__header"> Status </th>
                 <th class="govuk-table__header"> &nbsp; </th>
               </tr>
@@ -48,9 +47,10 @@
                 <td class="govuk-table__cell"> {{sittingRecord.personalName}} </td>
                 <td class="govuk-table__cell"> {{sittingRecord.judgeRoleTypeId}} </td>
                 <td class="govuk-table__cell"> {{sittingRecord.am | convertToStringPeriod: sittingRecord.pm}} </td>
-                <td class="govuk-table__cell"> {{sittingRecord.createdByUserId}} </td>
-                <td class="govuk-table__cell"> {{sittingRecord.statusId}} </td>
+                <td class="govuk-table__cell"> {{sittingRecord.createdByUserName}} </td>
+                <td class="govuk-table__cell"> {{sittingRecord.statusId | capitalizeFirstLetterForStatus}} </td>
                 <td class="govuk-table__cell deleteCell"> <a class="govuk-link" (click)="navigateDeleteSittingRecord(sittingRecord)">Delete</a> </td>
+
               </tr>
             </tbody>
           </table>

@@ -15,6 +15,8 @@ import { HttpClientModule } from '@angular/common/http';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { AddSittingRecordsConfirmComponent } from './add-sitting-record/add-sitting-records-confirm/add-sitting-records-confirm.component';
 import { SittingRecordsInfoBannerComponent } from './sitting-records-info-banner/sitting-records-info-banner.component';
+import { SittingRecordsLandingComponent } from './sitting-records-landing/sitting-records-landing.component';
+import { SittingRecordsLandingManageRecordsComponent } from './sitting-records-landing/sitting-records-landing-manage-records/sitting-records-landing-manage-records.component';
 
 import { DataTablesModule } from "angular-datatables";
 import { DeleteSuccessComponent } from './delete-sitting-records/delete-success/delete-success.component';
@@ -26,6 +28,8 @@ import { JPFooterComponent } from '../static-elements/jp-footer/jp-footer.compon
 import { JPHeaderComponent } from '../static-elements/jp-header/jp-header.component';
 import { CookieManagerComponent } from '../static-elements/cookies/cookie-manager/cookie-manager.component';
 import { LogoutComponent } from '../static-elements/logout/logout.component';
+import { CapitalizeFirstLetterPipe } from '../_pipes/convertTableStatus'
+
 @NgModule({
   imports: [
     CommonModule,
@@ -57,6 +61,10 @@ import { LogoutComponent } from '../static-elements/logout/logout.component';
     JPHeaderComponent,
     CookieManagerComponent,
     LogoutComponent,
+    NumberDirective,
+    SittingRecordsLandingComponent,
+    SittingRecordsLandingManageRecordsComponent,
+    CapitalizeFirstLetterPipe
   ]
 })
 export class SittingRecordsModule { }

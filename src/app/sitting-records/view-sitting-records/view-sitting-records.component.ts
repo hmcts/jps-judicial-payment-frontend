@@ -65,10 +65,17 @@ export class ViewSittingRecordsComponent implements OnInit{
   } 
 
   loadViewSittingRecords() {
-    this.srWorkFlow.getSittingRecordsData().subscribe(records => {
-      this.sittingRecordData = records.sittingRecords;
-      this.dtTrigger.next(null); 
-    });
+    this.srWorkFlow.getSittingRecordsData().subscribe(
+      records => {
+        this.sittingRecordData = records.sittingRecords;
+        this.dtTrigger.next(null); 
+      },
+      () => {
+        this.sittingRecordData = []
+        this.dtTrigger.next(null);
+      }
+    );
+    
   }
 
   navigateDeleteSittingRecord(sittingRecord){

@@ -17,7 +17,7 @@ describe('DateService', () => {
     it('should format the date correctly', () => {
       const date: dateObj = { dateDay: '01', dateMonth: '01', dateYear: '2023' };
       const formattedDate = service.formatDateFromForm(date);
-      expect(formattedDate).toEqual('2023-01-01');
+      expect(formattedDate).toEqual('01/01/2023');
     });
   });
 
