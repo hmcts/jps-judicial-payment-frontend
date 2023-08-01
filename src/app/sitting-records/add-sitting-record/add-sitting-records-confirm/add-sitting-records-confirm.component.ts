@@ -46,19 +46,13 @@ export class AddSittingRecordsConfirmComponent{
     this.srWorkFlow.formAndPostNewSittingRecord()
     .subscribe((response) => {
       const errorRecords = response['errorRecords']
-      if(errorRecords.length === 0){
+      if(response['message'] === 'success'){
         void this.router.navigate(['sittingRecords', 'addSuccess'])
       }else{
         this.drWorkFlow.setErrorRecords(errorRecords)
         void this.router.navigate(['sittingRecords', 'addDuplicates'])
       }
     })
-    this.srWorkFlow.formAndPostNewSittingRecord().subscribe(
-      () => {
-        void this.router.navigate(['sittingRecords', 'addSuccess'])
-
-      }
-    )
   }
 
   convertPeriod(period: string): string {

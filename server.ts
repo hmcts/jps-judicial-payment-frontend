@@ -16,23 +16,23 @@ import { Logger } from '@hmcts/nodejs-logging';
 const logger = Logger.getLogger()
 
 const errorHandler = ((err, req, res, next) => {
-  console.log(err)
   if (err) {
     const error = err.response
     res.status(error.status || 500);
     let errMsg = `${error.statusText}:`
+
+    if(error.data.errorRecords){
+      errMsg += `${JSON.stringify(error.data.errorRecords)}`
+    }
+
     if (error.data.errorDescription) {
       errMsg += ` ${error.data.errorDescription}`
     }
     if (error.data.errors) {
-      console.log(JSON.stringify(error.data.errors))
       errMsg += ` ${error.data.errors}`
     }
 
-    logger.log({
-      level: 'error',
-      message: errMsg
-    })
+    logger.error(errMsg)
     res.json({
       error: {
         message: errMsg || 'Internal Server Error',

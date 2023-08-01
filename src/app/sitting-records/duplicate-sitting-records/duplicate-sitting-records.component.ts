@@ -20,7 +20,6 @@ export class DuplicateSittingRecordsComponent implements OnInit {
 
   ngOnInit() {
     this.recordsWithErrors = this.drWorkFlow.getErrorRecords();
-    console.log(this.drWorkFlow.getErrorRecords())
   }
 
   updateReplaceDuplicate($event: boolean, index: number) {

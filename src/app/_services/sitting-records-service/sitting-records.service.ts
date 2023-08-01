@@ -20,15 +20,15 @@ export class SittingRecordsService{
             'Content-Type': 'application/json',
         };
 
-        return this.http.post('/sittingrecord/add', { sittingRecords: newSittingRecords }, { headers: headers});
+        return this.http.post('/sittingRecords/add', { sittingRecords: newSittingRecords }, { headers: headers});
     }
 
 
     createNewSRPostObj(joh: any, tribunalService: any, dateSelected: any, venue: any, period:any) {
         return {
             hmctsServiceCode: tribunalService.hmctsServiceCode,
-            sittingDate: this.dateSvc.createDateObjFromFormData(dateSelected),
-            epimsId: venue.epimms_id,
+            sittingDate: this.dateSvc.formatDateForPost(dateSelected),
+            epimmsId: venue.epimms_id,
             personalCode: joh.johName.personalCode,
             contractTypeId: this.changeContractNameToId(joh.johRole.appointment_type),
             judgeRoleTypeId: this.changeRoleToRoleId(joh.johRole.appointment),
@@ -66,6 +66,7 @@ export class SittingRecordsService{
         'District Judge': 12,
         'District Judge (MC)': 13,
         'Recorder': 14,
+        'Deputy Upper Tribunal Judge':15
     };
     contractTypeMap: Record<string, number> = {
         'Salaried': 1,
@@ -80,6 +81,7 @@ export class SittingRecordsService{
         'Part Time SPTW 70': 10,
         'Part Time SPTW 80': 11,
         'Part Time SPTW 90': 12,
+        'Fee Paid': 13
     };
 
     changeRoleToRoleId(roleName) {
@@ -87,7 +89,7 @@ export class SittingRecordsService{
     }
 
     changeContractNameToId(contractName) {
-        return this.contractTypeMap[contractName].toString()
+        return this.contractTypeMap[contractName]
     }
 
 }

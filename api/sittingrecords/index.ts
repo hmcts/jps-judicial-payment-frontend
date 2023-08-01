@@ -31,3 +31,37 @@ export async function getSittingRecords(req, res, next) {
     }
 
 }
+
+export async function addSittingRecords(req, res, next) {
+    const { Authorization, ServiceAuthorization } = req.headers;
+    const { sittingRecords } = req.body;
+    const hmctsServiceCode = sittingRecords.recordedSittingRecords[0].hmctsServiceCode;
+    try {
+        
+        const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': Authorization,
+            'ServiceAuthorization': ServiceAuthorization
+        };
+
+        console.log(Authorization)
+        console.log(ServiceAuthorization)
+
+        const config: AxiosRequestConfig = {
+            url: `${url}/recordSittingRecords/${hmctsServiceCode}`,
+            method: 'POST',
+            headers: headers,
+            data: sittingRecords,
+            validateStatus: function (status) {
+                return status < 404;
+            }
+        };
+
+        const response = await axios(config);
+        res.json(response.data);
+
+    } catch (error) {
+        next(error)
+    }
+
+}

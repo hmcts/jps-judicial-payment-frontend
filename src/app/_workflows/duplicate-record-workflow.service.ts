@@ -24,4 +24,13 @@ export class DuplicateRecordWorkflowService {
     this.recordErrors = recordsWithErrors;
   }
 
+  matchDuplicateRecords(personalCode, formData){
+    for(const joh in formData.value.JOH){
+      if(formData.value.JOH[joh]['johName'].personalCode === personalCode){
+        return { johName: formData.value.JOH[joh]['johName'].fullName, johRole: formData.value.JOH[joh]['johRole'].appointment, period: formData.value.period }
+      }
+    }
+    return {}
+  }
+
 }

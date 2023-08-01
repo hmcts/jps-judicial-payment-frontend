@@ -2,8 +2,8 @@
     <h1 class="govuk-heading-l">Records could not be saved</h1>
     <app-error-summary [errorMessage]="'Potential duplicate found'"></app-error-summary>
     <div *ngFor="let record of recordsWithErrors; let i = index;">
-        <app-potential-duplicate *ngIf="record.statusId === 'POTENTIALDUPLICATERECORD'" [recordData]="record.postedRecord" (valueChange)="updateReplaceDuplicate($event, i)"></app-potential-duplicate>
-        <app-invalid-duplicate *ngIf="record.statusId === 'INVALIDDUPLICATERECORD'" [recordData]="record.postedRecord"></app-invalid-duplicate>
+        <app-potential-duplicate *ngIf="record.errorCode === 'POTENTIAL_DUPLICATE_RECORD'" [recordData]="record" (valueChange)="updateReplaceDuplicate($event, i)"></app-potential-duplicate>
+        <app-invalid-duplicate *ngIf="record.errorCode === 'INVALID_DUPLICATE_RECORD'" [recordData]="record"></app-invalid-duplicate>
     </div>
     <div class="govuk-button-group">
         <button class="govuk-button govuk-button--secondary" data-module="govuk-button" (click)="navigateToPreviousPage()">

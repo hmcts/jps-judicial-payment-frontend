@@ -17,13 +17,13 @@
     <tbody class="govuk-table__body">
         <tr class="govuk-table__row">
             <td class="userDefinedStyling"></td>
-            <td class="govuk-table__cell errorCellStyling textIndent"> {{recordData}} 1</td>
-            <td class="govuk-table__cell errorCellStyling"> {{recordData}} 1</td>
-            <td class="govuk-table__cell errorCellStyling"> {{recordData}} 1</td>
-            <td class="govuk-table__cell errorCellStyling"> {{recordData}} 1</td>
-            <td class="govuk-table__cell errorCellStyling"> {{recordData}} 1</td>
-            <td class="govuk-table__cell errorCellStyling"> {{recordData}} 1</td>
-            <td class="govuk-table__cell errorCellStyling"> {{recordData}} 1</td>
+            <td class="govuk-table__cell errorCellStyling textIndent"> {{duplicateFormObject.johName}}</td>
+            <td class="govuk-table__cell errorCellStyling"> {{duplicateFormObject.johRole}}</td>
+            <td class="govuk-table__cell errorCellStyling"> {{duplicateFormObject.period}}</td>
+            <td class="govuk-table__cell errorCellStyling"> {{currentUser}}</td>
+            <td class="govuk-table__cell errorCellStyling"> {{selectedDate}}</td>
+            <td class="govuk-table__cell errorCellStyling"> {{selectedVenue}}</td>
+            <td class="govuk-table__cell errorCellStyling"></td>
             <td class="govuk-table__cell errorCellStyling"> 
             </td>
         </tr>
@@ -32,13 +32,13 @@
 
         <tr class="govuk-table__row">
             <td ></td>
-            <td class="govuk-table__cell textIndent"> {{recordData}} 1</td>
-            <td class="govuk-table__cell"> {{recordData}} 1</td>
-            <td class="govuk-table__cell"> {{recordData}} 1</td>
-            <td class="govuk-table__cell"> {{recordData}} 1</td>
-            <td class="govuk-table__cell"> {{recordData}} 1</td>
-            <td class="govuk-table__cell"> {{recordData}} 1</td>
-            <td class="govuk-table__cell"> {{recordData}} 1</td>
+            <td class="govuk-table__cell textIndent"> {{duplicateFormObject.johName}}</td>
+            <td class="govuk-table__cell"> </td>
+            <td class="govuk-table__cell"> </td>
+            <td class="govuk-table__cell"> {{recordData.createdByName}}</td>
+            <td class="govuk-table__cell"> {{selectedDate}}</td>
+            <td class="govuk-table__cell"> {{selectedVenue}}</td>
+            <td class="govuk-table__cell"> {{recordData.statusId}}</td>
             <td class="govuk-table__cell"> 
             </td>
         </tr>
