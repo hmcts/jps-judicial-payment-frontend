@@ -35,7 +35,7 @@ describe('ViewSittingRecordService', () => {
       offset: 0,
       dateOrder: 'ASCENDING',
       regionId: '',
-      epimsId: '',
+      epimmsId: '',
       createdByUserId: '',
       personalCode: '',
       judgeRoleTypeId: '',

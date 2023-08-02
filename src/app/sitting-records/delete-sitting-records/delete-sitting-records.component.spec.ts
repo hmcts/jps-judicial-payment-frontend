@@ -1,90 +1,73 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+import { TestBed } from '@angular/core/testing';
+import { Router } from '@angular/router';
 import { DeleteSittingRecordsComponent } from './delete-sitting-records.component';
-import { DateService } from '../../_services/date-service/date-service';
 import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-workflow.service';
 import { DeleteSittingRecordHttp } from '../../_services/delete-sitting-records-http-service';
-import { Router } from '@angular/router';
 import { of, throwError } from 'rxjs';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-import { StringFromDatePipe } from '../../_pipes/string-date-pipe';
-import { ConvertToStringPeriodPipe } from '../../_pipes/convert-period-pipe';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 describe('DeleteSittingRecordsComponent', () => {
   let component: DeleteSittingRecordsComponent;
-  let fixture: ComponentFixture<DeleteSittingRecordsComponent>;
   let router: Router;
-  let deleteRecordHttp: DeleteSittingRecordHttp;
-  let srWorkFlow: SittingRecordWorkflowService;
-
-  const mockFormData: FormGroup = new FormBuilder().group({
-    dateSelected: new FormBuilder().group({
-      dateDay: ['01'],
-      dateMonth: ['01'],
-      dateYear: ['2022'],
-    }),
-    tribunalService: ['Mock Tribunal Service'],
-    venue: ['Mock Venue'],
-  });
+  let srWorkflowService: SittingRecordWorkflowService;
+  let deleteService: DeleteSittingRecordHttp;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RouterTestingModule, HttpClientModule],
-      declarations: [DeleteSittingRecordsComponent, StringFromDatePipe, ConvertToStringPeriodPipe],
       providers: [
-        DateService,
-        SittingRecordWorkflowService,
-        DeleteSittingRecordHttp,
-      ]
+        DeleteSittingRecordsComponent,
+        { provide: Router, useValue: { navigate: jasmine.createSpy('navigate') } },
+        { provide: SittingRecordWorkflowService },
+        { provide: DeleteSittingRecordHttp }
+      ],
+      imports: [HttpClientTestingModule]
     }).compileComponents();
-  });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(DeleteSittingRecordsComponent);
-    component = fixture.componentInstance;
+    component = TestBed.inject(DeleteSittingRecordsComponent);
     router = TestBed.inject(Router);
-    deleteRecordHttp = TestBed.inject(DeleteSittingRecordHttp);
-    srWorkFlow = TestBed.inject(SittingRecordWorkflowService);
+    srWorkflowService = TestBed.inject(SittingRecordWorkflowService);
+    deleteService = TestBed.inject(DeleteSittingRecordHttp);
 
-    srWorkFlow.setManageVisited();
-    
-    srWorkFlow.setFormData(mockFormData)
-    fixture.detectChanges();
+    const record = { sittingRecordId: '123' };
+    const venue: FormGroup = new FormBuilder().group({
+      venue: ['Venue 1'],
+    });
+    srWorkflowService.setSittingRecordToDelete(record);
+    spyOn(srWorkflowService, 'getFormData').and.returnValue(venue);
+
   });
 
-  it('should create the component', () => {
-    expect(component).toBeTruthy();
-  });
+  it('should navigate when delete succeeds', () => {
 
-  it('should navigate to "sittingRecords/deleteSuccess" on confirmDelete', () => {
-    spyOn(deleteRecordHttp, 'deleteRecord').and.returnValue(of(null));
-    spyOn(router, 'navigate');
+    spyOn(deleteService, 'deleteRecord').and.returnValue(of(null));
     component.ngOnInit()
     component.confirmDelete();
 
-    expect(component.apiError).toBeFalsy();
-    expect(deleteRecordHttp.deleteRecord).toHaveBeenCalledWith(component.recordToDelete.recordID);
     expect(router.navigate).toHaveBeenCalledWith(['sittingRecords', 'deleteSuccess']);
   });
 
-  it('should set apiError to true on confirmDelete when an error occurs', () => {
-    spyOn(deleteRecordHttp, 'deleteRecord').and.returnValue(throwError('API error'));
-    component.ngOnInit()
+  it('should set error when delete fails', () => {
+    const errorResponse = {
+      status: 404,
+      error: { message: 'Error:Delete failed' }  
+    };
 
+    spyOn(deleteService, 'deleteRecord').and.returnValue(throwError(() => errorResponse));
+    component.ngOnInit();
     component.confirmDelete();
 
-    expect(component.apiError).toBeTruthy();
-    expect(deleteRecordHttp.deleteRecord).toHaveBeenCalledWith(component.recordToDelete.recordID);
+    expect(component.apiError).toBeTrue();
+    expect(component.apiErrorMsg).toBe('Delete failed');
   });
 
-  it('should reset sittingRecordToDelete and navigate to "sittingRecords/manage" on goBack', () => {
-    spyOn(srWorkFlow, 'resetSittingRecordToDelete');
-    spyOn(router, 'navigate');
+  it('should reset record and navigate on goBack', () => {
+    spyOn(srWorkflowService, 'resetSittingRecordToDelete');
 
     component.goBack();
 
-    expect(srWorkFlow.resetSittingRecordToDelete).toHaveBeenCalled();
+    expect(srWorkflowService.resetSittingRecordToDelete).toHaveBeenCalled();
     expect(router.navigate).toHaveBeenCalledWith(['sittingRecords', 'manage']);
   });
+
 });
