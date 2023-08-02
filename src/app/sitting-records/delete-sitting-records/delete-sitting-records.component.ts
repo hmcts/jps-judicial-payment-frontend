@@ -15,6 +15,7 @@ export class DeleteSittingRecordsComponent implements OnInit{
   recordToDelete: any;
   apiError = false;
   selectedVenue: string | undefined;
+  apiErrorMsg;
 
   constructor(
     private srWorkFlow: SittingRecordWorkflowService,
@@ -36,8 +37,8 @@ export class DeleteSittingRecordsComponent implements OnInit{
           void this.router.navigate(['sittingRecords', 'deleteSuccess'])
         },
         error: (error) => {
+          this.apiErrorMsg = error.error.message.split(':')[1];
           this.apiError = true;
-          console.error('An error occurred:', error);
         }
       });
   }

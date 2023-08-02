@@ -73,16 +73,16 @@ export async function deleteSittingRecord(req, res, next){
         };
 
         const config: AxiosRequestConfig = {
-            url: `${url}/sitting-records/sittingRecord/${id}`,
+            url: `${url}/sittingRecord/${id}`,
             method: 'DELETE',
             headers: headers,
         };
 
         const response = await axios(config);
-
+        
         res.json(response.data);
 
     } catch (error) {
-        next()
+        next(error)
     }
 }

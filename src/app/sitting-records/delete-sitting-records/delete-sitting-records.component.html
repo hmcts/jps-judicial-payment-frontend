@@ -12,7 +12,7 @@
           <div class="govuk-error-summary__body">
             <ul class="govuk-list govuk-error-summary__list">
               <li>
-                <p class="textErrorColor govuk-!-static-margin-0">Selected sitting record was not recorded by the recorder. Record cannot be deleted.</p>
+                <p class="textErrorColor govuk-!-static-margin-0">{{apiErrorMsg}}</p>
               </li>
             </ul>
           </div>
@@ -37,7 +37,7 @@
                         <td class="govuk-table__cell">{{recordToDelete.personalName}}</td>
                         <td class="govuk-table__cell">{{recordToDelete.judgeRoleTypeId}}</td>
                         <td class="govuk-table__cell">{{recordToDelete.am | convertToStringPeriod: recordToDelete.pm}}</td>
-                        <td class="govuk-table__cell">{{recordToDelete.createdByUserId}}</td>
+                        <td class="govuk-table__cell">{{recordToDelete.createdByUserName}}</td>
                         <td class="govuk-table__cell">{{recordToDelete.sittingDate | stringFromDate}}</td>
                         <td class="govuk-table__cell">{{selectedVenue}}</td>
                     </tr>
