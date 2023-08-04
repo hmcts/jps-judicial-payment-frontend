@@ -49,6 +49,10 @@ export class SittingRecordWorkflowService {
     this.formData.reset();
   }
 
+  getHmctsServiceCode(){
+    return this.formData.value['tribunalService'].hmctsServiceCode
+  }
+
   setAddSittingRecords(data: FormGroup){
     this.addSittingRecords = data;
   }
@@ -96,7 +100,7 @@ export class SittingRecordWorkflowService {
       recordedSittingRecords: JOH.value.map(joh => this.sittingRecordsSvc.createNewSRPostObj(joh, tribunalService, dateSelected, venue, period))
     };
     
-    return this.sittingRecordsSvc.postNewSittingRecord(postBody);
+    return this.sittingRecordsSvc.postNewSittingRecord(postBody, tribunalService.hmctsServiceCode);
   }
 
   

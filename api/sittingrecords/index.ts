@@ -34,8 +34,7 @@ export async function getSittingRecords(req, res, next) {
 
 export async function addSittingRecords(req, res, next) {
     const { Authorization, ServiceAuthorization } = req.headers;
-    const { sittingRecords } = req.body;
-    const hmctsServiceCode = sittingRecords.recordedSittingRecords[0].hmctsServiceCode;
+    const { sittingRecords, serviceCode } = req.body;
     try {
         
         const headers = {
@@ -44,11 +43,8 @@ export async function addSittingRecords(req, res, next) {
             'ServiceAuthorization': ServiceAuthorization
         };
 
-        console.log(Authorization)
-        console.log(ServiceAuthorization)
-
         const config: AxiosRequestConfig = {
-            url: `${url}/recordSittingRecords/${hmctsServiceCode}`,
+            url: `${url}/recordSittingRecords/${serviceCode}`,
             method: 'POST',
             headers: headers,
             data: sittingRecords,

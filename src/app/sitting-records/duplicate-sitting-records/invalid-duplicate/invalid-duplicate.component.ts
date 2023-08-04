@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { SittingRecordWorkflowService } from '../../../_workflows/sitting-record-workflow.service';
 import { DateService } from '../../../_services/date-service/date-service';
 import { UserInfoService } from 'src/app/_services/user-info-service/user-info-service';
@@ -31,7 +31,7 @@ export class InvalidDuplicateComponent implements OnInit {
   }
 
   ngOnInit(){
-    this.duplicateFormObject = this.dupeRecordWorkflow.matchDuplicateRecords(this.recordData.postedRecord.personalCode, this.srWorkFlow.getAddSittingRecords())
+    this.duplicateFormObject = this.dupeRecordWorkflow.matchDuplicateRecord(this.recordData.postedRecord.personalCode, this.srWorkFlow.getAddSittingRecords())
   }
 
 }

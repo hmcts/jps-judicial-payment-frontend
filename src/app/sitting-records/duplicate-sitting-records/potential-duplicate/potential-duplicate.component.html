@@ -28,12 +28,12 @@
             <td class="govuk-table__cell errorCellStyling"> 
                 <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
                     <div class="govuk-radios__item govuk-!-margin-0">
-                        <input class="govuk-radios__input" id="changed-name" 
-                            name="record-selected" 
+                        <input class="govuk-radios__input" id="changed-name-{{duplicateFormObject.johName}}" 
+                            name="record-selected-{{duplicateFormObject.johName}}" 
                             type="radio" value="true"
                             (change)="updateSelection(true)"
                         >
-                        <label class="govuk-label govuk-radios__label govuk-!-padding-0" for="changed-name">
+                        <label class="govuk-label govuk-radios__label govuk-!-padding-0" for="changed-name-{{duplicateFormObject.johName}}">
                             &nbsp;
                         </label>
                     </div>
@@ -46,8 +46,8 @@
         <tr class="govuk-table__row">
             <td ></td>
             <td class="govuk-table__cell textIndent"> {{duplicateFormObject.johName}}</td>
-            <td class="govuk-table__cell">  </td>
-            <td class="govuk-table__cell">  </td>
+            <td class="govuk-table__cell"> {{recordData.judgeRoleTypeName}}</td>
+            <td class="govuk-table__cell"> {{recordData.AM }}</td>
             <td class="govuk-table__cell"> {{recordData.createdByName}}</td>
             <td class="govuk-table__cell"> {{selectedDate}}</td>
             <td class="govuk-table__cell"> {{selectedVenue}}</td>
@@ -55,12 +55,12 @@
             <td class="govuk-table__cell"> 
                 <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
                     <div class="govuk-radios__item govuk-!-margin-0">
-                        <input class="govuk-radios__input" id="changed-name" 
-                        name="record-selected" 
+                        <input class="govuk-radios__input" id="changed-name-{{duplicateFormObject.johName}}" 
+                        name="record-selected-{{duplicateFormObject.johName}}" 
                         type="radio" value="false"
                         (change)="updateSelection(false)"
                         >
-                        <label class="govuk-label govuk-radios__label govuk-!-padding-0" for="changed-type">
+                        <label class="govuk-label govuk-radios__label govuk-!-padding-0" for="changed-type-{{duplicateFormObject.johName}}">
                             &nbsp;
                         </label>
                     </div>

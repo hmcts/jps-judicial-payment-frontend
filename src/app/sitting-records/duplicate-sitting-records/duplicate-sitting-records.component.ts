@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-workflow.service';
 import { DuplicateRecordWorkflowService } from '../../_workflows/duplicate-record-workflow.service'
 @Component({
   selector: 'app-duplicate-sitting-records',
@@ -11,19 +10,25 @@ export class DuplicateSittingRecordsComponent implements OnInit {
 
 
   recordsWithErrors;
+  optionsSelected: any[] = []
+  validRecords: any[] = [];
 
   constructor(
-    private srWorkFlow: SittingRecordWorkflowService,
     public drWorkFlow: DuplicateRecordWorkflowService,
     private router: Router
   ) { }
 
   ngOnInit() {
-    this.recordsWithErrors = this.drWorkFlow.getErrorRecords();
+    const {validRecords, optionsSelected, errorRecords} = this.drWorkFlow.getDuplicateRecordErrors();
+    this.optionsSelected = optionsSelected;
+    this.validRecords = validRecords
+    this.recordsWithErrors = errorRecords
+
   }
 
   updateReplaceDuplicate($event: boolean, index: number) {
-    console.log($event, index)
+    this.optionsSelected[index] = $event;
+    
   }
 
   navigateToPreviousPage() {
@@ -35,7 +40,21 @@ export class DuplicateSittingRecordsComponent implements OnInit {
   }
 
   resubmitSittingRecords() {
-    void this.router.navigate(['../addSuccess'])
+    this.drWorkFlow.postResolvedDuplicates(this.recordsWithErrors, this.optionsSelected)
+    .subscribe((response) => {
+      const errorRecords = response['errorRecords']
+      if(response['message'] === 'success' || response === 'No_Records'){
+        void this.router.navigate(['sittingRecords', 'addSuccess'])
+      }else{
+        this.drWorkFlow.setErrorRecords(errorRecords)
+        void this.router.navigate(['sittingRecords', 'addDuplicates'])
+      }
+    })
+
   }
+
+  get allOptionsSelected() {
+    return this.optionsSelected.every(val => val !== null);
+}
 
 }

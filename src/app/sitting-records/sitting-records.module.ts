@@ -25,6 +25,7 @@ import { DataTablesModule } from "angular-datatables";
 
 import { CapitalizeFirstLetterPipe } from '../_pipes/convertTableStatus'
 import { SittingRecordsInfoBannerComponent } from '../sitting-records-info-banner/sitting-records-info-banner.component';
+import { ValidSittingRecordsComponent } from './duplicate-sitting-records/valid-sitting-records/valid-sitting-records.component';
 
 @NgModule({
   imports: [
@@ -55,6 +56,7 @@ import { SittingRecordsInfoBannerComponent } from '../sitting-records-info-banne
     SittingRecordsLandingManageRecordsComponent,
     CapitalizeFirstLetterPipe,
     SittingRecordsInfoBannerComponent,
+    ValidSittingRecordsComponent,
   ]
 })
 export class SittingRecordsModule { }

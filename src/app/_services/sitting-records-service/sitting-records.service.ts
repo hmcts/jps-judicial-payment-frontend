@@ -15,18 +15,17 @@ export class SittingRecordsService{
         private readonly cookies: CookieService
     ){}
 
-    postNewSittingRecord(newSittingRecords: SittingRecordsPostBody) {
+    postNewSittingRecord(newSittingRecords: SittingRecordsPostBody, hmctsServiceCode: string) {
         const headers = {
             'Content-Type': 'application/json',
         };
 
-        return this.http.post('/sittingRecords/add', { sittingRecords: newSittingRecords }, { headers: headers});
+        return this.http.post('/sittingRecords/add', { sittingRecords: newSittingRecords, serviceCode: hmctsServiceCode }, { headers: headers});
     }
 
 
     createNewSRPostObj(joh: any, tribunalService: any, dateSelected: any, venue: any, period:any) {
         return {
-            hmctsServiceCode: tribunalService.hmctsServiceCode,
             sittingDate: this.dateSvc.formatDateForPost(dateSelected),
             epimmsId: venue.epimms_id,
             personalCode: joh.johName.personalCode,
