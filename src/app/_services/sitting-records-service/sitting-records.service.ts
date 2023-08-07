@@ -20,7 +20,7 @@ export class SittingRecordsService{
             'Content-Type': 'application/json',
         };
 
-        return this.http.post('/sittingRecords/add', { sittingRecords: newSittingRecords, serviceCode: hmctsServiceCode }, { headers: headers});
+        return this.http.post('/sittingrecords/add', { sittingRecords: newSittingRecords, serviceCode: hmctsServiceCode }, { headers: headers});
     }
 
 

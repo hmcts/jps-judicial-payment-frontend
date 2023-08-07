@@ -60,8 +60,8 @@ export function app(): express.Express {
   server.use(getXuiNodeMiddleware());
   server.use('/refdata', IdamAuthSvc.assignTokensMiddleware.bind(IdamAuthSvc))
   server.use('/refdata', refDataRouter, errorHandler)
-  server.use('/sittingRecords', sittingRecordsRouter, errorHandler)
-  // Our Universal express-engine (found @ https://github.com/angular/universal/tree/main/modules/express-engine)
+  server.use('/sittingrecord', sittingRecordsRouter, errorHandler)
+
   server.engine('html', ngExpressEngine({
     bootstrap: AppServerModule,
   }));

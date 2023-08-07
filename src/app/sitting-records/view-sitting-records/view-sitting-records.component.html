@@ -1,8 +1,9 @@
 <main class="govuk-main-wrapper " id="main-content" role="main">
     <h1 class="govuk-heading-l">Judicial Sitting Records</h1>
 
-    <p class="govuk-body govuk-!-margin-bottom-4">
-      Sitting records for {{tribService}}, {{venueSiteName}}, for {{date}}
+    <p class="govuk-body govuk-!-margin-bottom-0">
+      <app-sitting-records-info-banner></app-sitting-records-info-banner>
+      <a class="govuk-link" (click)="goBack()">Change</a>
     </p>
 
     <div class="govuk-button-group">
@@ -56,4 +57,5 @@
         </ng-container>
       </div>
     </div>
+
 </main>

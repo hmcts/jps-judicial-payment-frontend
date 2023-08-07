@@ -14,20 +14,18 @@ export async function getSittingRecords(req, res, next) {
             'Authorization': Authorization,
             'ServiceAuthorization': ServiceAuthorization
         };
-
         const config: AxiosRequestConfig = {
             url: `${url}/sitting-records/searchSittingRecords/${hmctsServiceCode}`,
             method: 'POST',
             headers: headers,
             data: body
         };
-
         const response = await axios(config);
     
         res.json(response.data);
 
     } catch (error) {
-        next()
+        next(error)
     }
 
 }

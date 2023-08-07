@@ -35,6 +35,12 @@ export class DateService {
     return new Date(dateString)
   }
 
+  createDateObjFromFormData(dateObj){
+    const {dateDay, dateMonth, dateYear} = dateObj;
+    const dateString = `${dateMonth}/${dateDay}/${dateYear}`
+    return new Date(dateString)
+  }
+
   convertPeriod(period: string): string {
     switch(period){
       case 'AM':

@@ -94,6 +94,7 @@ export class ManageSittingRecordsComponent implements OnInit {
     const userRole = this.cookies.get('__userrole__');
     if (userRole.indexOf('jps-recorder') != -1)
       this.showPreviousButton = false;
+      
   }
 
   public showVenue(value) {
