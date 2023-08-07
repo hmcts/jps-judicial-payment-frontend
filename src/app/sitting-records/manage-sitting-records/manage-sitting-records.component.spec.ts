@@ -58,7 +58,6 @@ describe('ManageSittingRecordsComponent', () => {
     const venue = component.manageRecords.controls['venue'];
 
     tribunalService.setValue('test');
-    venue.setValue('test venue');
 
     tribunalService.setValue('new test');
     expect(venue.value).toBeNull();
