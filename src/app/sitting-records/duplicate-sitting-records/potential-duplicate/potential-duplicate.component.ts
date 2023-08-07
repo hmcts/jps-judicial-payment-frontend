@@ -16,7 +16,7 @@ export class PotentialDuplicateComponent implements OnInit{
   selectedVenue;
   selectedDate;
   currentUser; 
-  duplicateFormObject;
+  duplicatePotentialFormObject;
 
   selectedValue: any;
 
@@ -39,6 +39,6 @@ export class PotentialDuplicateComponent implements OnInit{
   }
 
   ngOnInit(){
-    this.duplicateFormObject = this.dupeRecordWorkflow.matchDuplicateRecord(this.recordData.postedRecord.personalCode, this.srWorkFlow.getAddSittingRecords())
+    this.duplicatePotentialFormObject = this.dupeRecordWorkflow.matchDuplicateRecord(this.recordData.postedRecord.personalCode, this.srWorkFlow.getAddSittingRecords())
   }
 }

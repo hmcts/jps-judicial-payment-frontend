@@ -15,7 +15,7 @@ export class InvalidDuplicateComponent implements OnInit {
   selectedVenue;
   selectedDate;
   currentUser; 
-  duplicateFormObject;
+  duplicateInvalidFormObject;
 
   constructor(
     private srWorkFlow: SittingRecordWorkflowService,
@@ -31,7 +31,7 @@ export class InvalidDuplicateComponent implements OnInit {
   }
 
   ngOnInit(){
-    this.duplicateFormObject = this.dupeRecordWorkflow.matchDuplicateRecord(this.recordData.postedRecord.personalCode, this.srWorkFlow.getAddSittingRecords())
+    this.duplicateInvalidFormObject = this.dupeRecordWorkflow.matchDuplicateRecord(this.recordData.postedRecord.personalCode, this.srWorkFlow.getAddSittingRecords())
   }
 
 }
