@@ -2,10 +2,10 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 import { SittingRecordsLandingComponent } from './sitting-records-landing.component';
 import { SittingRecordsLandingManageRecordsComponent } from './sitting-records-landing-manage-records/sitting-records-landing-manage-records.component';
 import { CookieService } from 'ngx-cookie-service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('SittingRecordsLandingComponent', () => {
   let component: SittingRecordsLandingComponent;
@@ -15,7 +15,7 @@ describe('SittingRecordsLandingComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ RouterTestingModule, HttpClientModule, ReactiveFormsModule],
+      imports: [ RouterTestingModule, HttpClientTestingModule, ReactiveFormsModule],
       declarations: [ SittingRecordsLandingComponent,  SittingRecordsLandingManageRecordsComponent ],
       providers: [
         { provide: CookieService }

@@ -4,12 +4,12 @@ import { ViewSittingRecordsComponent } from './view-sitting-records.component';
 import { DateService } from '../../_services/date-service/date-service';
 import { Router } from '@angular/router';
 import { DataTablesModule } from 'angular-datatables';
-import { HttpClientModule } from '@angular/common/http';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ViewSittingRecordResponse } from 'src/app/_models/viewSittingRecords.model';
 import { of } from 'rxjs';
 import { SittingRecordsInfoBannerComponent } from '../../sitting-records-info-banner/sitting-records-info-banner.component'
 import { SittingRecordWorkflowService } from 'src/app/_workflows/sitting-record-workflow.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('ViewSittingRecordsComponent', () => {
   let component: ViewSittingRecordsComponent;
@@ -22,7 +22,7 @@ describe('ViewSittingRecordsComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ ViewSittingRecordsComponent, SittingRecordsInfoBannerComponent ],
       providers: [ SittingRecordWorkflowService, DateService ],
-      imports: [RouterTestingModule, DataTablesModule, HttpClientModule]
+      imports: [RouterTestingModule, DataTablesModule, HttpClientTestingModule]
     }).compileComponents();
   });
 

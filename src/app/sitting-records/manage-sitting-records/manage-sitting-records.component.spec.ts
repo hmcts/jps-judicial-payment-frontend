@@ -6,10 +6,10 @@ import { ManageSittingRecordsComponent } from './manage-sitting-records.componen
 import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-workflow.service';
 import { LocationService } from '../../_services/location-service/location.service';
 import { VenueModel } from '../../_models/venue.model';
-import { HttpClientModule } from '@angular/common/http'; 
 import { MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { of } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('ManageSittingRecordsComponent', () => {
   let component: ManageSittingRecordsComponent;
@@ -21,7 +21,7 @@ describe('ManageSittingRecordsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule, RouterTestingModule, HttpClientModule, MatAutocompleteModule],
+      imports: [ReactiveFormsModule, RouterTestingModule, HttpClientTestingModule, MatAutocompleteModule],
       declarations: [ManageSittingRecordsComponent],
       providers: [SittingRecordWorkflowService, LocationService],
     }).compileComponents();

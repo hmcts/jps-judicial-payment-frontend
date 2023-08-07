@@ -6,9 +6,9 @@ import { JPFooterComponent } from './jp-footer/jp-footer.component';
 import { JPHeaderComponent } from './jp-header/jp-header.component';
 import { CookieManagerComponent } from './cookies/cookie-manager/cookie-manager.component';
 import { LogoutComponent } from './logout/logout.component';
-import { HttpClientModule } from '@angular/common/http';
 import { NgHttpLoaderModule } from 'ng-http-loader';
 import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('AppComponent', () => {
   let component: AppComponent;
@@ -18,7 +18,7 @@ describe('AppComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RouterTestingModule, HttpClientModule, NgHttpLoaderModule],
+      imports: [RouterTestingModule, HttpClientTestingModule, NgHttpLoaderModule],
       declarations: [AppComponent, JPFooterComponent, JPHeaderComponent, CookieManagerComponent, LogoutComponent],
       providers: [CookieService, UserInfoService]
     }).compileComponents();

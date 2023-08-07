@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-workflow.service';
 import { SittingRecordsViewGuard } from './sitting-records-view.guard';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('SittingRecordsViewGuard', () => {
   let guard: SittingRecordsViewGuard;
@@ -11,7 +11,7 @@ describe('SittingRecordsViewGuard', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientModule]
+      imports: [HttpClientTestingModule]
     });
     guard = TestBed.inject(SittingRecordsViewGuard);
     mockRouter = TestBed.inject(Router);
