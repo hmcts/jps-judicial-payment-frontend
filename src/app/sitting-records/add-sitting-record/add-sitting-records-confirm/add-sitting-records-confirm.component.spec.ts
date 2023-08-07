@@ -7,6 +7,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { DateService } from '../../../_services/date-service/date-service';
 import { of } from 'rxjs';
+import { DuplicateRecordWorkflowService } from 'src/app/_workflows/duplicate-record-workflow.service';
 
 describe('AddSittingRecordsConfirmComponent', () => {
   let component: AddSittingRecordsConfirmComponent;
@@ -15,12 +16,13 @@ describe('AddSittingRecordsConfirmComponent', () => {
   let router: Router;
   let httpMock: HttpTestingController;
   let dateSvc: DateService;
+  let drWorkFlow: DuplicateRecordWorkflowService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [RouterTestingModule, HttpClientTestingModule],
       declarations: [AddSittingRecordsConfirmComponent],
-      providers: [SittingRecordWorkflowService]
+      providers: [SittingRecordWorkflowService, DuplicateRecordWorkflowService]
     }).compileComponents();
 
   });
@@ -29,6 +31,7 @@ describe('AddSittingRecordsConfirmComponent', () => {
     fixture = TestBed.createComponent(AddSittingRecordsConfirmComponent);
     component = fixture.componentInstance;
     srWorkFlow = TestBed.inject(SittingRecordWorkflowService);
+    drWorkFlow = TestBed.inject(DuplicateRecordWorkflowService)
     router = TestBed.inject(Router);
     httpMock= TestBed.inject(HttpTestingController);
     dateSvc = TestBed.inject(DateService);
@@ -67,13 +70,24 @@ describe('AddSittingRecordsConfirmComponent', () => {
   });
 
   it('should call formAndPostNewSittingRecord and navigate to "sittingRecords/addSuccess" when submitNewRecords is called', () => {
-    spyOn(srWorkFlow, 'formAndPostNewSittingRecord').and.returnValue(of({}));
+    spyOn(srWorkFlow, 'formAndPostNewSittingRecord').and.returnValue(of({message: 'success'}));
     spyOn(router, 'navigate');
 
     component.submitNewRecords();
 
     expect(srWorkFlow.formAndPostNewSittingRecord).toHaveBeenCalled();
     expect(router.navigate).toHaveBeenCalledWith(['sittingRecords', 'addSuccess']);
+  });
+
+  it('should call formAndPostNewSittingRecord and navigate to "sittingRecords/addDuplicates" when submitNewRecords is called', () => {
+    spyOn(srWorkFlow, 'formAndPostNewSittingRecord').and.returnValue(of({message: 'error', duplicateRecords: [{id: 1}]}));
+    spyOn(router, 'navigate');
+    spyOn(drWorkFlow, 'setErrorRecords')
+
+    component.submitNewRecords();
+
+    expect(drWorkFlow.setErrorRecords).toHaveBeenCalled();
+    expect(router.navigate).toHaveBeenCalledWith(['sittingRecords', 'addDuplicates']);
   });
 
   it('should convert the period correctly', () => {

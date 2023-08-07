@@ -20,7 +20,7 @@ describe('ViewSittingRecordsComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ ViewSittingRecordsComponent ],
+      declarations: [ ViewSittingRecordsComponent, SittingRecordsInfoBannerComponent ],
       providers: [ SittingRecordWorkflowService, DateService ],
       imports: [RouterTestingModule, DataTablesModule, HttpClientModule]
     }).compileComponents();
@@ -70,6 +70,7 @@ describe('ViewSittingRecordsComponent', () => {
   });
 
   it('should navigate to the add sitting records page on addNewRecord', () => {
+    spyOn(mockRouter, 'navigate');
     component.addNewRecord();
     expect(mockRouter.navigate).toHaveBeenCalledWith(['sittingRecords','add']);
   });

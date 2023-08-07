@@ -55,6 +55,6 @@ export class DuplicateSittingRecordsComponent implements OnInit {
 
   get allOptionsSelected() {
     return this.optionsSelected.every(val => val !== null);
-}
+  }
 
 }
