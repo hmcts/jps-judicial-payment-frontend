@@ -43,7 +43,7 @@ export class DuplicateSittingRecordsComponent implements OnInit {
     this.drWorkFlow.postResolvedDuplicates(this.recordsWithErrors, this.optionsSelected)
     .subscribe((response) => {
       const errorRecords = response['errorRecords']
-      if(response['message'] === 'success' || response === 'No_Records'){
+      if(!response['message'] || response === 'No_Records'){
         void this.router.navigate(['sittingRecords', 'addSuccess'])
       }else{
         this.drWorkFlow.setErrorRecords(errorRecords)
