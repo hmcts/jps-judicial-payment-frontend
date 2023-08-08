@@ -44,6 +44,6 @@ describe('ApplicationRoutingComponent', () => {
 
     component.ngOnInit();
 
-    expect(navigateSpy).not.toHaveBeenCalled();
+    expect(navigateSpy).toHaveBeenCalledWith(['sittingRecords', 'home']);
   });
 });

@@ -7,7 +7,10 @@ import { ViewSittingRecordsComponent } from './view-sitting-records/view-sitting
 import { AddSittingRecordComponent } from './add-sitting-record/add-sitting-record.component'
 import { AddSittingRecordSuccessComponent } from './add-sitting-record/add-sitting-record-success/add-sitting-record-success.component';
 import { AddSittingRecordsConfirmComponent } from './add-sitting-record/add-sitting-records-confirm/add-sitting-records-confirm.component'
-import { SittingRecordsGuard } from '../_guards/sitting-records/sitting-records.guard';
+import { SittingRecordsLandingComponent } from './sitting-records-landing/sitting-records-landing.component';
+import { SittingRecordsViewGuard } from '../_guards/sitting-records/sitting-records-view.guard';
+import { SittingRecordsLandingGuard } from '../_guards/sitting-records/sitting-records-landing.guard';
+import { SittingRecordsManageGuard } from '../_guards/sitting-records/sitting-records-manage.guard';
 import { AuthGuard } from '../_guards/auth/auth.guard';
 
 const routes: Routes = [
@@ -17,29 +20,34 @@ const routes: Routes = [
         component: SittingRecordsComponent,
         children: [
           {
+            path: 'home',
+            canActivate: [AuthGuard, SittingRecordsLandingGuard],
+            component: SittingRecordsLandingComponent
+          },
+          {
             path: 'manage',
-            canActivate: [AuthGuard],
+            canActivate: [AuthGuard, SittingRecordsManageGuard],
             component: ManageSittingRecordsComponent
           },
           {
             path: 'view',
             component: ViewSittingRecordsComponent,
-            canActivate: [SittingRecordsGuard]
+            canActivate: [SittingRecordsViewGuard]
           },
           {
             path: 'add',
             component: AddSittingRecordComponent,
-            canActivate: [SittingRecordsGuard]
+            canActivate: [SittingRecordsViewGuard]
           },
           {
             path: 'addConfirm',
             component: AddSittingRecordsConfirmComponent,
-            canActivate: [SittingRecordsGuard]
+            canActivate: [SittingRecordsViewGuard]
           },
           {
             path: 'addSuccess',
             component: AddSittingRecordSuccessComponent,
-            canActivate: [SittingRecordsGuard]
+            canActivate: [SittingRecordsViewGuard]
           }
         ]
     }

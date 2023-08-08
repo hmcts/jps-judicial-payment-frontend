@@ -17,12 +17,12 @@
         },
         "location_api": "http://rd-location-ref-api-aat.service.core-compute-aat.internal",
         "users_api": "http://rd-judicial-api-aat.service.core-compute-aat.internal",
-        "jps_api": "https://jps-judicial-payment-service-pr-62.preview.platform.hmcts.net",
+        "jps_api": "http://jps-judicial-payment-service-aat.service.core-compute-aat.internal",
         "s2s": "http://rpe-service-auth-provider-prod.service.core-compute-prod.internal"
     },
     "microservice": "jps_judicial_payment_frontend",
     "sessionSecret": "secretSauce",
-    "loginRoleMatcher": "(jps-recorder|jps-publisher)",
+    "loginRoleMatcher": "(jps-recorder|jps-publisher|jps-submitter|jps-admin|jps-JOH-admin)",
     "feature": {
         "secureCookieEnabled": true
     }

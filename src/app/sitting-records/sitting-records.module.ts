@@ -15,6 +15,12 @@ import { HttpClientModule } from '@angular/common/http';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { AddSittingRecordsConfirmComponent } from './add-sitting-record/add-sitting-records-confirm/add-sitting-records-confirm.component';
 import { SittingRecordsInfoBannerComponent } from '../sitting-records-info-banner/sitting-records-info-banner.component';
+import { SittingRecordsLandingComponent } from './sitting-records-landing/sitting-records-landing.component';
+import { SittingRecordsLandingManageRecordsComponent } from './sitting-records-landing/sitting-records-landing-manage-records/sitting-records-landing-manage-records.component';
+
+import { DataTablesModule } from "angular-datatables";
+
+import { CapitalizeFirstLetterPipe } from '../_pipes/convertTableStatus'
 
 @NgModule({
   imports: [
@@ -22,6 +28,7 @@ import { SittingRecordsInfoBannerComponent } from '../sitting-records-info-banne
     SittingRecordsRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    DataTablesModule,
     MatAutocompleteModule,
     HttpClientModule,
     MatFormFieldModule
@@ -36,7 +43,10 @@ import { SittingRecordsInfoBannerComponent } from '../sitting-records-info-banne
     AddSittingRecordSuccessComponent,
     NumberDirective,
     SittingRecordsInfoBannerComponent,
-    AddSittingRecordsConfirmComponent
+    AddSittingRecordsConfirmComponent,
+    SittingRecordsLandingComponent,
+    SittingRecordsLandingManageRecordsComponent,
+    CapitalizeFirstLetterPipe
   ]
 })
 export class SittingRecordsModule { }
