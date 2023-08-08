@@ -12,7 +12,7 @@ Scenario('Successfully continue to "Judicial sitting records" page @S-006.1',({ 
 
 Scenario('"Manage judicial sitting records" page is not displayed for a user that does not have recorder role @S-006.2',({ I}) => {
   I.loginWithJPSPublisherUser();
-  I.dontSee('Manage Judicial Sitting Records');
+  I.dontSee('Find, add or delete judicial sitting records');
 });
 
 Scenario('Venue field should be enabled only after tribunal service is selected @S-006.3',  ({ I}) => {
@@ -29,11 +29,11 @@ Scenario('Venue field should be reset if tribunal service is changed @S-006.4',(
   I.dontSeeInField('Select a venue','Bournemouth Combined Court');
 });
 
-Scenario('"Manage Judicial Sitting Records" page will be displayed when Change button is clicked @S-006.6',({ I}) => {
+Scenario('"Manage Judicial Sitting Records" page will be displayed when Previous button is clicked @S-006.6',({ I}) => {
   I.loginWithJPSRecorderUser();
   ManageJudicialSittingRecordsPage.addSittingRecordsInformation('1', 'Bournemouth', '11', '03', '2022');
   I.click('Continue');
-  I.click('Change');
+  I.click('Previous');
   I.seeInField('Select a tribunal service', '1');
   I.seeInField('Select a venue','Bournemouth Combined Court');
   I.seeInField('Day', '11');

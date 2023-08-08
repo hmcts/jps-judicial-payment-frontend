@@ -4,24 +4,26 @@ import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ManageSittingRecordsComponent } from './manage-sitting-records.component';
 import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-workflow.service';
-import { VenueService } from '../../_services/venue-service/venue.service';
+import { LocationService } from '../../_services/location-service/location.service';
 import { VenueModel } from '../../_models/venue.model';
 import { HttpClientModule } from '@angular/common/http'; 
 import { MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { of } from 'rxjs';
+import { CookieService } from 'ngx-cookie-service';
 
 describe('ManageSittingRecordsComponent', () => {
   let component: ManageSittingRecordsComponent;
   let fixture: ComponentFixture<ManageSittingRecordsComponent>;
   let router: Router;
   let srWorkflowService: SittingRecordWorkflowService;
-  let venueService: VenueService;
+  let locationService: LocationService;
+  let mockCookieService: jasmine.SpyObj<CookieService>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ReactiveFormsModule, RouterTestingModule, HttpClientModule, MatAutocompleteModule],
       declarations: [ManageSittingRecordsComponent],
-      providers: [SittingRecordWorkflowService, VenueService],
+      providers: [SittingRecordWorkflowService, LocationService],
     }).compileComponents();
   });
 
@@ -30,7 +32,8 @@ describe('ManageSittingRecordsComponent', () => {
     component = fixture.componentInstance;
     router = TestBed.inject(Router);
     srWorkflowService = TestBed.inject(SittingRecordWorkflowService);
-    venueService = TestBed.inject(VenueService);
+    locationService = TestBed.inject(LocationService);
+    mockCookieService = TestBed.inject(CookieService) as jasmine.SpyObj<CookieService>;
     fixture.detectChanges();
   });
 
@@ -135,7 +138,7 @@ describe('ManageSittingRecordsComponent', () => {
     expect(component.manageRecords.controls['venue'].untouched).toBeTrue();
   });
 
-  it('should call the venueService and return venues when calling getVenues', () => {
+  it('should call the LocationService and return venues when calling getVenues', () => {
     const searchTerm = 'test';
     const venues: VenueModel[] = [
       { site_name: 'Venue 1',
@@ -212,10 +215,24 @@ describe('ManageSittingRecordsComponent', () => {
       fact_url: '' }
     ];
 
-    spyOn(venueService, 'getAllVenues').and.returnValue(of(venues));
+    spyOn(locationService, 'getAllVenues').and.returnValue(of(venues));
 
     component.getVenues(searchTerm).subscribe((result) => {
       expect(result).toEqual(venues);
     });
+  });
+
+  it('should hide Previous Button when jps-recorder role is logged in', () => {
+    spyOn(mockCookieService, 'get').and.returnValue('jps-recorder')
+
+    expect(component.showPreviousButton).toBeFalse;
+
+  });
+
+  it('should show Previous Button when jps-recorder role is not logged in', () => {
+    spyOn(mockCookieService, 'get').and.returnValue('jps-submitter')
+
+    expect(component.showPreviousButton).toBeTrue;
+
   });
 });

@@ -10,9 +10,10 @@ import { Observable } from 'rxjs';
 import { debounceTime, filter, mergeMap, tap } from 'rxjs/operators';
 import { CustomValidators } from '../../_validators/sitting-records-form-validator';
 import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-workflow.service';
-import { VenueService } from '../../_services/venue-service/venue.service'
+import { LocationService } from '../../_services/location-service/location.service'
 import { VenueModel } from '../../_models/venue.model';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-manage-sitting-records',
@@ -27,6 +28,7 @@ export class ManageSittingRecordsComponent implements OnInit {
   delay = 500;
   refDataFound = true;
   venueValueChange: any;
+  showPreviousButton = true;
   
   submitForm(){
     this.srWorkFlow.setFormData(this.manageRecords)
@@ -41,10 +43,11 @@ export class ManageSittingRecordsComponent implements OnInit {
 
   constructor(
     protected router: Router,
+    private cookies: CookieService,
     protected activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
     private srWorkFlow: SittingRecordWorkflowService,
-    private venueService : VenueService
+    private locationService : LocationService
   ){
     this.manageRecords = this.formBuilder.group(
       {
@@ -75,7 +78,7 @@ export class ManageSittingRecordsComponent implements OnInit {
         this.manageRecords.controls['venue'].reset();
       }
     });
-
+    
   }
 
   ngOnInit(): void {
@@ -84,6 +87,10 @@ export class ManageSittingRecordsComponent implements OnInit {
     }
 
     this.venuesSearch();
+
+    const userRole = this.cookies.get('__userrole__');
+    if (userRole.indexOf('jps-recorder') != -1)
+      this.showPreviousButton = false;
   }
 
   public showVenue(value) {
@@ -115,7 +122,11 @@ export class ManageSittingRecordsComponent implements OnInit {
   }
 
   public getVenues(searchTerm: string): Observable<VenueModel[]> {
-    return this.venueService.getAllVenues(searchTerm);
+    return this.locationService.getAllVenues(searchTerm);
+  }
+
+  goBack(){
+    void this.router.navigate(['sittingRecords','home'])
   }
 
 }

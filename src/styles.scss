@@ -1,7 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 @import '../node_modules/govuk-frontend/govuk/all.scss';
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import './styles/datatable_overrides.scss';
 
-.link-color{
-    color: $govuk-link-colour;
-}
+.link-color{ color: $govuk-link-colour; }
+.datatable-row-detail { width: 100vw; }
+.deleteCell{ cursor: pointer; color: $govuk-link-colour;}
