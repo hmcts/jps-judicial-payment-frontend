@@ -6,7 +6,7 @@ import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-wo
 @Injectable({
   providedIn: 'root'
 })
-export class SittingRecordsGuard implements CanActivate {
+export class SittingRecordsViewGuard implements CanActivate {
 
   constructor(
     private srWorkflow: SittingRecordWorkflowService,
@@ -14,12 +14,12 @@ export class SittingRecordsGuard implements CanActivate {
   ){}
 
   canActivate(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      if(this.srWorkflow.getManageVisited()){
-        return true
-      }else{
-        void this.router.navigate(['sittingRecords','manage']);
-        return false
-      }
+    if(this.srWorkflow.getManageVisited()) {
+      return true;
+    } else {
+      void this.router.navigate(['sittingRecords','manage']);
+      return false;
+    }
     
   }
   

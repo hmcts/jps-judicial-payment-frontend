@@ -8,7 +8,7 @@ import {
 import { Router } from '@angular/router';
 import { CustomValidators } from '../../_validators/sitting-records-form-validator';
 import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-workflow.service';
-import { VenueService } from '../../_services/venue-service/venue.service'
+import { LocationService } from '../../_services/location-service/location.service'
 import { VenueModel } from '../../_models/venue.model';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { environment } from '../../environments/environment'
@@ -42,7 +42,7 @@ export class ManageSittingRecordsComponent implements OnInit {
     protected router: Router,
     private formBuilder: FormBuilder,
     private srWorkFlow: SittingRecordWorkflowService,
-    private venueService : VenueService
+    private locationService : LocationService
   ){
     this.manageRecords = this.formBuilder.group(
       {

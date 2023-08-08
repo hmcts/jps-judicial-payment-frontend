@@ -10,6 +10,7 @@ import { AppServerModule } from './src/main.server';
 import { HealthCheck } from './src/app/server/healthcheck';
 import { getXuiNodeMiddleware } from './api/auth';
 import refDataRouter from './api/refdata/routes';
+import sittingRecordsRouter from './api/sittingRecords/routes';
 import { Logger } from '@hmcts/nodejs-logging';
 const logger = Logger.getLogger()
 
@@ -41,7 +42,7 @@ export function app(): express.Express {
 
   server.use(getXuiNodeMiddleware());
   server.use('/refdata', refDataRouter, errorHandler)
-
+  server.use('/sittingRecords', sittingRecordsRouter, errorHandler)
   // Our Universal express-engine (found @ https://github.com/angular/universal/tree/main/modules/express-engine)
   server.engine('html', ngExpressEngine({
     bootstrap: AppServerModule,

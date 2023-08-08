@@ -10,6 +10,12 @@ import { ViewSittingRecordsComponent } from './view-sitting-records/view-sitting
 import { NumberDirective } from '../_directives/numbers-only.directive';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { HttpClientModule } from '@angular/common/http';
+import { SittingRecordsLandingComponent } from './sitting-records-landing/sitting-records-landing.component';
+import { SittingRecordsLandingManageRecordsComponent } from './sitting-records-landing/sitting-records-landing-manage-records/sitting-records-landing-manage-records.component';
+
+import { DataTablesModule } from "angular-datatables";
+
+import { CapitalizeFirstLetterPipe } from '../_pipes/convertTableStatus'
 
 @NgModule({
   imports: [
@@ -17,6 +23,7 @@ import { HttpClientModule } from '@angular/common/http';
     SittingRecordsRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    DataTablesModule,
     MatAutocompleteModule,
     HttpClientModule
   ],
@@ -25,7 +32,10 @@ import { HttpClientModule } from '@angular/common/http';
     ManageSittingRecordsComponent,
     PhaseBannerComponent,
     ViewSittingRecordsComponent,
-    NumberDirective
+    NumberDirective,
+    SittingRecordsLandingComponent,
+    SittingRecordsLandingManageRecordsComponent,
+    CapitalizeFirstLetterPipe
   ]
 })
 export class SittingRecordsModule { }

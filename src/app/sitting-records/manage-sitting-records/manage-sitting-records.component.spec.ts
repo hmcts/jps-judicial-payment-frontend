@@ -4,23 +4,23 @@ import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ManageSittingRecordsComponent } from './manage-sitting-records.component';
 import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-workflow.service';
-import { VenueService } from '../../_services/venue-service/venue.service';
 import { HttpClientModule } from '@angular/common/http';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { of } from 'rxjs';
+import { LocationService } from 'src/app/_services/location-service/location.service';
 
 describe('ManageSittingRecordsComponent', () => {
   let component: ManageSittingRecordsComponent;
   let fixture: ComponentFixture<ManageSittingRecordsComponent>;
   let router: Router;
   let srWorkflowService: SittingRecordWorkflowService;
-  let venueService: VenueService;
+  let locationService: LocationService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ReactiveFormsModule, RouterTestingModule, HttpClientModule, MatAutocompleteModule],
       declarations: [ManageSittingRecordsComponent],
-      providers: [SittingRecordWorkflowService, VenueService],
+      providers: [SittingRecordWorkflowService, LocationService],
     }).compileComponents();
   });
 
@@ -29,7 +29,7 @@ describe('ManageSittingRecordsComponent', () => {
     component = fixture.componentInstance;
     router = TestBed.inject(Router);
     srWorkflowService = TestBed.inject(SittingRecordWorkflowService);
-    venueService = TestBed.inject(VenueService);
+    locationService = TestBed.inject(LocationService);
   });
 
   it('should create', () => {
@@ -41,15 +41,15 @@ describe('ManageSittingRecordsComponent', () => {
   });
 
   it('should reset the venue field when the tribunalService field is changed', () => {
-    spyOn(venueService, 'getAllVenues').and.returnValue(of([]));
+    spyOn(locationService, 'getAllVenues').and.returnValue(of([]));
     const tribunalService = component.manageRecords.controls['tribunalService'];
     const venue = component.manageRecords.controls['venue'];
 
     tribunalService.setValue('test');
     venue.setValue('test venue');
-
+    expect(venue.value).toEqual('test venue');
     tribunalService.setValue('new test');
-    expect(venue.value).toBeNull();
+    expect(venue.value).toEqual(null);
   });
 
   it('should navigate to view-sitting-records when the form is submitted', () => {
