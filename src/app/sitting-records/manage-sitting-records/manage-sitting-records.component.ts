@@ -13,6 +13,7 @@ import { VenueModel } from '../../_models/venue.model';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { environment } from '../../environments/environment'
 import { debounceTime, map, startWith, tap } from 'rxjs';
+import { CookieService } from 'ngx-cookie-service';
 @Component({
   selector: 'app-manage-sitting-records',
   templateUrl: './manage-sitting-records.component.html',
@@ -27,6 +28,7 @@ export class ManageSittingRecordsComponent implements OnInit {
   typeaheadResultsFound = true;
   tribunalServices = environment.tribunalServices;
   filteredVenues;
+  showPreviousButton = true;
   
   submitForm(){
     this.srWorkFlow.setFormData(this.manageRecords)
@@ -42,7 +44,8 @@ export class ManageSittingRecordsComponent implements OnInit {
     protected router: Router,
     private formBuilder: FormBuilder,
     private srWorkFlow: SittingRecordWorkflowService,
-    private locationService : LocationService
+    private locationService : LocationService,
+    private cookies: CookieService,
   ){
     this.manageRecords = this.formBuilder.group(
       {
@@ -105,6 +108,11 @@ export class ManageSittingRecordsComponent implements OnInit {
     if(this.srWorkFlow.getFormData()){
       this.manageRecords = this.srWorkFlow.getFormData();
     }
+
+
+    const userRole = this.cookies.get('__userrole__');
+    if (userRole.indexOf('jps-recorder') != -1)
+      this.showPreviousButton = false;
   }
 
   public showVenue(value) {
@@ -122,6 +130,10 @@ export class ManageSittingRecordsComponent implements OnInit {
     this.locationService.getAllVenues(serviceCode).subscribe((locations) => {
       this.venues = locations['court_venues'];
     });
+  }
+
+  goBack(){
+    void this.router.navigate(['sittingRecords','home'])
   }
 
 }

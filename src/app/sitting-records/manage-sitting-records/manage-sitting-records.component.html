@@ -122,6 +122,17 @@
               </div>
             </fieldset>
           </div>
+          
+          <div class="govuk-button-group">
+            
+            <button type="button" class="govuk-button govuk-button--secondary" data-module="govuk-button" (click)="goBack()" *ngIf="showPreviousButton">
+              Previous
+            </button>
+            <button type="submit" class="govuk-button" data-module="govuk-button" [disabled]="!manageRecords.valid">
+              Continue
+            </button>
+            
+          </div>
 
     </form>
 
