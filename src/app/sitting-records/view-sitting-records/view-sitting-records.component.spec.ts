@@ -3,38 +3,16 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ViewSittingRecordsComponent } from './view-sitting-records.component';
 import { DateService } from '../../_services/date-service/date-service';
 import { Router } from '@angular/router';
-<<<<<<< HEAD
-import { SittingRecordsInfoBannerComponent } from '../../sitting-records-info-banner/sitting-records-info-banner.component'
-import { HttpClientModule } from '@angular/common/http';
-=======
 import { DataTablesModule } from 'angular-datatables';
 import { HttpClientModule } from '@angular/common/http';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ViewSittingRecordResponse } from 'src/app/_models/viewSittingRecords.model';
+import { ViewSittingRecordResponse } from '../../_models/viewSittingRecords.model';
 import { of } from 'rxjs';
->>>>>>> master
+import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-workflow.service';
 
 describe('ViewSittingRecordsComponent', () => {
   let component: ViewSittingRecordsComponent;
   let fixture: ComponentFixture<ViewSittingRecordsComponent>;
-<<<<<<< HEAD
-  let mockDateService: { formatDateFromForm: { and: { returnValue: (arg0: string) => void; }; }; };
-  let mockRouter: { navigate: unknown; };
-
-  beforeEach(() => {
-    mockDateService = jasmine.createSpyObj(['formatDateFromForm']);
-    mockRouter = jasmine.createSpyObj(['navigate']);
-
-    TestBed.configureTestingModule({
-      declarations: [ ViewSittingRecordsComponent, SittingRecordsInfoBannerComponent ],
-      providers: [
-        { provide: DateService, useValue: mockDateService },
-        { provide: Router, useValue: mockRouter }
-      ],
-      imports: [RouterTestingModule, HttpClientModule]
-    })
-    .compileComponents();
-=======
   let mockRouter: Router;
   let mockSRWorkflowService: SittingRecordWorkflowService;
   let mockDateSvc: DateService;
@@ -46,7 +24,6 @@ describe('ViewSittingRecordsComponent', () => {
       imports: [RouterTestingModule, DataTablesModule, HttpClientModule]
     }).compileComponents();
   });
->>>>>>> master
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ViewSittingRecordsComponent);
@@ -60,8 +37,6 @@ describe('ViewSittingRecordsComponent', () => {
     expect(component).toBeTruthy();
   });
 
-<<<<<<< HEAD
-=======
   it('should populate the form data on init', () => {
     const formattedDate = '2022-01-01';
     const formDataMock: FormGroup = new FormBuilder().group({
@@ -87,19 +62,12 @@ describe('ViewSittingRecordsComponent', () => {
     expect(component.sittingRecordData).toBe(response.sittingRecords);
   });
 
->>>>>>> master
   it('should navigate to the manage page on goBack', () => {
     spyOn(mockRouter, 'navigate');
     component.goBack();
     expect(mockRouter.navigate).toHaveBeenCalledWith(['sittingRecords','manage']);
   });
 
-<<<<<<< HEAD
-  it('should navigate to the add sitting records page on addNewRecord', () => {
-    component.addNewRecord();
-    expect(mockRouter.navigate).toHaveBeenCalledWith(['sittingRecords','add']);
-  });
-=======
   it('getPeriod should convert the period correctly', () => {
     spyOn(mockDateSvc,'getPeriod').and.returnValue('Full Day');
     expect(component.getPeriod('AM','PM')).toEqual('Full Day');
@@ -107,5 +75,4 @@ describe('ViewSittingRecordsComponent', () => {
   
   });
  
->>>>>>> master
 });
