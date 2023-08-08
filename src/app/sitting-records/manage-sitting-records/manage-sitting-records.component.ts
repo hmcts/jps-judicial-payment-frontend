@@ -119,7 +119,7 @@ export class ManageSittingRecordsComponent implements OnInit {
   }
 
   public getVenues(serviceCode: string) {
-    this.venueService.getAllVenues(serviceCode).subscribe((locations) => {
+    this.locationService.getAllVenues(serviceCode).subscribe((locations) => {
       this.venues = locations['court_venues'];
     });
   }
