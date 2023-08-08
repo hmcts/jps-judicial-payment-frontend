@@ -25,10 +25,11 @@ export class SittingRecordsService{
 
 
     createNewSRPostObj(joh: any, tribunalService: any, dateSelected: any, venue: any, period:any) {
+        console.log(joh.johRole)
         return {
             hmctsServiceCode: tribunalService.hmctsServiceCode,
             sittingDate: this.dateSvc.createDateObjFromFormData(dateSelected),
-            epimsId: venue.epimms_id,
+            epimmsId: venue.epimms_id,
             personalCode: joh.johName.personalCode,
             contractTypeId: this.changeContractNameToId(joh.johRole.appointment_type),
             judgeRoleTypeId: this.changeRoleToRoleId(joh.johRole.appointment),
@@ -80,6 +81,7 @@ export class SittingRecordsService{
         'Part Time SPTW 70': 10,
         'Part Time SPTW 80': 11,
         'Part Time SPTW 90': 12,
+        'Fee Paid': 2
     };
 
     changeRoleToRoleId(roleName) {
