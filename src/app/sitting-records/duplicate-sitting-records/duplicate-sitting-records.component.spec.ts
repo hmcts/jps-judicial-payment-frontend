@@ -68,7 +68,7 @@ describe('DuplicateSittingRecordsComponent', () => {
   describe('resubmitSittingRecords', () => {
     it('should navigate to success page if successful', () => {
       spyOn(workflowService, 'postResolvedDuplicates').and.returnValue(of({
-        message: 'success'
+        errorRecords: []
       }));
 
       component.resubmitSittingRecords();
@@ -77,9 +77,10 @@ describe('DuplicateSittingRecordsComponent', () => {
     });
 
     it('should set errors and navigate to duplicate page if failed', () => {
-      const errorRecords = [{error: 'error'}];
+      const errorRecords = [{message: 'error'}];
       spyOn(workflowService, 'postResolvedDuplicates').and.returnValue(of({
-        errorRecords  
+        errorRecords: errorRecords,
+        message: 'error'
       }));
       spyOn(workflowService, 'setErrorRecords');
 

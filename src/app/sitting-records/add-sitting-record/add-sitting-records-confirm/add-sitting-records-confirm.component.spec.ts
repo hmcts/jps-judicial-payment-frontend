@@ -70,7 +70,7 @@ describe('AddSittingRecordsConfirmComponent', () => {
   });
 
   it('should call formAndPostNewSittingRecord and navigate to "sittingRecords/addSuccess" when submitNewRecords is called', () => {
-    spyOn(srWorkFlow, 'formAndPostNewSittingRecord').and.returnValue(of({message: 'success'}));
+    spyOn(srWorkFlow, 'formAndPostNewSittingRecord').and.returnValue(of({errorRecords: []}));
     spyOn(router, 'navigate');
 
     component.submitNewRecords();
