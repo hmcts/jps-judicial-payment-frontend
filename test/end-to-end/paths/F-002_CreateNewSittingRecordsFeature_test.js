@@ -1,18 +1,12 @@
-import {before} from "cheerio";
-
 const AddSittingRecordsPage = require('../pages/AddSittingRecordsPage');
 const ConfirmNewSittingRecordsPage = require('../pages/ConfirmNewSittingRecordsPage');
 const JudicialSittingRecordsPage = require('../pages/JudicialSittingRecordsPage');
 const ManageJudicialSittingRecordsPage = require('../pages/ManageJudicialSittingRecordsPage');
-const { assert } = require('chai');
 
 Feature('Create new Sitting Records Feature Tests @functional @F-002');
 
-before(() => {
-  I.loginWithJPSRecorderUser();
-});
-
 Scenario('User is able to successfully save a single Sitting Record @S-002.1',({ I}) => {
+  I.loginWithJPSRecorderUser();
   ManageJudicialSittingRecordsPage.addSittingRecordsInformation('BBA3', 'Sutton', '11', '03', '2022');
   I.click('Continue');
   JudicialSittingRecordsPage.clickAddSittingRecords();
@@ -24,6 +18,7 @@ Scenario('User is able to successfully save a single Sitting Record @S-002.1',({
 });
 
 Scenario('User is successfully able to save multiple Sitting Records @S-002.2',({ I}) => {
+  I.loginWithJPSRecorderUser();
   ManageJudicialSittingRecordsPage.addSittingRecordsInformation('BBA3', 'Sutton', '11', '03', '2022');
   I.click('Continue');
   JudicialSittingRecordsPage.clickAddSittingRecords();
@@ -56,6 +51,7 @@ Scenario('User is able to remove a Sitting Record by clicking on Remove button @
 });
 
 Scenario('User should not be able to add more than 3 Sitting Records in UI @S-002.4',({ I}) => {
+  I.loginWithJPSRecorderUser();
   ManageJudicialSittingRecordsPage.addSittingRecordsInformation('BBA3', 'Sutton', '11', '03', '2022');
   I.click('Continue');
   JudicialSittingRecordsPage.clickAddSittingRecords();
@@ -70,6 +66,7 @@ Scenario('User should not be able to add more than 3 Sitting Records in UI @S-00
 });
 
 Scenario('Display error message "Enter valid Judicial Office Holder Name @S-002.5',({ I}) => {
+  I.loginWithJPSRecorderUser();
   ManageJudicialSittingRecordsPage.addSittingRecordsInformation('BBA3', 'Sutton', '11', '03', '2022');
   I.click('Continue');
   JudicialSittingRecordsPage.clickAddSittingRecords();
@@ -80,6 +77,7 @@ Scenario('Display error message "Enter valid Judicial Office Holder Name @S-002.
 });
 
 Scenario('Display error message "Select valid Role" @S-002.6',({ I}) => {
+  I.loginWithJPSRecorderUser();
   ManageJudicialSittingRecordsPage.addSittingRecordsInformation('BBA3', 'Sutton', '11', '03', '2022');
   I.click('Continue');
   JudicialSittingRecordsPage.clickAddSittingRecords();
@@ -90,14 +88,15 @@ Scenario('Display error message "Select valid Role" @S-002.6',({ I}) => {
 });
 
 Scenario('User should not be allowed to select a Role for Judicial Office Holder before entering valid Name @S-002.7',({ I}) => {
+  I.loginWithJPSRecorderUser();
   ManageJudicialSittingRecordsPage.addSittingRecordsInformation('BBA3', 'Sutton', '11', '03', '2022');
   I.click('Continue');
   JudicialSittingRecordsPage.clickAddSittingRecords();
-  const isEnabled = I.isEnabled('Role');
-  assert.isFalse(isEnabled, 'Dropdown is enabled.');
+  I.seeElement('#role[disabled]');
 });
 
 Scenario('Display error message "Select valid Period value" @S-002.8',({ I}) => {
+  I.loginWithJPSRecorderUser();
   ManageJudicialSittingRecordsPage.addSittingRecordsInformation('BBA3', 'Sutton', '11', '03', '2022');
   I.click('Continue');
   JudicialSittingRecordsPage.clickAddSittingRecords();
@@ -107,6 +106,7 @@ Scenario('Display error message "Select valid Period value" @S-002.8',({ I}) => 
 });
 
 Scenario('User is displayed "Manage judicial sitting records" when Cancel is clicked while adding new Sitting Record(s) @S-002.9',({ I}) => {
+  I.loginWithJPSRecorderUser();
   ManageJudicialSittingRecordsPage.addSittingRecordsInformation('BBA3', 'Sutton', '11', '03', '2022');
   I.click('Continue');
   JudicialSittingRecordsPage.clickAddSittingRecords();
@@ -117,6 +117,7 @@ Scenario('User is displayed "Manage judicial sitting records" when Cancel is cli
 });
 
 Scenario('User is displayed "Manage judicial sitting records" when Cancel is clicked while confirming new Sitting Record(s) @S-002.10',({ I}) => {
+  I.loginWithJPSRecorderUser();
   ManageJudicialSittingRecordsPage.addSittingRecordsInformation('BBA3', 'Sutton', '11', '03', '2022');
   I.click('Continue');
   JudicialSittingRecordsPage.clickAddSittingRecords();
@@ -128,6 +129,7 @@ Scenario('User is displayed "Manage judicial sitting records" when Cancel is cli
 });
 
 Scenario('User is displayed "Judicial sitting records" when Previous button is clicked while confirming new Sitting Record(s) @S-002.11',({ I}) => {
+  I.loginWithJPSRecorderUser();
   ManageJudicialSittingRecordsPage.addSittingRecordsInformation('BBA3', 'Sutton', '11', '03', '2022');
   I.click('Continue');
   JudicialSittingRecordsPage.clickAddSittingRecords();
