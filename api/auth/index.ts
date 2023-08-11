@@ -5,13 +5,14 @@ import { getConfigValue, showFeature } from '../configuration';
 import {
   COOKIES_TOKEN,
   COOKIES_USER_ID,
+  COOKIES_USER_ROLE,
   FEATURE_SECURE_COOKIE_ENABLED,
   IDAM_SECRET,
   LOGIN_ROLE_MATCHER,
   MICROSERVICE,
   NOW,
   S2S_SECRET,
-  SERVICE_S2S_PATH,
+  SERVICES_S2S_PATH,
   SERVICES_IDAM_API_URL,
   SERVICES_IDAM_CLIENT_ID,
   SERVICES_IDAM_ISS_URL,
@@ -26,9 +27,11 @@ export const successCallback = (req: EnhancedRequest, res: Response, next: NextF
   const {accessToken} = user.tokenset;
   const cookieToken = getConfigValue(COOKIES_TOKEN);
   const cookieUserId = getConfigValue(COOKIES_USER_ID);
-
+  const cookieUserRole = getConfigValue(COOKIES_USER_ROLE);
   res.cookie(cookieUserId, userinfo.uid);
   res.cookie(cookieToken, accessToken);
+  res.cookie(cookieUserRole, userinfo.roles);
+
   if (!req.isRefresh) {
     return res.redirect('/');
   }
@@ -37,6 +40,7 @@ export const successCallback = (req: EnhancedRequest, res: Response, next: NextF
 
 export const failureCallback = (req: EnhancedRequest, res: Response, next: NextFunction) => {
   const errorMsg = `Auth Error: ${res.locals['message']}`;
+  console.log(errorMsg)
 }
 
 xuiNode.on(AUTH.EVENT.AUTHENTICATE_SUCCESS, successCallback);
@@ -53,13 +57,6 @@ export const getXuiNodeMiddleware = () => {
   const s2sSecret = getConfigValue(S2S_SECRET);
   const tokenUrl = `${getConfigValue(SERVICES_IDAM_API_URL)}/oauth2/token`;
 
-  console.log('IDAM SECRET: ' + secret);
-  console.log('s2sSECRET: ' + s2sSecret);
-  console.log('IDAM_LOGIN_URL: ' + idamWebUrl);
-  console.log('IDAM_CLIENT_ID: ' + idamClient);
-  console.log('IDAM_ISS_URL: ' + issuerUrl);
-  console.log('IDAM_API_URL: ' + idamApiPath);
- 
   //TODO: we can move these out into proper config at some point to tidy up even further
   const options: AuthOptions = {
     allowRolesRegex: getConfigValue(LOGIN_ROLE_MATCHER),
@@ -104,7 +101,7 @@ export const getXuiNodeMiddleware = () => {
     auth: {
       s2s: {
         microservice: getConfigValue(MICROSERVICE),
-        s2sEndpointUrl: `${getConfigValue(SERVICE_S2S_PATH)}/lease`,
+        s2sEndpointUrl: `${getConfigValue(SERVICES_S2S_PATH)}/lease`,
         s2sSecret: s2sSecret.trim(),
       },
       oauth2:options,
@@ -114,4 +111,4 @@ export const getXuiNodeMiddleware = () => {
   
   return xuiNode.configure(nodeLibOptions);
 
- };
+};

@@ -138,4 +138,3 @@ Scenario('User is displayed "Judicial sitting records" when Previous button is c
   I.see('Judicial sitting records');
 
 });
-
