@@ -136,4 +136,6 @@ Scenario('User is displayed "Judicial sitting records" when Previous button is c
   ConfirmNewSittingRecordsPage.confirmSittingRecords('Joe Bloggs', 'Judge', 'Full day', 'Recorder');
   I.click('Previous');
   I.see('Judicial sitting records');
+
 });
+
