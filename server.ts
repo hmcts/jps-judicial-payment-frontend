@@ -28,6 +28,10 @@ const errorHandler = ((err, req, res, next) => {
       console.log(JSON.stringify(error.data.errors))
       errMsg += ` ${error.data.errors}`
     }
+    if (error.data.errorRecords){
+      console.log(JSON.stringify(error.data.errorRecords))
+      errMsg += ` ${error.data.errorRecords}`
+    }
 
     logger.log({
       level: 'error',

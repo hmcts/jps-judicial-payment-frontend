@@ -23,9 +23,7 @@ export class SittingRecordsService{
         return this.http.post('/sittingrecord/add', { sittingRecords: newSittingRecords }, { headers: headers});
     }
 
-
-    createNewSRPostObj(joh: any, tribunalService: any, dateSelected: any, venue: any, period:any) {
-        console.log(joh.johRole)
+    createNewSRPostObj(joh: JudicialOfficeHolder, tribunalService: TribunalService, dateSelected: Date, venue: Venue, period:SittingPeriod) {
         return {
             hmctsServiceCode: tribunalService.hmctsServiceCode,
             sittingDate: this.dateSvc.createDateObjFromFormData(dateSelected),
@@ -92,4 +90,27 @@ export class SittingRecordsService{
         return this.contractTypeMap[contractName].toString()
     }
 
+}
+
+interface JudicialOfficeHolder {
+    johName: {
+    personalCode: string;
+    };
+    johRole: {
+        appointment: string;
+        appointment_type: string;
+    };
+
+}
+
+interface TribunalService {
+    hmctsServiceCode: string;
+}
+
+interface Venue {
+    epimms_id: string;
+}
+
+interface SittingPeriod {
+    value: string
 }

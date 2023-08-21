@@ -31,8 +31,7 @@ export class DateService {
 
   createDateObjFromFormData(dateObj){
     const {dateDay, dateMonth, dateYear} = dateObj;
-    const dateString = `${dateMonth}/${dateDay}/${dateYear}`
-    return new Date(dateString)
+    return new Date(Date.UTC(dateYear, dateMonth - 1, dateDay));
   }
 
   convertPeriod(period: string): string {

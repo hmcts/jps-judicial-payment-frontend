@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { SittingRecordsPostObj, SittingRecordsPostBody } from '../_models/addSittingRecords.model';
 import { SittingRecordsService } from '../_services/sitting-records-service/sitting-records.service';
 import { UserInfoService } from '../_services/user-info-service/user-info-service'
 import { ViewSittingRecordService } from '../_services/sitting-records-service/view-sitting-records-service'
