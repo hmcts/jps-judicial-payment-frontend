@@ -57,6 +57,11 @@ import { ValidSittingRecordsComponent } from './duplicate-sitting-records/valid-
     CapitalizeFirstLetterPipe,
     SittingRecordsInfoBannerComponent,
     ValidSittingRecordsComponent,
+    SittingRecordsInfoBannerComponent,
+    AddSittingRecordsConfirmComponent,
+    SittingRecordsLandingComponent,
+    SittingRecordsLandingManageRecordsComponent,
+    CapitalizeFirstLetterPipe
   ]
 })
 export class SittingRecordsModule { }

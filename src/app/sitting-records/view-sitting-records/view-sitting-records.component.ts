@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { defaultDtOptions }  from '../../_services/default-dt-options'
-import { SittingRecord } from 'src/app/_models/viewSittingRecords.model';
+import { SittingRecord } from '../../_models/viewSittingRecords.model';
 import { Subject } from 'rxjs';
-import { SittingRecordWorkflowService } from 'src/app/_workflows/sitting-record-workflow.service';
-import { DateService } from 'src/app/_services/date-service/date-service';
+import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-workflow.service';
+import { DateService } from '../../_services/date-service/date-service';
 
 @Component({
   selector: 'app-view-sitting-records',
@@ -12,6 +12,12 @@ import { DateService } from 'src/app/_services/date-service/date-service';
   styleUrls: ['./view-sitting-records.component.scss']
 })
 export class ViewSittingRecordsComponent {
+
+  constructor(
+    private router: Router,
+    private dateSvc: DateService,
+    private srWorkFlow: SittingRecordWorkflowService
+  ){}
 
   tribService = "";
   venueSiteName = "";
@@ -30,17 +36,11 @@ export class ViewSittingRecordsComponent {
   addNewRecord(){
     void this.router.navigate(['sittingRecords','add'])
   }
-  
+
   getPeriod(am: string, pm: string): string {
     return this.dateSvc.getPeriod(am, pm);
   }
 
-  constructor(
-    private router: Router,
-    private srWorkFlow: SittingRecordWorkflowService,
-    private dateSvc: DateService
-  ){}
-    
   ngOnInit(){
     const formData = this.srWorkFlow.getFormData().value;
     const { dateSelected, tribunalService, venue } = formData;

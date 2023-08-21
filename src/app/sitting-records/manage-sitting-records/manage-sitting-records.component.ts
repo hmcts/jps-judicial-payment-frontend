@@ -14,8 +14,8 @@ import { LocationService } from '../../_services/location-service/location.servi
 import { VenueModel } from '../../_models/venue.model';
 import { AutoCompleteValidator } from '../../_validators/autoCompleteValidator/auto-complete-validator'
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { CookieService } from 'ngx-cookie-service';
 import { environment } from '../../environments/environment'
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-manage-sitting-records',
@@ -30,8 +30,8 @@ export class ManageSittingRecordsComponent implements OnInit {
   delay = 500;
   refDataFound = true;
   venueValueChange: any;
-  showPreviousButton = true;
   tribunalServices = environment.tribunalServices;
+  showPreviousButton = true;
   
   submitForm(){
     this.srWorkFlow.setFormData(this.manageRecords)

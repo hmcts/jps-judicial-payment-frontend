@@ -3,7 +3,7 @@ import { getSittingRecords, addSittingRecords } from './index';
 
 const sittingRecordsRouter = Router({mergeParams: true});
 
+sittingRecordsRouter.post('/add', addSittingRecords)
 sittingRecordsRouter.post('/searchSittingRecords', getSittingRecords);
-sittingRecordsRouter.post('/add', addSittingRecords);
 
 export default sittingRecordsRouter;

@@ -10,8 +10,8 @@ import { AppServerModule } from './src/main.server';
 import { HealthCheck } from './src/app/server/healthcheck';
 import { getXuiNodeMiddleware } from './api/auth';
 import refDataRouter from './api/refdata/routes';
-import sittingRecordsRouter from './api/sittingrecords/routes';
 import { IdamAuthenticatorService } from './api/refdata/authenticator/index';
+import sittingRecordsRouter from './api/sittingrecords/routes';
 import { Logger } from '@hmcts/nodejs-logging';
 const logger = Logger.getLogger()
 
@@ -30,6 +30,10 @@ const errorHandler = ((err, req, res, next) => {
     }
     if (error.data.errors) {
       errMsg += ` ${error.data.errors}`
+    }
+    if (error.data.errorRecords){
+      console.log(JSON.stringify(error.data.errorRecords))
+      errMsg += ` ${error.data.errorRecords}`
     }
 
     logger.error(errMsg)

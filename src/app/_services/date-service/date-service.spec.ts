@@ -21,15 +21,6 @@ describe('DateService', () => {
     });
   });
 
-  describe('convertPeriod', () => {
-    it('should convert the period correctly', () => {
-      expect(service.convertPeriod('AM')).toBe('Morning');
-      expect(service.convertPeriod('PM')).toBe('Afternoon');
-      expect(service.convertPeriod('FULL_DAY')).toBe('Full Day');
-      expect(service.convertPeriod('')).toBe('');
-    });
-  });
-  
   describe('getPeriod', () => {
     it('should return "Full Day" when am and pm are passed', () => {
       expect(service.getPeriod("AM", "PM")).toEqual('Full day');

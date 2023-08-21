@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { SittingRecordsPostObj, SittingRecordsPostBody } from '../_models/addSittingRecords.model';
-import { DateService } from '../_services/date-service/date-service'
 import { SittingRecordsService } from '../_services/sitting-records-service/sitting-records.service';
+import { UserInfoService } from '../_services/user-info-service/user-info-service'
 import { ViewSittingRecordService } from '../_services/sitting-records-service/view-sitting-records-service'
 import { ViewSittingRecordPost } from '../_models/viewSittingRecords.model'
-import { UserInfoService } from '../_services/user-info-service/user-info-service'
+import { DateService } from '../_services/date-service/date-service'
 
 @Injectable({
   providedIn: 'root'
@@ -21,9 +20,10 @@ export class SittingRecordWorkflowService {
   constructor(
     private dateSvc: DateService,
     private sittingRecordsSvc: SittingRecordsService,
+    private uInfoSvc: UserInfoService,
     private ViewSittingRecordService: ViewSittingRecordService,
-    private uInfoSvc: UserInfoService
-  ) {}
+    ) {}
+
 
   setManageVisited(){
     this.hasVisitedManage = true;
@@ -47,10 +47,6 @@ export class SittingRecordWorkflowService {
 
   resetFormData(){
     this.formData.reset();
-  }
-
-  getHmctsServiceCode(){
-    return this.formData.value['tribunalService'].hmctsServiceCode
   }
 
   setAddSittingRecords(data: FormGroup){
