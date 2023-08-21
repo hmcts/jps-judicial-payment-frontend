@@ -40,7 +40,7 @@ describe('DeleteSittingRecordsComponent', () => {
 
   it('should navigate when delete succeeds', () => {
 
-    spyOn(deleteService, 'deleteRecord').and.returnValue(of(null));
+    spyOn(deleteService, 'deleteRecord').and.returnValue(of(""));
     component.ngOnInit()
     component.confirmDelete();
 
