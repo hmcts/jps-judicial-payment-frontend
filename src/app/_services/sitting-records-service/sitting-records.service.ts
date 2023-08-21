@@ -67,6 +67,7 @@ export class SittingRecordsService{
         'Recorder': 14,
         'Deputy Upper Tribunal Judge':15
     };
+
     contractTypeMap: Record<string, number> = {
         'Salaried': 1,
         'Fee-Paid': 2,

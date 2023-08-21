@@ -32,7 +32,7 @@ export class DuplicateRecordWorkflowService {
   }
 
   getDuplicateRecordErrors(){
-    const optionsSelected: any[] = []
+    const optionsSelected: (true | false | null)[] = []
     let validRecords: any[] = [];
 
     this.recordErrors.forEach((record, index) => {
