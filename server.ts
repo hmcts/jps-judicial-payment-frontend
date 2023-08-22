@@ -14,6 +14,7 @@ import { IdamAuthenticatorService } from './api/refdata/authenticator/index';
 import sittingRecordsRouter from './api/sittingrecords/routes';
 import { Logger } from '@hmcts/nodejs-logging';
 const logger = Logger.getLogger()
+const TOKEN_REFRESH = 1000 * 60 * 60 * 5;
 
 const errorHandler = ((err, req, res, next) => {
   console.log(err)
@@ -50,6 +51,10 @@ function getSystemAuthTokens(){
   IdamAuthSvc.createSystemUserAuth();
   IdamAuthSvc.createS2SAuth();
 }
+
+setInterval(() => {
+  getSystemAuthTokens();
+}, TOKEN_REFRESH);
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
