@@ -3,7 +3,6 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { LocationService } from './location.service';
 import { VenueModel } from '../../_models/venue.model';
 import { RegionModel } from '../../_models/region.model';
-import { CookieService } from 'ngx-cookie-service';
 
 describe('LocationService', () => {
   let locationService: LocationService;

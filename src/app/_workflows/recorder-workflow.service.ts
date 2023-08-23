@@ -42,7 +42,7 @@ export class RecorderWorkflowService {
   getSittingRecordsData() {
     const postObj = new ViewSittingRecordPost();
     const { dateSelected, venue } = this.formData.value;
-    const dateToGet = this.dateSvc.formatDateFromForm(dateSelected);
+    const dateToGet = this.dateSvc.formatDateForPost(dateSelected);
     postObj.epimsId = venue.epimms_id;
     postObj.regionId = venue.region_id;
     postObj.dateRangeFrom = dateToGet;

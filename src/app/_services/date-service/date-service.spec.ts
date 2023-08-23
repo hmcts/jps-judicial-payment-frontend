@@ -17,13 +17,13 @@ describe('DateService', () => {
     it('should format the date correctly', () => {
       const date: dateObj = { dateDay: '01', dateMonth: '01', dateYear: '2023' };
       const formattedDate = service.formatDateFromForm(date);
-      expect(formattedDate).toEqual('2023-01-01');
+      expect(formattedDate).toEqual('01/01/2023');
     });
   });
 
   describe('getPeriod', () => {
     it('should return "Full Day" when am and pm are passed', () => {
-      expect(service.getPeriod("AM", "PM")).toEqual('Full Day');
+      expect(service.getPeriod("AM", "PM")).toEqual('Full day');
     });
   
     it('should return "Morning" when AM is passed and PM is null', () => {

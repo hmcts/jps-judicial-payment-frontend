@@ -16,6 +16,7 @@ import { SittingRecordsLandingManageRecordsComponent } from './sitting-records-l
 import { DataTablesModule } from "angular-datatables";
 import { SubmitSittingRecordsComponent } from './submit-sitting-records/submit-sitting-records.component';
 
+import { CapitalizeFirstLetterPipe } from '../_pipes/convertTableStatus'
 
 @NgModule({
   imports: [
@@ -35,7 +36,8 @@ import { SubmitSittingRecordsComponent } from './submit-sitting-records/submit-s
     NumberDirective,
     SittingRecordsLandingComponent,
     SittingRecordsLandingManageRecordsComponent,
-    SubmitSittingRecordsComponent
+    SubmitSittingRecordsComponent,
+    CapitalizeFirstLetterPipe
   ]
 })
 export class SittingRecordsModule { }

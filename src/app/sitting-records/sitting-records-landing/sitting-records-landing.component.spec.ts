@@ -43,20 +43,19 @@ describe('SittingRecordsLandingComponent', () => {
     expect(component.showSubmitSittingRecordsOption).toEqual(false);
   });
 
+  it('should not show FindAddDeleteSittingRecordsOption and SubmitSittingRecordsOption if jps-publisher role signs in', () => {
+    spyOn(cookieService, 'get').and.returnValue('jps-publisher');
+    component.ngOnInit();
+    expect(component.showFindAddDeleteSittingRecordsOption).toEqual(false);
+    expect(component.showSubmitSittingRecordsOption).toEqual(false);
+  });
+
   it('should show FindAddDeleteSittingRecordsOption and SubmitSittingRecordsOption if jps-submitter role signs in', () => {
     spyOn(cookieService, 'get').and.returnValue('jps-submitter');
     component.ngOnInit();
     expect(component.showFindAddDeleteSittingRecordsOption).toEqual(true);
     expect(component.showSubmitSittingRecordsOption).toEqual(true);
   });
-
-  it('should show only FindAddDeleteSittingRecordsOption if jps-publisher role signs in', () => {
-    spyOn(cookieService, 'get').and.returnValue('jps-publisher');
-    component.ngOnInit();
-    expect(component.showFindAddDeleteSittingRecordsOption).toEqual(true);
-    expect(component.showSubmitSittingRecordsOption).toEqual(false);
-  });
-
 
   it('should show only FindAddDeleteSittingRecordsOption if jps-admin role signs in', () => {
     spyOn(cookieService, 'get').and.returnValue('jps-admin');

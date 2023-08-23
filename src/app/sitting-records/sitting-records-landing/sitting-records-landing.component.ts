@@ -37,7 +37,10 @@ export class SittingRecordsLandingComponent implements OnInit, AfterViewInit{
 
     if(userRole.indexOf('jps-JOH-admin') != -1) {
       //show radio buttons visible to them
-    } else if (userRole.indexOf('jps-submitter') != -1) {
+    } else if (userRole.indexOf('jps-publisher') != -1) {
+      //show radio buttons visible to them
+    }
+    else if (userRole.indexOf('jps-submitter') != -1) {
       this.showFindAddDeleteSittingRecordsOption = true;
       this.showSubmitSittingRecordsOption = true;
     } else {
