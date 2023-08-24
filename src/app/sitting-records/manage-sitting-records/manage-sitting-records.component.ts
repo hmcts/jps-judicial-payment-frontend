@@ -73,7 +73,7 @@ export class ManageSittingRecordsComponent implements OnInit {
     })
 
     this.manageRecords.controls['tribunalService'].valueChanges.subscribe(() => {
-      if(this.manageRecords.controls['venue'].value !== ""){
+      if(this.manageRecords.controls['venue'].value !== null){
         this.manageRecords.controls['venue'].reset();
       }else{
         this.getVenues(this.manageRecords.controls['tribunalService'].value['hmctsServiceCode']);
