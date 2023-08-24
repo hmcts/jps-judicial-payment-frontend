@@ -16,7 +16,7 @@ export class SubmitSittingRecordsComponent implements OnInit {
   tribService = "";
   region = "";
   date = "";
- 
+
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
   sittingRecordData: SittingRecord[] = [];
