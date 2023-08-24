@@ -2,7 +2,7 @@ const { I } = inject();
 
 function addSittingRecordsInformation(tribunal, venue, day, month, year) {
   I.waitForVisible('.govuk-heading-l', 10);
-  I.see('Manage Judicial Sitting Records');
+  I.see('Manage judicial sitting records');
   I.see('Find, add or delete judicial sitting records');
   I.selectOption('Select a tribunal service', tribunal);
   I.fillField('Select a venue', venue);
@@ -14,7 +14,7 @@ function addSittingRecordsInformation(tribunal, venue, day, month, year) {
 
 function seeCommonLandingPage() {
   I.waitForVisible('.govuk-heading-l', 10);
-  I.see('Manage Judicial Sitting Records');
+  I.see('Manage judicial sitting records');
   I.see('What would you like to do?');
 }
 
