@@ -47,7 +47,7 @@ export class ViewSittingRecordsComponent {
   ngOnInit(){
     const formData = this.srWorkFlow.getFormData().value;
     const { dateSelected, tribunalService, venue } = formData;
-    this.tribService = tribunalService;
+    this.tribService = tribunalService.service;
     this.venueSiteName = venue.site_name;
     this.date = this.dateSvc.formatDateFromForm(dateSelected);
 

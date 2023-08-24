@@ -14,13 +14,13 @@ export class LocationService {
     private readonly cookies: CookieService
   ) { }
 
-  public getAllVenues(searchTerm: string): Observable<VenueModel[]> {
+  public getAllVenues(serviceCode: string): Observable<VenueModel[]> {
     
     const headers = {
       'Content-Type': 'application/json',
     };
 
-    return this.http.post<VenueModel[]>('/refdata/location', {searchTerm: searchTerm}, { headers: headers});
+    return this.http.post<VenueModel[]>('/refdata/location', {service_code: serviceCode}, { headers: headers});
 
   }
 

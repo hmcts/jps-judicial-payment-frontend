@@ -41,7 +41,7 @@ describe('ViewSittingRecordsComponent', () => {
     const formattedDate = '2022-01-01';
     const formDataMock: FormGroup = new FormBuilder().group({
       dateSelected: ['2022-01-01'],
-      tribunalService: ['Tribunal 1'],
+      tribunalService: [{service: 'Tribunal 1'}],
       venue: { site_name: 'Venue 1' }
     });
     const response: ViewSittingRecordResponse = {
@@ -56,7 +56,7 @@ describe('ViewSittingRecordsComponent', () => {
     component.ngOnInit();
     
     expect(mockDateSvc.formatDateFromForm).toHaveBeenCalledWith(formDataMock.controls['dateSelected'].value);
-    expect(component.tribService).toBe(formDataMock.controls['tribunalService'].value);
+    expect(component.tribService).toBe(formDataMock.controls['tribunalService'].value.service);
     expect(component.venueSiteName).toBe(formDataMock.controls['venue'].value.site_name);
     expect(component.date).toBe(formattedDate);
     expect(component.sittingRecordData).toBe(response.sittingRecords);

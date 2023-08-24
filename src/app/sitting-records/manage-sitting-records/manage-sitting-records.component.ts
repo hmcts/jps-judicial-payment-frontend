@@ -5,10 +5,9 @@ import {
   Validators, 
   AbstractControl
 } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { ManageSittingRecord } from '../../_validators/sittingRecordsFormValidator/sitting-records-form-validator';
-import { Observable } from 'rxjs';
-import { debounceTime, filter, mergeMap, tap } from 'rxjs/operators';
+import { debounceTime, map, startWith, tap } from 'rxjs/operators';
 import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-workflow.service';
 import { LocationService } from '../../_services/location-service/location.service'
 import { VenueModel } from '../../_models/venue.model';
@@ -16,7 +15,6 @@ import { AutoCompleteValidator } from '../../_validators/autoCompleteValidator/a
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { environment } from '../../environments/environment'
 import { CookieService } from 'ngx-cookie-service';
-
 @Component({
   selector: 'app-manage-sitting-records',
   templateUrl: './manage-sitting-records.component.html',
@@ -27,16 +25,15 @@ export class ManageSittingRecordsComponent implements OnInit {
   venues: VenueModel[] = [];
   readonly minSearchCharacters = 3;
   public searchTerm = '';
-  delay = 500;
-  refDataFound = true;
-  venueValueChange: any;
+  delay = 300;
+  typeaheadResultsFound = true;
   tribunalServices = environment.tribunalServices;
+  filteredVenues;
   showPreviousButton = true;
   
   submitForm(){
     this.srWorkFlow.setFormData(this.manageRecords)
     this.srWorkFlow.setManageVisited()
-    this.venueValueChange.unsubscribe()
     void this.router.navigate(['sittingRecords','view'])
   }
 
@@ -46,11 +43,10 @@ export class ManageSittingRecordsComponent implements OnInit {
 
   constructor(
     protected router: Router,
-    private cookies: CookieService,
-    protected activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
     private srWorkFlow: SittingRecordWorkflowService,
-    private locationService : LocationService
+    private locationService : LocationService,
+    private cookies: CookieService,
   ){
     this.manageRecords = this.formBuilder.group(
       {
@@ -79,17 +75,41 @@ export class ManageSittingRecordsComponent implements OnInit {
     this.manageRecords.controls['tribunalService'].valueChanges.subscribe(() => {
       if(this.manageRecords.controls['venue'].value !== ""){
         this.manageRecords.controls['venue'].reset();
+      }else{
+        this.getVenues(this.manageRecords.controls['tribunalService'].value['hmctsServiceCode']);
       }
     });
-    
+
+    this.filteredVenues = this.manageRecords.controls['venue'].valueChanges
+      .pipe(
+        startWith(''),
+        debounceTime(this.delay), 
+        tap((term) => this.searchTerm = term),
+        map(value => this._filter(value))
+      );
+
   }
+
+  private _filter(value: string): object[] {
+    if (typeof value !== 'string' || !value || value.length < this.minSearchCharacters) {
+      return [];
+    }
+    this.typeaheadResultsFound = true;
+    const filterValue = value.toLowerCase();
+    const filteredValues = this.venues.filter(venue => venue['site_name'].toLowerCase().includes(filterValue));
+    if (filteredValues.length === 0) {
+      this.typeaheadResultsFound = false;
+    }
+
+    return filteredValues;
+  }
+
 
   ngOnInit(): void {
     if(this.srWorkFlow.getFormData()){
       this.manageRecords = this.srWorkFlow.getFormData();
     }
 
-    this.venuesSearch();
 
     const userRole = this.cookies.get('__userrole__');
     if (userRole.indexOf('jps-recorder') != -1)
@@ -107,25 +127,10 @@ export class ManageSittingRecordsComponent implements OnInit {
     this.manageRecords.controls['venue'].patchValue(event.option.value, {emitEvent: false, onlySelf: true});
   }
 
-  public venuesSearch(): void {
-    this.venueValueChange = this.manageRecords.controls['venue'].valueChanges
-      .pipe(
-        tap(() => this.venues = []),
-        tap(() => this.refDataFound = true),
-        tap((term) => this.searchTerm = term),
-        filter(term => !!term && term.length >= this.minSearchCharacters),
-        debounceTime(this.delay),
-        mergeMap(value => this.getVenues(value)),
-      ).subscribe(venues => {
-        this.venues = venues;
-        if (venues.length === 0) {
-          this.refDataFound = false;
-        }
-      });
-  }
-
-  public getVenues(searchTerm: string): Observable<VenueModel[]> {
-    return this.locationService.getAllVenues(searchTerm);
+  public getVenues(serviceCode: string) {
+    this.locationService.getAllVenues(serviceCode).subscribe((locations) => {
+      this.venues = locations['court_venues'];
+    });
   }
 
   goBack(){
