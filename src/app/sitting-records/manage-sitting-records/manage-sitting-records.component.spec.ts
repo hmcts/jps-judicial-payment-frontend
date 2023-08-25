@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ReactiveFormsModule } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ManageSittingRecordsComponent } from './manage-sitting-records.component';
@@ -8,6 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { of } from 'rxjs';
 import { LocationService } from 'src/app/_services/location-service/location.service';
+import { CookieService } from 'ngx-cookie-service';
 
 describe('ManageSittingRecordsComponent', () => {
   let component: ManageSittingRecordsComponent;
@@ -15,12 +16,17 @@ describe('ManageSittingRecordsComponent', () => {
   let router: Router;
   let srWorkflowService: SittingRecordWorkflowService;
   let locationService: LocationService;
-
+  let cookieService: CookieService;
+  
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ReactiveFormsModule, RouterTestingModule, HttpClientModule, MatAutocompleteModule],
       declarations: [ManageSittingRecordsComponent],
-      providers: [SittingRecordWorkflowService, LocationService],
+      providers: [
+        SittingRecordWorkflowService, 
+        LocationService,
+        CookieService
+      ],
     }).compileComponents();
   });
 
@@ -30,6 +36,7 @@ describe('ManageSittingRecordsComponent', () => {
     router = TestBed.inject(Router);
     srWorkflowService = TestBed.inject(SittingRecordWorkflowService);
     locationService = TestBed.inject(LocationService);
+    cookieService = TestBed.inject(CookieService);
   });
 
   it('should create', () => {
@@ -68,6 +75,12 @@ describe('ManageSittingRecordsComponent', () => {
     const result = component.showVenue(value);
     expect(result).toBe('Test Site');
   });
+
+  it('should return null when calling showVenue with a falsy value', () => {
+    const value = null;
+    const result = component.showVenue(value);
+    expect(result).toBe('');
+  })
   
 
     it('should return empty array if value is not a string', () => {
@@ -186,6 +199,34 @@ describe('ManageSittingRecordsComponent', () => {
       expect(component.typeaheadResultsFound).toBe(false);
     });
 
+    it('should go to sittingRecords/home when goBack is called', () => {
+      spyOn(router, 'navigate');
+
+      component.goBack();
+
+      expect(router.navigate).toHaveBeenCalledWith(['sittingRecords','home']);
+    });
+
+    it('should not show the previous button for user role "jps-recorder"', () => {
+      spyOn(cookieService, 'get').and.returnValue('jps-recorder');
+  
+      component.ngOnInit();
+  
+      expect(component.showPreviousButton).toBeFalse();
+    });
+
+    it('should return the controls of manageRecords', () => {
+      component.manageRecords = new FormGroup({
+        'tribunalService': new FormControl(''),
+        'control2': new FormControl('')
+      });
+    
+      const controls: { [key: string]: AbstractControl } = component.f;
+      
+      expect(controls).toBeTruthy();
+      expect(controls['tribunalService']).toBeDefined();
+      expect(controls['control2']).toBeDefined();
+    });
 
 })
 
