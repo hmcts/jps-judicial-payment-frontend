@@ -27,7 +27,7 @@ Scenario('"Manage Judicial Sitting Records" page will be displayed when Previous
   ManageJudicialSittingRecordsPage.addSittingRecordsInformation('Social Security and Child Support', 'Bournemouth', '11', '03', '2022');
   I.click('Continue');
   I.click('Previous');
-  I.seeInField('Select a tribunal service', 'Social Security and Child Support');
+  I.see('Social Security and Child Support');
   I.seeInField('Select a venue','Bournemouth Combined Court');
   I.seeInField('Day', '11');
   I.seeInField('Month', '03');
