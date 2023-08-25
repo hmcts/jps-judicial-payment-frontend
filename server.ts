@@ -16,6 +16,7 @@ const logger = Logger.getLogger()
 
 const errorHandler = ((err, req, res, next) => {
   const error = err.response
+  console.log(error)
   res.status(error.status || 500);
   let errMsg = `${error.statusText}:`
   if(error.data.errorDescription){
