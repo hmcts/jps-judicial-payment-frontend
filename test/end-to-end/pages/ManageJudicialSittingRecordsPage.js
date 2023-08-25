@@ -5,7 +5,9 @@ function addSittingRecordsInformation(tribunal, venue, day, month, year) {
   I.see('Manage judicial sitting records');
   I.see('Find, add or delete judicial sitting records');
   I.selectOption('Select a tribunal service', tribunal);
+  I.wait(3);
   I.fillField('Select a venue', venue);
+  I.wait(3);
   I.click('.mdc-list-item__primary-text');
   I.fillField('Day', day);
   I.fillField('Month', month);
@@ -14,7 +16,7 @@ function addSittingRecordsInformation(tribunal, venue, day, month, year) {
 
 function seeCommonLandingPage() {
   I.waitForVisible('.govuk-heading-l', 10);
-  I.see('Manage judicial sitting records');
+  I.see('Manage Judicial Sitting Records');
   I.see('What would you like to do?');
 }
 
