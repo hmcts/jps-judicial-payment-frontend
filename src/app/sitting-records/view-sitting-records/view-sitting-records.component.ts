@@ -37,7 +37,7 @@ export class ViewSittingRecordsComponent {
     void this.router.navigate(['sittingRecords','add'])
   }
 
-  getPeriod(am: string, pm: string): string {
+  getPeriod(am: boolean, pm: boolean): string {
     return this.dateSvc.getPeriod(am, pm);
   }
 

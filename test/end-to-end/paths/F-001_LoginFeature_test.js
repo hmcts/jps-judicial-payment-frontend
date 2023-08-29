@@ -2,7 +2,7 @@ Feature('Login Feature Tests @functional @F-001');
 
 Scenario('Successful login @S-001.1',({ I}) => {
   I.loginWithJPSRecorderUser();
-  I.see('Manage Judicial Sitting Records');
+  I.see('Manage judicial sitting records');
 });
 
 Scenario('Show an error message for invalid password @S-001.2',({ I}) => {
