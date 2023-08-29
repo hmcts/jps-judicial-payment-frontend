@@ -7380,21 +7380,21 @@ __metadata:
   linkType: hard
 
 "datatables.net-dt@npm:^1.13.4":
-  version: 1.13.5
-  resolution: "datatables.net-dt@npm:1.13.5"
+  version: 1.13.6
+  resolution: "datatables.net-dt@npm:1.13.6"
   dependencies:
     datatables.net: ">=1.13.4"
     jquery: ">=1.7"
-  checksum: 7226b18c264c460b47f26fa49c2511260ea9e83be2268f0e51523635454a60d252b67e00db4ba94da33a56e5a9107ce4d2ce9503b8ccf3fae9f14c97ecc46854
+  checksum: 1c9308fb1b462934c3640eca24344b2ed53356f21fe86d64d198b3c3ba83f5d7d10d94e3ce70fc20ba13b9594487e20c3d5f4e391a6f2a5a92f8785327f11990
   languageName: node
   linkType: hard
 
 "datatables.net@npm:>=1.13.4, datatables.net@npm:^1.13.4":
-  version: 1.13.5
-  resolution: "datatables.net@npm:1.13.5"
+  version: 1.13.6
+  resolution: "datatables.net@npm:1.13.6"
   dependencies:
     jquery: ">=1.7"
-  checksum: 877a547ecb220f7511a88f94b9fbe338a055b26f959426086c39d9555244de84f6d51b8d6fc2f4f570727d843f7dac88d21a46c72c355967f22bb0157d7d5ae6
+  checksum: 2c9e4063bd6b2cfeac92e577a34d3a35803fdd5aeb47ca11230584684e20d328f1b0977a12cbe06412d7c8ee451635fba20ad6a6f44c0da07eaba32c909fe0d1
   languageName: node
   linkType: hard
 
