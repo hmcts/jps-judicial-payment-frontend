@@ -16,7 +16,7 @@ export class SittingRecordsManageGuard implements CanActivate {
   canActivate(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     const userRole = this.cookies.get('__userrole__');
     
-    if(userRole.indexOf('jps-recorder') != -1){
+    if(userRole.indexOf('jps-recorder') != -1 || userRole.indexOf('jps-submitter') != -1) {
       return true;
     }
     else {

@@ -5,7 +5,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SittingRecordsComponent } from './sitting-records.component';
 import { SittingRecordsRoutingModule } from './sitting-records-routing.module';
 import { ManageSittingRecordsComponent } from './manage-sitting-records/manage-sitting-records.component';
-import { PhaseBannerComponent } from '../phase-banner/phase-banner.component';
 import { ViewSittingRecordsComponent } from './view-sitting-records/view-sitting-records.component';
 import { NumberDirective } from '../_directives/numbers-only.directive';
 import { AddSittingRecordComponent } from './add-sitting-record/add-sitting-record.component';
@@ -36,7 +35,6 @@ import { CapitalizeFirstLetterPipe } from '../_pipes/convertTableStatus'
   declarations: [
     SittingRecordsComponent,
     ManageSittingRecordsComponent,
-    PhaseBannerComponent,
     ViewSittingRecordsComponent,
     NumberDirective,
     AddSittingRecordComponent,
