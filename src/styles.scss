@@ -3,5 +3,7 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import './styles/datatable_overrides.scss';
 
+.link-color{ color: $govuk-link-colour; }
 .datatable-row-detail { width: 100vw; }
 .deleteCell{ cursor: pointer; color: $govuk-link-colour;}
+.govuk-button[disabled]{ border-top: 0; }
