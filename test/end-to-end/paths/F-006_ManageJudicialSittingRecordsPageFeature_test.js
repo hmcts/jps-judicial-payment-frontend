@@ -6,7 +6,7 @@ Scenario('Successfully continue to "Judicial sitting records" page @S-006.1',({ 
   I.loginWithJPSRecorderUser();
   ManageJudicialSittingRecordsPage.addSittingRecordsInformation('Social Security and Child Support', 'Bournemouth', '11', '03', '2022');
   I.click('Continue');
-  I.see("Judicial Sitting Records");
+  I.see("Judicial sitting records");
   I.see("Sitting records for Social Security and Child Support, Bournemouth Combined Court, for 11/03/2022");
 });
 
