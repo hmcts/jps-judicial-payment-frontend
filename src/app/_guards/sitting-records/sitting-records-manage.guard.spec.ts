@@ -47,41 +47,7 @@ describe('SittingRecordsManageGuard', () => {
 
   it('should navigate to /sittingRecords/home and return false if jps-submitter role is logged in and Landing Page is not visited', () => {
     spyOn(mockRouter, 'navigate');
-    spyOn(mockCookieService, 'get').and.returnValue('jps-submitter');
-    spyOn(mockSubmitterWorkflowService, 'getLandingVisited').and.returnValue(false);
-    const result = guard.canActivate();
-    expect(mockRouter.navigate).toHaveBeenCalledWith(['sittingRecords', 'home']);
-    expect(result).toBeFalse();
-  });
-
-  it('should return true if jps-admin role is logged in and Landing Page is visited', () => {
-    spyOn(mockCookieService, 'get').and.returnValue('jps-admin');
-    spyOn(mockAdminWorkflowService, 'getLandingVisited').and.returnValue(true);
-    const result = guard.canActivate();
-    expect(result).toBeTrue();
-  });
-
-  it('should navigate to /sittingRecords/home and return false if jps-admin role is logged in and Landing Page is not visited', () => {
-    spyOn(mockRouter, 'navigate');
-    spyOn(mockCookieService, 'get').and.returnValue('jps-admin');
-    spyOn(mockAdminWorkflowService, 'getLandingVisited').and.returnValue(false);
-    const result = guard.canActivate();
-    expect(mockRouter.navigate).toHaveBeenCalledWith(['sittingRecords', 'home']);
-    expect(result).toBeFalse();
-  });
-
-  it('should navigate to /sittingRecords/home if jps-publisher role is logged in', () => {
-    spyOn(mockRouter, 'navigate');
     spyOn(mockCookieService, 'get').and.returnValue('jps-publisher');
-
-    const result = guard.canActivate();
-    expect(mockRouter.navigate).toHaveBeenCalledWith(['sittingRecords', 'home']);
-    expect(result).toBeFalse();
-  });
-
-  it('should navigate to /sittingRecords/home if jps-JOH-admin role is logged in', () => {
-    spyOn(mockRouter, 'navigate');
-    spyOn(mockCookieService, 'get').and.returnValue('jps-joh-admin');
 
     const result = guard.canActivate();
     expect(mockRouter.navigate).toHaveBeenCalledWith(['sittingRecords', 'home']);

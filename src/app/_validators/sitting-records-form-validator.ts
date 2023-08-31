@@ -16,7 +16,7 @@ export class CustomValidators extends Validators {
       return { 'date_invalid': true }
     }
     if (dateDay.value && dateMonth.value && (dateYear.value && dateYear.value.length == 4)) {
-      const dateObj = new Date(`${dateMonth.value}-${dateDay.value}-${dateYear.value}`)
+      const dateObj = new Date(`${dateMonth.value}-${dateDay.value}-${dateYear.value}`.replace(/-/g, "/"))
       const todaysDate = new Date()
       const supportedDate = new Date('12-11-2021')
       if (dateObj > todaysDate) {

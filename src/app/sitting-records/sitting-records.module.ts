@@ -5,7 +5,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SittingRecordsComponent } from './sitting-records.component';
 import { SittingRecordsRoutingModule } from './sitting-records-routing.module';
 import { ManageSittingRecordsComponent } from './manage-sitting-records/manage-sitting-records.component';
-import { PhaseBannerComponent } from '../phase-banner/phase-banner.component';
 import { ViewSittingRecordsComponent } from './view-sitting-records/view-sitting-records.component';
 import { NumberDirective } from '../_directives/numbers-only.directive';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -21,6 +20,7 @@ import { TribunalServiceComponent } from './shared-components/tribunal-service/t
 import { VenueComponent } from './shared-components/venue/venue.component';
 import { SittingDateComponent } from './shared-components/sitting-date/sitting-date.component';
 import { RegionComponent } from './shared-components/region/region.component';
+import { CapitalizeFirstLetterPipe } from '../_pipes/convertTableStatus'
 
 @NgModule({
   imports: [
@@ -35,17 +35,17 @@ import { RegionComponent } from './shared-components/region/region.component';
   declarations: [
     SittingRecordsComponent,
     ManageSittingRecordsComponent,
-    PhaseBannerComponent,
     ViewSittingRecordsComponent,
     NumberDirective,
     SittingRecordsLandingComponent,
     SittingRecordsLandingManageRecordsSubmitterComponent,
-    SubmitSittingRecordsComponent,
-    SittingRecordsLandingManageRecordsPublisherComponent,
     TribunalServiceComponent,
     VenueComponent,
     SittingDateComponent,
-    RegionComponent
+    RegionComponent,
+    SittingRecordsLandingManageRecordsPublisherComponent,
+    SubmitSittingRecordsComponent,
+    CapitalizeFirstLetterPipe
   ]
 })
 export class SittingRecordsModule { }

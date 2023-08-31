@@ -40,7 +40,7 @@ export class ViewSittingRecordsComponent implements OnInit {
   ngOnInit(){
     const formData = this.sharedWorkFlow.getFormData().value;
     const { dateSelected, tribunalService, venue } = formData;
-    this.tribService = tribunalService;
+    this.tribService = tribunalService.service;
     this.venueSiteName = venue.site_name;
     this.date = this.dateSvc.formatDateFromForm(dateSelected);
 
@@ -69,10 +69,17 @@ export class ViewSittingRecordsComponent implements OnInit {
   } 
 
   loadViewSittingRecords() {
-    this.sharedWorkFlow.getSittingRecordsData().subscribe(records => {
-      this.sittingRecordData = records.sittingRecords;
-      this.dtTrigger.next(null); 
-    });
+    this.sharedWorkFlow.getSittingRecordsData().subscribe(
+      records => {
+        this.sittingRecordData = records.sittingRecords;
+        this.dtTrigger.next(null); 
+      },
+      () => {
+        this.sittingRecordData = []
+        this.dtTrigger.next(null);
+      }
+    );
+    
   }
 
 }
