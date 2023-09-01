@@ -17,7 +17,7 @@ const logger = Logger.getLogger()
 const TOKEN_REFRESH = 1000 * 60 * 60 * 3;
 
 const errorHandler = ((err, req, res, next) => {
-  console.log(err)
+  console.log(err.response)
   if (err) {
     const error = err.response
     res.status(error.status || 500);
@@ -53,6 +53,7 @@ function getSystemAuthTokens(){
 }
 
 setInterval(() => {
+  logger.debug(`Refreshing tokens`)
   getSystemAuthTokens();
 }, TOKEN_REFRESH);
 
