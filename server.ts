@@ -14,7 +14,7 @@ import { IdamAuthenticatorService } from './api/refdata/authenticator/index';
 import sittingRecordsRouter from './api/sittingrecords/routes';
 import { Logger } from '@hmcts/nodejs-logging';
 const logger = Logger.getLogger()
-const TOKEN_REFRESH = 1000 * 60 * 60 * 5;
+const TOKEN_REFRESH = 1000 * 60 * 60 * 3;
 
 const errorHandler = ((err, req, res, next) => {
   console.log(err)
