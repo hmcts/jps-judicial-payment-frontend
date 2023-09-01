@@ -7,13 +7,11 @@ import {
   Validators, 
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { SharedWorkflowService } from '../../_workflows/shared-workflow.service';
+import { ManageSittingRecordsWorkflowService } from '../../_workflows/manage-sitting-record-workflow.service';
 import { CustomValidators } from '../../_validators/sitting-records-form-validator';
 import { LocationService } from '../../_services/location-service/location.service'
 import { VenueModel } from '../../_models/venue.model';
-import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { environment } from '../../environments/environment'
-import { debounceTime, map, startWith, tap } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 @Component({
   selector: 'app-manage-sitting-records',
@@ -31,8 +29,8 @@ export class ManageSittingRecordsComponent implements OnInit {
   showPreviousButton = true;
   
   submitForm(){
-    this.sharedWorkFlowService.setFormData(this.manageRecords)
-    this.sharedWorkFlowService.setManageVisited()
+    this.msrWorkFlowService.setFormData(this.manageRecords)
+    this.msrWorkFlowService.setManageVisited()
     void this.router.navigate(['sittingRecords','view'])
   }
 
@@ -43,7 +41,7 @@ export class ManageSittingRecordsComponent implements OnInit {
   constructor(
     protected router: Router,
     private formBuilder: FormBuilder,
-    private sharedWorkFlowService: SharedWorkflowService,
+    private msrWorkFlowService: ManageSittingRecordsWorkflowService,
     private locationService : LocationService,
     private cookies: CookieService,
   ){
@@ -73,7 +71,6 @@ export class ManageSittingRecordsComponent implements OnInit {
     })
 
     this.manageRecords.controls['tribunalService'].valueChanges.subscribe(() => {
-      console.log(this.manageRecords)
       if(this.manageRecords.controls['venue'].value !== ""){
         this.manageRecords.controls['venue'].reset();
       }else{
@@ -84,8 +81,8 @@ export class ManageSittingRecordsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if(this.sharedWorkFlowService.getFormData()){
-      this.manageRecords = this.sharedWorkFlowService.getFormData();
+    if(this.msrWorkFlowService.getFormData()){
+      this.manageRecords = this.msrWorkFlowService.getFormData();
     }
 
     const userRole = this.cookies.get('__userrole__');

@@ -7,7 +7,7 @@ import { DateService } from '../_services/date-service/date-service'
 @Injectable({
   providedIn: 'root'
 })
-export class SharedWorkflowService {
+export class ManageSittingRecordsWorkflowService {
   
   formData!: FormGroup;
   hasVisitedManage = false;
@@ -28,7 +28,6 @@ export class SharedWorkflowService {
 
   setFormData(data : FormGroup){
     this.formData = data;
-    console.log(this.formData);
   }
 
   getFormData(){

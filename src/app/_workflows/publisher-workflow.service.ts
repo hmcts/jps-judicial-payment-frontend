@@ -8,7 +8,7 @@ import { DateService } from '../_services/date-service/date-service';
 export class PublisherWorkflowService {
 
   formData!: FormGroup;
-  userFormData!: FormGroup;
+  userLandingData!: FormGroup;
   hasLandingVisited = false;
 
   constructor (
@@ -27,23 +27,23 @@ export class PublisherWorkflowService {
     this.formData = data;
   }
 
-  setUserFormData(data : FormGroup){
-    this.userFormData = data;
+  setUserLandingData(data : FormGroup){
+    this.userLandingData = data;
   }
 
   getFormData(){
     return this.formData;
   }
 
-  getUserFormData(){
-    return this.userFormData;
+  getUserLandingData(){
+    return this.userLandingData;
   }
 
   resetFormData(){
     this.formData.reset();
   }
 
-  resetUserFormData() {
-    this.userFormData.reset();
+  resetUserLandingData() {
+    this.userLandingData.reset();
   }
 }

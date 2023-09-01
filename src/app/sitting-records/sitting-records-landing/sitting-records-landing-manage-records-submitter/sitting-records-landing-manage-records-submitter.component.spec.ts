@@ -33,20 +33,20 @@ describe('SittingRecordsLandingManageRecordsSubmitterComponent', () => {
   });
 
   it('should disable the region field on initialization', () => {
-    expect(component.manageRecords.controls['region'].disabled).toBeTrue();
+    expect(component.submitterForm.controls['region'].disabled).toBeTrue();
   });
 
   it('should enable the region field when the tribunalService field is not empty', () => {
-    const tribunalService = component.manageRecords.controls['tribunalService'];
-    const region = component.manageRecords.controls['region'];
+    const tribunalService = component.submitterForm.controls['tribunalService'];
+    const region = component.submitterForm.controls['region'];
 
     tribunalService.setValue('test');
     expect(region.enabled).toBeTrue();
   });
 
   it('should reset the region field when the tribunalService field is changed', () => {
-    const tribunalService = component.manageRecords.controls['tribunalService'];
-    const region = component.manageRecords.controls['region'];
+    const tribunalService = component.submitterForm.controls['tribunalService'];
+    const region = component.submitterForm.controls['region'];
 
     tribunalService.setValue('test');
     region.setValue('test venue');

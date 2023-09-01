@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroupDirective } from '@angular/forms';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-tribunal-service',
@@ -9,5 +10,7 @@ import { FormGroupDirective } from '@angular/forms';
 export class TribunalServiceComponent {
 
   constructor(public parentFormGroup: FormGroupDirective) { }
+
+  tribunalServices = environment.tribunalServices;
 
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SharedWorkflowService } from '../../_workflows/shared-workflow.service';
+import { ManageSittingRecordsWorkflowService } from '../../_workflows/manage-sitting-record-workflow.service';
 import { DateService } from '../../_services/date-service/date-service';
 import { Router } from '@angular/router';
 import { defaultDtOptions }  from '../../_services/default-dt-options'
@@ -32,13 +32,13 @@ export class ViewSittingRecordsComponent implements OnInit {
   }
 
   constructor(
-    private sharedWorkFlow: SharedWorkflowService,
+    private msrWorkFlow: ManageSittingRecordsWorkflowService,
     private dateSvc: DateService,
     private router: Router
   ){}
     
   ngOnInit(){
-    const formData = this.sharedWorkFlow.getFormData().value;
+    const formData = this.msrWorkFlow.getFormData().value;
     const { dateSelected, tribunalService, venue } = formData;
     this.tribService = tribunalService.service;
     this.venueSiteName = venue.site_name;
@@ -69,7 +69,7 @@ export class ViewSittingRecordsComponent implements OnInit {
   } 
 
   loadViewSittingRecords() {
-    this.sharedWorkFlow.getSittingRecordsData().subscribe(
+    this.msrWorkFlow.getSittingRecordsData().subscribe(
       records => {
         this.sittingRecordData = records.sittingRecords;
         this.dtTrigger.next(null); 

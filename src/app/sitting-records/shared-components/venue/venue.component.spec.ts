@@ -3,14 +3,12 @@ import { LocationService } from '../../../_services/location-service/location.se
 import { VenueModel } from '../../../_models/venue.model';
 import { VenueComponent } from './venue.component';
 import { MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { of } from 'rxjs';
 import { FormBuilder, FormGroupDirective, ReactiveFormsModule} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 describe('VenueComponent', () => {
   let component: VenueComponent;
   let fixture: ComponentFixture<VenueComponent>;
-  let locationService: LocationService;
  
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -22,7 +20,6 @@ describe('VenueComponent', () => {
 
     fixture = TestBed.createComponent(VenueComponent);
     component = fixture.componentInstance;
-    locationService = TestBed.inject(LocationService);
 
     component.parentFormGroup.form = new FormBuilder().group({
       venue: ['Venue 1'],
@@ -95,87 +92,21 @@ describe('VenueComponent', () => {
     expect(component.parentFormGroup.control.controls['venue'].untouched).toBeTrue();
   });
 
-  it('should call the LocationService and return venues when calling getVenues', () => {
-    const searchTerm = 'test';
-    const venues: VenueModel[] = [
-      { site_name: 'Venue 1',
-      court_venue_id: '',
-      epimms_id: '',
-      region_id: '',
-      region: '',
-      court_type: '',
-      court_type_id: '',
-      cluster_id: '',
-      cluster_name: '',
-      open_for_public: '',
-      court_address: '',
-      postcode: '',
-      phone_number: '',
-      closed_date: '',
-      court_location_code: '',
-      dx_address: '',
-      welsh_site_name: '',
-      welsh_court_address: '',
-      court_status: '',
-      court_open_date: '',
-      court_name: '',
-      venue_name: '',
-      is_case_management_location: '',
-      is_hearing_location: '',
-      welsh_venue_name: '',
-      is_temporary_location: '',
-      is_nightingale_court: '',
-      location_type: '',
-      parent_location: '',
-      welsh_court_name: '',
-      uprn: '',
-      venue_ou_code: '',
-      mrd_building_location_id: '',
-      mrd_venue_id: '',
-      service_url: '',
-      fact_url: '' }, 
-      { site_name: 'Venue 2',
-      court_venue_id: '',
-      epimms_id: '',
-      region_id: '',
-      region: '',
-      court_type: '',
-      court_type_id: '',
-      cluster_id: '',
-      cluster_name: '',
-      open_for_public: '',
-      court_address: '',
-      postcode: '',
-      phone_number: '',
-      closed_date: '',
-      court_location_code: '',
-      dx_address: '',
-      welsh_site_name: '',
-      welsh_court_address: '',
-      court_status: '',
-      court_open_date: '',
-      court_name: '',
-      venue_name: '',
-      is_case_management_location: '',
-      is_hearing_location: '',
-      welsh_venue_name: '',
-      is_temporary_location: '',
-      is_nightingale_court: '',
-      location_type: '',
-      parent_location: '',
-      welsh_court_name: '',
-      uprn: '',
-      venue_ou_code: '',
-      mrd_building_location_id: '',
-      mrd_venue_id: '',
-      service_url: '',
-      fact_url: '' }
+  it('should filter venues based on input value', () => {
+
+    component.venues = [
+      { site_name: 'Test Venue 1' },
+      { site_name: 'Test Venue 2' },
+      { site_name: 'Another Venue' },
     ];
-
-    spyOn(locationService, 'getAllVenues').and.returnValue(of(venues));
-
-    component.getVenues(searchTerm).subscribe((result) => {
-      expect(result).toEqual(venues);
-    });
+  
+    const filteredVenues = component['_filter']('Test');
+  
+    expect(filteredVenues.length).toBe(2);
+    expect(filteredVenues).toEqual([
+      { site_name: 'Test Venue 1' },
+      { site_name: 'Test Venue 2' },
+    ]);
   });
+  
 });

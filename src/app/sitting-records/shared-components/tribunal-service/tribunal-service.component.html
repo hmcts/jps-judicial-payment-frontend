@@ -6,9 +6,8 @@
         <select class="govuk-select govuk-!-width-two-thirds" 
             formControlName="tribunalService"
             id="sort" name="sort">
-            <option [ngValue]="''" disabled selected>--Select a value--</option>
-            <option [ngValue]="'BBA3'">Social Security and Child Support</option>
-            <option [ngValue]="'ABA5'">Private Law</option>
+            <option [ngValue]="null" disabled selected>--Select a value--</option>
+              <option *ngFor="let service of tribunalServices" [ngValue]="service">{{service.service}}</option>
         </select>
     </div>
 </ng-container>

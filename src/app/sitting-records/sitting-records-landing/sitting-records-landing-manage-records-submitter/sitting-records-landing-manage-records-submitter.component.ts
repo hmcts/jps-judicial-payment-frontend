@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CustomValidators } from '../../../_validators/sitting-records-form-validator';
 import { SubmitterWorkflowService } from '../../../_workflows/submitter-workflow.service';
@@ -9,13 +9,18 @@ import { SubmitterWorkflowService } from '../../../_workflows/submitter-workflow
   styleUrls: ['./sitting-records-landing-manage-records-submitter.component.scss']
 })
 export class SittingRecordsLandingManageRecordsSubmitterComponent implements OnInit {
-  public manageRecords!: FormGroup;
-   
+
+  @Output() submitterFormValid = new EventEmitter<[boolean, string]>();
+  @Output() submitterFormValues = new EventEmitter<[object, string]>();
+
+
+  public submitterForm!: FormGroup;
+  
   constructor( 
     private formBuilder: FormBuilder,
     private submitterWorkflow: SubmitterWorkflowService,
     ){
-    this.manageRecords = this.formBuilder.group({
+    this.submitterForm = this.formBuilder.group({
         tribunalService: [null, [Validators.required]],
         region: [null, [Validators.required]],
         dateSelected: formBuilder.group ({
@@ -28,26 +33,34 @@ export class SittingRecordsLandingManageRecordsSubmitterComponent implements OnI
         ]})
       });
 
-      this.manageRecords.controls["region"].disable();
+      this.submitterForm.controls["region"].disable();
 
-      this.manageRecords.valueChanges.subscribe(() => {
-        if(this.manageRecords.controls["tribunalService"].value !== "" && this.manageRecords.controls["region"].disabled){
-          this.manageRecords.controls["region"].enable();
+      this.submitterForm.valueChanges.subscribe(() => {
+        if(this.submitterForm.controls["tribunalService"].value !== "" && this.submitterForm.controls["region"].disabled){
+          this.submitterForm.controls["region"].enable();
         }
   
       })
   
-      this.manageRecords.controls["tribunalService"].valueChanges.subscribe(() => {
-        if(this.manageRecords.controls["region"].value !== ""){
-          this.manageRecords.controls["region"].reset();
+      this.submitterForm.controls["tribunalService"].valueChanges.subscribe(() => {
+        if(this.submitterForm.controls["region"].value !== ""){
+          this.submitterForm.controls["region"].reset();
         }
       });
   }
 
   ngOnInit(): void {
     if(this.submitterWorkflow.getFormData()){
-      this.manageRecords = this.submitterWorkflow.getFormData();
+      this.submitterForm = this.submitterWorkflow.getFormData();
     }
+
+    this.submitterForm.statusChanges.subscribe(status => {
+      const isValid = status === 'VALID';
+      this.submitterFormValid.emit([isValid, 'submitter']);
+      if(isValid) {
+        this.submitterFormValues.emit([this.submitterForm, 'submitter']);
+      }
+    })
   }
   
 }

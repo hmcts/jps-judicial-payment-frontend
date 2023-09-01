@@ -6,7 +6,7 @@ import { PublisherWorkflowService } from './publisher-workflow.service';
 describe('PublisherWorkflowService', () => {
   let mockWorkflowService: PublisherWorkflowService;
   let mockformData: FormGroup;
-  let mockUserFormData: FormGroup;
+  let mockUserLandingData: FormGroup;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -18,12 +18,12 @@ describe('PublisherWorkflowService', () => {
       tribunalService: ['Tribunal 1'],
     });
 
-    mockUserFormData = new FormBuilder().group({
+    mockUserLandingData = new FormBuilder().group({
       option: ['opt4'],
     });
 
     mockWorkflowService.setFormData(mockformData);
-    mockWorkflowService.setUserFormData(mockUserFormData);
+    mockWorkflowService.setUserLandingData(mockUserLandingData);
   });
 
   it('should be created', () => {
@@ -43,9 +43,9 @@ describe('PublisherWorkflowService', () => {
     });
   });
 
-  describe('setUserFormData and getUserFormData', () => {
+  describe('setUserLandingData and getUserLandingData', () => {
     it('should set and get the user form data', () => {
-      expect(mockWorkflowService.getUserFormData()).toBe(mockUserFormData);
+      expect(mockWorkflowService.getUserLandingData()).toBe(mockUserLandingData);
     });
   });
 
@@ -57,11 +57,11 @@ describe('PublisherWorkflowService', () => {
     });
   });
 
-  describe('resetUserFormData', () => {
+  describe('resetUserLandingData', () => {
     it('should reset the user form data', () => {
-      expect(mockWorkflowService.getUserFormData()).toBe(mockUserFormData);
-      mockWorkflowService.resetUserFormData();
-      expect(mockWorkflowService.getUserFormData().getRawValue()).toEqual({ option: null });
+      expect(mockWorkflowService.getUserLandingData()).toBe(mockUserLandingData);
+      mockWorkflowService.resetUserLandingData();
+      expect(mockWorkflowService.getUserLandingData().getRawValue()).toEqual({ option: null });
     });
   });
 
