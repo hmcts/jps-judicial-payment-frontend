@@ -39,7 +39,7 @@ export class DateService {
       case 'PM':
         return "Afternoon"
       case 'FULL_DAY':
-        return "Full Day"
+        return "Full day"
       default:
         return ''
     }

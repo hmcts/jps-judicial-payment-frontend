@@ -16,6 +16,7 @@ export class SittingRecordWorkflowService {
   hasVisitedManage = false;
   cameFromConfirm = false;
   sittingRecordsRoleList;
+  venueData;
     
   constructor(
     private dateSvc: DateService,
@@ -60,6 +61,16 @@ export class SittingRecordWorkflowService {
   resetAddSittingRecords(){
     this.addSittingRecords.reset();
   }
+
+
+  setVenueData(venues){
+    this.venueData = venues;
+  }
+
+  getVenueData(){
+    return this.venueData;
+  }
+  
 
   // confirmation get, set, reset
   checkCameFromConfirm(){

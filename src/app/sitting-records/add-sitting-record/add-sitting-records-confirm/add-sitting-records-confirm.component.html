@@ -1,5 +1,8 @@
 <main class="govuk-main-wrapper " id="main-content" role="main">
-
+    
+    <span class="govuk-caption-l">
+        <app-sitting-records-info-banner amendedText="Add sitting records"></app-sitting-records-info-banner>
+    </span>
     <h2 class="govuk-heading-l">Confirm new sitting record(s)</h2>
 
     <dl class="govuk-summary-list" *ngIf="newSittingRecords">
@@ -13,7 +16,7 @@
                 Period
             </dt>
             <dt class="govuk-summary-list__key">
-                Entered By
+                Entered by
             </dt>
         </div>
         <div class="govuk-summary-list__row" *ngFor="let joh of johFormArray.controls">
@@ -21,7 +24,7 @@
                 {{joh.get('johName')?.value?.fullName}}
             </dd>
             <dd class="govuk-summary-list__value">
-                {{joh.get('johRole')?.value.appointment}}
+                {{joh.get('johRole')?.value?.appointment}}
             </dd>
             <dd class="govuk-summary-list__value">
                 {{convertPeriod(newSittingRecords.get('period')?.value)}}
@@ -40,6 +43,6 @@
         </button>
     </div>
     <div>
-        <a class="govuk-link" (click)="cancelAdd()">Cancel</a>
+        <a class="govuk-link link-color" (click)="cancelAdd()">Cancel</a>
     </div>
 </main>

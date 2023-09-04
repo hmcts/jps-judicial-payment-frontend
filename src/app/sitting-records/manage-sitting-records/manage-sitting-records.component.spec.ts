@@ -44,6 +44,12 @@ describe('ManageSittingRecordsComponent', () => {
   });
 
   it('should disable the venue field on initialization', () => {
+    component.manageRecords = new FormBuilder().group({
+      dateSelected: [null],
+      tribunalService: [null],
+      venue: [null],
+    });
+    component.createEventListeners()
     expect(component.manageRecords.controls['venue'].disabled).toBeTrue();
   });
 
@@ -51,7 +57,7 @@ describe('ManageSittingRecordsComponent', () => {
     spyOn(locationService, 'getAllVenues').and.returnValue(of([]));
     const tribunalService = component.manageRecords.controls['tribunalService'];
     const venue = component.manageRecords.controls['venue'];
-
+    component.createEventListeners();
     tribunalService.setValue('test');
     venue.setValue('test venue');
     expect(venue.value).toEqual('test venue');

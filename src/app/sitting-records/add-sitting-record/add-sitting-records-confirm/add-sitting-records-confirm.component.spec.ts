@@ -3,10 +3,12 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { AddSittingRecordsConfirmComponent } from './add-sitting-records-confirm.component';
 import { SittingRecordWorkflowService } from '../../../_workflows/sitting-record-workflow.service';
 import { Router } from '@angular/router';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { DateService } from '../../../_services/date-service/date-service';
 import { of } from 'rxjs';
+import { SittingRecordsInfoBannerComponent } from '../../../sitting-records-info-banner/sitting-records-info-banner.component';
+
 
 describe('AddSittingRecordsConfirmComponent', () => {
   let component: AddSittingRecordsConfirmComponent;
@@ -19,7 +21,7 @@ describe('AddSittingRecordsConfirmComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [RouterTestingModule, HttpClientTestingModule],
-      declarations: [AddSittingRecordsConfirmComponent],
+      declarations: [AddSittingRecordsConfirmComponent, SittingRecordsInfoBannerComponent],
       providers: [SittingRecordWorkflowService]
     }).compileComponents();
 
@@ -33,6 +35,13 @@ describe('AddSittingRecordsConfirmComponent', () => {
     httpMock= TestBed.inject(HttpTestingController);
     dateSvc = TestBed.inject(DateService);
     spyOn(srWorkFlow, 'getAddSittingRecords').and.returnValue(new FormGroup({ test: new FormControl('') }));
+    const formDataMock: FormGroup = new FormBuilder().group({
+      dateSelected: ['2022-01-01'],
+      tribunalService: ['Tribunal 1'],
+      venue: ['Venue 1'],
+    });
+    srWorkFlow.setFormData(formDataMock);
+    
     fixture.detectChanges();
   });
 

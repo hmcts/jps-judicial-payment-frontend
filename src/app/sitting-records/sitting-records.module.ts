@@ -20,6 +20,7 @@ import { SittingRecordsLandingManageRecordsComponent } from './sitting-records-l
 import { DataTablesModule } from "angular-datatables";
 
 import { CapitalizeFirstLetterPipe } from '../_pipes/convertTableStatus'
+import { ConvertRoleIdToString } from '../_pipes/convertRoleIdToString'
 
 @NgModule({
   imports: [
@@ -44,7 +45,8 @@ import { CapitalizeFirstLetterPipe } from '../_pipes/convertTableStatus'
     AddSittingRecordsConfirmComponent,
     SittingRecordsLandingComponent,
     SittingRecordsLandingManageRecordsComponent,
-    CapitalizeFirstLetterPipe
+    CapitalizeFirstLetterPipe,
+    ConvertRoleIdToString
   ]
 })
 export class SittingRecordsModule { }
