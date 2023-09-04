@@ -26,9 +26,9 @@ export class AddSittingRecordsConfirmComponent{
   }
 
   cancelAdd(){
+    void this.router.navigate(['sittingRecords', 'manage'])
     this.srWorkFlow.resetCameFromConfirm()
     this.srWorkFlow.resetAddSittingRecords()
-    void this.router.navigate(['sittingRecords', 'manage'])
   }
 
   goBack(){

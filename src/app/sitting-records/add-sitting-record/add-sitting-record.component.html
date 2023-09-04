@@ -41,6 +41,7 @@
                             type="text" aria-describedby="judge-hint"
                             placeholder="Start typing to find a JOH name" 
                             formControlName="johName"
+                            autocomplete="off"
                             [matAutocomplete]="johUserSearch"
                         >
                         <mat-autocomplete class="mat-autocomplete-panel-extend" autoActiveFirstOption #johUserSearch="matAutocomplete" (optionSelected)="optionSelected($event, i)" [displayWith]="showUserName">
