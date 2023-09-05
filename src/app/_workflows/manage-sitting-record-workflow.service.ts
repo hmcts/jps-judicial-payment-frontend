@@ -9,7 +9,7 @@ import { UserInfoService } from '../_services/user-info-service/user-info-servic
 @Injectable({
   providedIn: 'root'
 })
-export class SittingRecordWorkflowService {
+export class ManageSittingRecordsWorkflowService {
   
   formData!: FormGroup;
   hasVisitedManage = false; 
@@ -17,7 +17,7 @@ export class SittingRecordWorkflowService {
   addSittingRecords!: FormGroup;
   cameFromConfirm = false;
   sittingRecordsRoleList;
-    
+  
   constructor(
     private dateSvc: DateService,
     private sittingRecordsSvc: SittingRecordsService,

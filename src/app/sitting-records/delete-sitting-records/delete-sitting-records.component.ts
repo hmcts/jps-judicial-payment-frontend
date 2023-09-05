@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-workflow.service';
+import { ManageSittingRecordsWorkflowService } from '../../_workflows/manage-sitting-record-workflow.service';
 import { DeleteSittingRecordHttp } from '../../_services/delete-sitting-records-http-service'
 
 @Component({
@@ -18,7 +18,7 @@ export class DeleteSittingRecordsComponent implements OnInit{
   apiErrorMsg;
 
   constructor(
-    private srWorkFlow: SittingRecordWorkflowService,
+    private srWorkFlow: ManageSittingRecordsWorkflowService,
     private router: Router,
     private deleteRecordHttp: DeleteSittingRecordHttp
   ){}

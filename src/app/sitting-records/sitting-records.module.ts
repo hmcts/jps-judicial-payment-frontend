@@ -15,7 +15,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { AddSittingRecordsConfirmComponent } from './add-sitting-record/add-sitting-records-confirm/add-sitting-records-confirm.component';
 import { SittingRecordsInfoBannerComponent } from './sitting-records-info-banner/sitting-records-info-banner.component';
 import { SittingRecordsLandingComponent } from './sitting-records-landing/sitting-records-landing.component';
-import { SittingRecordsLandingManageRecordsComponent } from './sitting-records-landing/sitting-records-landing-manage-records/sitting-records-landing-manage-records.component';
+import { SittingRecordsLandingManageRecordsSubmitterComponent } from './sitting-records-landing/sitting-records-landing-manage-records-submitter/sitting-records-landing-manage-records-submitter.component';
 
 import { DataTablesModule } from "angular-datatables";
 import { DeleteSuccessComponent } from './delete-sitting-records/delete-success/delete-success.component';
@@ -27,6 +27,13 @@ import { JPFooterComponent } from '../static-elements/jp-footer/jp-footer.compon
 import { JPHeaderComponent } from '../static-elements/jp-header/jp-header.component';
 import { CookieManagerComponent } from '../static-elements/cookies/cookie-manager/cookie-manager.component';
 import { LogoutComponent } from '../static-elements/logout/logout.component';
+import { SubmitSittingRecordsComponent } from './submit-sitting-records/submit-sitting-records.component';
+import { SittingRecordsLandingManageRecordsPublisherComponent } from './sitting-records-landing/sitting-records-landing-manage-records-publisher/sitting-records-landing-manage-records-publisher.component';
+
+import { TribunalServiceComponent } from './shared-components/tribunal-service/tribunal-service.component';
+import { VenueComponent } from './shared-components/venue/venue.component';
+import { SittingDateComponent } from './shared-components/sitting-date/sitting-date.component';
+import { RegionComponent } from './shared-components/region/region.component';
 import { CapitalizeFirstLetterPipe } from '../_pipes/convertTableStatus'
 
 @NgModule({
@@ -61,7 +68,13 @@ import { CapitalizeFirstLetterPipe } from '../_pipes/convertTableStatus'
     LogoutComponent,
     NumberDirective,
     SittingRecordsLandingComponent,
-    SittingRecordsLandingManageRecordsComponent,
+    SittingRecordsLandingManageRecordsSubmitterComponent,
+    TribunalServiceComponent,
+    VenueComponent,
+    SittingDateComponent,
+    RegionComponent,
+    SittingRecordsLandingManageRecordsPublisherComponent,
+    SubmitSittingRecordsComponent,
     CapitalizeFirstLetterPipe
   ]
 })

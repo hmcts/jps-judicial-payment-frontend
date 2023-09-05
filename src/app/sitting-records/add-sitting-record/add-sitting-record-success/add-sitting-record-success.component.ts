@@ -3,7 +3,7 @@ import { FormArray, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DateService } from '../../../_services/date-service/date-service';
 import { UserInfoService } from '../../../_services/user-info-service/user-info-service';
-import { SittingRecordWorkflowService } from '../../../_workflows/sitting-record-workflow.service';
+import { ManageSittingRecordsWorkflowService } from '../../../_workflows/manage-sitting-record-workflow.service';
 
 @Component({
   selector: 'app-add-sitting-record-success',
@@ -30,7 +30,7 @@ export class AddSittingRecordSuccessComponent implements OnInit {
   }
 
   constructor(
-    private srWorkFlow: SittingRecordWorkflowService,
+    private srWorkFlow: ManageSittingRecordsWorkflowService,
     private dateSvc: DateService,
     private uInfoSvc: UserInfoService,
     private router: Router,

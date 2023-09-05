@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-workflow.service';
+import { ManageSittingRecordsWorkflowService } from '../../_workflows/manage-sitting-record-workflow.service';
 import { DateService } from '../../_services/date-service/date-service';
 import { Router } from '@angular/router';
 import {
@@ -191,7 +191,7 @@ export class AddSittingRecordComponent implements OnInit, OnDestroy {
   }
 
   constructor(
-    public srWorkFlow: SittingRecordWorkflowService,
+    public srWorkFlow: ManageSittingRecordsWorkflowService,
     private dateSvc: DateService,
     public router: Router,
     private http: HttpClient,

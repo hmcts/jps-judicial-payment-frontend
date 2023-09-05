@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-workflow.service';
+import { ManageSittingRecordsWorkflowService } from '../../_workflows/manage-sitting-record-workflow.service';
 import { DateService } from '../../_services/date-service/date-service';
 
 @Component({
@@ -14,7 +14,7 @@ export class SittingRecordsInfoBannerComponent implements OnInit {
 
   constructor(
     private dateSvc: DateService,
-    private srWorkFlow: SittingRecordWorkflowService,
+    private srWorkFlow: ManageSittingRecordsWorkflowService,
   ){}
 
   ngOnInit() {

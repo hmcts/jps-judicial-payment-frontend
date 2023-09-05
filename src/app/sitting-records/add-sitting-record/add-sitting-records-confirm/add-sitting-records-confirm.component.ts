@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { SittingRecordWorkflowService } from '../../../_workflows/sitting-record-workflow.service';
+import { ManageSittingRecordsWorkflowService } from '../../../_workflows/manage-sitting-record-workflow.service';
 import { Router } from '@angular/router';
 import { FormArray, FormGroup } from '@angular/forms';
 import { DateService } from '../../../_services/date-service/date-service';
@@ -16,7 +16,7 @@ export class AddSittingRecordsConfirmComponent{
   recordedByName;
 
   constructor(
-    public srWorkFlow: SittingRecordWorkflowService,
+    public srWorkFlow: ManageSittingRecordsWorkflowService,
     private dateSvc: DateService,
     private uInfoSvc: UserInfoService,
     public router: Router,
