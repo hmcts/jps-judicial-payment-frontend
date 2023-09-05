@@ -38,10 +38,10 @@
                         </div>
                         <input 
                             class="govuk-input" attr.id="judge-{{i}}" name="judge" 
-                            type="text" aria-describedby="judge-hint"
+                            type="search" aria-describedby="judge-hint"
                             placeholder="Start typing to find a JOH name" 
                             formControlName="johName"
-                            autocomplete="off"
+                            autocomplete="off" autocorrect="off" spellcheck="off" autocapitalize="off"
                             [matAutocomplete]="johUserSearch"
                         >
                         <mat-autocomplete class="mat-autocomplete-panel-extend" autoActiveFirstOption #johUserSearch="matAutocomplete" (optionSelected)="optionSelected($event, i)" [displayWith]="showUserName">
