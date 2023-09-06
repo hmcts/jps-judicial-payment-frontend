@@ -17,7 +17,6 @@ export class AddSittingRecordsConfirmComponent{
 
   constructor(
     public srWorkFlow: SittingRecordWorkflowService,
-    private dateSvc: DateService,
     private uInfoSvc: UserInfoService,
     public router: Router,
   ) {

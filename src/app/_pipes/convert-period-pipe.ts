@@ -12,7 +12,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class ConvertToStringPeriodPipe implements PipeTransform {
     transform(am: boolean, pm: boolean): string {
-        if(am && pm){ return "Full Day" }
+        if(am && pm){ return "Full day" }
         if(am){ return "Morning" }
         if(pm){ return "Afternoon" }
         return ""
@@ -38,7 +38,7 @@ export class ConvertAddPeriodPipe implements PipeTransform {
             case 'PM':
                 return "Afternoon"
             case 'FULL_DAY':
-                return "Full Day"
+                return "Full day"
             default:
                 return ''
         }
