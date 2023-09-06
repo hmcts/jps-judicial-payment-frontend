@@ -7,7 +7,6 @@
         [formGroup]="manageRecords"
         (ngSubmit)="submitForm()"
     >
-
         <div class="govuk-form-group govuk-!-margin-bottom-3">
             <label class="govuk-label" for="sort">
               Select a tribunal service 
@@ -16,11 +15,10 @@
                 formControlName="tribunalService"
                 id="sort" name="sort"
             >
-              <option [ngValue]="''" disabled selected>--Select a value--</option>
+              <option [ngValue]="null" disabled selected>--Select a value--</option>
               <option *ngFor="let service of tribunalServices" [ngValue]="service">{{service.service}}</option>
             </select>
           </div>
-
           <div class="govuk-form-group govuk-!-margin-bottom-3"                 
           [class.govuk-form-group--error] = "f['venue'].errors !== null && f['venue'].dirty && f['venue'].touched">
             <label class="govuk-label" for="venue-select">
@@ -34,6 +32,7 @@
                 formControlName="venue" id="venue-select" 
                 name="venue-select" type="text" 
                 placeholder="Start typing to search for a venue"
+                autocomplete="off" autocorrect="off" spellcheck="off" autocapitalize="off"
                 [matAutocomplete]="autoSearchVenue"
                 required>
               <mat-autocomplete class="mat-autocomplete-panel-extend" id="auto-venue-select" #autoSearchVenue="matAutocomplete" (optionSelected)="optionSelected($event)" [displayWith]="showVenue">
@@ -45,7 +44,6 @@
               
             </div>
           </div>
-      
           <div 
             class="govuk-form-group"
             [class.govuk-form-group--error]="f['dateSelected'].errors !== null && f['dateSelected'].dirty"
@@ -136,5 +134,4 @@
           </p>
 
     </form>
-
   </main>

@@ -9,7 +9,8 @@
       <button class="govuk-button govuk-button--secondary" data-module="govuk-button" (click)="goBack()">
         Previous
       </button>
-      <button class="govuk-button" data-module="govuk-button">
+      
+      <button class="govuk-button" data-module="govuk-button" (click)="addNewRecord()">
           Add Sitting Record(s)
       </button>
     </div>
@@ -45,7 +46,7 @@
             <tbody class="govuk-table__body">
               <tr class="govuk-table__row" *ngFor="let sittingRecord of sittingRecordData">
                 <td class="govuk-table__cell"> {{sittingRecord.personalName}} </td>
-                <td class="govuk-table__cell"> {{sittingRecord.judgeRoleTypeId}} </td>
+                <td class="govuk-table__cell"> {{sittingRecord.judgeRoleTypeId | convertRoleIdToString}} </td>
                 <td class="govuk-table__cell"> {{getPeriod(sittingRecord.am, sittingRecord.pm)}} </td>
                 <td class="govuk-table__cell"> {{sittingRecord.createdByUserName}} </td>
                 <td class="govuk-table__cell"> {{sittingRecord.statusId | capitalizeFirstLetterForStatus}} </td>

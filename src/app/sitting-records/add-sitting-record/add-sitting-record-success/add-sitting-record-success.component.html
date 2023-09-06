@@ -1,0 +1,48 @@
+<main class="govuk-main-wrapper " id="main-content" role="main">
+
+    <span class="govuk-caption-l govuk-!-static-margin-bottom-3">
+        Add Sitting records for {{tribService}}, {{venueSiteName}}, for {{date}}
+    </span>
+
+    <div class="govuk-panel govuk-panel--confirmation success-panel">
+        <h1 class="govuk-panel__title">
+            Sitting record(s) saved
+        </h1>
+    </div>
+
+    <dl class="govuk-summary-list" >
+        <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+                Name
+            </dt>
+            <dt class="govuk-summary-list__key">
+                Role
+            </dt>
+            <dt class="govuk-summary-list__key">
+                Period
+            </dt>
+            <dt class="govuk-summary-list__key">
+                Entered by
+            </dt>
+        </div>
+        <div class="govuk-summary-list__row" *ngFor="let joh of johFormArray?.controls">
+            <dd class="govuk-summary-list__value">
+                {{joh.get('johName')?.value?.fullName}}
+            </dd>
+            <dd class="govuk-summary-list__value">
+                {{joh.get('johRole')?.value?.appointment}}
+            </dd>
+            <dd class="govuk-summary-list__value">
+                {{convertPeriod(newSittingRecords.get('period')?.value)}}
+            </dd>
+            <dd class="govuk-summary-list__value">
+                {{recordedByName}}
+            </dd>
+        </div>
+    </dl>
+
+    <button class="govuk-button" data-module="govuk-button" (click)="navigateBackToStart()">
+        View Record Table
+    </button>
+
+</main>

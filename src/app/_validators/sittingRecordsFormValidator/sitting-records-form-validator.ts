@@ -1,7 +1,7 @@
-import { FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { FormGroup, Validators } from '@angular/forms';
 
 // create your class that extends the angular validator class
-export class CustomValidators extends Validators {
+export class ManageSittingRecord extends Validators {
 
   static validateDateFormat(control: FormGroup) {
     const { dateDay, dateMonth, dateYear } = control.controls
@@ -18,7 +18,7 @@ export class CustomValidators extends Validators {
     if (dateDay.value && dateMonth.value && (dateYear.value && dateYear.value.length == 4)) {
       const dateObj = new Date(`${dateMonth.value}-${dateDay.value}-${dateYear.value}`.replace(/-/g, "/"))
       const todaysDate = new Date()
-      const supportedDate = new Date('12-11-2021')
+      const supportedDate = new Date('12/11/2021')
       if (dateObj > todaysDate) {
         return { 'date_after_today': true }
       }
@@ -28,17 +28,5 @@ export class CustomValidators extends Validators {
     }
     return null
   }
-
-  static requireVenueMatch(control: AbstractControl) {
-    const inputValue: string | object = control.value;
-    if (typeof inputValue === 'string') {
-      return { 'value_not_selected': true };
-    }
-    return null;
-  }
-
-  
-  
-
 
 }

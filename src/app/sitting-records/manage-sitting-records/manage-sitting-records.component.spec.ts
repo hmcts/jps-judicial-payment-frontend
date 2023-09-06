@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ManageSittingRecordsComponent } from './manage-sitting-records.component';
@@ -44,6 +44,12 @@ describe('ManageSittingRecordsComponent', () => {
   });
 
   it('should disable the venue field on initialization', () => {
+    component.manageRecords = new FormBuilder().group({
+      dateSelected: [null],
+      tribunalService: [null],
+      venue: [null],
+    });
+    component.createEventListeners()
     expect(component.manageRecords.controls['venue'].disabled).toBeTrue();
   });
 
@@ -51,7 +57,7 @@ describe('ManageSittingRecordsComponent', () => {
     spyOn(locationService, 'getAllVenues').and.returnValue(of([]));
     const tribunalService = component.manageRecords.controls['tribunalService'];
     const venue = component.manageRecords.controls['venue'];
-
+    component.createEventListeners();
     tribunalService.setValue('test');
     venue.setValue('test venue');
     expect(venue.value).toEqual('test venue');
@@ -69,6 +75,21 @@ describe('ManageSittingRecordsComponent', () => {
     expect(srWorkflowService.setManageVisited).toHaveBeenCalled();
     expect(router.navigate).toHaveBeenCalledWith(['sittingRecords', 'view']);
   });
+
+  it('should populate manageRecords if object exists in sittingRecordsWorkflow', () => {
+    const formDataMock: FormGroup = new FormBuilder().group({
+      dateSelected: ['2022-01-01'],
+      tribunalService: ['Tribunal 1'],
+      venue: ['Venue 1'],
+    });
+
+    srWorkflowService.setFormData(formDataMock)
+    component.ngOnInit();
+
+    expect(component.manageRecords).toEqual(formDataMock)
+  });
+
+
 
   it('should return the site name when calling showVenue with a truthy value', () => {
     const value = { site_name: 'Test Site' };

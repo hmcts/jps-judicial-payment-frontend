@@ -9,7 +9,6 @@ const routes: Routes = [
     path: '', 
     canActivate: [AuthGuard], 
     component: ApplicationRoutingComponent, 
-    pathMatch:'full' 
   },
   { 
     path: 'cookies', 
@@ -18,6 +17,10 @@ const routes: Routes = [
   { 
     path: '', 
     loadChildren: () => import('./sitting-records/sitting-records.module').then(m => m.SittingRecordsModule) 
+  },
+  {
+    path: '**',
+    redirectTo: '/'
   }
 ];
 
