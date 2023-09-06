@@ -15,6 +15,7 @@ import { SittingRecordsViewGuard } from '../_guards/sitting-records/sitting-reco
 import { SittingRecordsLandingGuard } from '../_guards/sitting-records/sitting-records-landing.guard';
 import { SittingRecordsManageGuard } from '../_guards/sitting-records/sitting-records-manage.guard';
 import { SittingRecordsSubmitGuard } from '../_guards/sitting-records/sitting-records-submit.guard';
+import { PublishRecordsComponent } from '../publisher-flow/publish-records/publish-records.component'
 import { AuthGuard } from '../_guards/auth/auth.guard';
 
 const routes: Routes = [
@@ -68,6 +69,11 @@ const routes: Routes = [
             canActivate: [SittingRecordsSubmitGuard],
             component: SubmitSittingRecordsComponent
           },
+          {
+            path: 'publish',
+            canActivate:[],
+            component: PublishRecordsComponent
+          }
         ]
     }
 ];

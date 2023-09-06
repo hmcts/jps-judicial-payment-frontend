@@ -152,6 +152,7 @@ export class SittingRecordsLandingComponent implements OnInit {
   
       if (optionValue === 'publishRecords') {
         selectedWorkflow.setFormData(this.publisherFormValues);
+        void this.router.navigate(['sittingRecords', 'publish'])
       }
   
       if (optionValue === 'manageSittingRecords') {
