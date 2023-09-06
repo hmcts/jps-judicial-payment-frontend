@@ -11,12 +11,10 @@ import { Pipe, PipeTransform } from '@angular/core';
     name: 'convertToStringPeriod'
 })
 export class ConvertToStringPeriodPipe implements PipeTransform {
-    transform(am: string, pm:string): string {
-        const amBool = am === 'AM' ? true : false
-        const pmBool = pm === 'PM' ? true : false
-        if(amBool && pmBool){ return "Full Day" }
-        if(amBool){ return "Morning" }
-        if(pmBool){ return "Afternoon" }
+    transform(am: boolean, pm: boolean): string {
+        if(am && pm){ return "Full Day" }
+        if(am){ return "Morning" }
+        if(pm){ return "Afternoon" }
         return ""
     }
 }

@@ -23,6 +23,6 @@ export class ViewSittingRecordService {
       params: {'hmctsServiceCode': serviceCode}
     };
 
-    return this.http.post<ViewSittingRecordResponse>('/sittingRecords/searchSittingRecords', data, httpOptions);
+    return this.http.post<ViewSittingRecordResponse>('/sittingrecord/searchSittingRecords', data, httpOptions);
   }
 }

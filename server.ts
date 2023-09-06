@@ -10,13 +10,14 @@ import { AppServerModule } from './src/main.server';
 import { HealthCheck } from './src/app/server/healthcheck';
 import { getXuiNodeMiddleware } from './api/auth';
 import refDataRouter from './api/refdata/routes';
-import sittingRecordsRouter from './api/sittingRecords/routes';
 import { IdamAuthenticatorService } from './api/refdata/authenticator/index';
+import sittingRecordsRouter from './api/sittingrecords/routes';
 import { Logger } from '@hmcts/nodejs-logging';
-const logger = Logger.getLogger('server.ts')
+const logger = Logger.getLogger()
+const TOKEN_REFRESH = 1000 * 60 * 60 * 3;
 
 const errorHandler = ((err, req, res, next) => {
-  console.log(err)
+  console.log(err.response)
   if (err) {
     const error = err.response
     res.status(error.status || 500);
@@ -27,6 +28,10 @@ const errorHandler = ((err, req, res, next) => {
     }
     if (error.data.errors) {
       errMsg += ` ${error.data.errors}`
+    }
+    if (error.data.errorRecords){
+      console.log(JSON.stringify(error.data.errorRecords))
+      errMsg += ` ${error.data.errorRecords}`
     }
 
     logger.error(errMsg)
@@ -42,6 +47,11 @@ function getSystemAuthTokens(){
   IdamAuthSvc.createS2SAuth();
 }
 
+setInterval(() => {
+  logger.debug(`Refreshing tokens`)
+  getSystemAuthTokens();
+}, TOKEN_REFRESH);
+
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
   const server = express();
@@ -55,7 +65,7 @@ export function app(): express.Express {
   server.use(getXuiNodeMiddleware());
   server.use('/refdata', IdamAuthSvc.assignTokensMiddleware.bind(IdamAuthSvc))
   server.use('/refdata', refDataRouter, errorHandler)
-  server.use('/sittingRecords', sittingRecordsRouter, errorHandler)
+  server.use('/sittingrecord', sittingRecordsRouter, errorHandler)
 
   server.engine('html', ngExpressEngine({
     bootstrap: AppServerModule,

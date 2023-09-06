@@ -1,10 +1,10 @@
 import { getConfigValue } from '../../configuration';
-import { SERVICES_LOCATION_API_PATH } from '../../configuration/references';
+import { SERVICES_LOCATION_API_URL } from '../../configuration/references';
 import axios, { AxiosRequestConfig } from 'axios';
 import { Logger } from '@hmcts/nodejs-logging';
 const logger = Logger.getLogger('refdata/index.ts')
 
-const url: string = getConfigValue(SERVICES_LOCATION_API_PATH);
+const url: string = getConfigValue(SERVICES_LOCATION_API_URL);
 
 export async function getLocations(req, res, next) {
     const { Authorization, ServiceAuthorization } = req.headers;

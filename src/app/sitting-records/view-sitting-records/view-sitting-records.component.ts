@@ -13,6 +13,12 @@ import { DateService } from '../../_services/date-service/date-service';
 })
 export class ViewSittingRecordsComponent implements OnInit{
 
+  constructor(
+    private router: Router,
+    private dateSvc: DateService,
+    private srWorkFlow: SittingRecordWorkflowService
+  ){}
+
   tribService = "";
   venueSiteName = "";
   date = "";
@@ -23,16 +29,14 @@ export class ViewSittingRecordsComponent implements OnInit{
 
   showFilters = false;
   
-  constructor(
-      private srWorkFlow: SittingRecordWorkflowService,
-      private dateSvc: DateService,
-      private router: Router,
-    ){}
-
   goBack(){
     void this.router.navigate(['sittingRecords','manage'])
   }
-    
+
+  addNewRecord(){
+    void this.router.navigate(['sittingRecords','add'])
+  }
+
   ngOnInit(){
     const formData = this.srWorkFlow.getFormData().value;
     const { dateSelected, tribunalService, venue } = formData;
@@ -83,8 +87,4 @@ export class ViewSittingRecordsComponent implements OnInit{
     this.router.navigate(['sittingRecords', 'delete'])
   }
   
-  addNewRecord(){
-    void this.router.navigate(['sittingRecords','add'])
-  }
-
 }

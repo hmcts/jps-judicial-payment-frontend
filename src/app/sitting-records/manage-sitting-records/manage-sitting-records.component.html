@@ -32,6 +32,7 @@
                 formControlName="venue" id="venue-select" 
                 name="venue-select" type="text" 
                 placeholder="Start typing to search for a venue"
+                autocomplete="off" autocorrect="off" spellcheck="off" autocapitalize="off"
                 [matAutocomplete]="autoSearchVenue"
                 required>
               <mat-autocomplete class="mat-autocomplete-panel-extend" id="auto-venue-select" #autoSearchVenue="matAutocomplete" (optionSelected)="optionSelected($event)" [displayWith]="showVenue">
@@ -122,13 +123,15 @@
           
           <div class="govuk-button-group">
             
-            <button type="button" class="govuk-button govuk-button--secondary" data-module="govuk-button" (click)="goBack()" *ngIf="showPreviousButton">
-              Previous
-            </button>
             <button type="submit" class="govuk-button" data-module="govuk-button" [disabled]="!manageRecords.valid">
               Continue
             </button>
             
           </div>
+
+          <p class="govuk-body" *ngIf="showPreviousButton">
+            <a href="#" class="govuk-link link-color" (click)="goBack()">Cancel</a>
+          </p>
+
     </form>
   </main>

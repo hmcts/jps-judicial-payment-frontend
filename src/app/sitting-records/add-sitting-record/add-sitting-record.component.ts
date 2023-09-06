@@ -152,7 +152,8 @@ export class AddSittingRecordComponent implements OnInit, OnDestroy {
    */
   getUserRoles(userPersonalCode: string, index: number) {
     this.userSvc.getUserInfo(userPersonalCode)
-      .subscribe(userRoleInfo => {
+      .subscribe({
+        next: (userRoleInfo) => {
         const appointments = userRoleInfo[0].appointments;
         const rolesArray: RolesModel[] = appointments.map((appointment) => {
           const roleObject: RolesModel = {
@@ -162,8 +163,12 @@ export class AddSittingRecordComponent implements OnInit, OnDestroy {
           return roleObject
         })
         this.userRoleList[index] = rolesArray;
+      },
+      complete: () => {
         this.johFormArray.controls[index].get('johRole')?.enable()
-      })
+        this.changeDetector.markForCheck()
+      }
+    })
   }
 
   /**

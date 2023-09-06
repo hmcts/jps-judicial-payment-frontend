@@ -29,8 +29,8 @@ export class SittingRecord {
     personalName!: string;
     contractTypeId!: number;
     judgeRoleTypeId!: string;
-    am!: string;
-    pm!: string;
+    am!: boolean;
+    pm!: boolean;
     createdDateTime!: string;
     createdByUserId!: string;
     createdByUserName!: string;

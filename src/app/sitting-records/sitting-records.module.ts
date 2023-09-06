@@ -5,7 +5,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SittingRecordsComponent } from './sitting-records.component';
 import { SittingRecordsRoutingModule } from './sitting-records-routing.module';
 import { ManageSittingRecordsComponent } from './manage-sitting-records/manage-sitting-records.component';
-import { PhaseBannerComponent } from '../static-elements/phase-banner/phase-banner.component';
 import { ViewSittingRecordsComponent } from './view-sitting-records/view-sitting-records.component';
 import { NumberDirective } from '../_directives/numbers-only.directive';
 import { AddSittingRecordComponent } from './add-sitting-record/add-sitting-record.component';
@@ -29,6 +28,7 @@ import { JPHeaderComponent } from '../static-elements/jp-header/jp-header.compon
 import { CookieManagerComponent } from '../static-elements/cookies/cookie-manager/cookie-manager.component';
 import { LogoutComponent } from '../static-elements/logout/logout.component';
 import { CapitalizeFirstLetterPipe } from '../_pipes/convertTableStatus'
+import { ConvertRoleIdToString } from '../_pipes/convertRoleIdToString'
 
 @NgModule({
   imports: [
@@ -44,7 +44,6 @@ import { CapitalizeFirstLetterPipe } from '../_pipes/convertTableStatus'
   declarations: [
     SittingRecordsComponent,
     ManageSittingRecordsComponent,
-    PhaseBannerComponent,
     ViewSittingRecordsComponent,
     DeleteSittingRecordsComponent,
     DeleteSuccessComponent,
@@ -64,7 +63,8 @@ import { CapitalizeFirstLetterPipe } from '../_pipes/convertTableStatus'
     NumberDirective,
     SittingRecordsLandingComponent,
     SittingRecordsLandingManageRecordsComponent,
-    CapitalizeFirstLetterPipe
+    CapitalizeFirstLetterPipe,
+    ConvertRoleIdToString
   ]
 })
 export class SittingRecordsModule { }

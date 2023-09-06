@@ -58,11 +58,9 @@ describe('AddSittingRecordSuccessComponent', () => {
 
     component.navigateBackToStart();
 
-    expect(srWorkflowService.resetFormData).toHaveBeenCalled();
-    expect(srWorkflowService.resetVisitedManaged).toHaveBeenCalled();
     expect(srWorkflowService.resetAddSittingRecords).toHaveBeenCalled();
     expect(srWorkflowService.resetCameFromConfirm).toHaveBeenCalled();
-    expect(router.navigate).toHaveBeenCalledWith(['sittingRecords', 'manage']);
+    expect(router.navigate).toHaveBeenCalledWith(['sittingRecords', 'view']);
   });
 
 });

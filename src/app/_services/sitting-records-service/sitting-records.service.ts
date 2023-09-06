@@ -23,12 +23,11 @@ export class SittingRecordsService{
         return this.http.post('/sittingrecord/add', { sittingRecords: newSittingRecords }, { headers: headers});
     }
 
-
-    createNewSRPostObj(joh: any, tribunalService: any, dateSelected: any, venue: any, period:any) {
+    createNewSRPostObj(joh: JudicialOfficeHolder, tribunalService: TribunalService, dateSelected: Date, venue: Venue, period:SittingPeriod) {
         return {
             hmctsServiceCode: tribunalService.hmctsServiceCode,
-            sittingDate: this.dateSvc.formatDateForPost(dateSelected),
-            epimsId: venue.epimms_id,
+            sittingDate: this.dateSvc.createDateObjFromFormData(dateSelected),
+            epimmsId: venue.epimms_id,
             personalCode: joh.johName.personalCode,
             contractTypeId: this.changeContractNameToId(joh.johRole.appointment_type),
             judgeRoleTypeId: this.changeRoleToRoleId(joh.johRole.appointment),
@@ -80,6 +79,7 @@ export class SittingRecordsService{
         'Part Time SPTW 70': 10,
         'Part Time SPTW 80': 11,
         'Part Time SPTW 90': 12,
+        'Fee Paid': 2
     };
 
     changeRoleToRoleId(roleName) {
@@ -90,4 +90,27 @@ export class SittingRecordsService{
         return this.contractTypeMap[contractName].toString()
     }
 
+}
+
+interface JudicialOfficeHolder {
+    johName: {
+    personalCode: string;
+    };
+    johRole: {
+        appointment: string;
+        appointment_type: string;
+    };
+
+}
+
+interface TribunalService {
+    hmctsServiceCode: string;
+}
+
+interface Venue {
+    epimms_id: string;
+}
+
+interface SittingPeriod {
+    value: string
 }

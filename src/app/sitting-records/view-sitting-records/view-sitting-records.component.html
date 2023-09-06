@@ -1,6 +1,6 @@
 <main class="govuk-main-wrapper " id="main-content" role="main">
     <h1 class="govuk-heading-l">Judicial Sitting Records</h1>
-    <p class="govuk-body govuk-!-margin-bottom-0">
+    <p class="govuk-body govuk-!-margin-bottom-3">
       <app-sitting-records-info-banner></app-sitting-records-info-banner>
     </p>
     
@@ -8,8 +8,9 @@
       <button class="govuk-button govuk-button--secondary" data-module="govuk-button" (click)="goBack()">
         Previous
       </button>
+      
       <button class="govuk-button" data-module="govuk-button" (click)="addNewRecord()">
-          Add sitting record(s)
+          Add Sitting Record(s)
       </button>
     </div>
 
@@ -45,7 +46,7 @@
             <tbody class="govuk-table__body">
               <tr class="govuk-table__row" *ngFor="let sittingRecord of sittingRecordData">
                 <td class="govuk-table__cell"> {{sittingRecord.personalName}} </td>
-                <td class="govuk-table__cell"> {{sittingRecord.judgeRoleTypeId}} </td>
+                <td class="govuk-table__cell"> {{sittingRecord.judgeRoleTypeId | convertRoleIdToString}} </td>
                 <td class="govuk-table__cell"> {{sittingRecord.am | convertToStringPeriod: sittingRecord.pm}} </td>
                 <td class="govuk-table__cell"> {{sittingRecord.createdByUserName}} </td>
                 <td class="govuk-table__cell"> {{sittingRecord.statusId | capitalizeFirstLetterForStatus}} </td>
@@ -56,5 +57,5 @@
           </table>
         </ng-container>
       </div>
-    </div>      
+    </div>
 </main>

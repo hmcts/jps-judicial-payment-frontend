@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { SittingRecordsService } from '../_services/sitting-records-service/sitting-records.service';
+import { UserInfoService } from '../_services/user-info-service/user-info-service'
 import { ViewSittingRecordService } from '../_services/sitting-records-service/view-sitting-records-service'
 import { ViewSittingRecordPost } from '../_models/viewSittingRecords.model'
 import { DateService } from '../_services/date-service/date-service'
-import { SittingRecordsService } from '../_services/sitting-records-service/sitting-records.service';
-import { UserInfoService } from '../_services/user-info-service/user-info-service'
 
 @Injectable({
   providedIn: 'root'
@@ -17,13 +17,14 @@ export class SittingRecordWorkflowService {
   addSittingRecords!: FormGroup;
   cameFromConfirm = false;
   sittingRecordsRoleList;
+  venueData;
     
   constructor(
     private dateSvc: DateService,
     private sittingRecordsSvc: SittingRecordsService,
+    private uInfoSvc: UserInfoService,
     private ViewSittingRecordService: ViewSittingRecordService,
-    private uInfoSvc: UserInfoService
-  ) {}
+    ) {}
 
 
   setManageVisited(){
@@ -89,6 +90,16 @@ export class SittingRecordWorkflowService {
     this.addSittingRecords.reset();
   }
 
+
+  setVenueData(venues){
+    this.venueData = venues;
+  }
+
+  getVenueData(){
+    return this.venueData;
+  }
+  
+
   // confirmation get, set, reset
   checkCameFromConfirm(){
     return this.cameFromConfirm
@@ -126,5 +137,4 @@ export class SittingRecordWorkflowService {
     return this.sittingRecordsSvc.postNewSittingRecord(postBody);
   }
 
-  
 }
