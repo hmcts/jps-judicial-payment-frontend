@@ -67,7 +67,7 @@ describe('DeleteSittingRecordsComponent', () => {
     component.goBack();
 
     expect(srWorkflowService.resetSittingRecordToDelete).toHaveBeenCalled();
-    expect(router.navigate).toHaveBeenCalledWith(['sittingRecords', 'manage']);
+    expect(router.navigate).toHaveBeenCalledWith(['sittingRecords', 'view']);
   });
 
 });

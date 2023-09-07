@@ -23,6 +23,9 @@ const errorHandler = ((err, req, res, next) => {
     res.status(error.status || 500);
     let errMsg = `${error.status}:`
 
+    if(typeof error.data === 'string'){
+      errMsg += ` ${error.data}`
+    }
     if (error.data.errorDescription) {
       errMsg += ` ${error.data.errorDescription}`
     }
@@ -30,7 +33,6 @@ const errorHandler = ((err, req, res, next) => {
       errMsg += ` ${error.data.errors}`
     }
     if (error.data.errorRecords){
-      console.log(JSON.stringify(error.data.errorRecords))
       errMsg += ` ${error.data.errorRecords}`
     }
 

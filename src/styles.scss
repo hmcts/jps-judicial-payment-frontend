@@ -3,7 +3,7 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import './styles/datatable_overrides.scss';
 
-.link-color{ color: $govuk-link-colour; }
+.link-color{ color: $govuk-link-colour; cursor: pointer;}
 .datatable-row-detail { width: 100vw; }
 .textErrorColor{
     color: $govuk-error-colour;

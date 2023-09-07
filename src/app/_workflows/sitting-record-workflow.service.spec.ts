@@ -153,7 +153,7 @@ describe('SittingRecordWorkflowService', () => {
         duration: '',
         dateRangeFrom: '',
         dateRangeTo: '',
-        statusIds: []
+        statusId: ''
       };
       const mockResponse: ViewSittingRecordResponse = { "sittingRecords": [] };
       const dateSelected = '2022-01-01';

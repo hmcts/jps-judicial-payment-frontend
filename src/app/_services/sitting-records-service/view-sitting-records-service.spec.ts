@@ -42,7 +42,7 @@ describe('ViewSittingRecordService', () => {
       duration: '',
       dateRangeFrom: '',
       dateRangeTo: '',
-      statusIds: []
+      statusId: ''
     };
     const mockResponse: ViewSittingRecordResponse = { "sittingRecords": [] };
 
