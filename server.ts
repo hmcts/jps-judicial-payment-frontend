@@ -30,7 +30,7 @@ const errorHandler = ((err, req, res, next) => {
       errMsg += ` ${error.data.errorDescription}`
     }
     if (error.data.errors) {
-      errMsg += ` ${error.data.errors}`
+      errMsg += ` ${JSON.stringify(error.data.errors)}`
     }
     if (error.data.errorRecords){
       errMsg += ` ${error.data.errorRecords}`
