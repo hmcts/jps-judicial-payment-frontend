@@ -72,7 +72,6 @@ export class SittingRecordWorkflowService {
     postObj.regionId = venue.region_id;
     postObj.dateRangeFrom = dateToGet;
     postObj.dateRangeTo = dateToGet;
-    postObj.statusId = 'RECORDED'
     postObj.dateOrder = "ASCENDING";
 
     //TODO: add logic below to add in filter functionality
