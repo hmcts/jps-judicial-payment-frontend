@@ -5,6 +5,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { DuplicateRecordWorkflowService } from '../../../_workflows/duplicate-record-workflow.service';
 import { SittingRecordWorkflowService } from '../../../_workflows/sitting-record-workflow.service';
+import { ConvertAddPeriodPipe, ConvertToStringPeriodPipe } from './../../../_pipes/convert-period-pipe'
 
 describe('PotentialDuplicateComponent', () => {
   let component: PotentialDuplicateComponent;
@@ -15,7 +16,7 @@ describe('PotentialDuplicateComponent', () => {
   
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PotentialDuplicateComponent ],
+      declarations: [ PotentialDuplicateComponent, ConvertAddPeriodPipe, ConvertToStringPeriodPipe],
       imports: [HttpClientTestingModule],
       providers: [SittingRecordWorkflowService, DuplicateRecordWorkflowService]
     })

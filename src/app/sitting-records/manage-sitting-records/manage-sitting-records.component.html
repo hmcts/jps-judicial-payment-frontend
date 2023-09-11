@@ -32,6 +32,7 @@
                 formControlName="venue" id="venue-select" 
                 name="venue-select" type="text" 
                 placeholder="Start typing to search for a venue"
+                autocomplete="off" autocorrect="off" spellcheck="off" autocapitalize="off"
                 [matAutocomplete]="autoSearchVenue"
                 required>
               <mat-autocomplete class="mat-autocomplete-panel-extend" id="auto-venue-select" #autoSearchVenue="matAutocomplete" (optionSelected)="optionSelected($event)" [displayWith]="showVenue">

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { UserInfoService } from './_services/user-info-service/user-info-service';
 import { CookieService } from 'ngx-cookie-service';
-import { LoaderComponent } from './loader/loader.component'
+import { LoaderComponent } from './static-elements/loader/loader.component'
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

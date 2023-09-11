@@ -7,9 +7,9 @@ import { DataTablesModule } from 'angular-datatables';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ViewSittingRecordResponse } from '../../_models/viewSittingRecords.model';
 import { of } from 'rxjs';
-import { SittingRecordsInfoBannerComponent } from '../../sitting-records-info-banner/sitting-records-info-banner.component'
 import { SittingRecordWorkflowService } from 'src/app/_workflows/sitting-record-workflow.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { SittingRecordsInfoBannerComponent } from '../sitting-records-info-banner/sitting-records-info-banner.component';
 
 describe('ViewSittingRecordsComponent', () => {
   let component: ViewSittingRecordsComponent;
@@ -67,13 +67,6 @@ describe('ViewSittingRecordsComponent', () => {
     spyOn(mockRouter, 'navigate');
     component.goBack();
     expect(mockRouter.navigate).toHaveBeenCalledWith(['sittingRecords','manage']);
-  });
-
-  it('getPeriod should convert the period correctly', () => {
-    spyOn(mockDateSvc,'getPeriod').and.returnValue('Full Day');
-    expect(component.getPeriod(true, true)).toEqual('Full Day');
-    expect(mockDateSvc.getPeriod).toHaveBeenCalledWith(true,true);
-  
   });
 
 });

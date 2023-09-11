@@ -17,14 +17,23 @@ import { DuplicateSittingRecordsComponent } from './duplicate-sitting-records/du
 import { PotentialDuplicateComponent } from './duplicate-sitting-records/potential-duplicate/potential-duplicate.component';
 import { InvalidDuplicateComponent } from './duplicate-sitting-records/invalid-duplicate/invalid-duplicate.component';
 import { ErrorSummaryComponent } from '../error-summary/error-summary.component'
+import { SittingRecordsInfoBannerComponent } from './sitting-records-info-banner/sitting-records-info-banner.component';
 import { SittingRecordsLandingComponent } from './sitting-records-landing/sitting-records-landing.component';
 import { SittingRecordsLandingManageRecordsComponent } from './sitting-records-landing/sitting-records-landing-manage-records/sitting-records-landing-manage-records.component';
 
 import { DataTablesModule } from "angular-datatables";
+import { DeleteSuccessComponent } from './delete-sitting-records/delete-success/delete-success.component';
+import { DeleteSittingRecordsComponent } from './delete-sitting-records/delete-sitting-records.component'
 
+import { StringFromDatePipe } from '../_pipes/string-date-pipe'
+import { ConvertToStringPeriodPipe, ConvertAddPeriodPipe } from '../_pipes/convert-period-pipe'
+import { JPFooterComponent } from '../static-elements/jp-footer/jp-footer.component';
+import { JPHeaderComponent } from '../static-elements/jp-header/jp-header.component';
+import { CookieManagerComponent } from '../static-elements/cookies/cookie-manager/cookie-manager.component';
+import { LogoutComponent } from '../static-elements/logout/logout.component';
 import { CapitalizeFirstLetterPipe } from '../_pipes/convertTableStatus'
-import { SittingRecordsInfoBannerComponent } from '../sitting-records-info-banner/sitting-records-info-banner.component';
 import { ValidSittingRecordsComponent } from './duplicate-sitting-records/valid-sitting-records/valid-sitting-records.component';
+import { ConvertRoleIdToString } from '../_pipes/convertRoleIdToString'
 
 @NgModule({
   imports: [
@@ -41,7 +50,12 @@ import { ValidSittingRecordsComponent } from './duplicate-sitting-records/valid-
     SittingRecordsComponent,
     ManageSittingRecordsComponent,
     ViewSittingRecordsComponent,
+    DeleteSittingRecordsComponent,
+    DeleteSuccessComponent,
     NumberDirective,
+    StringFromDatePipe,
+    ConvertToStringPeriodPipe,
+    ConvertAddPeriodPipe,
     AddSittingRecordComponent,
     AddSittingRecordSuccessComponent,
     NumberDirective,
@@ -57,9 +71,15 @@ import { ValidSittingRecordsComponent } from './duplicate-sitting-records/valid-
     ValidSittingRecordsComponent,
     SittingRecordsInfoBannerComponent,
     AddSittingRecordsConfirmComponent,
+    JPFooterComponent,
+    JPHeaderComponent,
+    CookieManagerComponent,
+    LogoutComponent,
+    NumberDirective,
     SittingRecordsLandingComponent,
     SittingRecordsLandingManageRecordsComponent,
-    CapitalizeFirstLetterPipe
+    CapitalizeFirstLetterPipe,
+    ConvertRoleIdToString
   ]
 })
 export class SittingRecordsModule { }

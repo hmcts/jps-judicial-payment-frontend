@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { LogoutService } from '../_services/auth/logout.service'
+import { LogoutService } from '../../_services/auth/logout.service'
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-logout',

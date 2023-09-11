@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { defaultDtOptions }  from '../../_services/default-dt-options'
 import { SittingRecord } from '../../_models/viewSittingRecords.model';
@@ -11,7 +11,7 @@ import { DateService } from '../../_services/date-service/date-service';
   templateUrl: './view-sitting-records.component.html',
   styleUrls: ['./view-sitting-records.component.scss']
 })
-export class ViewSittingRecordsComponent {
+export class ViewSittingRecordsComponent implements OnInit{
 
   constructor(
     private router: Router,
@@ -28,17 +28,13 @@ export class ViewSittingRecordsComponent {
   sittingRecordData: SittingRecord[] = [];
 
   showFilters = false;
-
+  
   goBack(){
     void this.router.navigate(['sittingRecords','manage'])
   }
 
   addNewRecord(){
     void this.router.navigate(['sittingRecords','add'])
-  }
-
-  getPeriod(am: boolean, pm: boolean): string {
-    return this.dateSvc.getPeriod(am, pm);
   }
 
   ngOnInit(){
@@ -86,4 +82,9 @@ export class ViewSittingRecordsComponent {
     
   }
 
+  navigateDeleteSittingRecord(sittingRecord){
+    this.srWorkFlow.setSittingRecordToDelete(sittingRecord);
+    this.router.navigate(['sittingRecords', 'delete'])
+  }
+  
 }

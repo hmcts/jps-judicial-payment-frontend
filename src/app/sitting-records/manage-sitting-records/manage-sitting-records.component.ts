@@ -7,7 +7,7 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ManageSittingRecord } from '../../_validators/sittingRecordsFormValidator/sitting-records-form-validator';
-import { debounceTime, map, startWith, tap } from 'rxjs/operators';
+import { debounceTime, map, startWith, takeUntil, tap } from 'rxjs/operators';
 import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-workflow.service';
 import { LocationService } from '../../_services/location-service/location.service'
 import { VenueModel } from '../../_models/venue.model';
@@ -15,6 +15,7 @@ import { AutoCompleteValidator } from '../../_validators/autoCompleteValidator/a
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { environment } from '../../environments/environment'
 import { CookieService } from 'ngx-cookie-service';
+import { Subject } from 'rxjs';
 @Component({
   selector: 'app-manage-sitting-records',
   templateUrl: './manage-sitting-records.component.html',
@@ -25,6 +26,7 @@ export class ManageSittingRecordsComponent implements OnInit {
   venues: VenueModel[] = [];
   readonly minSearchCharacters = 3;
   public searchTerm = '';
+  private unsubscribe$ = new Subject<void>()
   delay = 300;
   typeaheadResultsFound = true;
   tribunalServices = environment.tribunalServices;
@@ -33,7 +35,12 @@ export class ManageSittingRecordsComponent implements OnInit {
   
   submitForm(){
     this.srWorkFlow.setFormData(this.manageRecords)
+    this.srWorkFlow.setVenueData(this.venues)
     this.srWorkFlow.setManageVisited()
+
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+    
     void this.router.navigate(['sittingRecords','view'])
   }
 
@@ -63,30 +70,6 @@ export class ManageSittingRecordsComponent implements OnInit {
         })
       }
     );
-    this.manageRecords.controls['venue'].disable();
-    
-    this.manageRecords.valueChanges.subscribe(() => {
-      if(this.manageRecords.controls['tribunalService'].value !== "" && this.manageRecords.controls['venue'].disabled){
-        this.manageRecords.controls['venue'].enable();
-      }
-
-    })
-
-    this.manageRecords.controls['tribunalService'].valueChanges.subscribe(() => {
-      if(this.manageRecords.controls['venue'].value !== null){
-        this.manageRecords.controls['venue'].reset();
-      }else{
-        this.getVenues(this.manageRecords.controls['tribunalService'].value['hmctsServiceCode']);
-      }
-    });
-
-    this.filteredVenues = this.manageRecords.controls['venue'].valueChanges
-      .pipe(
-        startWith(''),
-        debounceTime(this.delay), 
-        tap((term) => this.searchTerm = term),
-        map(value => this._filter(value))
-      );
 
   }
 
@@ -104,12 +87,48 @@ export class ManageSittingRecordsComponent implements OnInit {
     return filteredValues;
   }
 
+  createEventListeners(){
 
-  ngOnInit(): void {
+    if(this.manageRecords.controls['venue'].value === null){
+      this.manageRecords.controls['venue'].disable();
+    }
+    
+    this.manageRecords.valueChanges.pipe(takeUntil(this.unsubscribe$)).subscribe(() => {
+      if(this.manageRecords.controls['tribunalService'].value !== "" && this.manageRecords.controls['venue'].disabled){
+        this.manageRecords.controls['venue'].enable();
+      }
+
+    })
+
+    this.manageRecords.controls['tribunalService'].valueChanges.pipe(takeUntil(this.unsubscribe$)).subscribe(() => {
+      if(this.manageRecords.controls['venue'].value !== null){
+        this.manageRecords.controls['venue'].reset();
+      }else{
+        this.getVenues(this.manageRecords.controls['tribunalService'].value['hmctsServiceCode']);
+      }
+    });
+
+    this.filteredVenues = this.manageRecords.controls['venue'].valueChanges.pipe(takeUntil(this.unsubscribe$))
+      .pipe(
+        startWith(''),
+        debounceTime(this.delay), 
+        tap((term) => this.searchTerm = term),
+        map(value => this._filter(value))
+      );
+  }
+
+
+  ngOnInit() {
+
     if(this.srWorkFlow.getFormData()){
       this.manageRecords = this.srWorkFlow.getFormData();
     }
 
+    if(this.srWorkFlow.getVenueData()){
+      this.venues = this.srWorkFlow.getVenueData();
+    }
+
+    this.createEventListeners();
 
     const userRole = this.cookies.get('__userrole__');
     if (userRole.indexOf('jps-recorder') != -1)

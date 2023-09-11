@@ -12,10 +12,12 @@ import { DateService } from '../_services/date-service/date-service'
 export class SittingRecordWorkflowService {
   
   formData!: FormGroup;
+  hasVisitedManage = false; 
+  sittingRecordToDelete = {};
   addSittingRecords!: FormGroup;
-  hasVisitedManage = false;
   cameFromConfirm = false;
   sittingRecordsRoleList;
+  venueData;
     
   constructor(
     private dateSvc: DateService,
@@ -52,6 +54,33 @@ export class SittingRecordWorkflowService {
   getHmctsServiceCode(){
     return this.formData.value['tribunalService'].hmctsServiceCode
   }
+  
+  getSittingRecordToDelete(){
+    return this.sittingRecordToDelete
+  }
+
+  setSittingRecordToDelete(record){
+    this.sittingRecordToDelete = record;
+  }
+
+  resetSittingRecordToDelete(){
+    this.sittingRecordToDelete = {};
+  }
+
+  getSittingRecordsData() {
+    const postObj = new ViewSittingRecordPost();
+    const { dateSelected, venue, tribunalService } = this.formData.value;
+    const hmctsServiceCode = tribunalService.hmctsServiceCode;
+    const dateToGet = this.dateSvc.formatDateForPost(dateSelected);
+    postObj.epimmsId = venue.epimms_id;
+    postObj.regionId = venue.region_id;
+    postObj.dateRangeFrom = dateToGet;
+    postObj.dateRangeTo = dateToGet;
+    postObj.dateOrder = "ASCENDING";
+
+    //TODO: add logic below to add in filter functionality
+    return this.ViewSittingRecordService.postObject(postObj, hmctsServiceCode);
+  }
 
   setAddSittingRecords(data: FormGroup){
     this.addSittingRecords = data;
@@ -64,6 +93,16 @@ export class SittingRecordWorkflowService {
   resetAddSittingRecords(){
     this.addSittingRecords.reset();
   }
+
+
+  setVenueData(venues){
+    this.venueData = venues;
+  }
+
+  getVenueData(){
+    return this.venueData;
+  }
+  
 
   // confirmation get, set, reset
   checkCameFromConfirm(){
@@ -101,20 +140,6 @@ export class SittingRecordWorkflowService {
     };
     
     return this.sittingRecordsSvc.postNewSittingRecord(postBody, tribunalService.hmctsServiceCode);
-  }
-
-  
-  getSittingRecordsData() {
-    const postObj = new ViewSittingRecordPost();
-    const { dateSelected, venue } = this.formData.value;
-    const dateToGet = this.dateSvc.formatDateForPost(dateSelected);
-    postObj.epimmsId = venue.epimms_id;
-    postObj.regionId = venue.region_id;
-    postObj.dateRangeFrom = dateToGet;
-    postObj.dateRangeTo = dateToGet;
-    postObj.dateOrder = "ASCENDING";
-
-    return this.ViewSittingRecordService.postObject(postObj);
   }
 
 }

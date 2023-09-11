@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { SittingRecordWorkflowService } from './sitting-record-workflow.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ViewSittingRecordPost, ViewSittingRecordResponse } from '../_models/viewSittingRecords.model';
@@ -154,7 +154,7 @@ describe('SittingRecordWorkflowService', () => {
         duration: '',
         dateRangeFrom: '',
         dateRangeTo: '',
-        statusIds: []
+        statusId: ''
       };
       const mockResponse: ViewSittingRecordResponse = { "sittingRecords": [] };
       const dateSelected = '2022-01-01';

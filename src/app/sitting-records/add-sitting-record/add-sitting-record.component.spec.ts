@@ -10,7 +10,7 @@ import { DateService } from '../../_services/date-service/date-service';
 import { UserService } from '../../_services/user-service/user.service';
 import { Router } from '@angular/router';
 import { UserModel, UserInfoModel } from '../../_models/user.model';
-import { SittingRecordsInfoBannerComponent } from '../../sitting-records-info-banner/sitting-records-info-banner.component';
+import { SittingRecordsInfoBannerComponent } from '../sitting-records-info-banner/sitting-records-info-banner.component';
 
 describe('AddSittingRecordComponent', () => {
   let component: AddSittingRecordComponent;

@@ -1,17 +1,15 @@
 <main class="govuk-main-wrapper " id="main-content" role="main">
     <h1 class="govuk-heading-l">Judicial sitting records</h1>
-
-    <p class="govuk-body govuk-!-margin-bottom-0">
+    <p class="govuk-body govuk-!-margin-bottom-3">
       <app-sitting-records-info-banner></app-sitting-records-info-banner>
-      <a class="govuk-link" (click)="goBack()">Change</a>
     </p>
-
+    
     <div class="govuk-button-group">
       <button class="govuk-button govuk-button--secondary" data-module="govuk-button" (click)="goBack()">
         Previous
       </button>
-
-      <button class="govuk-button" data-module="govuk-button"  (click)="addNewRecord()">
+      
+      <button class="govuk-button" data-module="govuk-button" (click)="addNewRecord()">
           Add Sitting Record(s)
       </button>
     </div>
@@ -24,8 +22,6 @@
 
     <div class="govuk-grid-row">
       <div [ngClass]="showFilters ? 'govuk-grid-column-three-quarters' : 'govuk-grid-column-full'">
-        
-    
         <ng-container style="width: 100%;">
           <table 
             datatable 
@@ -47,11 +43,12 @@
             <tbody class="govuk-table__body">
               <tr class="govuk-table__row" *ngFor="let sittingRecord of sittingRecordData">
                 <td class="govuk-table__cell"> {{sittingRecord.personalName}} </td>
-                <td class="govuk-table__cell"> {{sittingRecord.judgeRoleTypeId}} </td>
-                <td class="govuk-table__cell"> {{getPeriod(sittingRecord.am, sittingRecord.pm)}} </td>
+                <td class="govuk-table__cell"> {{sittingRecord.judgeRoleTypeId | convertRoleIdToString}} </td>
+                <td class="govuk-table__cell"> {{sittingRecord.am | convertToStringPeriod: sittingRecord.pm}} </td>
                 <td class="govuk-table__cell"> {{sittingRecord.createdByUserName}} </td>
                 <td class="govuk-table__cell"> {{sittingRecord.statusId | capitalizeFirstLetterForStatus}} </td>
-                <td class="govuk-table__cell deleteCell"> <a class="govuk-link">Delete</a> </td>
+                <td class="govuk-table__cell deleteCell"> <a class="govuk-link" (click)="navigateDeleteSittingRecord(sittingRecord)">Delete</a> </td>
+
               </tr>
             </tbody>
           </table>

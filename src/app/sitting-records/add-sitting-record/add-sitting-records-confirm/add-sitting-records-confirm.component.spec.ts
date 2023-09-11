@@ -3,11 +3,13 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { AddSittingRecordsConfirmComponent } from './add-sitting-records-confirm.component';
 import { SittingRecordWorkflowService } from '../../../_workflows/sitting-record-workflow.service';
 import { Router } from '@angular/router';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { DateService } from '../../../_services/date-service/date-service';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { DuplicateRecordWorkflowService } from 'src/app/_workflows/duplicate-record-workflow.service';
+import { SittingRecordsInfoBannerComponent } from '../../sitting-records-info-banner/sitting-records-info-banner.component';
+
 
 describe('AddSittingRecordsConfirmComponent', () => {
   let component: AddSittingRecordsConfirmComponent;
@@ -21,7 +23,7 @@ describe('AddSittingRecordsConfirmComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [RouterTestingModule, HttpClientTestingModule],
-      declarations: [AddSittingRecordsConfirmComponent],
+      declarations: [AddSittingRecordsConfirmComponent, SittingRecordsInfoBannerComponent],
       providers: [SittingRecordWorkflowService, DuplicateRecordWorkflowService]
     }).compileComponents();
 
@@ -34,8 +36,14 @@ describe('AddSittingRecordsConfirmComponent', () => {
     drWorkFlow = TestBed.inject(DuplicateRecordWorkflowService)
     router = TestBed.inject(Router);
     httpMock= TestBed.inject(HttpTestingController);
-    dateSvc = TestBed.inject(DateService);
     spyOn(srWorkFlow, 'getAddSittingRecords').and.returnValue(new FormGroup({ test: new FormControl('') }));
+    const formDataMock: FormGroup = new FormBuilder().group({
+      dateSelected: ['2022-01-01'],
+      tribunalService: ['Tribunal 1'],
+      venue: ['Venue 1'],
+    });
+    srWorkFlow.setFormData(formDataMock);
+    
     fixture.detectChanges();
   });
 
@@ -80,7 +88,8 @@ describe('AddSittingRecordsConfirmComponent', () => {
   });
 
   it('should call formAndPostNewSittingRecord and navigate to "sittingRecords/addDuplicates" when submitNewRecords is called', () => {
-    spyOn(srWorkFlow, 'formAndPostNewSittingRecord').and.returnValue(of({message: 'error', duplicateRecords: [{id: 1}]}));
+    const errorObject = { error: { message: [ {id: 1} ] } };
+    spyOn(srWorkFlow, 'formAndPostNewSittingRecord').and.returnValue(throwError(() => errorObject));
     spyOn(router, 'navigate');
     spyOn(drWorkFlow, 'setErrorRecords')
 
@@ -90,9 +99,4 @@ describe('AddSittingRecordsConfirmComponent', () => {
     expect(router.navigate).toHaveBeenCalledWith(['sittingRecords', 'addDuplicates']);
   });
 
-  it('should convert the period correctly', () => {
-    spyOn(dateSvc, 'convertPeriod').and.returnValue('Morning');
-    expect(component.convertPeriod('am')).toBe('Morning');
-    expect(dateSvc.convertPeriod).toHaveBeenCalled();
-  });
 });

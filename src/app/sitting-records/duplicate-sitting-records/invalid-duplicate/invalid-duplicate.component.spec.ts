@@ -5,6 +5,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { SittingRecordWorkflowService } from '../../../_workflows/sitting-record-workflow.service';
 import { DuplicateRecordWorkflowService } from '../../../_workflows/duplicate-record-workflow.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { ConvertAddPeriodPipe, ConvertToStringPeriodPipe } from '../../../_pipes/convert-period-pipe'
 
 describe('InvalidDuplicateComponent', () => {
   let component: InvalidDuplicateComponent;
@@ -15,7 +16,7 @@ describe('InvalidDuplicateComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ InvalidDuplicateComponent ],
+      declarations: [ InvalidDuplicateComponent, ConvertAddPeriodPipe, ConvertToStringPeriodPipe ],
       imports: [HttpClientTestingModule],
       providers: [SittingRecordWorkflowService, DuplicateRecordWorkflowService]
     })

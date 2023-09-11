@@ -42,11 +42,11 @@ describe('ViewSittingRecordService', () => {
       duration: '',
       dateRangeFrom: '',
       dateRangeTo: '',
-      statusIds: []
+      statusId: ''
     };
     const mockResponse: ViewSittingRecordResponse = { "sittingRecords": [] };
 
-    service.postObject(mockDataPost).subscribe(response => {
+    service.postObject(mockDataPost, 'BBA3').subscribe(response => {
       expect(response).toEqual(mockResponse);
     });
 

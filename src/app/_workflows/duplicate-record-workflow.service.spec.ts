@@ -151,7 +151,8 @@ describe('DuplicateRecordWorkflowService', () => {
                     recordedSittingRecords: [{
                         personalCode: '1234',
                         sittingDate: '2023-08-04',
-                        replaceDuplicate: true
+                        replaceDuplicate: true,
+                        hmctsServiceCode: 'testServiceCode'
                     }]
                 };
                 expect((sittingRecordsSvcStub.postNewSittingRecord as jasmine.Spy).calls.count()).toEqual(1);

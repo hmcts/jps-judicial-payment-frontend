@@ -103,8 +103,11 @@ export class DuplicateRecordWorkflowService {
 
     if(resolvedObjects.length === 0){
       return of('No_Records')
+    }else{
+      for(const i in resolvedObjects){
+        resolvedObjects[i].hmctsServiceCode = this.srWorkFlow.getHmctsServiceCode()
+      }
     }
-
     return this.sittingRecordsSvc.postNewSittingRecord(postBody, this.srWorkFlow.getHmctsServiceCode());
 
   }

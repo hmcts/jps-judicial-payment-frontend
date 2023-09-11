@@ -58,7 +58,7 @@ Scenario('Region drop down will be populated with values when Submit sitting rec
   I.loginWithJPSSubmitterUser();
   ManageJudicialSittingRecordsPage.seeCommonLandingPage();
   I.click('Submit sitting records to Finance');
-  I.selectOption('Select a service', '1');
+  I.selectOption('Select a service', 'Social Security and Child Support');
   I.click('Select a region');
   I.seeNumberOfElements('option[value="[object Object]"]', 10);
 });
@@ -73,15 +73,15 @@ Scenario('Region field should be enabled only after tribunal service is selected
 Scenario('Region field selected value should be removed if a different tribunal service is selected @S-006.10',({ I}) => {
   I.loginWithJPSSubmitterUser();
   ManageJudicialSittingRecordsPage.seeCommonLandingPage();
-  ManageJudicialSittingRecordsPage.selectSittingRecordsToSubmitToFinance('1', 'London', '11', '03', '2022');
-  I.selectOption('Select a service', '2');
+  ManageJudicialSittingRecordsPage.selectSittingRecordsToSubmitToFinance('Social Security and Child Support', 'London', '11', '03', '2022');
+  I.selectOption('Select a service', 'Private Law');
   I.see('Select a value');
 });
 
 Scenario('If date value is after today\'s date error should be displayed @S-006.11',({ I}) => {
   I.loginWithJPSSubmitterUser();
   ManageJudicialSittingRecordsPage.seeCommonLandingPage();
-  ManageJudicialSittingRecordsPage.selectSittingRecordsToSubmitToFinance('1', 'London', '11', '03', '2040');
+  ManageJudicialSittingRecordsPage.selectSittingRecordsToSubmitToFinance('Social Security and Child Support', 'London', '11', '03', '2040');
   I.see('The date you have selected is in the future');
 });
 

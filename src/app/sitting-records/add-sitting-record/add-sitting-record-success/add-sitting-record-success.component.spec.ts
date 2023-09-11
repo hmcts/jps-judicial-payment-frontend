@@ -4,7 +4,7 @@ import { AddSittingRecordSuccessComponent } from './add-sitting-record-success.c
 import { SittingRecordWorkflowService } from '../../../_workflows/sitting-record-workflow.service';
 import { DateService } from '../../../_services/date-service/date-service';
 import { Router } from '@angular/router';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 describe('AddSittingRecordSuccessComponent', () => {
@@ -58,11 +58,9 @@ describe('AddSittingRecordSuccessComponent', () => {
 
     component.navigateBackToStart();
 
-    expect(srWorkflowService.resetFormData).toHaveBeenCalled();
-    expect(srWorkflowService.resetVisitedManaged).toHaveBeenCalled();
     expect(srWorkflowService.resetAddSittingRecords).toHaveBeenCalled();
     expect(srWorkflowService.resetCameFromConfirm).toHaveBeenCalled();
-    expect(router.navigate).toHaveBeenCalledWith(['sittingRecords', 'manage']);
+    expect(router.navigate).toHaveBeenCalledWith(['sittingRecords', 'view']);
   });
 
 });
