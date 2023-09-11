@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SittingRecordsInfoBannerComponent } from './sitting-records-info-banner.component';
-import { SittingRecordWorkflowService } from '../_workflows/sitting-record-workflow.service';
-import { DateService } from '../_services/date-service/date-service';
+import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-workflow.service';
+import { DateService } from '../../_services/date-service/date-service';
 import { HttpClientModule } from '@angular/common/http';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { of } from 'rxjs';

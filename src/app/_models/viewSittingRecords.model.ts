@@ -10,7 +10,7 @@ export class ViewSittingRecordPost {
     duration!: string;
     dateRangeFrom!: string;
     dateRangeTo!: string;
-    statusIds!: string[];
+    statusId!: string;
 } 
 
 export class ViewSittingRecordResponse {

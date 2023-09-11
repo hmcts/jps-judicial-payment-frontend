@@ -12,8 +12,9 @@ import { DateService } from '../_services/date-service/date-service'
 export class SittingRecordWorkflowService {
   
   formData!: FormGroup;
+  hasVisitedManage = false; 
+  sittingRecordToDelete = {};
   addSittingRecords!: FormGroup;
-  hasVisitedManage = false;
   cameFromConfirm = false;
   sittingRecordsRoleList;
   venueData;
@@ -48,6 +49,33 @@ export class SittingRecordWorkflowService {
 
   resetFormData(){
     this.formData.reset();
+  }
+
+  getSittingRecordToDelete(){
+    return this.sittingRecordToDelete
+  }
+
+  setSittingRecordToDelete(record){
+    this.sittingRecordToDelete = record;
+  }
+
+  resetSittingRecordToDelete(){
+    this.sittingRecordToDelete = {};
+  }
+
+  getSittingRecordsData() {
+    const postObj = new ViewSittingRecordPost();
+    const { dateSelected, venue, tribunalService } = this.formData.value;
+    const hmctsServiceCode = tribunalService.hmctsServiceCode;
+    const dateToGet = this.dateSvc.formatDateForPost(dateSelected);
+    postObj.epimmsId = venue.epimms_id;
+    postObj.regionId = venue.region_id;
+    postObj.dateRangeFrom = dateToGet;
+    postObj.dateRangeTo = dateToGet;
+    postObj.dateOrder = "ASCENDING";
+
+    //TODO: add logic below to add in filter functionality
+    return this.ViewSittingRecordService.postObject(postObj, hmctsServiceCode);
   }
 
   setAddSittingRecords(data: FormGroup){
@@ -107,20 +135,6 @@ export class SittingRecordWorkflowService {
       recordedSittingRecords: JOH.value.map(joh => this.sittingRecordsSvc.createNewSRPostObj(joh, tribunalService, dateSelected, venue, period))
     };
     return this.sittingRecordsSvc.postNewSittingRecord(postBody);
-  }
-
-  
-  getSittingRecordsData() {
-    const postObj = new ViewSittingRecordPost();
-    const { dateSelected, venue } = this.formData.value;
-    const dateToGet = this.dateSvc.formatDateForPost(dateSelected);
-    postObj.epimmsId = venue.epimms_id;
-    postObj.regionId = venue.region_id;
-    postObj.dateRangeFrom = dateToGet;
-    postObj.dateRangeTo = dateToGet;
-    postObj.dateOrder = "ASCENDING";
-
-    return this.ViewSittingRecordService.postObject(postObj);
   }
 
 }

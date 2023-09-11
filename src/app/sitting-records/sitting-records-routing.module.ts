@@ -4,6 +4,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { SittingRecordsComponent } from './sitting-records.component';
 import { ManageSittingRecordsComponent } from './manage-sitting-records/manage-sitting-records.component';
 import { ViewSittingRecordsComponent } from './view-sitting-records/view-sitting-records.component';
+import { DeleteSittingRecordsComponent } from './delete-sitting-records/delete-sitting-records.component'
+import { DeleteSuccessComponent } from './delete-sitting-records/delete-success/delete-success.component'
 import { AddSittingRecordComponent } from './add-sitting-record/add-sitting-record.component'
 import { AddSittingRecordSuccessComponent } from './add-sitting-record/add-sitting-record-success/add-sitting-record-success.component';
 import { AddSittingRecordsConfirmComponent } from './add-sitting-record/add-sitting-records-confirm/add-sitting-records-confirm.component'
@@ -33,6 +35,16 @@ const routes: Routes = [
             path: 'view',
             component: ViewSittingRecordsComponent,
             canActivate: [SittingRecordsViewGuard]
+          },
+          {
+            path: 'delete',
+            component: DeleteSittingRecordsComponent,
+            canActivate: [SittingRecordsViewGuard],
+          },
+          {
+            path: 'deleteSuccess',
+            component: DeleteSuccessComponent,
+            canActivate: [SittingRecordsViewGuard],
           },
           {
             path: 'add',

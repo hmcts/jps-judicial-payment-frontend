@@ -4,7 +4,7 @@ import { AddSittingRecordSuccessComponent } from './add-sitting-record-success.c
 import { SittingRecordWorkflowService } from '../../../_workflows/sitting-record-workflow.service';
 import { DateService } from '../../../_services/date-service/date-service';
 import { Router } from '@angular/router';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 describe('AddSittingRecordSuccessComponent', () => {

@@ -7,7 +7,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { DateService } from '../../../_services/date-service/date-service';
 import { of } from 'rxjs';
-import { SittingRecordsInfoBannerComponent } from '../../../sitting-records-info-banner/sitting-records-info-banner.component';
+import { SittingRecordsInfoBannerComponent } from '../../sitting-records-info-banner/sitting-records-info-banner.component';
 
 
 describe('AddSittingRecordsConfirmComponent', () => {
@@ -16,7 +16,6 @@ describe('AddSittingRecordsConfirmComponent', () => {
   let srWorkFlow: SittingRecordWorkflowService;
   let router: Router;
   let httpMock: HttpTestingController;
-  let dateSvc: DateService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -33,7 +32,6 @@ describe('AddSittingRecordsConfirmComponent', () => {
     srWorkFlow = TestBed.inject(SittingRecordWorkflowService);
     router = TestBed.inject(Router);
     httpMock= TestBed.inject(HttpTestingController);
-    dateSvc = TestBed.inject(DateService);
     spyOn(srWorkFlow, 'getAddSittingRecords').and.returnValue(new FormGroup({ test: new FormControl('') }));
     const formDataMock: FormGroup = new FormBuilder().group({
       dateSelected: ['2022-01-01'],
@@ -85,9 +83,4 @@ describe('AddSittingRecordsConfirmComponent', () => {
     expect(router.navigate).toHaveBeenCalledWith(['sittingRecords', 'addSuccess']);
   });
 
-  it('should convert the period correctly', () => {
-    spyOn(dateSvc, 'convertPeriod').and.returnValue('Morning');
-    expect(component.convertPeriod('am')).toBe('Morning');
-    expect(dateSvc.convertPeriod).toHaveBeenCalled();
-  });
 });

@@ -11,6 +11,8 @@ import {
 } from '../../configuration/references';
 import axios from "axios";
 import { NextFunction, Request, Response } from "express";
+import { Logger } from '@hmcts/nodejs-logging';
+const logger = Logger.getLogger('refdata/authenticator.ts')
 
 interface CustomRequest extends Request {
     access_token?: string;
@@ -22,7 +24,7 @@ export class IdamAuthenticatorService {
     s2sAccessToken; 
 
     assignTokensMiddleware(req: CustomRequest, res: Response, next: NextFunction): void {
-        
+        logger.debug(`IdamAuthenticatorService:: assignTokensMiddleware:: assigning sys token middleware to endpoints`)
         req.access_token = `Bearer ${this.idamAccessToken}`;
         req.s2s_token = `Bearer ${this.s2sAccessToken}`;
         next();
@@ -38,6 +40,7 @@ export class IdamAuthenticatorService {
 
         const userCode = await this.handleAuthPostReq(`${IDAM_URI}/oauth2/authorize?redirect_uri=${REDIRECT_URI}&response_type=code&client_id=${CLIENT_ID}`, IMPORTER_USERNAME, IMPORTER_PASSWORD)
         const idamAuthCode = await this.handleAuthPostReq(`${IDAM_URI}/oauth2/token?code=${userCode.code}&redirect_uri=${REDIRECT_URI}&grant_type=authorization_code`, CLIENT_ID, CLIENT_SECRET)
+        logger.debug(`IdamAuthenticatorService:: createSystemUserAuth:: Create system access token ${idamAuthCode.access_token.slice(0, 10)}...`)
         this.idamAccessToken = idamAuthCode.access_token
     }
     async createS2SAuth(){
@@ -45,6 +48,7 @@ export class IdamAuthenticatorService {
         const S2S_URL           = `${getConfigValue(SERVICES_S2S_PATH)}/testing-support/lease`
 
         const s2sToken = await this.handleS2SPostReq(S2S_URL, {microservice: S2S_MICROSERVICE})
+        logger.debug(`IdamAuthenticatorService:: createS2SAuth:: Created system S2S token ${s2sToken.slice(0,10)}...`)
         this.s2sAccessToken = s2sToken
     }
     async handleAuthPostReq(postUrl, uName, uPass){

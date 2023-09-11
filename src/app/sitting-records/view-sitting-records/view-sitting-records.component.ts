@@ -28,7 +28,7 @@ export class ViewSittingRecordsComponent implements OnInit{
   sittingRecordData: SittingRecord[] = [];
 
   showFilters = false;
-
+  
   goBack(){
     void this.router.navigate(['sittingRecords','manage'])
   }
@@ -36,13 +36,6 @@ export class ViewSittingRecordsComponent implements OnInit{
   addNewRecord(){
     void this.router.navigate(['sittingRecords','add'])
   }
-
-  getPeriod(am: boolean, pm: boolean): string {
-    return this.dateSvc.getPeriod(am, pm);
-  }
-
-  
-    
 
   ngOnInit(){
     const formData = this.srWorkFlow.getFormData().value;
@@ -89,4 +82,9 @@ export class ViewSittingRecordsComponent implements OnInit{
     
   }
 
+  navigateDeleteSittingRecord(sittingRecord){
+    this.srWorkFlow.setSittingRecordToDelete(sittingRecord);
+    this.router.navigate(['sittingRecords', 'delete'])
+  }
+  
 }

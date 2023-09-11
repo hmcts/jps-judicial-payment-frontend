@@ -21,27 +21,24 @@ const errorHandler = ((err, req, res, next) => {
   if (err) {
     const error = err.response
     res.status(error.status || 500);
-    let errMsg = `${error.statusText}:`
+    let errMsg = `${error.status}:`
+
+    if(typeof error.data === 'string'){
+      errMsg += ` ${error.data}`
+    }
     if (error.data.errorDescription) {
       errMsg += ` ${error.data.errorDescription}`
     }
     if (error.data.errors) {
-      console.log(JSON.stringify(error.data.errors))
-      errMsg += ` ${error.data.errors}`
+      errMsg += ` ${JSON.stringify(error.data.errors)}`
     }
     if (error.data.errorRecords){
-      console.log(JSON.stringify(error.data.errorRecords))
       errMsg += ` ${error.data.errorRecords}`
     }
 
-    logger.log({
-      level: 'error',
-      message: errMsg
-    })
+    logger.error(errMsg)
     res.json({
-      error: {
-        message: errMsg || 'Internal Server Error',
-      },
+        message: errMsg || 'Internal Server Error',  
     });
   }
 });
@@ -99,7 +96,6 @@ export function app(): express.Express {
 
 function run(): void {
   const port = process.env['PORT'] || 4000;
-
   // Start up the Node server
   const server = app();
   server.listen(port, () => {
