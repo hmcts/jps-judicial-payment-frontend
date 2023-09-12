@@ -3,7 +3,7 @@ import { ManageSittingRecordsWorkflowService } from '../../_workflows/manage-sit
 import { DateService } from '../../_services/date-service/date-service';
 import { Router } from '@angular/router';
 import { defaultDtOptions }  from '../../_services/default-dt-options'
-import { SittingRecord } from 'src/app/_models/viewSittingRecords.model';
+import { SittingRecord } from '../../_models/viewSittingRecords.model';
 import { Subject } from 'rxjs';
 
 @Component({
@@ -11,7 +11,13 @@ import { Subject } from 'rxjs';
   templateUrl: './view-sitting-records.component.html',
   styleUrls: ['./view-sitting-records.component.scss']
 })
-export class ViewSittingRecordsComponent implements OnInit {
+export class ViewSittingRecordsComponent implements OnInit{
+
+  constructor(
+    private msrWorkFlow: ManageSittingRecordsWorkflowService,
+    private dateSvc: DateService,
+    private router: Router
+  ){}
 
   tribService = "";
   venueSiteName = "";
@@ -22,20 +28,16 @@ export class ViewSittingRecordsComponent implements OnInit {
   sittingRecordData: SittingRecord[] = [];
 
   showFilters = false;
-
+  
   goBack(){
     void this.router.navigate(['sittingRecords','manage'])
   }
 
-  getPeriod(am: string, pm: string): string {
-    return this.dateSvc.getPeriod(am, pm);
+  addNewRecord(){
+    void this.router.navigate(['sittingRecords','add'])
   }
 
-  constructor(
-    private msrWorkFlow: ManageSittingRecordsWorkflowService,
-    private dateSvc: DateService,
-    private router: Router
-  ){}
+  
     
   ngOnInit(){
     const formData = this.msrWorkFlow.getFormData().value;
@@ -82,4 +84,9 @@ export class ViewSittingRecordsComponent implements OnInit {
     
   }
 
+  navigateDeleteSittingRecord(sittingRecord){
+    this.msrWorkFlow.setSittingRecordToDelete(sittingRecord);
+    this.router.navigate(['sittingRecords', 'delete'])
+  }
+  
 }

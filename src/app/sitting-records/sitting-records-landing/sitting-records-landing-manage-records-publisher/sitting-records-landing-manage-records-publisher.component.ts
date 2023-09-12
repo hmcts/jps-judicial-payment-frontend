@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CustomValidators } from '../../../_validators/sitting-records-form-validator';
+import { ManageSittingRecord } from '../../../_validators/sittingRecordsFormValidator/sitting-records-form-validator';
 import { PublisherWorkflowService } from '../../../_workflows/publisher-workflow.service';
 
 @Component({
@@ -27,7 +27,7 @@ export class SittingRecordsLandingManageRecordsPublisherComponent implements OnI
           dateYear: [null, [Validators.required,]],
         },{
           validators: [
-            CustomValidators.validateDateFormat
+            ManageSittingRecord.validateDateFormat
         ]})
       });
   

@@ -63,14 +63,15 @@ export class SubmitterWorkflowService {
 
   getSittingRecordsData() {
     const postObj = new ViewSittingRecordPost();
-    const { dateSelected, region } = this.formData.value;
+    const { dateSelected, region, tribunalService } = this.formData.value;
+    const hmctsServiceCode = tribunalService.hmctsServiceCode;
     const dateToGet = this.dateSvc.formatDateFromForm(dateSelected);
     postObj.regionId = region.region_id;
-    postObj.statusIds = ['RECORDED'];
+    postObj.statusId = 'RECORDED';
     postObj.dateRangeFrom = dateToGet;
     postObj.dateRangeTo = dateToGet;
 
-    return this.viewSittingRecordService.postObject(postObj);
+    return this.viewSittingRecordService.postObject(postObj, hmctsServiceCode);
   }
 
 }

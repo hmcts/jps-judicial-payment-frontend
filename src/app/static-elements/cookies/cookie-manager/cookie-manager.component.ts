@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 import cookieManager from '@hmcts/cookie-manager';
 
 @Component({
@@ -6,10 +6,10 @@ import cookieManager from '@hmcts/cookie-manager';
   templateUrl: './cookie-manager.component.html',
   styleUrls: ['./cookie-manager.component.scss']
 })
-export class CookieManagerComponent implements OnInit {
+export class CookieManagerComponent implements AfterViewInit {
 
 
-  ngOnInit() {
+  ngAfterViewInit() {
 
     const config = {
       userPreferences: {

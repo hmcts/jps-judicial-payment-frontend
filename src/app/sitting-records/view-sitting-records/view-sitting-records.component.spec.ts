@@ -5,10 +5,11 @@ import { ManageSittingRecordsWorkflowService } from '../../_workflows/manage-sit
 import { DateService } from '../../_services/date-service/date-service';
 import { Router } from '@angular/router';
 import { DataTablesModule } from 'angular-datatables';
-import { HttpClientModule } from '@angular/common/http';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ViewSittingRecordResponse } from 'src/app/_models/viewSittingRecords.model';
+import { ViewSittingRecordResponse } from '../../_models/viewSittingRecords.model';
 import { of } from 'rxjs';
+import { HttpClientModule } from '@angular/common/http';
+import { SittingRecordsInfoBannerComponent } from '../sitting-records-info-banner/sitting-records-info-banner.component';
 
 describe('ViewSittingRecordsComponent', () => {
   let component: ViewSittingRecordsComponent;
@@ -19,7 +20,7 @@ describe('ViewSittingRecordsComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ ViewSittingRecordsComponent ],
+      declarations: [ ViewSittingRecordsComponent, SittingRecordsInfoBannerComponent ],
       providers: [ ManageSittingRecordsWorkflowService, DateService ],
       imports: [RouterTestingModule, DataTablesModule, HttpClientModule]
     }).compileComponents();
@@ -66,13 +67,6 @@ describe('ViewSittingRecordsComponent', () => {
     spyOn(mockRouter, 'navigate');
     component.goBack();
     expect(mockRouter.navigate).toHaveBeenCalledWith(['sittingRecords','manage']);
-  });
-
-  it('getPeriod should convert the period correctly', () => {
-    spyOn(mockDateSvc,'getPeriod').and.returnValue('Full Day');
-    expect(component.getPeriod('AM','PM')).toEqual('Full Day');
-    expect(mockDateSvc.getPeriod).toHaveBeenCalledWith('AM','PM');
-  
   });
  
 });
