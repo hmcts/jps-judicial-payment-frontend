@@ -55,7 +55,7 @@ export function app(): express.Express {
   server.use(getXuiNodeMiddleware());
   server.use('/refdata', IdamAuthSvc.assignTokensMiddleware.bind(IdamAuthSvc))
   server.use('/refdata', refDataRouter, errorHandler)
-  server.use('/sittingRecords', sittingRecordsRouter, errorHandler)
+  server.use('/sittingrecord', sittingRecordsRouter, errorHandler)
 
   server.engine('html', ngExpressEngine({
     bootstrap: AppServerModule,

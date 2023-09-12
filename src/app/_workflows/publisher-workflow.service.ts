@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { DateService } from '../_services/date-service/date-service';
+import { PublisherFlowService } from '../_services/publisher-flow-services/publisher-flow-service'
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,8 @@ export class PublisherWorkflowService {
   hasLandingVisited = false;
 
   constructor (
-    private dateSvc: DateService
+    private dateSvc: DateService,
+    private pbService: PublisherFlowService
   ) {}
 
   setLandingVisited(){
@@ -45,5 +47,18 @@ export class PublisherWorkflowService {
 
   resetUserLandingData() {
     this.userLandingData.reset();
+  }
+
+  getPublishedRecords() {
+
+    console.log(this.getFormData())
+    const hmctsServCode = this.formData.value['tribunalService']['hmctsServiceCode']
+
+    const postObj = {
+      dateRangeTo: this.dateSvc.formatDateForPost(this.formData.value['dateSelected']),
+      publish: false
+    }
+
+    return this.pbService.getPublishedRecords(hmctsServCode, postObj);
   }
 }

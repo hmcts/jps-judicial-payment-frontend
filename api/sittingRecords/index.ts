@@ -86,3 +86,30 @@ export async function deleteSittingRecord(req, res, next){
         next(error)
     }
 }
+
+export async function getPublishedRecords(req, res, next){
+    const { Authorization, ServiceAuthorization } = req.headers;
+    const { hmctsServiceCode, searchObject } = req.body
+    logger.debug(`getPublishedRecords:: Request to get published records with service code ${hmctsServiceCode}`)
+    try {
+        const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': Authorization,
+            'ServiceAuthorization': ServiceAuthorization
+        };
+
+        const config: AxiosRequestConfig = {
+            url: `${url}/publishSittingRecords/${hmctsServiceCode}`,
+            method: 'POST',
+            headers: headers,
+            data: searchObject
+        };
+
+        const response = await axios(config);
+        
+        res.json(response.data);
+
+    } catch (error) {
+        next(error)
+    }
+}
