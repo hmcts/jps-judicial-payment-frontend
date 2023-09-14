@@ -9,7 +9,7 @@ import { DuplicateRecordWorkflowService } from 'src/app/_workflows/duplicate-rec
   templateUrl: './invalid-duplicate.component.html',
   styleUrls: ['./invalid-duplicate.component.scss']
 })
-export class InvalidDuplicateComponent implements OnInit {
+export class InvalidDuplicateComponent {
 
   @Input() recordData;
   selectedVenue;
@@ -28,10 +28,6 @@ export class InvalidDuplicateComponent implements OnInit {
     this.selectedVenue = venue.site_name;
     this.selectedDate = this.dateSvc.formatDateFromForm(dateSelected);
     this.currentUser = this.uInfoSvc.getUserName()
-  }
-
-  ngOnInit(){
-    this.duplicateInvalidFormObject = this.dupeRecordWorkflow.matchDuplicateRecord(this.recordData.postedRecord.personalCode, this.srWorkFlow.getAddSittingRecords())
   }
 
 }

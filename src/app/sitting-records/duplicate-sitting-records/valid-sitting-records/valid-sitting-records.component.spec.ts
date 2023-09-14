@@ -4,7 +4,10 @@ import { ValidSittingRecordsComponent } from './valid-sitting-records.component'
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { DuplicateRecordWorkflowService } from '../../../_workflows/duplicate-record-workflow.service';
 import { SittingRecordWorkflowService } from 'src/app/_workflows/sitting-record-workflow.service';
+import { ConvertAddPeriodPipe, ConvertToStringPeriodPipe } from './../../../_pipes/convert-period-pipe'
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { ConvertRoleIdToString } from './../../../_pipes/convertRoleIdToString'
+import { StringFromDatePipeYDM, StringFromDatePipe } from '../../../_pipes/string-date-pipe'
 
 describe('ValidSittingRecordsComponent', () => {
   let component: ValidSittingRecordsComponent;
@@ -16,7 +19,7 @@ describe('ValidSittingRecordsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ValidSittingRecordsComponent ],
+      declarations: [ ValidSittingRecordsComponent, ConvertAddPeriodPipe, ConvertToStringPeriodPipe, ConvertRoleIdToString, StringFromDatePipeYDM, StringFromDatePipe ],
       imports: [HttpClientTestingModule],
       providers: [SittingRecordWorkflowService, DuplicateRecordWorkflowService]
     })
@@ -32,7 +35,7 @@ describe('ValidSittingRecordsComponent', () => {
     });
 
     spyOn(srWorkFlow, 'getFormData').and.returnValue(mockformData)
-    spyOn(duplicateRecordWorkflow, 'matchDuplicateRecords').and.returnValue([{}, {}]);
+    spyOn(duplicateRecordWorkflow, 'matchValidRecords').and.returnValue([{}, {}]);
 
     fixture = TestBed.createComponent(ValidSittingRecordsComponent);
     component = fixture.componentInstance;

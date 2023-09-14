@@ -1,6 +1,9 @@
 <main class="govuk-main-wrapper " id="main-content" role="main">
+    <span class="govuk-caption-l">
+        <app-sitting-records-info-banner amendedText="Add sitting records"></app-sitting-records-info-banner>
+    </span>
     <h1 class="govuk-heading-l">Records could not be saved</h1>
-    <app-error-summary [errorMessage]="'Potential duplicate found'"></app-error-summary>
+    <app-error-summary [errorMessage]="errorMessages"></app-error-summary>
     <div *ngFor="let record of recordsWithErrors; let i = index;">
         <app-potential-duplicate *ngIf="record.errorCode === 'POTENTIAL_DUPLICATE_RECORD'" [recordData]="record" (valueChange)="updateReplaceDuplicate($event, i)"></app-potential-duplicate>
         <app-invalid-duplicate *ngIf="record.errorCode === 'INVALID_DUPLICATE_RECORD'" [recordData]="record"></app-invalid-duplicate>

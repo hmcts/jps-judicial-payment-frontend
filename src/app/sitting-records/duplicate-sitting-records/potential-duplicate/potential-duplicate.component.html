@@ -1,5 +1,5 @@
-<p class="govuk-body">The highlighted records appears to be a duplicate.</p>
-<p class="govuk-body">Please select the record you want to keep, and click below to save your record(s)</p>
+<p class="govuk-body govuk-!-margin-bottom-0">The highlighted records appears to be a duplicate.</p>
+<p class="govuk-body govuk-!-margin-bottom-2">Please select the record you want to keep, and click below to save your record(s)</p>
 
 <table class="govuk-table" aria-describedby="table for displaying potential duplicates">
     <thead class="govuk-table__head">
@@ -18,22 +18,22 @@
     <tbody class="govuk-table__body">
         <tr class="govuk-table__row">
             <td class="userDefinedStyling"></td>
-            <td class="govuk-table__cell errorCellStyling textIndent"> {{duplicatePotentialFormObject.johName}}</td>
-            <td class="govuk-table__cell errorCellStyling"> {{duplicatePotentialFormObject.johRole}}</td>
-            <td class="govuk-table__cell errorCellStyling"> {{duplicatePotentialFormObject.period | convertAddPeriodToString}}</td>
+            <td class="govuk-table__cell errorCellStyling textIndent"> {{recordData.judgeRoleTypeName}}</td>
+            <td class="govuk-table__cell errorCellStyling"> {{recordData.postedRecord.judgeRoleTypeId | convertRoleIdToString}}</td>
+            <td class="govuk-table__cell errorCellStyling"> {{recordData.postedRecord.am | convertToStringPeriod: recordData.postedRecord.pm}}</td>
             <td class="govuk-table__cell errorCellStyling"> {{currentUser}}</td>
-            <td class="govuk-table__cell errorCellStyling"> {{selectedDate}}</td>
+            <td class="govuk-table__cell errorCellStyling"> {{selectedDate | stringFromDateYDM}}</td>
             <td class="govuk-table__cell errorCellStyling"> {{selectedVenue}}</td>
             <td class="govuk-table__cell errorCellStyling"> </td>
             <td class="govuk-table__cell errorCellStyling"> 
                 <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
                     <div class="govuk-radios__item govuk-!-margin-0">
-                        <input class="govuk-radios__input" id="changed-name-{{duplicatePotentialFormObject.johName}}" 
-                            name="record-selected-{{duplicatePotentialFormObject.johName}}" 
+                        <input class="govuk-radios__input" id="changed-name-{{recordData.johName}}" 
+                            name="record-selected-{{recordData.johName}}" 
                             type="radio" value="true"
                             (change)="updateSelection(true)"
                         >
-                        <label class="govuk-label govuk-radios__label govuk-!-padding-0" for="changed-name-{{duplicatePotentialFormObject.johName}}">
+                        <label class="govuk-label govuk-radios__label govuk-!-padding-0" for="changed-name-{{recordData.johName}}">
                             &nbsp;
                         </label>
                     </div>
@@ -45,22 +45,22 @@
 
         <tr class="govuk-table__row">
             <td ></td>
-            <td class="govuk-table__cell textIndent"> {{duplicatePotentialFormObject.johName}}</td>
-            <td class="govuk-table__cell"> {{recordData.judgeRoleTypeName }}</td>
+            <td class="govuk-table__cell textIndent"> {{recordData.judgeRoleTypeName}}</td>
+            <td class="govuk-table__cell"> {{recordData.judgeRoleTypeId | convertRoleIdToString}}</td>
             <td class="govuk-table__cell"> {{recordData.am | convertToStringPeriod: recordData.pm}}</td>
             <td class="govuk-table__cell"> {{recordData.createdByName}}</td>
-            <td class="govuk-table__cell"> {{selectedDate}}</td>
+            <td class="govuk-table__cell"> {{selectedDate | stringFromDateYDM}}</td>
             <td class="govuk-table__cell"> {{selectedVenue}}</td>
-            <td class="govuk-table__cell"> {{recordData.statusId}}</td>
+            <td class="govuk-table__cell"> {{recordData.statusId | capitalizeFirstLetterForStatus}}</td>
             <td class="govuk-table__cell"> 
                 <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
                     <div class="govuk-radios__item govuk-!-margin-0">
-                        <input class="govuk-radios__input" id="changed-name-{{duplicatePotentialFormObject.johName}}" 
-                        name="record-selected-{{duplicatePotentialFormObject.johName}}" 
+                        <input class="govuk-radios__input" id="changed-name-{{recordData.johName}}" 
+                        name="record-selected-{{recordData.johName}}" 
                         type="radio" value="false"
                         (change)="updateSelection(false)"
                         >
-                        <label class="govuk-label govuk-radios__label govuk-!-padding-0" for="changed-type-{{duplicatePotentialFormObject.johName}}">
+                        <label class="govuk-label govuk-radios__label govuk-!-padding-0" for="changed-type-{{recordData.johName}}">
                             &nbsp;
                         </label>
                     </div>

@@ -25,7 +25,7 @@ import { DataTablesModule } from "angular-datatables";
 import { DeleteSuccessComponent } from './delete-sitting-records/delete-success/delete-success.component';
 import { DeleteSittingRecordsComponent } from './delete-sitting-records/delete-sitting-records.component'
 
-import { StringFromDatePipe } from '../_pipes/string-date-pipe'
+import { StringFromDatePipe, StringFromDatePipeYDM } from '../_pipes/string-date-pipe'
 import { ConvertToStringPeriodPipe, ConvertAddPeriodPipe } from '../_pipes/convert-period-pipe'
 import { JPFooterComponent } from '../static-elements/jp-footer/jp-footer.component';
 import { JPHeaderComponent } from '../static-elements/jp-header/jp-header.component';
@@ -33,7 +33,10 @@ import { CookieManagerComponent } from '../static-elements/cookies/cookie-manage
 import { LogoutComponent } from '../static-elements/logout/logout.component';
 import { CapitalizeFirstLetterPipe } from '../_pipes/convertTableStatus'
 import { ValidSittingRecordsComponent } from './duplicate-sitting-records/valid-sitting-records/valid-sitting-records.component';
-import { ConvertRoleIdToString } from '../_pipes/convertRoleIdToString'
+import { ConvertRoleIdToString } from '../_pipes/convertRoleIdToString';
+import { DuplicateConfirmComponent } from './duplicate-sitting-records/duplicate-confirm/duplicate-option-confirm/duplicate-confirm.component';
+import { DuplicateExistingConfirmComponent } from './duplicate-sitting-records/duplicate-confirm/duplicate-existing-confirm/duplicate-existing-confirm.component';
+import { DuplicateConfirmSuccessComponent } from './duplicate-sitting-records/duplicate-confirm/duplicate-confirm-success/duplicate-confirm-success.component'
 
 @NgModule({
   imports: [
@@ -54,6 +57,7 @@ import { ConvertRoleIdToString } from '../_pipes/convertRoleIdToString'
     DeleteSuccessComponent,
     NumberDirective,
     StringFromDatePipe,
+    StringFromDatePipeYDM,
     ConvertToStringPeriodPipe,
     ConvertAddPeriodPipe,
     AddSittingRecordComponent,
@@ -79,7 +83,10 @@ import { ConvertRoleIdToString } from '../_pipes/convertRoleIdToString'
     SittingRecordsLandingComponent,
     SittingRecordsLandingManageRecordsComponent,
     CapitalizeFirstLetterPipe,
-    ConvertRoleIdToString
+    ConvertRoleIdToString,
+    DuplicateConfirmComponent,
+    DuplicateExistingConfirmComponent,
+    DuplicateConfirmSuccessComponent
   ]
 })
 export class SittingRecordsModule { }

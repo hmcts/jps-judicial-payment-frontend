@@ -9,7 +9,7 @@ import { SittingRecordWorkflowService } from '../../../_workflows/sitting-record
   templateUrl: './potential-duplicate.component.html',
   styleUrls: ['./potential-duplicate.component.scss']
 })
-export class PotentialDuplicateComponent implements OnInit{
+export class PotentialDuplicateComponent{
   
   @Input() recordData;
   @Output() valueChange = new EventEmitter<any>();
@@ -38,7 +38,4 @@ export class PotentialDuplicateComponent implements OnInit{
     this.currentUser = this.uInfoSvc.getUserName()
   }
 
-  ngOnInit(){
-    this.duplicatePotentialFormObject = this.dupeRecordWorkflow.matchDuplicateRecord(this.recordData.postedRecord.personalCode, this.srWorkFlow.getAddSittingRecords())
-  }
 }

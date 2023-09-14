@@ -12,6 +12,7 @@ export class DuplicateSittingRecordsComponent implements OnInit {
   recordsWithErrors;
   optionsSelected: any[] = []
   validRecords: any[] = [];
+  errorMessages: Array<string> = [];
 
   constructor(
     public drWorkFlow: DuplicateRecordWorkflowService,
@@ -23,6 +24,7 @@ export class DuplicateSittingRecordsComponent implements OnInit {
     this.optionsSelected = optionsSelected;
     this.validRecords = validRecords
     this.recordsWithErrors = errorRecords
+    this.errorMessages = this.drWorkFlow.getDuplicateRecordText(this.recordsWithErrors)
 
   }
 
@@ -32,25 +34,23 @@ export class DuplicateSittingRecordsComponent implements OnInit {
   }
 
   navigateToPreviousPage() {
-    void this.router.navigate(['../addConfirm'])
+    void this.router.navigate(['sittingRecords', 'addConfirm'])
   }
 
   cancelCurrentFlow() {
     void this.router.navigate(['../manage'])
   }
 
-  resubmitSittingRecords() {
-    this.drWorkFlow.postResolvedDuplicates(this.recordsWithErrors, this.optionsSelected)
-    .subscribe((response) => {
-      const errorRecords = response['errorRecords']
-      if(!response['message'] || response === 'No_Records'){
-        void this.router.navigate(['sittingRecords', 'addSuccess'])
+  resubmitSittingRecords() { 
+    this.drWorkFlow.formResolvedDuplicateObject(this.recordsWithErrors, this.optionsSelected)
+    this.drWorkFlow.checkForRecordsToSubmit(this.recordsWithErrors)
+    .subscribe((needsConfirm) => {
+      if(needsConfirm){
+        void this.router.navigate(['sittingRecords', 'confirmDuplicates'])
       }else{
-        this.drWorkFlow.setErrorRecords(errorRecords)
-        void this.router.navigate(['sittingRecords', 'addDuplicates'])
+        void this.router.navigate(['sittingRecords', 'confirmExisting'])
       }
     })
-
   }
 
   get allOptionsSelected() {

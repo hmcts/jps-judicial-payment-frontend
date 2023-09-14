@@ -3,7 +3,7 @@ import { DateService } from '../_services/date-service/date-service'
 import { UserInfoService } from '../_services/user-info-service/user-info-service';
 import { SittingRecordsService } from '../_services/sitting-records-service/sitting-records.service';
 import { SittingRecordWorkflowService } from './sitting-record-workflow.service';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +11,8 @@ import { of } from 'rxjs';
 export class DuplicateRecordWorkflowService {
 
   recordErrors;
+  resolvedDuplicateSelections;
+  validResolvedRecords;
 
   constructor(
     private dateSvc: DateService,
@@ -29,6 +31,18 @@ export class DuplicateRecordWorkflowService {
   
   setErrorRecords(recordsWithErrors): void {
     this.recordErrors = recordsWithErrors;
+  }
+
+  getResolvedDuplicateSelections(){
+    return this.resolvedDuplicateSelections;
+  }
+
+  setValidResolvedRecords(validRecords){
+    this.validResolvedRecords = validRecords;
+  }
+
+  getValidResolvedRecords(){
+    return this.validResolvedRecords;
   }
 
   getDuplicateRecordErrors(){
@@ -52,16 +66,7 @@ export class DuplicateRecordWorkflowService {
     }
   }
 
-  matchDuplicateRecord(personalCode, formData){
-    for(const joh in formData.value.JOH){
-      if(formData.value.JOH[joh]['johName'].personalCode === personalCode){
-        return { johName: formData.value.JOH[joh]['johName'].fullName, johRole: formData.value.JOH[joh]['johRole'].appointment, period: formData.value.period }
-      }
-    }
-    return {}
-  }
-
-  matchDuplicateRecords(validRecords, formData){
+  matchValidRecords(validRecords, formData){
     const dupedRecords:  any[] = [];
     const johArray =  formData.value.JOH;
     const johPeriod = formData.value.period
@@ -83,16 +88,30 @@ export class DuplicateRecordWorkflowService {
     return dupedRecords
   }
 
-  postResolvedDuplicates(errorRecords, optionsSelected){
-    const resolvedObjects: any[] = []
-    errorRecords.forEach((data, index) => {
-      if(optionsSelected[index] === true) {
-        const recordData = data.postedRecord
-        if(data.errorCode !== 'VALID'){
-          recordData.replaceDuplicate = true;
+  formResolvedDuplicateObject(errorRecords, optionsSelected){
+    const submitting: Array<any> = [];
+    const notSubmitting: Array<any> = [];
+    errorRecords.forEach((obj, index) => {
+        if (optionsSelected[index]) {
+          if(obj.errorCode == 'VALID'){
+            const matchedRecord = this.matchValidRecords([obj], this.srWorkFlow.getAddSittingRecords())
+            obj = Object.assign({}, obj, matchedRecord[0]);
+          }
+            submitting.push(obj);
+        } else {
+            notSubmitting.push(obj);
         }
-        resolvedObjects.push(data.postedRecord);
-      }
+    });
+    this.resolvedDuplicateSelections = { submitting, notSubmitting }
+  }
+
+  postResolvedDuplicates(resolvedDuplicates){
+    const resolvedObjects: any[] = []
+    resolvedDuplicates.forEach((data) => {
+        if(data.errorCode !== 'VALID'){
+          data.postedRecord.replaceDuplicate = true
+        }
+        resolvedObjects.push(data.postedRecord)
     });
 
     const postBody = {
@@ -110,6 +129,27 @@ export class DuplicateRecordWorkflowService {
     }
     return this.sittingRecordsSvc.postNewSittingRecord(postBody, this.srWorkFlow.getHmctsServiceCode());
 
+  }
+
+  checkForRecordsToSubmit(errorRecords): Observable<boolean> {
+    for(const i in errorRecords){
+      if(errorRecords[i].errorCode !== 'INVALID_DUPLICATE_RECORD'){
+        return of(true)
+      }
+    }
+    return of(false);
+  }
+
+  getDuplicateRecordText(errorRecords){
+    const results: Array<string> = [];
+    errorRecords.forEach(obj => {
+        if (obj.errorCode === 'POTENTIAL_DUPLICATE_RECORD' && !results.includes('Potential duplicate found')) {
+            results.push('Potential duplicate found');
+        } else if (obj.errorCode === 'INVALID_DUPLICATE_RECORD' && !results.includes('Record already exists')) {
+            results.push('Record already exists');
+        }
+    });
+    return results
   }
 
 }

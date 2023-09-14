@@ -1,0 +1,63 @@
+<main class="govuk-main-wrapper " id="main-content" role="main">
+    <span class="govuk-caption-l">
+        <app-sitting-records-info-banner amendedText="Add sitting records"></app-sitting-records-info-banner>
+    </span>
+    <h1 class="govuk-heading-l">Confirm new sitting record(s)</h1>
+
+    <div class="govuk-!-margin-bottom-5">
+        <table class="govuk-table">
+            <caption class="govuk-table__caption govuk-table__caption--m">Record(s) to submit</caption>
+            <thead class="govuk-table__head">
+                <tr class="govuk-table__row">
+                    <th scope="col" class="govuk-table__header">Name</th>
+                    <th scope="col" class="govuk-table__header">Role</th>
+                    <th scope="col" class="govuk-table__header">Period</th>
+                    <th scope="col" class="govuk-table__header">Entered by</th>
+                </tr>
+            </thead>
+            <tbody class="govuk-table__body">
+                <tr class="govuk-table__row" *ngFor="let record of confirmationRecords.submitting">
+                    <td class="govuk-table__cell">{{record.judgeRoleTypeName || record.johName}}</td>
+                    <td class="govuk-table__cell">{{record.postedRecord.judgeRoleTypeId | convertRoleIdToString}}</td>
+                    <td class="govuk-table__cell">{{record.postedRecord.am | convertToStringPeriod: record.postedRecord.pm}}</td>
+                    <td class="govuk-table__cell">{{record.createdByName || currentUser}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div>
+        <table class="govuk-table">
+            <caption class="govuk-table__caption govuk-table__caption--m">Record(s) not submitted</caption>
+            <thead class="govuk-table__head">
+                <tr class="govuk-table__row">
+                    <th scope="col" class="govuk-table__header">Name</th>
+                    <th scope="col" class="govuk-table__header">Role</th>
+                    <th scope="col" class="govuk-table__header">Period</th>
+                    <th scope="col" class="govuk-table__header">Entered by</th>
+                </tr>
+            </thead>
+            <tbody class="govuk-table__body">
+                <tr class="govuk-table__row" *ngFor="let record of confirmationRecords.notSubmitting">
+                    <td class="govuk-table__cell">{{record.judgeRoleTypeName || record.johRole}}</td>
+                    <td class="govuk-table__cell">{{record.johRole || record.judgeRoleTypeId | convertRoleIdToString}}</td>
+                    <td class="govuk-table__cell">{{record.am | convertToStringPeriod: record.pm}}</td>
+                    <td class="govuk-table__cell">{{record.createdByName || currentUser}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="govuk-button-group">
+        <button class="govuk-button govuk-button--secondary" data-module="govuk-button" (click)="goBack()">
+            Previous
+        </button>
+        <button class="govuk-button" data-module="govuk-button" (click)="submitRecords()">
+            Save Record(s)
+        </button>
+    </div>
+    <div>
+        <a class="govuk-link link-color" (click)="cancelConfirm()">Cancel</a>
+    </div>
+
+</main>

@@ -30,13 +30,13 @@
                 {{record.johRole}}
             </dd>
             <dd class="govuk-summary-list__value">
-                {{record.johPeriod}}
+                {{record.johPeriod | convertAddPeriodToString}}
             </dd>
             <dd class="govuk-summary-list__value">
                 {{currentUser}}
             </dd>
             <dd class="govuk-summary-list__value">
-                {{record.postedDate}}
+                {{record.postedDate | stringFromDate}}
             </dd>
             <dd class="govuk-summary-list__value">
                 {{selectedVenue}}

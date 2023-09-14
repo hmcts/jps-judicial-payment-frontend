@@ -34,10 +34,12 @@ export class AddSittingRecordComponent implements OnInit, OnDestroy {
   venueEpimmsId = "";
   userList: any[] = [[] as UserModel[], [] as UserModel[], [] as UserModel[]];
   userRoleList: any[] = [[] as RolesModel[], [] as RolesModel[], [] as RolesModel[]];
+  userPersonalCode: Array<string> = ["", "", ""]
   searchTerm = ["", "", ""];
   usersFound = [true, true, true]
   subscriptions: Subscription[] = [];
   serviceCode = "";
+  
 
   goBack() {
     this.srWorkFlow.resetCameFromConfirm()
@@ -94,6 +96,7 @@ export class AddSittingRecordComponent implements OnInit, OnDestroy {
     const user = event.option.value as UserModel
     this.johFormArray.controls[index].get('johName')?.setValue(user)
     this.userList[index] = [] as UserModel[]
+    this.userPersonalCode[index] = user.personalCode;
     this.getUserRoles(user.personalCode, index)
   }
 
@@ -111,6 +114,7 @@ export class AddSittingRecordComponent implements OnInit, OnDestroy {
           this.johFormArray.controls[index].get('johRole')?.reset()
           this.johFormArray.controls[index].get('johRole')?.disable()
         }),
+        tap(() => this.userPersonalCode[index] = ""),
         tap(() => this.usersFound[index] = true),
         tap(() => this.userList[index] = [] as UserModel[]),
         tap(term => this.searchTerm[index] = term),
@@ -119,9 +123,10 @@ export class AddSittingRecordComponent implements OnInit, OnDestroy {
         mergeMap(value => this.getUsers(value))
       ).subscribe(users => {
         this.changeDetector.markForCheck()
-        this.userList[index] = users;
-        if (users.length === 0) {
-          this.usersFound[index] = false
+        const filteredUsers = users.filter(user => !this.userPersonalCode.includes(user.personalCode));
+        this.userList[index] = filteredUsers;
+        if (filteredUsers.length === 0) {
+          this.usersFound[index] = false;
         }
       })
 

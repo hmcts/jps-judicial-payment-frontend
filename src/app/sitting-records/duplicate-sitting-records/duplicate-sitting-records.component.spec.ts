@@ -7,6 +7,8 @@ import { of } from 'rxjs';
 
 import { ErrorSummaryComponent } from '../../error-summary/error-summary.component'
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { SittingRecordsInfoBannerComponent } from '../sitting-records-info-banner/sitting-records-info-banner.component'
+import { ConvertAddPeriodPipe, ConvertToStringPeriodPipe } from '../../_pipes/convert-period-pipe'
 
 describe('DuplicateSittingRecordsComponent', () => {
   let component: DuplicateSittingRecordsComponent;
@@ -16,10 +18,12 @@ describe('DuplicateSittingRecordsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DuplicateSittingRecordsComponent, ErrorSummaryComponent ],
+      declarations: [ DuplicateSittingRecordsComponent, ErrorSummaryComponent, SittingRecordsInfoBannerComponent ],
       providers: [
-        { provide: Router},
-        { provide: DuplicateRecordWorkflowService },
+        Router,
+        DuplicateRecordWorkflowService,
+        ConvertAddPeriodPipe, 
+        ConvertToStringPeriodPipe
       ],
       imports: [HttpClientTestingModule]
     })
@@ -54,7 +58,7 @@ describe('DuplicateSittingRecordsComponent', () => {
   describe('navigateToPreviousPage', () => {
     it('should navigate to previous page', () => {
       component.navigateToPreviousPage();
-      expect(router.navigate).toHaveBeenCalledWith(['../addConfirm']);
+      expect(router.navigate).toHaveBeenCalledWith(['sittingRecords', 'addConfirm']);
     });
   });
 
@@ -67,27 +71,21 @@ describe('DuplicateSittingRecordsComponent', () => {
 
   describe('resubmitSittingRecords', () => {
     it('should navigate to success page if successful', () => {
-      spyOn(workflowService, 'postResolvedDuplicates').and.returnValue(of({
-        errorRecords: []
-      }));
+      spyOn(workflowService, 'formResolvedDuplicateObject');
+      spyOn(workflowService, 'checkForRecordsToSubmit').and.returnValue(of(false));
 
       component.resubmitSittingRecords();
 
-      expect(router.navigate).toHaveBeenCalledWith(['sittingRecords', 'addSuccess']);
+      expect(router.navigate).toHaveBeenCalledWith(['sittingRecords', 'confirmExisting']);
     });
 
     it('should set errors and navigate to duplicate page if failed', () => {
-      const errorRecords = [{message: 'error'}];
-      spyOn(workflowService, 'postResolvedDuplicates').and.returnValue(of({
-        errorRecords: errorRecords,
-        message: 'error'
-      }));
-      spyOn(workflowService, 'setErrorRecords');
+      spyOn(workflowService, 'formResolvedDuplicateObject');
+      spyOn(workflowService, 'checkForRecordsToSubmit').and.returnValue(of(true));
 
       component.resubmitSittingRecords();
 
-      expect(workflowService.setErrorRecords).toHaveBeenCalledWith(errorRecords);
-      expect(router.navigate).toHaveBeenCalledWith(['sittingRecords', 'addDuplicates']);
+      expect(router.navigate).toHaveBeenCalledWith(['sittingRecords', 'confirmDuplicates']);
     });
   });
 

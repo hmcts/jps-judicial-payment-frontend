@@ -6,6 +6,10 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { DuplicateRecordWorkflowService } from '../../../_workflows/duplicate-record-workflow.service';
 import { SittingRecordWorkflowService } from '../../../_workflows/sitting-record-workflow.service';
 import { ConvertAddPeriodPipe, ConvertToStringPeriodPipe } from './../../../_pipes/convert-period-pipe'
+import { ConvertRoleIdToString } from './../../../_pipes/convertRoleIdToString'
+import { SittingRecordsInfoBannerComponent } from '../../sitting-records-info-banner/sitting-records-info-banner.component'
+import { StringFromDatePipeYDM } from '../../../_pipes/string-date-pipe'
+import { CapitalizeFirstLetterPipe } from '../../../_pipes/convertTableStatus'
 
 describe('PotentialDuplicateComponent', () => {
   let component: PotentialDuplicateComponent;
@@ -16,9 +20,9 @@ describe('PotentialDuplicateComponent', () => {
   
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PotentialDuplicateComponent, ConvertAddPeriodPipe, ConvertToStringPeriodPipe],
+      declarations: [ PotentialDuplicateComponent, ConvertAddPeriodPipe, ConvertToStringPeriodPipe, ConvertRoleIdToString, StringFromDatePipeYDM, CapitalizeFirstLetterPipe],
       imports: [HttpClientTestingModule],
-      providers: [SittingRecordWorkflowService, DuplicateRecordWorkflowService]
+      providers: [SittingRecordWorkflowService, DuplicateRecordWorkflowService, SittingRecordsInfoBannerComponent]
     })
 
     srWorkFlow = TestBed.inject(SittingRecordWorkflowService);
@@ -31,7 +35,6 @@ describe('PotentialDuplicateComponent', () => {
     });
 
     spyOn(srWorkFlow, 'getFormData').and.returnValue(mockformData)
-    spyOn(duplicateRecordWorkflow, 'matchDuplicateRecord').and.returnValue({});
 
     fixture = TestBed.createComponent(PotentialDuplicateComponent);
     component = fixture.componentInstance;

@@ -7,6 +7,6 @@ import { Component, Input } from '@angular/core';
 })
 export class ErrorSummaryComponent {
 
-  @Input() errorMessage!: string;
+  @Input() errorMessage!: Array<string>;
 
 }

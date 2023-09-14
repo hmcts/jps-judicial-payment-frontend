@@ -15,6 +15,9 @@ import { SittingRecordsViewGuard } from '../_guards/sitting-records/sitting-reco
 import { SittingRecordsLandingGuard } from '../_guards/sitting-records/sitting-records-landing.guard';
 import { SittingRecordsManageGuard } from '../_guards/sitting-records/sitting-records-manage.guard';
 import { AuthGuard } from '../_guards/auth/auth.guard';
+import { DuplicateConfirmComponent } from './duplicate-sitting-records/duplicate-confirm/duplicate-option-confirm/duplicate-confirm.component';
+import { DuplicateExistingConfirmComponent } from './duplicate-sitting-records/duplicate-confirm/duplicate-existing-confirm/duplicate-existing-confirm.component'
+import { DuplicateConfirmSuccessComponent } from './duplicate-sitting-records/duplicate-confirm/duplicate-confirm-success/duplicate-confirm-success.component';
 
 const routes: Routes = [
     {
@@ -65,6 +68,21 @@ const routes: Routes = [
           {
             path: 'addDuplicates',
             component: DuplicateSittingRecordsComponent,
+            canActivate: [SittingRecordsViewGuard]
+          },
+          {
+            path: 'confirmDuplicates',
+            component: DuplicateConfirmComponent,
+            canActivate: [SittingRecordsViewGuard]
+          },
+          {
+            path: 'confirmExisting',
+            component: DuplicateExistingConfirmComponent,
+            canActivate: [SittingRecordsViewGuard]
+          },
+          {
+            path: 'confirmDupeSuccess',
+            component: DuplicateConfirmSuccessComponent,
             canActivate: [SittingRecordsViewGuard]
           }
         ]

@@ -84,37 +84,16 @@ describe('DuplicateRecordWorkflowService', () => {
             });
         });
 
-        describe('matchDuplicateRecord', () => {
-            it('should match duplicate record if personal code matches', () => {
-                const formData = { value: { JOH: [ { johName: { personalCode: 'ABC123', fullName: 'John Doe' }, johRole: { appointment: 'Judge' } } ], period: 'AM' } };
-                const result = service.matchDuplicateRecord('ABC123', formData);
-
-                expect(result).toEqual({
-                    johName: 'John Doe',
-                    johRole: 'Judge',
-                    period: 'AM'
-                });
-            });
-
-            it('should return empty object if no match', () => {
-                const formData = {value: {JOH: [{ johName: { personalCode: 'XYZ789' } } ] } };
-                const result = service.matchDuplicateRecord('ABC123', formData);
-
-                expect(result).toEqual({});
-            });
-
-        });
-
         describe('DuplicateRecordWorkflowService', () => {
 
-            it('should match duplicate records', () => {
+            it('should match valid records', () => {
                 const validRecords = [ { postedRecord: { personalCode: 'ABC123', sittingDate: '2022-01-01' } } ];
 
                 const formData = { value: { JOH: [ { johName: { personalCode: 'ABC123', fullName: 'John Doe' }, johRole: { appointment: 'Judge' } } ], period: 'AM' } };
 
                 const expected = [ { johName: 'John Doe', johRole: 'Judge', johPeriod: 'AM', postedDate: '2022-01-01' } ];
 
-                const result = service.matchDuplicateRecords(validRecords, formData);
+                const result = service.matchValidRecords(validRecords, formData);
 
                 expect(result).toEqual(expected);
 
@@ -125,8 +104,7 @@ describe('DuplicateRecordWorkflowService', () => {
         describe('postResolvedDuplicates', () => {
             it('should return "No_Records" when there are no resolved records', () => {
                 const errorRecords = [];
-                const optionsSelected = [];
-                const result = service.postResolvedDuplicates(errorRecords, optionsSelected);
+                const result = service.postResolvedDuplicates(errorRecords);
                 result.subscribe(res => {
                     expect(res).toEqual('No_Records');
                 });
@@ -141,9 +119,8 @@ describe('DuplicateRecordWorkflowService', () => {
                         replaceDuplicate: false
                     }
                 }];
-                const optionsSelected = [true];
 
-                service.postResolvedDuplicates(errorRecords, optionsSelected);
+                service.postResolvedDuplicates(errorRecords);
 
                 const expectedPostBody = {
                     recordedByIdamId: 'testId',
