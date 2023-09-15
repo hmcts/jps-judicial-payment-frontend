@@ -232,6 +232,7 @@ export class AddSittingRecordComponent implements OnInit, OnDestroy {
       this.userRoleList = this.srWorkFlow.getSittingRecordsRoleList()
       for (let i = 0; i < this.johFormArray.length; i++) {
         this.createValueChangesListener(i);
+        this.userPersonalCode[i] = this.johFormArray.value[i]['johName']['personalCode']
       }
     }
   }

@@ -106,4 +106,26 @@ describe('DuplicateSittingRecordsComponent', () => {
     })
   })
 
+  describe('sortedRecords', () => {
+    it('should return an array of error records with specific error codes', () => {
+      const errorRecords = [
+        { errorCode: 'POTENTIAL_DUPLICATE_RECORD', message: 'Error 1' },
+        { errorCode: 'INVALID_DUPLICATE_RECORD', message: 'Error 2' },
+        { errorCode: 'POTENTIAL_DUPLICATE_RECORD', message: 'Error 3' },
+        { errorCode: 'INVALID_DUPLICATE_RECORD', message: 'Error 4' },
+      ];
+  
+      const expectedOutput = [
+        { errorCode: 'POTENTIAL_DUPLICATE_RECORD', message: 'Error 1' },
+        { errorCode: 'POTENTIAL_DUPLICATE_RECORD', message: 'Error 3' },
+        { errorCode: 'INVALID_DUPLICATE_RECORD', message: 'Error 2' },
+        { errorCode: 'INVALID_DUPLICATE_RECORD', message: 'Error 4' },
+      ];
+  
+      const result = component.sortedRecords(errorRecords);
+  
+      expect(result).toEqual(expectedOutput);
+    });
+  });
+
 });

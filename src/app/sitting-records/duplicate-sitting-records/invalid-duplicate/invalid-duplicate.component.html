@@ -17,9 +17,9 @@
     <tbody class="govuk-table__body">
         <tr class="govuk-table__row">
             <td class="userDefinedStyling"></td>
-            <td class="govuk-table__cell errorCellStyling textIndent"> {{recordData.judgeRoleTypeName}}</td>
-            <td class="govuk-table__cell errorCellStyling"> {{recordData.postedRecord.judgeRoleTypeId | convertRoleIdToString}}</td>
-            <td class="govuk-table__cell errorCellStyling"> {{recordData.postedRecord.am | convertToStringPeriod: recordData.postedRecord.pm}}</td>
+            <td class="govuk-table__cell errorCellStyling textIndent"> {{invalidRecord.judgeRoleTypeName}}</td>
+            <td class="govuk-table__cell errorCellStyling"> {{invalidRecord.postedRecord.judgeRoleTypeId | convertRoleIdToString}}</td>
+            <td class="govuk-table__cell errorCellStyling"> {{invalidRecord.postedRecord.am | convertToStringPeriod: invalidRecord.postedRecord.pm}}</td>
             <td class="govuk-table__cell errorCellStyling"> {{currentUser}}</td>
             <td class="govuk-table__cell errorCellStyling"> {{selectedDate | stringFromDateYDM}}</td>
             <td class="govuk-table__cell errorCellStyling"> {{selectedVenue}}</td>
@@ -31,13 +31,13 @@
 
         <tr class="govuk-table__row">
             <td ></td>
-            <td class="govuk-table__cell textIndent"> {{recordData.judgeRoleTypeName}}</td>
-            <td class="govuk-table__cell"> {{recordData.judgeRoleTypeId | convertRoleIdToString}}</td>
-            <td class="govuk-table__cell"> {{recordData.am | convertToStringPeriod: recordData.pm }}</td>
-            <td class="govuk-table__cell"> {{recordData.createdByName}}</td>
+            <td class="govuk-table__cell textIndent"> {{invalidRecord.judgeRoleTypeName}}</td>
+            <td class="govuk-table__cell"> {{invalidRecord.judgeRoleTypeId | convertRoleIdToString}}</td>
+            <td class="govuk-table__cell"> {{invalidRecord.am | convertToStringPeriod: invalidRecord.pm }}</td>
+            <td class="govuk-table__cell"> {{invalidRecord.createdByName}}</td>
             <td class="govuk-table__cell"> {{selectedDate | stringFromDateYDM}}</td>
             <td class="govuk-table__cell"> {{selectedVenue}}</td>
-            <td class="govuk-table__cell"> {{recordData.statusId | capitalizeFirstLetterForStatus}}</td>
+            <td class="govuk-table__cell"> {{invalidRecord.statusId | capitalizeFirstLetterForStatus}}</td>
             <td class="govuk-table__cell"> &nbsp; </td>
         </tr>
         <tr class="govuk-table__row">

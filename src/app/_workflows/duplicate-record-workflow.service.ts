@@ -131,12 +131,13 @@ export class DuplicateRecordWorkflowService {
 
   }
 
-  checkForRecordsToSubmit(errorRecords): Observable<boolean> {
-    for(const i in errorRecords){
-      if(errorRecords[i].errorCode !== 'INVALID_DUPLICATE_RECORD'){
+  checkForRecordsToSubmit(needsToBeSaved): Observable<boolean> {
+    for(const i in needsToBeSaved){
+      if(needsToBeSaved[i]){
         return of(true)
       }
     }
+
     return of(false);
   }
 

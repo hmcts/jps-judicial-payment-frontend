@@ -11,7 +11,8 @@ import { SittingRecordWorkflowService } from '../../../_workflows/sitting-record
 })
 export class PotentialDuplicateComponent{
   
-  @Input() recordData;
+  @Input() potentialRecord;
+  @Input() index;
   @Output() valueChange = new EventEmitter<any>();
   selectedVenue;
   selectedDate;

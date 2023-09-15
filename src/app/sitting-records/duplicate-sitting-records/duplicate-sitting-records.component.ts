@@ -23,7 +23,7 @@ export class DuplicateSittingRecordsComponent implements OnInit {
     const {validRecords, optionsSelected, errorRecords} = this.drWorkFlow.getDuplicateRecordErrors();
     this.optionsSelected = optionsSelected;
     this.validRecords = validRecords
-    this.recordsWithErrors = errorRecords
+    this.recordsWithErrors = this.sortedRecords(errorRecords)
     this.errorMessages = this.drWorkFlow.getDuplicateRecordText(this.recordsWithErrors)
 
   }
@@ -43,7 +43,7 @@ export class DuplicateSittingRecordsComponent implements OnInit {
 
   resubmitSittingRecords() { 
     this.drWorkFlow.formResolvedDuplicateObject(this.recordsWithErrors, this.optionsSelected)
-    this.drWorkFlow.checkForRecordsToSubmit(this.recordsWithErrors)
+    this.drWorkFlow.checkForRecordsToSubmit(this.optionsSelected)
     .subscribe((needsConfirm) => {
       if(needsConfirm){
         void this.router.navigate(['sittingRecords', 'confirmDuplicates'])
@@ -51,6 +51,11 @@ export class DuplicateSittingRecordsComponent implements OnInit {
         void this.router.navigate(['sittingRecords', 'confirmExisting'])
       }
     })
+  }
+
+  sortedRecords(errorRecords) {
+    return [...errorRecords.filter(record => record.errorCode === 'POTENTIAL_DUPLICATE_RECORD'),
+          ...errorRecords.filter(record => record.errorCode === 'INVALID_DUPLICATE_RECORD')];
   }
 
   get allOptionsSelected() {

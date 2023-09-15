@@ -11,7 +11,7 @@ import { DuplicateRecordWorkflowService } from 'src/app/_workflows/duplicate-rec
 })
 export class InvalidDuplicateComponent {
 
-  @Input() recordData;
+  @Input() invalidRecord;
   selectedVenue;
   selectedDate;
   currentUser; 

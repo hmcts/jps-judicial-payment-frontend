@@ -3,10 +3,15 @@ import { SittingRecordsInfoBannerComponent } from '../../../sitting-records-info
 import { DuplicateExistingConfirmComponent } from './duplicate-existing-confirm.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ConvertAddPeriodPipe, ConvertToStringPeriodPipe } from '../../../../_pipes/convert-period-pipe'
+import { Router } from '@angular/router';
+import { SittingRecordWorkflowService } from 'src/app/_workflows/sitting-record-workflow.service';
+import { FormControl, FormGroup } from '@angular/forms';
 
 describe('DuplicateExistingConfirmComponent', () => {
   let component: DuplicateExistingConfirmComponent;
   let fixture: ComponentFixture<DuplicateExistingConfirmComponent>;
+  let router: Router;
+  let srWorkflow: SittingRecordWorkflowService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -16,10 +21,32 @@ describe('DuplicateExistingConfirmComponent', () => {
     .compileComponents();
 
     fixture = TestBed.createComponent(DuplicateExistingConfirmComponent);
+    router = TestBed.inject(Router);
+    srWorkflow = TestBed.inject(SittingRecordWorkflowService);
     component = fixture.componentInstance;
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should navigate back to view', () => {
+    const navigateSpy = spyOn(router, 'navigate');
+    const mockAddObject = new FormGroup({
+      JOH: new FormControl([
+        { johRole: {appointment : "President of Tribunal", appointment_type : "Salaried"}, johName: 'name1' },
+        { johRole: {appointment : "Regional Tribunal Judge", appointment_type : "Salaried"}, johName: 'name2' }
+      ]),
+      period: new FormControl('both')
+    });
+
+    spyOn(srWorkflow, 'resetCameFromConfirm');
+    srWorkflow.setAddSittingRecords(mockAddObject);
+    srWorkflow.setCameFromConfirm();
+
+    component.navigateBackToView();
+    
+    expect(navigateSpy).toHaveBeenCalledWith(['sittingRecords', 'view']);
+  });
+
 });

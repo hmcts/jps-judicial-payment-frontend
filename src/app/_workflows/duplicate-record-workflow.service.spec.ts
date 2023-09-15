@@ -140,4 +140,47 @@ describe('DuplicateRecordWorkflowService', () => {
         
     })
 
+    describe('checkForRecordsToSubmit', () => {
+        it('should return true if there are is true in user selection options', () => {
+            const errorRecords = [
+                true, false, false
+            ];
+            const result = service.checkForRecordsToSubmit(errorRecords);
+            result.subscribe(res => {
+                expect(res).toBeTrue();
+            });
+        });
+
+        it('should return false if there is no true in user selection options', () => {
+            const errorRecords = [
+                false, false, false
+            ];
+            const result = service.checkForRecordsToSubmit(errorRecords);
+            result.subscribe(res => {
+                expect(res).toBeFalse();
+            });
+        });
+    });
+
+    describe('getDuplicateRecordText', () => {
+        it('should return an array of strings with the correct error messages', () => {
+            const errorRecords = [
+                { errorCode: 'POTENTIAL_DUPLICATE_RECORD' },
+                { errorCode: 'INVALID_DUPLICATE_RECORD' },
+                { errorCode: 'POTENTIAL_DUPLICATE_RECORD' }
+            ];
+            const result = service.getDuplicateRecordText(errorRecords);
+            expect(result).toEqual(['Potential duplicate found', 'Record already exists']);
+        });
+
+        it('should not include duplicate error messages', () => {
+            const errorRecords = [
+                { errorCode: 'POTENTIAL_DUPLICATE_RECORD' },
+                { errorCode: 'POTENTIAL_DUPLICATE_RECORD' },
+                { errorCode: 'INVALID_DUPLICATE_RECORD' }
+            ];
+            const result = service.getDuplicateRecordText(errorRecords);
+            expect(result).toEqual(['Potential duplicate found', 'Record already exists']);
+        });
+    });
 });
