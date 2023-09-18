@@ -16,6 +16,7 @@ export class ValidSittingRecordsComponent implements OnInit {
   selectedVenue
   selectedDate
   currentUser
+  tableHeaderText
 
   constructor(
     private srWorkFlow: SittingRecordWorkflowService,
@@ -37,5 +38,6 @@ export class ValidSittingRecordsComponent implements OnInit {
 
   ngOnInit(){
     this.filterRecords();
+    this.tableHeaderText = this.dupeRecordWorkflow.getValidRecordsTableCaption()
   }
 }

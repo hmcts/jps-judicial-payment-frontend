@@ -131,6 +131,15 @@ export class DuplicateRecordWorkflowService {
 
   }
 
+  getValidRecordsTableCaption(): string{
+    for(const i in this.recordErrors){
+      if(this.recordErrors[i].errorCode === 'POTENTIAL_DUPLICATE_RECORD'){
+        return 'Resolve any duplicates before saving the record(s) below:'
+      }
+    }
+    return 'Click continue to save the record(s) below:'
+  }
+
   checkForRecordsToSubmit(needsToBeSaved): Observable<boolean> {
     for(const i in needsToBeSaved){
       if(needsToBeSaved[i]){

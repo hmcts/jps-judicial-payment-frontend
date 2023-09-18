@@ -18,7 +18,11 @@ const TOKEN_REFRESH = 1000 * 60 * 60 * 3;
 
 const errorHandler = ((err, req, res, next) => {
   if (err) {
-    console.log(err.response)
+    console.log({
+        data: err.response.data,
+        status: err.response.status,
+        statusText: err.response.statusText
+    });
     const error = err.response
     res.status(error.status || 500);
     let errMsg;
