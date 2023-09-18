@@ -35,7 +35,9 @@ import { JPHeaderComponent } from '../static-elements/jp-header/jp-header.compon
 import { CookieManagerComponent } from '../static-elements/cookies/cookie-manager/cookie-manager.component';
 import { LogoutComponent } from '../static-elements/logout/logout.component';
 import { CapitalizeFirstLetterPipe } from '../_pipes/convertTableStatus'
-import { ConvertRoleIdToString } from '../_pipes/convertRoleIdToString'
+import { ConvertRoleIdToString } from '../_pipes/convertRoleIdToString';
+import { SittingRecordsLandingJohadminComponent } from './sitting-records-landing/sitting-records-landing-johadmin/sitting-records-landing-johadmin.component';
+import { UserSearchComponent } from './shared-components/user-search/user-search.component'
 
 @NgModule({
   imports: [
@@ -75,7 +77,9 @@ import { ConvertRoleIdToString } from '../_pipes/convertRoleIdToString'
     SittingRecordsLandingManageRecordsPublisherComponent,
     SubmitSittingRecordsComponent,
     CapitalizeFirstLetterPipe,
-    ConvertRoleIdToString
+    ConvertRoleIdToString,
+    SittingRecordsLandingJohadminComponent,
+    UserSearchComponent
   ]
 })
 export class SittingRecordsModule { }

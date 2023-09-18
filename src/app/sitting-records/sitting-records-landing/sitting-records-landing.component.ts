@@ -22,11 +22,15 @@ export class SittingRecordsLandingComponent implements OnInit {
   userForm!: FormGroup;
   hideManageRecordsSubmitter = true;
   hideManageRecordsPublisher = true;
+  hideManageRecordsJohAdmin = true;
+
   showSubmitSittingRecordsOption = false;
   showFindAddDeleteSittingRecordsOption = false;
   showViewExportSittingRecordsOption = false;
   showCreatePayrollFilePublishSittingRecordsOption = false;
   showHeadingForPublisher = false;
+  showViewOrManageJudicialInfo = false;
+
   manageRecordsSubmitter!: FormGroup | undefined;
   manageRecordsPublisher!: FormGroup | undefined;
   userRole = '';
@@ -85,7 +89,7 @@ export class SittingRecordsLandingComponent implements OnInit {
   
   configureUserRoleSettings() {
     if (this.userRole.includes('jps-JOH-admin')) {
-      // show radio buttons visible to them
+      this.showViewOrManageJudicialInfo = true;
     } else if (this.userRole.includes('jps-publisher')) {
       this.showHeadingForPublisher = true;
       this.showViewExportSittingRecordsOption = true;
@@ -115,6 +119,7 @@ export class SittingRecordsLandingComponent implements OnInit {
     this.userForm.controls['options'].valueChanges.subscribe(optionValue => {
       this.hideManageRecordsSubmitter = optionValue !== 'submitToFinance';
       this.hideManageRecordsPublisher = optionValue !== 'publishRecords';
+      this.hideManageRecordsJohAdmin = optionValue !== 'viewManageJudicialInfo';
     });
   }
   

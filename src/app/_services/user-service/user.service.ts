@@ -18,9 +18,14 @@ export class UserService {
 
     const requestBody = {
         "searchString": searchTerm,
-        "serviceCode": serviceCode,
-        "location": venueEpims
-      }
+    }
+
+    if(serviceCode){
+      requestBody['serviceCode'] = serviceCode
+    }
+    if(venueEpims){
+      requestBody['location'] = venueEpims
+    }
 
     const headers = {
       'Content-Type': 'application/json',
