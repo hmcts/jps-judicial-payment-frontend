@@ -183,8 +183,6 @@ describe('AddSittingRecordComponent', () => {
     spyOn(srWorkflowService, 'getAddSittingRecords').and.returnValue(formGroup);
     spyOn(srWorkflowService, 'checkCameFromConfirm').and.returnValue(true);
   
-    
-    console.log(johFormArray.value)
     component.ngOnInit();
   
     for (let i = 0; i < johFormArray.length; i++) {

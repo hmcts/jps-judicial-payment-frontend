@@ -88,20 +88,23 @@ export class DuplicateRecordWorkflowService {
     return dupedRecords
   }
 
-  formResolvedDuplicateObject(errorRecords, optionsSelected){
+  formResolvedDuplicateObject(errorRecords, validRecords, optionsSelected){
     const submitting: Array<any> = [];
     const notSubmitting: Array<any> = [];
     errorRecords.forEach((obj, index) => {
         if (optionsSelected[index]) {
-          if(obj.errorCode == 'VALID'){
-            const matchedRecord = this.matchValidRecords([obj], this.srWorkFlow.getAddSittingRecords())
-            obj = Object.assign({}, obj, matchedRecord[0]);
-          }
             submitting.push(obj);
         } else {
             notSubmitting.push(obj);
         }
     });
+
+    validRecords.forEach(element => {
+      const matchedRecord = this.matchValidRecords([element], this.srWorkFlow.getAddSittingRecords())
+      const obj = Object.assign({}, element, matchedRecord[0]);
+      submitting.push(obj)
+    });
+    
     this.resolvedDuplicateSelections = { submitting, notSubmitting }
   }
 
@@ -113,7 +116,7 @@ export class DuplicateRecordWorkflowService {
         }
         resolvedObjects.push(data.postedRecord)
     });
-
+    
     const postBody = {
       recordedByIdamId: this.uInfoSvc.getIdamId(),
       recordedByName: this.uInfoSvc.getUserName(),

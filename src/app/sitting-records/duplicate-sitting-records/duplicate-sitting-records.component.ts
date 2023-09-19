@@ -42,7 +42,7 @@ export class DuplicateSittingRecordsComponent implements OnInit {
   }
 
   resubmitSittingRecords() { 
-    this.drWorkFlow.formResolvedDuplicateObject(this.recordsWithErrors, this.optionsSelected)
+    this.drWorkFlow.formResolvedDuplicateObject(this.recordsWithErrors, this.validRecords, this.optionsSelected)
     this.drWorkFlow.checkForRecordsToSubmit(this.optionsSelected)
     .subscribe((needsConfirm) => {
       if(needsConfirm){

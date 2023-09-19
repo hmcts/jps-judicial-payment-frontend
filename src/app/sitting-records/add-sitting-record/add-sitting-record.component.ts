@@ -9,7 +9,7 @@ import {
   FormControl,
 } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { debounceTime, filter, mergeMap, tap } from 'rxjs/operators';
+import { catchError, debounceTime, filter, mergeMap, tap } from 'rxjs/operators';
 import { UserService } from '../../_services/user-service/user.service'
 import { UserModel } from '../../_models/user.model';
 import { AutoCompleteValidator } from '../../_validators/autoCompleteValidator/auto-complete-validator'
@@ -111,8 +111,8 @@ export class AddSittingRecordComponent implements OnInit, OnDestroy {
     const subscription = this.johFormArray.controls[index].get('johName')?.valueChanges
       .pipe(
         tap(() => {
-          this.johFormArray.controls[index].get('johRole')?.reset()
-          this.johFormArray.controls[index].get('johRole')?.disable()
+          this.johFormArray.controls[index].get('johRole')?.reset();
+          this.johFormArray.controls[index].get('johRole')?.disable();
         }),
         tap(() => this.userPersonalCode[index] = ""),
         tap(() => this.usersFound[index] = true),
@@ -120,16 +120,24 @@ export class AddSittingRecordComponent implements OnInit, OnDestroy {
         tap(term => this.searchTerm[index] = term),
         filter(value => value.length >= 3),
         debounceTime(500),
-        mergeMap(value => this.getUsers(value))
-      ).subscribe(users => {
-        this.changeDetector.markForCheck()
-        const filteredUsers = users.filter(user => !this.userPersonalCode.includes(user.personalCode));
-        this.userList[index] = filteredUsers;
-        if (filteredUsers.length === 0) {
-          this.usersFound[index] = false;
+        mergeMap(value => this.getUsers(value).pipe(
+          catchError(() => {
+            return [];
+          })
+        )),
+        
+      )
+      .subscribe({
+        next: (users) => {
+          this.changeDetector.markForCheck();
+          const filteredUsers = users.filter(user => !this.userPersonalCode.includes(user.personalCode));
+          this.userList[index] = filteredUsers;
+          if (filteredUsers.length === 0) {
+            this.usersFound[index] = false;
+          }
         }
-      })
-
+      });
+  
     this.subscriptions.push(subscription as Subscription)
   }
   /**
