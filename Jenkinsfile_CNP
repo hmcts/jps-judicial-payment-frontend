@@ -46,12 +46,6 @@ static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
 withPipeline(type, product, component) {
   overrideVaultEnvironments(vaultOverrides)
   loadVaultSecrets(secrets)
-  onPR {
-    def githubApi = new GithubAPI(this)
-    if (!githubApi.getLabelsbyPattern(env.BRANCH_NAME, "keep-helm")) {
-        enableCleanupOfHelmReleaseOnSuccess()
-    }
-  }
 
   afterAlways('build') {
     yarnBuilder.yarn('build')

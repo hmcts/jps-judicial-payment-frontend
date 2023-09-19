@@ -10,27 +10,49 @@ import { AppServerModule } from './src/main.server';
 import { HealthCheck } from './src/app/server/healthcheck';
 import { getXuiNodeMiddleware } from './api/auth';
 import refDataRouter from './api/refdata/routes';
-import sittingRecordsRouter from './api/sittingRecords/routes';
+import { IdamAuthenticatorService } from './api/refdata/authenticator/index';
+import sittingRecordsRouter from './api/sittingrecords/routes';
 import { Logger } from '@hmcts/nodejs-logging';
 const logger = Logger.getLogger()
+const TOKEN_REFRESH = 1000 * 60 * 60 * 3;
 
 const errorHandler = ((err, req, res, next) => {
-  const error = err.response
-  res.status(error.status || 500);
-  let errMsg = `${error.statusText}:`
-  if(error.data.errorDescription){
-    errMsg += ` ${error.data.errorDescription}`
+  console.log(err.response)
+  if (err) {
+    const error = err.response
+    res.status(error.status || 500);
+    let errMsg = `${error.status}:`
+
+    if(typeof error.data === 'string'){
+      errMsg += ` ${error.data}`
+    }
+    if (error.data.errorDescription) {
+      errMsg += ` ${error.data.errorDescription}`
+    }
+    if (error.data.errors) {
+      errMsg += ` ${JSON.stringify(error.data.errors)}`
+    }
+    if (error.data.errorRecords){
+      errMsg += ` ${error.data.errorRecords}`
+    }
+
+    logger.error(errMsg)
+    res.json({
+        message: errMsg || 'Internal Server Error',  
+    });
   }
-  logger.log({
-    level: 'error',
-    message: errMsg
-  })
-  res.json({
-    error: {
-      message: errMsg || 'Internal Server Error',
-    },
-  });
 });
+const IdamAuthSvc = new IdamAuthenticatorService()
+
+function getSystemAuthTokens(){
+  IdamAuthSvc.createSystemUserAuth();
+  IdamAuthSvc.createS2SAuth();
+}
+
+setInterval(() => {
+  logger.debug(`Refreshing tokens`)
+  getSystemAuthTokens();
+}, TOKEN_REFRESH);
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
@@ -38,11 +60,15 @@ export function app(): express.Express {
   const distFolder = join(process.cwd(), 'dist/jps-judicial-payment-frontend/browser');
   const indexHtml = existsSync(join(distFolder, 'index.original.html')) ? 'index.original.html' : 'index';
   server.use(express.json())
-
+  
+  // setup system auth tokens
+  getSystemAuthTokens()
+  
   server.use(getXuiNodeMiddleware());
+  server.use('/refdata', IdamAuthSvc.assignTokensMiddleware.bind(IdamAuthSvc))
   server.use('/refdata', refDataRouter, errorHandler)
-  server.use('/sittingRecords', sittingRecordsRouter, errorHandler)
-  // Our Universal express-engine (found @ https://github.com/angular/universal/tree/main/modules/express-engine)
+  server.use('/sittingrecord', sittingRecordsRouter, errorHandler)
+
   server.engine('html', ngExpressEngine({
     bootstrap: AppServerModule,
   }));
@@ -70,7 +96,6 @@ export function app(): express.Express {
 
 function run(): void {
   const port = process.env['PORT'] || 4000;
-
   // Start up the Node server
   const server = app();
   server.listen(port, () => {

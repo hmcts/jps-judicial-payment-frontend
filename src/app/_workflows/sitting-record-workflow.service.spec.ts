@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { SittingRecordWorkflowService } from './sitting-record-workflow.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ViewSittingRecordPost, ViewSittingRecordResponse } from '../_models/viewSittingRecords.model';
@@ -56,6 +56,89 @@ describe('SittingRecordWorkflowService', () => {
     });
   });
 
+  describe('resetVisitedManaged', () => {
+    it('should set hasVisitedManaged to false', () => {
+      mockSRWorkflowService.setManageVisited()
+      mockSRWorkflowService.resetVisitedManaged()
+      expect(mockSRWorkflowService.getManageVisited()).toBe(false);
+    });
+  });
+
+  describe('formAndPostNewSittingRecord', () => {
+    it('should create a new sitting record post body, and set AM', () => {
+      const postFormData = new FormGroup({
+        JOH: new FormControl([
+          { johRole: {appointment : "President of Tribunal", appointment_type : "Salaried"}, johName: 'name1' },
+          { johRole: {appointment : "Regional Tribunal Judge", appointment_type : "Salaried"}, johName: 'name2' }
+        ]),
+        period: new FormControl('am')
+      });
+  
+      const formDataMock: FormGroup = new FormBuilder().group({
+        dateSelected: ['2022-01-01'],
+        tribunalService: ['Tribunal 1'],
+        venue: ['Venue 1'],
+      });
+  
+      mockSRWorkflowService.setFormData(formDataMock)
+      mockSRWorkflowService.setAddSittingRecords(postFormData);
+  
+      mockSRWorkflowService.setAddSittingRecords(postFormData)
+      mockSRWorkflowService.formAndPostNewSittingRecord();
+  
+
+    });
+
+    it('should create a new sitting record post body, and set PM', () => {
+      const postFormData = new FormGroup({
+        JOH: new FormControl([
+          { johRole: {appointment : "President of Tribunal", appointment_type : "Salaried"}, johName: 'name1' },
+          { johRole: {appointment : "Regional Tribunal Judge", appointment_type : "Salaried"}, johName: 'name2' }
+        ]),
+        period: new FormControl('pm')
+      });
+  
+      const formDataMock: FormGroup = new FormBuilder().group({
+        dateSelected: ['2022-01-01'],
+        tribunalService: ['Tribunal 1'],
+        venue: ['Venue 1'],
+      });
+  
+      mockSRWorkflowService.setFormData(formDataMock)
+      mockSRWorkflowService.setAddSittingRecords(postFormData)
+  
+
+      mockSRWorkflowService.setAddSittingRecords(postFormData)
+      mockSRWorkflowService.formAndPostNewSittingRecord();
+  
+
+    });
+
+    it('should create a new sitting record post body, and set both', () => {
+      const postFormData = new FormGroup({
+        JOH: new FormControl([
+          { johRole: {appointment : "President of Tribunal", appointment_type : "Salaried"}, johName: 'name1' },
+          { johRole: {appointment : "Regional Tribunal Judge", appointment_type : "Salaried"}, johName: 'name2' }
+        ]),
+        period: new FormControl('both')
+      });
+  
+      const formDataMock: FormGroup = new FormBuilder().group({
+        dateSelected: ['2022-01-01'],
+        tribunalService: ['Tribunal 1'],
+        venue: ['Venue 1'],
+      });
+  
+      mockSRWorkflowService.setFormData(formDataMock)
+      mockSRWorkflowService.setAddSittingRecords(postFormData)
+  
+  
+      mockSRWorkflowService.setAddSittingRecords(postFormData)
+      mockSRWorkflowService.formAndPostNewSittingRecord();
+
+
+    });
+  });
   describe('getSittingRecordsData', () => {
     it('should return a valid ViewSittingRecordResponse object', () => {
       const postObj: ViewSittingRecordPost = {
@@ -63,14 +146,14 @@ describe('SittingRecordWorkflowService', () => {
         offset: 0,
         dateOrder: 'ASCENDING',
         regionId: '',
-        epimsId: '',
+        epimmsId: '',
         createdByUserId: '',
         personalCode: '',
         judgeRoleTypeId: '',
         duration: '',
         dateRangeFrom: '',
         dateRangeTo: '',
-        statusIds: []
+        statusId: ''
       };
       const mockResponse: ViewSittingRecordResponse = { "sittingRecords": [] };
       const dateSelected = '2022-01-01';
