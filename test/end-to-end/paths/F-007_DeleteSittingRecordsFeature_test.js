@@ -43,7 +43,7 @@ Scenario('Show error when trying to delete record created by another user @S-007
   I.see("Judicial sitting records");
   I.see("Sitting records for Social Security and Child Support, Bournemouth Combined Court, for " + randomDay + "/" + randomMonth + "/2022");
   I.click("Add Sitting Record(s)");
-  I.createSittingRecord('Joe Ambrose', 'Tribunal Judge', 'Morning');
+  I.createSittingRecord('Joe Ambrose', 'Tribunal Judge', 'Afternoon');
   I.click('Sign out');
   I.loginWithJPSRecorderUser();
   ManageJudicialSittingRecordsPage.addSittingRecordsInformation('Social Security and Child Support', 'Bournemouth', randomDay, randomMonth, '2022');
