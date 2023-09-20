@@ -99,11 +99,13 @@ export class DuplicateRecordWorkflowService {
     const submitting: Array<any> = [];
     const notSubmitting: Array<any> = [];
     errorRecords.forEach((obj, index) => {
+      if(obj.errorCode != 'VALID'){
         if (optionsSelected[index]) {
             submitting.push(obj);
         } else {
             notSubmitting.push(obj);
         }
+      }
     });
 
     validRecords.forEach(element => {
@@ -129,7 +131,7 @@ export class DuplicateRecordWorkflowService {
       recordedByName: this.uInfoSvc.getUserName(),
       recordedSittingRecords: resolvedObjects
     };
-
+    console.log(postBody)
     if(resolvedObjects.length === 0){
       return of('No_Records')
     }else{
