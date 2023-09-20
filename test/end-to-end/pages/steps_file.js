@@ -1,17 +1,17 @@
 module.exports = function () {
 
   const recorderUsername = process.env.JPS_RECORDER_USERNAME || 'jps-recorder-role@gmail.com';
-  const recorderPassword = process.env.JPS_RECORDER_PASSWORD || 'password';
+  const recorderPassword = process.env.JPS_RECORDER_PASSWORD || 'PesZvqrb78';
   const submitterUsername = process.env.JPS_SUBMITTER_USERNAME || 'jps-submitter-role@gmail.com';
-  const submitterPassword = process.env.JPS_SUBMITTER_PASSWORD || 'password';
+  const submitterPassword = process.env.JPS_SUBMITTER_PASSWORD || 'PesZvqrb78';
   const publisherUsername = process.env.JPS_PUBLISHER_USERNAME || 'jps-publisher-role@gmail.com';
-  const publisherPassword = process.env.JPS_PUBLISHER_PASSWORD || 'password';
+  const publisherPassword = process.env.JPS_PUBLISHER_PASSWORD || 'PesZvqrb78';
   const adminUsername = process.env.JPS_ADMIN_USERNAME || 'jps-admin-role@gmail.com';
-  const adminPassword = process.env.JPS_ADMIN_PASSWORD || 'password';
+  const adminPassword = process.env.JPS_ADMIN_PASSWORD || 'PesZvqrb78';
   const johAdminUsername = process.env.JPS_JOH_ADMIN_USERNAME || 'jps-JOH-admin-role@gmail.com';
-  const johAdminPassword = process.env.JPS_JOH_ADMIN_PASSWORD || 'password';
+  const johAdminPassword = process.env.JPS_JOH_ADMIN_PASSWORD || 'PesZvqrb78';
   const invalidUsername = process.env.JPS_INVALID_USERNAME || 'jps-invalid-role@gmail.com';
-  const invalidPassword = process.env.JPS_INVALID_PASSWORD || 'password';
+  const invalidPassword = process.env.JPS_INVALID_PASSWORD || 'PesZvqrb78';
 
   return actor({
     loginWithJPSRecorderUser: function(){
@@ -66,6 +66,20 @@ module.exports = function () {
       I.fillField('Email address', invalidUsername);
       I.fillField('Password', invalidPassword);
       I.click('Sign in');
+    },
+
+    createSittingRecord: function(name, role, period){
+      const I = this;
+      I.fillField('.govuk-input', name);
+      I.click('.mdc-list-item__primary-text');
+      I.selectOption('.govuk-select', role);
+      I.checkOption(period);
+      I.click('Continue');
+      I.click('Save Record(s)');
+      I.click('View Record Table');
+      I.see(name);
+      I.see(role);
+      I.see(period);
     }
   });
 }
