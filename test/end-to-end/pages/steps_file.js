@@ -76,6 +76,7 @@ module.exports = function () {
       I.checkOption(period);
       I.click('Continue');
       I.click('Save Record(s)');
+      I.wait(2);
       I.click('View Record Table');
       I.see(name);
       I.see(role);
