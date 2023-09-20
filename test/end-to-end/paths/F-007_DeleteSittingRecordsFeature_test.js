@@ -45,7 +45,10 @@ Scenario('Show error when trying to delete record created by another user @S-007
   I.click("Add Sitting Record(s)");
   I.createSittingRecord('Joe Ambrose', 'Tribunal Judge', 'Afternoon');
   I.click('Sign out');
-  I.loginWithJPSRecorderUser();
+  I.waitForVisible('#username', 10);
+  I.fillField('Email address', 'jps-recorder-role@gmail.com');
+  I.fillField('Password', 'PesZvqrb78');
+  I.click('Sign in');
   ManageJudicialSittingRecordsPage.addSittingRecordsInformation('Social Security and Child Support', 'Bournemouth', randomDay, randomMonth, '2022');
   I.click("Continue");
   I.doubleClick('//*[@id="sittingRecordViewTable"]/thead/tr/th[5]');
