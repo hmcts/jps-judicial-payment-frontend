@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -8,6 +8,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class SittingRecordsLandingJohadminComponent implements OnInit{
   
+  @Output() johAdminFormValid = new EventEmitter<[boolean, string]>();
+  @Output() johAdminFormValues = new EventEmitter<[object, string]>();
+  
   public johAdminForm!: FormGroup;
 
   constructor( 
@@ -15,17 +18,25 @@ export class SittingRecordsLandingJohadminComponent implements OnInit{
     ){
     this.johAdminForm = this.formBuilder.group({
         tribunalService: [null, [Validators.required]],
-        johName: [{value: null, disabled: true}, [Validators.required]]
+        johName: [{value: '', disabled: true}, [Validators.required]]
       });
   
   }
 
   ngOnInit(){
     this.johAdminForm.controls['tribunalService'].valueChanges
-    .subscribe((val) => {
-      console.log(val)
+    .subscribe(() => {
       this.johAdminForm.controls['johName']?.enable();
     })
+
+    this.johAdminForm.statusChanges.subscribe(status => {
+      const isValid = status === 'VALID';
+      this.johAdminFormValid.emit([isValid, 'johAdmin']);
+      if(isValid){
+        this.johAdminFormValues.emit([this.johAdminForm, 'johAdmin']);
+      }
+    })
+
   }
 
 }

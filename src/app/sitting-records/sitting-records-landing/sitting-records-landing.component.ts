@@ -37,9 +37,12 @@ export class SittingRecordsLandingComponent implements OnInit {
 
   publisherFormValid = false;
   submitterFormValid = false;
+  johAdminFormValid = false;
 
   submitterFormValues;
   publisherFormValues;
+  johAdminFormValues;
+
 
   options = Options;
 
@@ -72,6 +75,9 @@ export class SittingRecordsLandingComponent implements OnInit {
     else if(isValid[1] === 'publisher'){
       this.publisherFormValid = isValid[0];
     }
+    else if (isValid[1] == 'johAdmin'){
+      this.johAdminFormValid = isValid[0];
+    }
   }
 
   handleFormValues(value){
@@ -80,6 +86,9 @@ export class SittingRecordsLandingComponent implements OnInit {
     }
     else if(value[1] === 'publisher'){
       this.publisherFormValues = value[0];
+    }
+    else if(value[1] === 'johAdmin'){
+      this.johAdminFormValues = value[0];
     }
   }
 

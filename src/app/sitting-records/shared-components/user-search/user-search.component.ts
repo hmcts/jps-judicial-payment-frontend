@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormGroupDirective } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { Observable, debounceTime, filter, mergeMap, tap } from 'rxjs';
+import { Observable, catchError, debounceTime, filter, mergeMap, tap } from 'rxjs';
 import { UserModel } from 'src/app/_models/user.model';
 import { UserService } from 'src/app/_services/user-service/user.service';
 
@@ -25,19 +25,18 @@ export class UserSearchComponent implements OnInit{
     }
 
     ngOnInit(){
-
-      console.log(!this.userList.length)
-      console.log(this.searchTerm.length)
-      
       this.parentFormGroup.control.get('johName')?.valueChanges
       .pipe(
         tap(() => this.usersFound = true),
         tap(() => this.userList = [] as UserModel[]),
         tap(term => this.searchTerm = term),
-        tap((val) => console.log(val.length)),
         filter(value => value.length >= 3),
         debounceTime(500),
-        mergeMap(value => this.getUsers(value))
+        mergeMap(value => this.getUsers(value).pipe(
+          catchError(() => {
+            return [];
+          })
+        )),
       ).subscribe(users => {
         this.userList = users;
         if (users.length === 0) {
