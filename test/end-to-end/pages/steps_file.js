@@ -68,6 +68,15 @@ module.exports = function () {
       I.click('Sign in');
     },
 
+    logOutThenLoginWithJPSRecorderUser: function(){
+      const I = this;
+      I.click('Sign out');
+      I.waitForVisible('#username', 10);
+      I.fillField('Email address', recorderUsername);
+      I.fillField('Password', recorderPassword);
+      I.click('Sign in');
+      },
+
     createSittingRecord: function(name, role, period){
       const I = this;
       I.fillField('.govuk-input', name);
