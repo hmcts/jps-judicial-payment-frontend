@@ -44,7 +44,7 @@ Scenario('Show error when trying to delete record created by another user @S-007
   I.see("Sitting records for Social Security and Child Support, East London Tribunal Hearing Centre (Import Building), for " + randomDay + "/" + randomMonth + "/2022");
   I.click("Add Sitting Record(s)");
   I.createSittingRecord('Joe Ambrose', 'Tribunal Judge', 'Afternoon');
-  I.logOutThenLogInWithJPSRecorderUser();
+  I.logOutThenLoginWithJPSRecorderUser();
   ManageJudicialSittingRecordsPage.addSittingRecordsInformation('Social Security and Child Support', 'London', randomDay, randomMonth, '2022');
   I.click("Continue");
   I.doubleClick('//*[@id="sittingRecordViewTable"]/thead/tr/th[5]');
