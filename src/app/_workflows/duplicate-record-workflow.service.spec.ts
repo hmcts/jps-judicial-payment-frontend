@@ -46,7 +46,7 @@ describe('DuplicateRecordWorkflowService', () => {
 
         describe('getErrorRecords', () => {
             it('should return error records', () => {
-                const mockErrorRecords = ['record1', 'record2'];
+                const mockErrorRecords = [{ errorCode: 'POTENTIAL_DUPLICATE_RECORD', message: 'Error 1' }, { errorCode: 'INVALID_DUPLICATE_RECORD', message: 'Error 2' }];
                 service.setErrorRecords(mockErrorRecords);
                 expect(service.getErrorRecords()).toEqual(mockErrorRecords);
             });
@@ -54,7 +54,7 @@ describe('DuplicateRecordWorkflowService', () => {
 
         describe('setErrorRecords', () => {
             it('should set error records', () => {
-                const mockErrorRecords = ['record1', 'record2'];
+                const mockErrorRecords = [{ errorCode: 'POTENTIAL_DUPLICATE_RECORD', message: 'Error 1' }, { errorCode: 'INVALID_DUPLICATE_RECORD', message: 'Error 2' }];
                 service.setErrorRecords(mockErrorRecords);
                 expect(service.getErrorRecords()).toEqual(mockErrorRecords);
             });
@@ -72,14 +72,14 @@ describe('DuplicateRecordWorkflowService', () => {
         describe('getDuplicateRecordErrors', () => {
             it('should return correct error records structure', () => {
                 const mockErrorRecords = [
-                    { errorCode: 'VALID' },
                     { errorCode: 'INVALID_DUPLICATE_RECORD' },
+                    { errorCode: 'VALID' },
                     { errorCode: 'VALID' }
                 ];
                 service.setErrorRecords(mockErrorRecords);
                 const result = service.getDuplicateRecordErrors();
-                expect(result.validRecords).toEqual([mockErrorRecords[0], mockErrorRecords[2]]);
-                expect(result.optionsSelected).toEqual([true, false, true]);
+                expect(result.validRecords).toEqual([mockErrorRecords[1], mockErrorRecords[2]]);
+                expect(result.optionsSelected).toEqual([false, true, true]);
                 expect(result.errorRecords).toEqual(mockErrorRecords);
             });
         });
@@ -181,6 +181,28 @@ describe('DuplicateRecordWorkflowService', () => {
             ];
             const result = service.getDuplicateRecordText(errorRecords);
             expect(result).toEqual(['Potential duplicate found', 'Record already exists']);
+        });
+    });
+
+    describe('sortedRecords', () => {
+        it('should return an array of error records with specific error codes', () => {
+            const errorRecords = [
+                { errorCode: 'POTENTIAL_DUPLICATE_RECORD', message: 'Error 1' },
+                { errorCode: 'INVALID_DUPLICATE_RECORD', message: 'Error 2' },
+                { errorCode: 'POTENTIAL_DUPLICATE_RECORD', message: 'Error 3' },
+                { errorCode: 'INVALID_DUPLICATE_RECORD', message: 'Error 4' },
+            ];
+
+            const expectedOutput = [
+                { errorCode: 'POTENTIAL_DUPLICATE_RECORD', message: 'Error 1' },
+                { errorCode: 'POTENTIAL_DUPLICATE_RECORD', message: 'Error 3' },
+                { errorCode: 'INVALID_DUPLICATE_RECORD', message: 'Error 2' },
+                { errorCode: 'INVALID_DUPLICATE_RECORD', message: 'Error 4' },
+            ];
+
+            const result = service.sortedRecords(errorRecords);
+
+            expect(result).toEqual(expectedOutput);
         });
     });
 });

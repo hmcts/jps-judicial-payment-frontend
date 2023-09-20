@@ -30,7 +30,7 @@ export class DuplicateRecordWorkflowService {
   }
   
   setErrorRecords(recordsWithErrors): void {
-    this.recordErrors = recordsWithErrors;
+    this.recordErrors = this.sortedRecords(recordsWithErrors);
   }
 
   getResolvedDuplicateSelections(){
@@ -64,6 +64,13 @@ export class DuplicateRecordWorkflowService {
       optionsSelected: optionsSelected,
       errorRecords: this.recordErrors
     }
+  }
+
+  sortedRecords(errorRecords) {
+    return [...errorRecords.filter(record => record.errorCode === 'POTENTIAL_DUPLICATE_RECORD'),
+          ...errorRecords.filter(record => record.errorCode === 'INVALID_DUPLICATE_RECORD'),
+        ...errorRecords.filter(record => record.errorCode === 'VALID')
+      ];
   }
 
   matchValidRecords(validRecords, formData){
