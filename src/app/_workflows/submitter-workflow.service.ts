@@ -64,7 +64,7 @@ export class SubmitterWorkflowService {
   getSittingRecordsData() {
     const postObj = new ViewSittingRecordPost();
     const { dateSelected, region, tribunalService } = this.formData.value;
-    const hmctsServiceCode = tribunalService.hmctsServiceCode
+    const hmctsServiceCode = tribunalService
     const dateToGet = this.dateSvc.formatDateForPost(dateSelected);
     postObj.regionId = region.region_id;
     postObj.statusId = 'RECORDED';
