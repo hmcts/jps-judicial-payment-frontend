@@ -7,7 +7,6 @@ function clickAddSittingRecords() {
 }
 
 function seeSittingRecord(name, role, period, enteredBy, status) {
-  I.amOnPage("/")
   I.see(name);
   I.see(role);
   I.see(period);
