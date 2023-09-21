@@ -105,14 +105,14 @@ describe('SubmitterWorkflowService', () => {
         offset: 0,
         dateOrder: 'ASCENDING',
         regionId: '',
-        epimsId: '',
+        epimmsId: '',
         createdByUserId: '',
         personalCode: '',
         judgeRoleTypeId: '',
         duration: '',
         dateRangeFrom: '',
         dateRangeTo: '',
-        statusIds: []
+        statusId: ''
       };
       const mockResponse: ViewSittingRecordResponse = { "sittingRecords": [] };
       const dateSelected = '2022-01-01';

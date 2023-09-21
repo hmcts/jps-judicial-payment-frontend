@@ -1,11 +1,6 @@
-<app-cookie-manager></app-cookie-manager>
-<app-jp-header></app-jp-header>
-
-<div class="govuk-width-container ">
+<div >
   <router-outlet></router-outlet>
 </div>
-
-<app-jp-footer></app-jp-footer>
 
 <ng-http-loader
   [backdrop]="true"
@@ -15,6 +10,6 @@
   [opacity]="'.7'"
   [backdropBackgroundColor]="'#777777'"
   [entryComponent]="spinnerComponent"
-  [filteredUrlPatterns]="['refdata/location']"
+  [filteredUrlPatterns]="[]"
 > 
 </ng-http-loader>

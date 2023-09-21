@@ -1,0 +1,17 @@
+.no-border{
+    border: 0; 
+}
+.flex{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.inline-block{
+    display: inline-block;
+}
+
+.logout-position{
+    display: inline;
+    float: right;
+}

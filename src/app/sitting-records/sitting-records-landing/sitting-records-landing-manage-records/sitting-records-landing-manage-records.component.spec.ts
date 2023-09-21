@@ -2,7 +2,6 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LocationService } from '../../../_services/location-service/location.service';
 import { SittingRecordsLandingManageRecordsComponent } from './sitting-records-landing-manage-records.component';
 import { RegionModel } from '../../../_models/region.model';
-import { HttpClientModule } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { of } from 'rxjs';
@@ -14,7 +13,7 @@ describe('SittingRecordsLandingManageRecordsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ HttpClientModule, ReactiveFormsModule, HttpClientTestingModule],
+      imports: [ ReactiveFormsModule, HttpClientTestingModule],
       declarations: [ SittingRecordsLandingManageRecordsComponent ],
       providers: [ LocationService]
     })

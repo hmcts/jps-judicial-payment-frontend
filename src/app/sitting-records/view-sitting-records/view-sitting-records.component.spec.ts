@@ -5,10 +5,11 @@ import { RecorderWorkflowService } from '../../_workflows/recorder-workflow.serv
 import { DateService } from '../../_services/date-service/date-service';
 import { Router } from '@angular/router';
 import { DataTablesModule } from 'angular-datatables';
-import { HttpClientModule } from '@angular/common/http';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ViewSittingRecordResponse } from 'src/app/_models/viewSittingRecords.model';
+import { ViewSittingRecordResponse } from '../../_models/viewSittingRecords.model';
 import { of } from 'rxjs';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { SittingRecordsInfoBannerComponent } from '../sitting-records-info-banner/sitting-records-info-banner.component';
 
 describe('ViewSittingRecordsComponent', () => {
   let component: ViewSittingRecordsComponent;
@@ -19,9 +20,9 @@ describe('ViewSittingRecordsComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ ViewSittingRecordsComponent ],
+      declarations: [ ViewSittingRecordsComponent, SittingRecordsInfoBannerComponent ],
       providers: [ RecorderWorkflowService, DateService ],
-      imports: [RouterTestingModule, DataTablesModule, HttpClientModule]
+      imports: [RouterTestingModule, DataTablesModule, HttpClientTestingModule]
     }).compileComponents();
   });
 
@@ -41,7 +42,7 @@ describe('ViewSittingRecordsComponent', () => {
     const formattedDate = '2022-01-01';
     const formDataMock: FormGroup = new FormBuilder().group({
       dateSelected: ['2022-01-01'],
-      tribunalService: ['Tribunal 1'],
+      tribunalService: [{service: 'Tribunal 1'}],
       venue: { site_name: 'Venue 1' }
     });
     const response: ViewSittingRecordResponse = {
@@ -56,7 +57,7 @@ describe('ViewSittingRecordsComponent', () => {
     component.ngOnInit();
     
     expect(mockDateSvc.formatDateFromForm).toHaveBeenCalledWith(formDataMock.controls['dateSelected'].value);
-    expect(component.tribService).toBe(formDataMock.controls['tribunalService'].value);
+    expect(component.tribService).toBe(formDataMock.controls['tribunalService'].value.service);
     expect(component.venueSiteName).toBe(formDataMock.controls['venue'].value.site_name);
     expect(component.date).toBe(formattedDate);
     expect(component.sittingRecordData).toBe(response.sittingRecords);
@@ -68,11 +69,4 @@ describe('ViewSittingRecordsComponent', () => {
     expect(mockRouter.navigate).toHaveBeenCalledWith(['sittingRecords','manage']);
   });
 
-  it('getPeriod should convert the period correctly', () => {
-    spyOn(mockDateSvc,'getPeriod').and.returnValue('Full Day');
-    expect(component.getPeriod('AM','PM')).toEqual('Full Day');
-    expect(mockDateSvc.getPeriod).toHaveBeenCalledWith('AM','PM');
-  
-  });
- 
 });

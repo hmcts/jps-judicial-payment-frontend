@@ -57,10 +57,6 @@ export class SubmitSittingRecordsComponent implements OnInit {
     this.loadViewSittingRecords();
   } 
 
-  getPeriod(am: string, pm: string): string {
-    return this.dateSvc.getPeriod(am, pm);
-  }
-
   loadViewSittingRecords() {
     this.submitterWorkflow.getSittingRecordsData().subscribe(records => {
       this.sittingRecordData = records.sittingRecords;

@@ -35,22 +35,22 @@ describe('ViewSittingRecordService', () => {
       offset: 0,
       dateOrder: 'ASCENDING',
       regionId: '',
-      epimsId: '',
+      epimmsId: '',
       createdByUserId: '',
       personalCode: '',
       judgeRoleTypeId: '',
       duration: '',
       dateRangeFrom: '',
       dateRangeTo: '',
-      statusIds: []
+      statusId: ''
     };
     const mockResponse: ViewSittingRecordResponse = { "sittingRecords": [] };
 
-    service.postObject(mockDataPost).subscribe(response => {
+    service.postObject(mockDataPost, 'BBA3').subscribe(response => {
       expect(response).toEqual(mockResponse);
     });
 
-    const req = httpMock.expectOne('/sittingRecords/searchSittingRecords?hmctsServiceCode=BBA3');
+    const req = httpMock.expectOne('/sittingrecord/searchSittingRecords?hmctsServiceCode=BBA3');
     expect(req.request.method).toBe('POST');
     expect(req.request.body).toEqual(mockDataPost);
     expect(req.request.headers.get('Content-Type')).toBe('application/json');

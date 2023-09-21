@@ -25,17 +25,17 @@ describe('LocationService', () => {
     httpMock.verify();
   });
 
-  it('getAllVenues should send a POST request with the correct headers and body', () => {
-    const mockSearchTerm = 'search term';
+  it('should send a POST request with the correct headers and body', () => {
+    const mockServiceCode = 'BBA3';
     const mockResponse: VenueModel[] = [];
 
-    locationService.getAllVenues(mockSearchTerm).subscribe(venues => {
+    locationService.getAllVenues(mockServiceCode).subscribe(venues => {
       expect(venues).toEqual(mockResponse);
     });
 
     const req = httpMock.expectOne('/refdata/location');
     expect(req.request.method).toBe('POST');
-    expect(req.request.body).toEqual({ searchTerm: mockSearchTerm });
+    expect(req.request.body).toEqual({ service_code: mockServiceCode });
     expect(req.request.headers.get('Content-Type')).toBe('application/json');
 
     req.flush(mockResponse);

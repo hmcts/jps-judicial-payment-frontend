@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CustomValidators } from '../../../_validators/sitting-records-form-validator';
+import { ManageSittingRecord } from '../../../_validators/sittingRecordsFormValidator/sitting-records-form-validator';
 import { LocationService } from '../../../_services/location-service/location.service';
 import { RegionModel } from '../../../_models/region.model';
 import { SubmitterWorkflowService } from '../../../_workflows/submitter-workflow.service';
@@ -28,7 +28,7 @@ export class SittingRecordsLandingManageRecordsComponent implements OnInit{
           dateYear: [null, [Validators.required,]],
         },{
           validators: [
-            CustomValidators.validateDateFormat
+            ManageSittingRecord.validateDateFormat
         ]})
       });
 

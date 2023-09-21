@@ -5,18 +5,39 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SittingRecordsComponent } from './sitting-records.component';
 import { SittingRecordsRoutingModule } from './sitting-records-routing.module';
 import { ManageSittingRecordsComponent } from './manage-sitting-records/manage-sitting-records.component';
-import { PhaseBannerComponent } from '../phase-banner/phase-banner.component';
 import { ViewSittingRecordsComponent } from './view-sitting-records/view-sitting-records.component';
 import { NumberDirective } from '../_directives/numbers-only.directive';
+import { AddSittingRecordComponent } from './add-sitting-record/add-sitting-record.component';
+import { AddSittingRecordSuccessComponent } from './add-sitting-record/add-sitting-record-success/add-sitting-record-success.component'
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { HttpClientModule } from '@angular/common/http';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { AddSittingRecordsConfirmComponent } from './add-sitting-record/add-sitting-records-confirm/add-sitting-records-confirm.component';
+import { DuplicateSittingRecordsComponent } from './duplicate-sitting-records/duplicate-sitting-records.component';
+import { PotentialDuplicateComponent } from './duplicate-sitting-records/potential-duplicate/potential-duplicate.component';
+import { InvalidDuplicateComponent } from './duplicate-sitting-records/invalid-duplicate/invalid-duplicate.component';
+import { ErrorSummaryComponent } from '../error-summary/error-summary.component'
+import { SittingRecordsInfoBannerComponent } from './sitting-records-info-banner/sitting-records-info-banner.component';
 import { SittingRecordsLandingComponent } from './sitting-records-landing/sitting-records-landing.component';
 import { SittingRecordsLandingManageRecordsComponent } from './sitting-records-landing/sitting-records-landing-manage-records/sitting-records-landing-manage-records.component';
 
 import { DataTablesModule } from "angular-datatables";
 import { SubmitSittingRecordsComponent } from './submit-sitting-records/submit-sitting-records.component';
+import { DeleteSuccessComponent } from './delete-sitting-records/delete-success/delete-success.component';
+import { DeleteSittingRecordsComponent } from './delete-sitting-records/delete-sitting-records.component'
 
+import { StringFromDatePipe, StringFromDatePipeYDM } from '../_pipes/string-date-pipe'
+import { ConvertToStringPeriodPipe, ConvertAddPeriodPipe } from '../_pipes/convert-period-pipe'
+import { JPFooterComponent } from '../static-elements/jp-footer/jp-footer.component';
+import { JPHeaderComponent } from '../static-elements/jp-header/jp-header.component';
+import { CookieManagerComponent } from '../static-elements/cookies/cookie-manager/cookie-manager.component';
+import { LogoutComponent } from '../static-elements/logout/logout.component';
 import { CapitalizeFirstLetterPipe } from '../_pipes/convertTableStatus'
+import { ValidSittingRecordsComponent } from './duplicate-sitting-records/valid-sitting-records/valid-sitting-records.component';
+import { ConvertRoleIdToString } from '../_pipes/convertRoleIdToString';
+import { DuplicateConfirmComponent } from './duplicate-sitting-records/duplicate-confirm/duplicate-option-confirm/duplicate-confirm.component';
+import { DuplicateExistingConfirmComponent } from './duplicate-sitting-records/duplicate-confirm/duplicate-existing-confirm/duplicate-existing-confirm.component';
+import { DuplicateConfirmSuccessComponent } from './duplicate-sitting-records/duplicate-confirm/duplicate-confirm-success/duplicate-confirm-success.component'
 
 @NgModule({
   imports: [
@@ -26,18 +47,46 @@ import { CapitalizeFirstLetterPipe } from '../_pipes/convertTableStatus'
     ReactiveFormsModule,
     DataTablesModule,
     MatAutocompleteModule,
-    HttpClientModule
+    HttpClientModule,
+    MatFormFieldModule
   ],
   declarations: [
     SittingRecordsComponent,
     ManageSittingRecordsComponent,
-    PhaseBannerComponent,
     ViewSittingRecordsComponent,
+    DeleteSittingRecordsComponent,
+    DeleteSuccessComponent,
+    NumberDirective,
+    StringFromDatePipe,
+    StringFromDatePipeYDM,
+    ConvertToStringPeriodPipe,
+    ConvertAddPeriodPipe,
+    AddSittingRecordComponent,
+    AddSittingRecordSuccessComponent,
+    NumberDirective,
+    AddSittingRecordsConfirmComponent,
+    DuplicateSittingRecordsComponent,
+    PotentialDuplicateComponent,
+    InvalidDuplicateComponent,
+    ErrorSummaryComponent,
+    SittingRecordsLandingComponent,
+    SittingRecordsLandingManageRecordsComponent,
+    CapitalizeFirstLetterPipe,
+    SittingRecordsInfoBannerComponent,
+    ValidSittingRecordsComponent,
+    JPFooterComponent,
+    JPHeaderComponent,
+    CookieManagerComponent,
+    LogoutComponent,
     NumberDirective,
     SittingRecordsLandingComponent,
     SittingRecordsLandingManageRecordsComponent,
     SubmitSittingRecordsComponent,
-    CapitalizeFirstLetterPipe
+    CapitalizeFirstLetterPipe,
+    ConvertRoleIdToString,
+    DuplicateConfirmComponent,
+    DuplicateExistingConfirmComponent,
+    DuplicateConfirmSuccessComponent
   ]
 })
 export class SittingRecordsModule { }

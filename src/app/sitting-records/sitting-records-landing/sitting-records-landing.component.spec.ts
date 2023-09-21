@@ -1,12 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { SittingRecordsLandingComponent } from './sitting-records-landing.component';
 import { SittingRecordsLandingManageRecordsComponent } from './sitting-records-landing-manage-records/sitting-records-landing-manage-records.component';
 import { CookieService } from 'ngx-cookie-service';
 import { SubmitterWorkflowService } from '../../_workflows/submitter-workflow.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('SittingRecordsLandingComponent', () => {
   let component: SittingRecordsLandingComponent;
@@ -17,7 +17,7 @@ describe('SittingRecordsLandingComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ RouterTestingModule, HttpClientModule, ReactiveFormsModule],
+      imports: [ RouterTestingModule, HttpClientTestingModule, ReactiveFormsModule],
       declarations: [ SittingRecordsLandingComponent,  SittingRecordsLandingManageRecordsComponent ],
       providers: [ SubmitterWorkflowService,
         { provide: CookieService }

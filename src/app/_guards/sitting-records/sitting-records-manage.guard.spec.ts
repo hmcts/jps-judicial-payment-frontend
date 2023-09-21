@@ -32,7 +32,7 @@ describe('SittingRecordsManageGuard', () => {
 
   it('should navigate to landing page if jps-recorder role is not logged in', () => {
     spyOn(mockRouter, 'navigate');
-    spyOn(mockCookieService, 'get').and.returnValue('jps-submitter');
+    spyOn(mockCookieService, 'get').and.returnValue('jps-publisher');
 
     const result = guard.canActivate();
     expect(mockRouter.navigate).toHaveBeenCalledWith(['sittingRecords', 'home']);

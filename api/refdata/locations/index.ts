@@ -2,13 +2,13 @@ import { getConfigValue } from '../../configuration';
 import { SERVICES_LOCATION_API_URL } from '../../configuration/references';
 import axios, { AxiosRequestConfig } from 'axios';
 import { Logger } from '@hmcts/nodejs-logging';
+const logger = Logger.getLogger('refdata/index.ts')
 
 const url: string = getConfigValue(SERVICES_LOCATION_API_URL);
-const logger = Logger.getLogger()
 
 export async function getLocations(req, res, next) {
     const { Authorization, ServiceAuthorization } = req.headers;
-    const { searchTerm } = req.body;
+    const { service_code } = req.body;
     logger.log({
         level: 'info',
         message: 'Calling getLocations()'
@@ -20,7 +20,7 @@ export async function getLocations(req, res, next) {
             'ServiceAuthorization': ServiceAuthorization
         };
         const config: AxiosRequestConfig = {
-            url: `${url}/refdata/location/court-venues/venue-search?search-string=${searchTerm}`,
+            url: `${url}/refdata/location/court-venues/services?service_code=${service_code}`,
             method: 'GET',
             headers: headers
         };

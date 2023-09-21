@@ -3,7 +3,7 @@ import { RecorderWorkflowService } from '../../_workflows/recorder-workflow.serv
 import { DateService } from '../../_services/date-service/date-service';
 import { Router } from '@angular/router';
 import { defaultDtOptions }  from '../../_services/default-dt-options'
-import { SittingRecord } from 'src/app/_models/viewSittingRecords.model';
+import { SittingRecord } from '../../_models/viewSittingRecords.model';
 import { Subject } from 'rxjs';
 
 @Component({
@@ -11,7 +11,13 @@ import { Subject } from 'rxjs';
   templateUrl: './view-sitting-records.component.html',
   styleUrls: ['./view-sitting-records.component.scss']
 })
-export class ViewSittingRecordsComponent implements OnInit {
+export class ViewSittingRecordsComponent implements OnInit{
+
+  constructor(
+    private router: Router,
+    private dateSvc: DateService,
+    private srWorkFlow: RecorderWorkflowService
+  ){}
 
   tribService = "";
   venueSiteName = "";
@@ -22,25 +28,19 @@ export class ViewSittingRecordsComponent implements OnInit {
   sittingRecordData: SittingRecord[] = [];
 
   showFilters = false;
-
+  
   goBack(){
     void this.router.navigate(['sittingRecords','manage'])
   }
 
-  getPeriod(am: string, pm: string): string {
-    return this.dateSvc.getPeriod(am, pm);
+  addNewRecord(){
+    void this.router.navigate(['sittingRecords','add'])
   }
 
-  constructor(
-    private srWorkFlow: RecorderWorkflowService,
-    private dateSvc: DateService,
-    private router: Router
-  ){}
-    
   ngOnInit(){
     const formData = this.srWorkFlow.getFormData().value;
     const { dateSelected, tribunalService, venue } = formData;
-    this.tribService = tribunalService;
+    this.tribService = tribunalService.service;
     this.venueSiteName = venue.site_name;
     this.date = this.dateSvc.formatDateFromForm(dateSelected);
 
@@ -82,4 +82,9 @@ export class ViewSittingRecordsComponent implements OnInit {
     
   }
 
+  navigateDeleteSittingRecord(sittingRecord){
+    this.srWorkFlow.setSittingRecordToDelete(sittingRecord);
+    this.router.navigate(['sittingRecords', 'delete'])
+  }
+  
 }
