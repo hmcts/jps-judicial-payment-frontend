@@ -1,10 +1,11 @@
 const { I } = inject();
 
 function selectJOH(name, role) {
-  I.amOnPage("/")
   I.see('Select the Judicial office holders (JOH) associated with this sitting');
-  I.fillField('Name', name);
-  I.selectOption('Role', role);
+  I.see('You can select a maximum of 3 office holders for each sitting.');
+  I.fillField('#judge-0', name);
+  I.wait(3);
+  I.selectOption('.govuk-select', role);
 }
 
 function removeJOH(name) {

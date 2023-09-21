@@ -7,10 +7,10 @@ Feature('Create new Sitting Records Feature Tests @functional @F-002');
 
 Scenario('User is able to successfully save a single Sitting Record @S-002.1',({ I}) => {
   I.loginWithJPSRecorderUser();
-  ManageJudicialSittingRecordsPage.addSittingRecordsInformation('BBA3', 'Sutton', '11', '03', '2022');
+  ManageJudicialSittingRecordsPage.addSittingRecordsInformation('Social Security and Child Support', 'Sutton', '11', '03', '2022');
   I.click('Continue');
   JudicialSittingRecordsPage.clickAddSittingRecords();
-  AddSittingRecordsPage.selectJOH('Joe', 'judge');
+  AddSittingRecordsPage.selectJOH('Joe', 'Tribunal Judge');
   AddSittingRecordsPage.selectPeriod('Full day');
   ConfirmNewSittingRecordsPage.confirmSittingRecords('Joe Bloggs', 'Judge', 'Full day', 'Recorder');
   I.click('Save record(s)');
