@@ -122,13 +122,6 @@ Scenario('User is displayed "Judicial sitting records" when Previous button is c
   ConfirmNewSittingRecordsPage.confirmSittingRecords('Joe Ambrose', 'Tribunal Judge', 'Full day', 'jps recorder');
   I.click('Previous');
   I.see('Add sitting records for Social Security and Child Support, Sutton Social Security and Child Support Tribunal (Copthall House), for ' + randomDay + '/' + randomMonth + '/2022');
+  I.seeInField('#judge-0', 'Joe Ambrose');
+  I.seeInField('#role', 'Tribunal Judge');
 });
-
-Scenario('User is shown newly added sitting record when they click on "View record table" on the confirmation screen @S-002.12',({ I}) => {
-  I.loginWithJPSRecorderUser();
-  ManageJudicialSittingRecordsPage.addSittingRecordsInformation('Social Security and Child Support', 'London', randomDay, randomMonth, '2022');
-  I.click('Continue');
-  JudicialSittingRecordsPage.clickAddSittingRecords();
-  I.createSittingRecord('Mary', 'Regional Tribunal Judge', 'Afternoon');
-});
-
