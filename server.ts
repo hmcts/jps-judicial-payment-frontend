@@ -17,26 +17,30 @@ const logger = Logger.getLogger()
 const TOKEN_REFRESH = 1000 * 60 * 60 * 3;
 
 const errorHandler = ((err, req, res, next) => {
-  console.log(err.response)
   if (err) {
+    console.log({
+        data: err.response.data,
+        status: err.response.status,
+        statusText: err.response.statusText
+    });
     const error = err.response
     res.status(error.status || 500);
-    let errMsg = `${error.status}:`
+    let errMsg;
 
     if(typeof error.data === 'string'){
-      errMsg += ` ${error.data}`
+      errMsg = error.data
     }
     if (error.data.errorDescription) {
-      errMsg += ` ${error.data.errorDescription}`
+      errMsg = error.data.errorDescription
     }
     if (error.data.errors) {
-      errMsg += ` ${JSON.stringify(error.data.errors)}`
+      errMsg = JSON.stringify(error.data.errors)
     }
     if (error.data.errorRecords){
-      errMsg += ` ${error.data.errorRecords}`
+      errMsg = error.data.errorRecords
     }
 
-    logger.error(errMsg)
+    logger.error(JSON.stringify(errMsg))
     res.json({
         message: errMsg || 'Internal Server Error',  
     });
