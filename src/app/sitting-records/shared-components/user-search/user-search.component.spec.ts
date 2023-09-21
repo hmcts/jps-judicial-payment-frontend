@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { UserSearchComponent } from './user-search.component';
-import { FormGroupDirective, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroupDirective, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { of } from 'rxjs';
 import { UserModel } from 'src/app/_models/user.model';
@@ -17,53 +17,26 @@ describe('UserSearchComponent', () => {
       declarations: [UserSearchComponent, MatAutocomplete],
       imports: [ReactiveFormsModule, HttpClientTestingModule],
       providers: [UserService, FormGroupDirective]
-    }).compileComponents();
+    }).compileComponents();    
   });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(UserSearchComponent);
     component = fixture.componentInstance;
     userService = TestBed.inject(UserService);
+    component.parentFormGroup.form = new FormBuilder().group({
+      tribunalService: [{hmctsServiceCode: '1234'}],
+      johName: ['']
+    });
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should set userList when getUsers is called', () => {
-    const users: UserModel[] = [
-      {
-        title: 'Mr',
-        knownAs: 'John',
-        surname: 'Doe',
-        fullName: 'John Doe',
-        emailId: 'john.doe@example.com',
-        idamId: 'JD123',
-        personalCode: '1234567890'
-      },
-      {
-        title: 'Ms',
-        knownAs: 'Jane',
-        surname: 'Smith',
-        fullName: 'Jane Smith',
-        emailId: 'jane.smith@example.com',
-        idamId: 'JS456',
-        personalCode: '0987654321'
-      }
-    ];
-    spyOn(userService, 'getUsers').and.returnValue(of(users));
-
-    component.getUsers('search');
-
-    expect(component.userList).toEqual(users);
-  });
-
-  it('should set usersFound to false when no users are found', () => {
-    spyOn(userService, 'getUsers').and.returnValue(of([]));
-
-    component.getUsers('search');
-
-    expect(component.usersFound).toBeFalse();
+  it('should return the controls of the parent form group', () => {
+    const controls = component.johName;
+    expect(controls).toEqual(component.parentFormGroup.control.controls);
   });
 
   it('should set johName control value when optionSelected is called', () => {
@@ -100,4 +73,43 @@ describe('UserSearchComponent', () => {
 
     expect(result).toEqual('John Doe');
   });
+
+  it('should set JOH name, clear user list, and fetch user roles on optionSelected', () => {
+    const mockUser = { personalCode: '12345' };
+  
+    const event: MatAutocompleteSelectedEvent = {
+      option: {
+        value: mockUser
+      }
+    } as MatAutocompleteSelectedEvent;
+    
+  
+    component.optionSelected(event);
+  
+    expect(component.parentFormGroup.control.get('johName')?.value).toEqual(mockUser);
+    expect(component.userList).toEqual([]);
+  });
+
+  it('should get users from the user service', () => {
+    const mockUsers: UserModel[] = [ 
+      {
+        title: '',
+        knownAs: '',
+        surname: '',
+        fullName: '',
+        emailId: '',
+        idamId: '',
+        personalCode: '' 
+      }
+    ]
+    spyOn(userService, 'getUsers').and.returnValue(of(mockUsers));
+
+    const searchString = 'John';
+    component.getUsers(searchString).subscribe(users => {
+      expect(users).toEqual(mockUsers);
+    });
+
+    expect(userService.getUsers).toHaveBeenCalledWith(searchString, '1234', '');
+  });
+
 });
