@@ -5,34 +5,32 @@ const ManageJudicialSittingRecordsPage = require('../pages/ManageJudicialSitting
 
 Feature('Create new Sitting Records Feature Tests @functional @F-002');
 
+const randomDay = ('0' + (Math.floor(Math.random() * 28) + 1)).slice(-2);
+const randomMonth = ('0' + (Math.floor(Math.random() * 12) + 1)).slice(-2);
+
 Scenario('User is able to successfully save a single Sitting Record @S-002.1',({ I}) => {
   I.loginWithJPSRecorderUser();
-  ManageJudicialSittingRecordsPage.addSittingRecordsInformation('Social Security and Child Support', 'Sutton', '11', '03', '2022');
+  ManageJudicialSittingRecordsPage.addSittingRecordsInformation('Social Security and Child Support', 'Sutton', randomDay, randomMonth, '2022');
   I.click('Continue');
   JudicialSittingRecordsPage.clickAddSittingRecords();
-  AddSittingRecordsPage.selectJOH('Joe', 'Tribunal Judge');
-  AddSittingRecordsPage.selectPeriod('Full day');
-  ConfirmNewSittingRecordsPage.confirmSittingRecords('Joe Bloggs', 'Judge', 'Full day', 'Recorder');
-  I.click('Save record(s)');
-  I.see('Sitting record(s) saved');
+  I.createSittingRecord('Joe Ambrose', 'Tribunal Judge', 'Afternoon');
 });
 
 Scenario('User is successfully able to save multiple Sitting Records @S-002.2',({ I}) => {
   I.loginWithJPSRecorderUser();
-  ManageJudicialSittingRecordsPage.addSittingRecordsInformation('BBA3', 'Sutton', '11', '03', '2022');
+  ManageJudicialSittingRecordsPage.addSittingRecordsInformation('Social Security and Child Support', 'Sutton', randomDay, randomMonth, '2022');
   I.click('Continue');
   JudicialSittingRecordsPage.clickAddSittingRecords();
-  AddSittingRecordsPage.selectJOH('Joe', 'judge');
-  I.click('Add another');
-  JudicialSittingRecordsPage.clickAddSittingRecords();
-  AddSittingRecordsPage.selectJOH('Joe', 'judge');
-  I.click('Add another');
-  JudicialSittingRecordsPage.clickAddSittingRecords();
-  AddSittingRecordsPage.selectJOH('Joe', 'judge');
-  AddSittingRecordsPage.selectPeriod('Full day');
-  ConfirmNewSittingRecordsPage.confirmSittingRecords('Joe Bloggs', 'Judge', 'Full day', 'Recorder');
-  I.click('Save record(s)');
-  I.see('Sitting record(s) saved')
+  AddSittingRecordsPage.selectJOH('Joe Ambrose', 'Tribunal Judge', 0);
+  I.click('Add Another');
+  AddSittingRecordsPage.selectJOH('Mary', 'Regional Tribunal Judge', 1);
+  I.click('Add Another');
+  AddSittingRecordsPage.selectJOH('Brandon', 'Tribunal Member Disability', 2);
+  AddSittingRecordsPage.selectPeriod('Morning');
+  I.click('Continue');
+  ConfirmNewSittingRecordsPage.confirmSittingRecords('Joe Ambrose', 'Tribunal Judge', 'Morning', 'jps recorder');
+  I.click('Save Record(s)');
+  I.see('Sitting record(s) saved');
 });
 
 Scenario('User is able to remove a Sitting Record by clicking on Remove button @S-002.3',({ I}) => {
@@ -140,3 +138,8 @@ Scenario('User is displayed "Judicial sitting records" when Previous button is c
   I.see('Judicial sitting records');
 
 });
+
+Scenario('User is shown newly added sitting record when they click on "View record table" on the confirmation screen @S-002.12',({ I}) => {
+
+});
+
