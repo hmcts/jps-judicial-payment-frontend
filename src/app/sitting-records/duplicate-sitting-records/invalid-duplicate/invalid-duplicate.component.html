@@ -1,0 +1,48 @@
+<div>
+    <p class="govuk-body govuk-!-margin-bottom-2">The highlighted record cannot be saved as a version of it already exists, no further action is required.</p>
+
+    <table class="govuk-table" aria-describedby="table for displaying invalid duplicates">
+        <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+                <th scope="col" ></th>
+                <th scope="col" class="govuk-table__header textIndent"> Name </th>
+                <th scope="col" class="govuk-table__header"> Role </th>
+                <th scope="col" class="govuk-table__header"> Period </th>
+                <th scope="col" class="govuk-table__header"> Entered by </th>
+                <th scope="col" class="govuk-table__header"> Date </th>
+                <th scope="col" class="govuk-table__header"> Venue</th>
+                <th scope="col" class="govuk-table__header"> Status</th>
+                <th scope="col" class="govuk-table__header"> &nbsp;</th>
+            </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+            <tr class="govuk-table__row">
+                <td class="userDefinedStyling"></td>
+                <td class="govuk-table__cell errorCellStyling textIndent"> {{invalidRecord.judgeRoleTypeName}}</td>
+                <td class="govuk-table__cell errorCellStyling"> {{invalidRecord.postedRecord.judgeRoleTypeId | convertRoleIdToString}}</td>
+                <td class="govuk-table__cell errorCellStyling"> {{invalidRecord.postedRecord.am | convertToStringPeriod: invalidRecord.postedRecord.pm}}</td>
+                <td class="govuk-table__cell errorCellStyling"> {{currentUser}}</td>
+                <td class="govuk-table__cell errorCellStyling"> {{selectedDate | stringFromDateYDM}}</td>
+                <td class="govuk-table__cell errorCellStyling"> {{selectedVenue}}</td>
+                <td class="govuk-table__cell errorCellStyling"> </td>
+                <td class="govuk-table__cell errorCellStyling"> &nbsp; </td>
+            </tr>
+            <tr class="govuk-table__row">
+            </tr>
+
+            <tr class="govuk-table__row">
+                <td ></td>
+                <td class="govuk-table__cell textIndent"> {{invalidRecord.judgeRoleTypeName}}</td>
+                <td class="govuk-table__cell"> {{invalidRecord.judgeRoleTypeId | convertRoleIdToString}}</td>
+                <td class="govuk-table__cell"> {{invalidRecord.am | convertToStringPeriod: invalidRecord.pm }}</td>
+                <td class="govuk-table__cell"> {{invalidRecord.createdByName}}</td>
+                <td class="govuk-table__cell"> {{selectedDate | stringFromDateYDM}}</td>
+                <td class="govuk-table__cell"> {{selectedVenue}}</td>
+                <td class="govuk-table__cell"> {{invalidRecord.statusId | capitalizeFirstLetterForStatus}}</td>
+                <td class="govuk-table__cell"> &nbsp; </td>
+            </tr>
+            <tr class="govuk-table__row">
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -51,6 +51,10 @@ export class SittingRecordWorkflowService {
     this.formData.reset();
   }
 
+  getHmctsServiceCode(){
+    return this.formData.value['tribunalService'].hmctsServiceCode
+  }
+  
   getSittingRecordToDelete(){
     return this.sittingRecordToDelete
   }
@@ -134,7 +138,8 @@ export class SittingRecordWorkflowService {
       recordedByName: this.uInfoSvc.getUserName(),
       recordedSittingRecords: JOH.value.map(joh => this.sittingRecordsSvc.createNewSRPostObj(joh, tribunalService, dateSelected, venue, period))
     };
-    return this.sittingRecordsSvc.postNewSittingRecord(postBody);
+    
+    return this.sittingRecordsSvc.postNewSittingRecord(postBody, tribunalService.hmctsServiceCode);
   }
 
 }

@@ -4,11 +4,11 @@ import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ManageSittingRecordsComponent } from './manage-sitting-records.component';
 import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-workflow.service';
-import { HttpClientModule } from '@angular/common/http';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { of } from 'rxjs';
 import { LocationService } from 'src/app/_services/location-service/location.service';
 import { CookieService } from 'ngx-cookie-service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('ManageSittingRecordsComponent', () => {
   let component: ManageSittingRecordsComponent;
@@ -20,7 +20,7 @@ describe('ManageSittingRecordsComponent', () => {
   
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule, RouterTestingModule, HttpClientModule, MatAutocompleteModule],
+      imports: [ReactiveFormsModule, RouterTestingModule, HttpClientTestingModule, MatAutocompleteModule],
       declarations: [ManageSittingRecordsComponent],
       providers: [
         SittingRecordWorkflowService, 
