@@ -171,6 +171,10 @@ export class SittingRecordsLandingComponent implements OnInit {
       if (optionValue === 'manageSittingRecords') {
         void this.router.navigate(['sittingRecords', 'manage']);
       }
+
+      if (optionValue === 'viewManageJudicialInfo'){
+        selectedWorkflow.setFormData(this.johAdminFormValues)
+      }
     }
   }
   
