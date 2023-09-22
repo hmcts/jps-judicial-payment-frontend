@@ -18,6 +18,9 @@ exports.config = {
       show: false,
       browser: 'chromium',
       timeout: 10000
+    },
+    RandomDateHelper: {
+      require: './helpers/RandomDateHelper.js'
     }
   },
   include: {
