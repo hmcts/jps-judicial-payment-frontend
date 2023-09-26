@@ -12,6 +12,7 @@ export class ManageInformationComponent implements OnInit{
 
   selectedJOH!: UserModel;
   userInfo!: UserInfoModel;
+  selectedTribService!: { hmctsServiceCode: string, service: string };
 
   constructor(
     private adminWorkflow: AdminWorkflowService,
@@ -23,6 +24,8 @@ export class ManageInformationComponent implements OnInit{
 
   ngOnInit(){
     this.selectedJOH = this.adminWorkflow.getFormData().value['johName'] as UserModel
+    this.selectedTribService = this.adminWorkflow.getFormData().value['tribunalService'];
+    console.log(this.selectedTribService)
   }
 
 }

@@ -8,7 +8,7 @@
     </h1>
 
     <dl class="govuk-summary-list govuk-!-margin-bottom-1">
-        <div class="govuk-summary-list__row">
+        <div class="govuk-summary-list__row grey-table">
             <dt class="govuk-summary-list__key">
                 London Flag
             </dt>
@@ -19,7 +19,7 @@
                 
             </dd>
         </div>
-        <div class="govuk-summary-list__row">
+        <div class="grey-table govuk-summary-list__row">
             <dt class="govuk-summary-list__key">
                 Crown servant flag 
             </dt>
@@ -37,19 +37,41 @@
     </a>
 
 
-    <h1 class="govuk-heading-l govuk-!-margin-bottom-1 govuk-!-margin-top-7">
+    <h1 class="govuk-heading-l govuk-!-margin-bottom-3 govuk-!-margin-top-7">
         Apointments
     </h1>
     <p class="govuk-body">Payroll IDs are only required for fee-paid appointments in services who use this system. 
         Appointments from services who do not use this system, or with a salaried contract type, do not require a Payroll ID.
     </p>
 
-    <div *ngFor="let apt of userInfo?.appointments">
-        <p class="govuk-body">{{apt.appointment}} - </p>
+    <div *ngFor="let apt of userInfo?.appointments" class="govuk-!-margin-bottom-6">
+        <h3 class="govuk-heading-s govuk-!-margin-bottom-2">{{selectedTribService.service}} - {{apt.appointment}}</h3>
         <dl class="govuk-summary-list govuk-!-margin-bottom-1">
             <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    London Flag
+                <dt class="govuk-summary-list__value">
+                    Appointment end date 
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{apt?.end_date}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+    
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__value">
+                    Contract type 
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{apt?.appointment_type}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+    
+                </dd>
+            </div>
+            <div class="govuk-summary-list__row grey-table">
+                <dt class="govuk-summary-list__value">
+                    Payroll ID 
                 </dt>
                 <dd class="govuk-summary-list__value">
     
