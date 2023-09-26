@@ -1,9 +1,7 @@
 import { getConfigValue } from '../../configuration';
 import { SERVICES_USER_API_PATH } from '../../configuration/references';
 import axios, { AxiosRequestConfig } from 'axios';
-import { IdamAuthenticatorService } from '../authenticator/index';
 
-const idamAuthSvc = new IdamAuthenticatorService;
 const url: string = getConfigValue(SERVICES_USER_API_PATH);
 
 export async function getUsers(req, res, next) {
@@ -31,13 +29,13 @@ export async function getUsers(req, res, next) {
 }
 
 export async function getUserInfo(req, res, next) {
-    const { access_token, s2s_token } = req;
+    const { Authorization, ServiceAuthorization } = req.headers;
     const { userCode } = req.body;
     try {
         const headers = {
             'Content-Type': 'application/json',
-            'Authorization': access_token,
-            'ServiceAuthorization': s2s_token
+            'Authorization': Authorization,
+            'ServiceAuthorization': ServiceAuthorization
         };
         const config: AxiosRequestConfig = {
             url: `${url}/refdata/judicial/users`,
