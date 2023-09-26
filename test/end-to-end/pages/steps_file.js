@@ -81,6 +81,42 @@ module.exports = function () {
       I.see(name);
       I.see(role);
       I.see(period);
+    },
+
+    saveNewRecord: function(){
+      const I = this;
+      I.click('Save New Record(s)');
+      I.see('Sitting record(s) saved');
+      I.click('View Record Table');
+      I.see('Judicial sitting records');
+    },
+
+    existingRecordSaved: function(){
+      const I = this;
+      I.see('Existing sitting record(s) saved');
+      I.click('Return to record table');
+      I.see('Judicial sitting records');    
+    },
+
+    potentialDuplicateFound: function(){
+      const I = this;
+      I.click('Save Record(s)');
+      I.see('There is a problem');
+      I.see('Potential duplicate found');    
+    },
+
+    recordAlreadyExists: function(){
+      const I = this;
+      I.click('Save Record(s)');
+      I.see('There is a problem');
+      I.see('Record already exists');    
+    },
+
+    newRecordToSubmit: function(){
+      const I = this;
+      I.click('Continue');
+      I.see('New record(s) to submit');
+      I.see('Existing record(s)');    
     }
   });
 }

@@ -5,4 +5,12 @@ function clickAddSittingRecords() {
   I.click('Add Sitting Record(s)');
 }
 
-module.exports = { clickAddSittingRecords }
+function checkRecord(name, role, period, enteredBy, status) {
+  I.see(name);
+  I.see(role);
+  I.see(period);
+  I.see(enteredBy);
+  I.see(status);
+}
+
+module.exports = { clickAddSittingRecords, checkRecord }
