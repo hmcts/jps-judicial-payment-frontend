@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgHttpLoaderModule } from 'ng-http-loader'
 import { CookiePolicyComponent } from './static-elements/cookies/cookie-policy/cookie-policy.component';
 import { LoaderComponent } from './static-elements/loader/loader.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,8 @@ import { LoaderComponent } from './static-elements/loader/loader.component';
     SittingRecordsModule,
     DataTablesModule,
     BrowserAnimationsModule,
+    CommonModule,
+    BrowserModule
   ],
   providers: [],
   bootstrap: [AppComponent]

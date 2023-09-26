@@ -56,7 +56,7 @@
             <app-sitting-records-landing-manage-records-publisher (publisherFormValid)="handleFormValidChange($event)" (publisherFormValues)="handleFormValues($event)"></app-sitting-records-landing-manage-records-publisher>
         </div>
         <div *ngIf="!hideManageRecordsJohAdmin" class="govuk-inset-text">
-            <app-sitting-records-landing-johadmin (johAdminFormValid)="handleFormValidChange($event)"></app-sitting-records-landing-johadmin>
+            <app-sitting-records-landing-johadmin (johAdminFormValid)="handleFormValidChange($event)" (johAdminFormValues)="handleFormValues($event)"></app-sitting-records-landing-johadmin>
         </div>
 
         <div class="govuk-button-group">

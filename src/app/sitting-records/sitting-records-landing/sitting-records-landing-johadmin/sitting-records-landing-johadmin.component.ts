@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AutoCompleteValidator } from '../../../_validators/autoCompleteValidator/auto-complete-validator';
 
 @Component({
   selector: 'app-sitting-records-landing-johadmin',
@@ -18,7 +19,7 @@ export class SittingRecordsLandingJohadminComponent implements OnInit{
     ){
     this.johAdminForm = this.formBuilder.group({
         tribunalService: [null, [Validators.required]],
-        johName: [{value: '', disabled: true}, [Validators.required]]
+        johName: [{value: '', disabled: true}, [Validators.required, AutoCompleteValidator.requireSelection]]
       });
   
   }

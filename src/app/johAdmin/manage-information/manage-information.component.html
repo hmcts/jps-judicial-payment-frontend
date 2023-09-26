@@ -1,0 +1,65 @@
+<main class="govuk-main-wrapper " id="main-content" role="main">
+
+    <span class="govuk-caption-l">
+        Manage judicial information 
+    </span>
+    <h1 class="govuk-heading-l">
+        {{selectedJOH.fullName}}
+    </h1>
+
+    <dl class="govuk-summary-list govuk-!-margin-bottom-1">
+        <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+                London Flag
+            </dt>
+            <dd class="govuk-summary-list__value">
+                
+            </dd>
+            <dd class="govuk-summary-list__actions">
+                
+            </dd>
+        </div>
+        <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+                Crown servant flag 
+            </dt>
+            <dd class="govuk-summary-list__value">
+                
+            </dd>
+            <dd class="govuk-summary-list__actions">
+                
+            </dd>
+        </div>
+    </dl>
+
+    <a class="govuk-link link-color">
+        View planned flag changes or edit values
+    </a>
+
+
+    <h1 class="govuk-heading-l govuk-!-margin-bottom-1 govuk-!-margin-top-7">
+        Apointments
+    </h1>
+    <p class="govuk-body">Payroll IDs are only required for fee-paid appointments in services who use this system. 
+        Appointments from services who do not use this system, or with a salaried contract type, do not require a Payroll ID.
+    </p>
+
+    <div *ngFor="let apt of userInfo?.appointments">
+        <p class="govuk-body">{{apt.appointment}} - </p>
+        <dl class="govuk-summary-list govuk-!-margin-bottom-1">
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    London Flag
+                </dt>
+                <dd class="govuk-summary-list__value">
+    
+                </dd>
+                <dd class="govuk-summary-list__actions">
+    
+                </dd>
+            </div>
+        </dl>
+    </div>
+    
+
+</main>

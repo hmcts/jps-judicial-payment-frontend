@@ -12,7 +12,7 @@
             <mat-option *ngFor="let user of userList" [value]="user" (mousedown)=$event.preventDefault()>
                 {{ user.fullName }}
             </mat-option>
-            <mat-option *ngIf="!userList.length && searchTerm.length >= 3 && !usersFound">No results
+            <mat-option *ngIf="!userList.length && searchTerm.length >= 3 && !usersFound" disabled>No results
                 found</mat-option>
         </mat-autocomplete>
         <mat-error

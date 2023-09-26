@@ -5,6 +5,8 @@ import { CookieService } from 'ngx-cookie-service';
 import { SubmitterWorkflowService } from '../../_workflows/submitter-workflow.service';
 import { PublisherWorkflowService } from '../../_workflows/publisher-workflow.service';
 import { AdminWorkflowService } from '../../_workflows/admin-workflow.service';
+import { LandingWorkflowService } from 'src/app/_workflows/landing-workflow.service';
+import { UserService } from 'src/app/_services/user-service/user.service';
 
 enum Options {
   SubmitToFinance = 'submitToFinance',
@@ -50,10 +52,12 @@ export class SittingRecordsLandingComponent implements OnInit {
     protected router: Router,
     private cookies: CookieService,
     protected activatedRoute: ActivatedRoute,
+    private userSvc: UserService,
     private formBuilder: FormBuilder,
     private submitterWorkflow : SubmitterWorkflowService,
     private publisherWorkflow : PublisherWorkflowService,
-    private adminWorkflow: AdminWorkflowService
+    private adminWorkflow: AdminWorkflowService,
+    private landingWorkflow: LandingWorkflowService
 
   ){
       this.userForm = this.formBuilder.group(
@@ -119,7 +123,7 @@ export class SittingRecordsLandingComponent implements OnInit {
       this.userForm = submitterData || publisherData ;
     }
     
-    const optionValue = this.userForm.controls['options'].value;
+    const optionValue = this.userForm.controls['options'].value; 
     this.hideManageRecordsSubmitter = optionValue !== 'submitToFinance';
     this.hideManageRecordsPublisher = optionValue !== 'publishRecords';
   }
@@ -134,48 +138,34 @@ export class SittingRecordsLandingComponent implements OnInit {
   
 
   submitForm() {
-    
     const optionValue = this.userForm.controls["options"].value;
-    const isSubmitter = this.userRole.indexOf('jps-submitter') !== -1;
-    const isAdmin = this.userRole.indexOf('jps-admin') !== -1;
-  
-    const workflows: { [key: string]: any } = {};
-  
-    if (isSubmitter) {
-      workflows['manageSittingRecords'] = this.submitterWorkflow;
-      workflows['submitToFinance'] = this.submitterWorkflow;
-    }
-    
-    if (isAdmin) {
-      workflows['manageSittingRecords'] = this.adminWorkflow;
-    }
-  
-    workflows['publishRecords'] = this.publisherWorkflow;
-  
-    const selectedWorkflow = workflows[optionValue];
-  
-    if (selectedWorkflow) {
-      selectedWorkflow.setUserLandingData(this.userForm);
-      selectedWorkflow.setLandingVisited();
-      
-      if (optionValue === 'submitToFinance') {
-        selectedWorkflow.setFormData(this.submitterFormValues);
+
+    this.landingWorkflow.setupWorkflows(optionValue, this.userForm, this.submitterFormValues, this.publisherFormValues, this.johAdminFormValues)
+    .subscribe(() =>{
+      console.log(`set data`)
+    })
+
+    switch(optionValue){
+
+      case "viewManageJudicialInfo":
+        this.userSvc.getUserInfo(this.adminWorkflow.getFormData().value['johName']['personalCode'])
+        .subscribe({
+          next: (userRoleInfo) => {
+            this.adminWorkflow.setUserInfo(userRoleInfo[0])
+            void this.router.navigate(['sittingRecords', 'manageJudicial'])
+          }
+        });
+        break;
+      case "submitToFinance": 
         void this.router.navigate(['sittingRecords', 'submit']);
-
-      }
-  
-      if (optionValue === 'publishRecords') {
-        selectedWorkflow.setFormData(this.publisherFormValues);
-      }
-  
-      if (optionValue === 'manageSittingRecords') {
+        break;
+      case "manageSittingRecords":
         void this.router.navigate(['sittingRecords', 'manage']);
-      }
+        break;
 
-      if (optionValue === 'viewManageJudicialInfo'){
-        selectedWorkflow.setFormData(this.johAdminFormValues)
-      }
+
     }
+
   }
   
 }

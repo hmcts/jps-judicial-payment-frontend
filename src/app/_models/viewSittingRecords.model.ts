@@ -37,4 +37,4 @@ export class SittingRecord {
     changedDateTime!: string;
     changedByUserId!: string;
     changedByUserName!: string;
-  }
+}

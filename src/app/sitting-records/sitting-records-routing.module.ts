@@ -17,6 +17,8 @@ import { SittingRecordsManageGuard } from '../_guards/sitting-records/sitting-re
 import { SittingRecordsSubmitGuard } from '../_guards/sitting-records/sitting-records-submit.guard';
 import { AuthGuard } from '../_guards/auth/auth.guard';
 
+import { ManageInformationComponent } from '../johAdmin/manage-information/manage-information.component'
+
 const routes: Routes = [
     {
         path: "sittingRecords",
@@ -67,6 +69,10 @@ const routes: Routes = [
             path: 'addSuccess',
             component: AddSittingRecordSuccessComponent,
             canActivate: [SittingRecordsViewGuard]
+          },
+          {
+            path: 'manageJudicial',
+            component: ManageInformationComponent
           }
         ]
     }

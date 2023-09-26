@@ -35,9 +35,9 @@ export async function getUserInfo(req, res, next) {
     const { userCode } = req.body;
     try {
         const headers = {
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/vnd.jrd.v2+json',
             'Authorization': access_token,
-            'ServiceAuthorization': s2s_token
+            'ServiceAuthorization': s2s_token,
         };
         const config: AxiosRequestConfig = {
             url: `${url}/refdata/judicial/users`,

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { UserInfoModel } from '../_models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +8,9 @@ import { FormGroup } from '@angular/forms';
 export class AdminWorkflowService {
   formData!: FormGroup;
   userFormData!: FormGroup;
+  userLandingData!: FormGroup;
   hasLandingVisited = false;
+  userRole!: UserInfoModel
 
   setLandingVisited(){
     this.hasLandingVisited = true;
@@ -19,6 +22,10 @@ export class AdminWorkflowService {
 
   setUserFormData(data : FormGroup){
     this.userFormData = data;
+  }
+
+  setFormData(formData){
+    this.formData = formData;
   }
 
   getFormData(){
@@ -35,5 +42,22 @@ export class AdminWorkflowService {
 
   resetUserFormData() {
     this.userFormData.reset();
+  }
+
+  setUserLandingData(data : FormGroup){
+    this.userLandingData = data;
+  }
+  getUserLandingData(){
+    return this.userLandingData;
+  }
+  resetUserLandingData() {
+    this.userLandingData.reset();
+  }
+
+  setUserInfo(userInfo: UserInfoModel){
+    this.userRole = userInfo
+  }
+  getUserInfo(){
+    return this.userRole
   }
 }
