@@ -19,13 +19,11 @@ export class ManageInformationComponent implements OnInit{
     private userSvc: UserService
   ){
     this.userInfo = this.adminWorkflow.getUserInfo();
-    console.log(this.userInfo)
   }
 
   ngOnInit(){
     this.selectedJOH = this.adminWorkflow.getFormData().value['johName'] as UserModel
     this.selectedTribService = this.adminWorkflow.getFormData().value['tribunalService'];
-    console.log(this.selectedTribService)
   }
 
 }
