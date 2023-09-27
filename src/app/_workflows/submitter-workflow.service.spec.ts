@@ -120,7 +120,7 @@ describe('SubmitterWorkflowService', () => {
       spyOn(mockDateSvc,'formatDateFromForm').and.returnValue(dateSelected);
       spyOn(mockViewSittingRecordService,'postObject').and.returnValue(of(mockResponse))
   
-      mockWorkflowService.getSittingRecordsData().subscribe(response => expect(response).toEqual(mockResponse));
+      mockWorkflowService.getSittingRecordsData(1).subscribe(response => expect(response).toEqual(mockResponse));
     });
   });
 });
