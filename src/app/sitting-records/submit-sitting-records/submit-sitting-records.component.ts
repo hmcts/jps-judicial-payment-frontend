@@ -45,7 +45,6 @@ export class SubmitSittingRecordsComponent implements OnInit {
       serverSide: true,
       ordering:false,
       ajax: (dataTablesParameters: any, callback) => {
-        console.log(dataTablesParameters)
         this.submitterWorkflow.getSittingRecordsData(dataTablesParameters.start)
         .subscribe({
           next: (records) => {
