@@ -66,6 +66,7 @@ export class SubmitterWorkflowService {
     const { dateSelected, region, tribunalService } = this.formData.value;
     const hmctsServiceCode = tribunalService
     const dateToGet = this.dateSvc.formatDateForPost(dateSelected);
+    postObj.pageSize = 20
     postObj.regionId = region.region_id;
     postObj.statusId = 'RECORDED';
     postObj.dateRangeFrom = dateToGet;
