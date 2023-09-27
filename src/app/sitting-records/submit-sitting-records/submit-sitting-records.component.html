@@ -1,4 +1,6 @@
 <main class="govuk-main-wrapper " id="main-content" role="main">
+    <app-error-summary [errorMessage]='apiErrorMessage' *ngIf="apiError"></app-error-summary>
+
     <span class="govuk-caption-l govuk-!-margin-bottom-0">
         Submit Sitting records for {{tribService}}, {{region}}, up to and including the {{date}}
     </span>
@@ -13,7 +15,7 @@
     </div>
 
     <div class="govuk-button-group">
-        <a class="govuk-link" (click)="goBack()">Cancel</a>
+        <a class="govuk-link link-color" (click)="goBack()">Cancel</a>
     </div>
 
     <div class="govuk-grid-row">
@@ -24,9 +26,8 @@
           <table 
             datatable 
             [dtOptions]="dtOptions" 
-            [dtTrigger]="dtTrigger"
             class="govuk-table"
-            id="sittingRecordViewTable"
+            id="submitRecordViewTable"
             aria-describedby="records to submit table">
             <thead class="govuk-table__head">
               <tr class="govuk-table__row">
@@ -46,6 +47,9 @@
                 <td class="govuk-table__cell"> {{sittingRecord.sittingDate }} </td>
                 <td class="govuk-table__cell"> {{sittingRecord.createdByUserName}} </td>
                 <td class="govuk-table__cell"> {{sittingRecord.venueName}} </td>
+              </tr>
+              <tr *ngIf="sittingRecordData?.length === 0">
+                <td colspan="6" class="no-data-available">No results available</td>
               </tr>
             </tbody>
           </table>

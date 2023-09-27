@@ -61,7 +61,7 @@ export class SubmitterWorkflowService {
     return this.financeRegions;
   }
 
-  getSittingRecordsData() {
+  getSittingRecordsData(offsetNumber: number) {
     const postObj = new ViewSittingRecordPost();
     const { dateSelected, region, tribunalService } = this.formData.value;
     const hmctsServiceCode = tribunalService
@@ -70,6 +70,7 @@ export class SubmitterWorkflowService {
     postObj.statusId = 'RECORDED';
     postObj.dateRangeFrom = dateToGet;
     postObj.dateRangeTo = dateToGet;
+    postObj.offset = offsetNumber;
 
     return this.viewSittingRecordService.postObject(postObj, hmctsServiceCode);
   }
