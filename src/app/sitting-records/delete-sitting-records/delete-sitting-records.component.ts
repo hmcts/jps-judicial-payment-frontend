@@ -62,7 +62,7 @@ export class DeleteSittingRecordsComponent implements OnInit{
         },
         error: (error) => {
           const errorMsg = error.error.message;
-          if(errorMsg.indexOf("User IDAM ID does not match the oldest Changed by IDAM ID")){
+          if(errorMsg.indexOf("User IDAM ID does not match the oldest Changed by IDAM ID")  == 0 ){
             this.apiErrorMsg = `Selected sitting record was not recorded by the recorder. Record cannot be deleted.`
           }else{
             this.apiErrorMsg = errorMsg
