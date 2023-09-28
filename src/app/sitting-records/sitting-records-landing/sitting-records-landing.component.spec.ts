@@ -1,13 +1,11 @@
 
 // Import relevant packages and mock any services or modules as needed
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormBuilder, ReactiveFormsModule, FormGroup, FormControl } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { SittingRecordsLandingComponent } from './sitting-records-landing.component';
 import { CookieService } from 'ngx-cookie-service';
 import { SubmitterWorkflowService } from '../../_workflows/submitter-workflow.service';
-import { PublisherWorkflowService } from '../../_workflows/publisher-workflow.service';
-import { AdminWorkflowService } from '../../_workflows/admin-workflow.service';
-import { SittingRecordsLandingComponent } from './sitting-records-landing.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Router } from '@angular/router';
 
@@ -19,18 +17,10 @@ describe('SittingRecordsLandingComponent', () => {
   
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [ RouterTestingModule, HttpClientTestingModule, ReactiveFormsModule],
       declarations: [ SittingRecordsLandingComponent ],
-      providers: [
-        FormBuilder,
-        CookieService,
-        SubmitterWorkflowService,
-        PublisherWorkflowService,
-        AdminWorkflowService
-      ],
-      imports: [
-        ReactiveFormsModule,
-        RouterTestingModule,
-        HttpClientTestingModule
+      providers: [ SubmitterWorkflowService,
+        { provide: CookieService }
       ]
     }).compileComponents();
   });

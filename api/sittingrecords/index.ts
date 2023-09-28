@@ -71,7 +71,6 @@ export async function deleteSittingRecord(req, res, next){
             'Authorization': Authorization,
             'ServiceAuthorization': ServiceAuthorization
         };
-
         const config: AxiosRequestConfig = {
             url: `${url}/sittingRecord/${id}`,
             method: 'DELETE',

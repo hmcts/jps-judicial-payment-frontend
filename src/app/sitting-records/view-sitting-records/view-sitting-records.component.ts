@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ManageSittingRecordsWorkflowService } from '../../_workflows/manage-sitting-record-workflow.service';
+import { RecorderWorkflowService } from '../../_workflows/recorder-workflow.service';
 import { DateService } from '../../_services/date-service/date-service';
 import { Router } from '@angular/router';
 import { defaultDtOptions }  from '../../_services/default-dt-options'
@@ -14,8 +14,9 @@ import { Subject } from 'rxjs';
 export class ViewSittingRecordsComponent implements OnInit{
 
   constructor(
-    private msrWorkFlow: ManageSittingRecordsWorkflowService,
+    private msrWorkFlow: RecorderWorkflowService,
     private dateSvc: DateService,
+    private srWorkFlow: RecorderWorkflowService,
     private router: Router
   ){}
 
@@ -37,8 +38,6 @@ export class ViewSittingRecordsComponent implements OnInit{
     void this.router.navigate(['sittingRecords','add'])
   }
 
-  
-    
   ngOnInit(){
     const formData = this.msrWorkFlow.getFormData().value;
     const { dateSelected, tribunalService, venue } = formData;

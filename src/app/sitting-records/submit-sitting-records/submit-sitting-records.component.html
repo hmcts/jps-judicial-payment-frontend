@@ -1,29 +1,33 @@
 <main class="govuk-main-wrapper " id="main-content" role="main">
+    <app-error-summary [errorMessage]='apiErrorMessage' *ngIf="apiError"></app-error-summary>
+
+    <span class="govuk-caption-l govuk-!-margin-bottom-0">
+        Submit Sitting records for {{tribService}}, {{region}}, up to and including the {{date}}
+    </span>
     <h1 class="govuk-heading-l">Submit Sitting Records</h1>
 
+
+
     <div class="govuk-button-group">
-      <button class="govuk-button govuk-button--secondary" data-module="govuk-button">
+      <button class="govuk-button govuk-button--primary" data-module="govuk-button">
         Submit records
       </button>
     </div>
 
     <div class="govuk-button-group">
-        <a class="govuk-link" (click)="goBack()">Cancel</a>
+        <a class="govuk-link link-color" (click)="goBack()">Cancel</a>
     </div>
 
     <div class="govuk-grid-row">
       <div [ngClass]="showFilters ? 'govuk-grid-column-three-quarters' : 'govuk-grid-column-full'">
-        <p class="govuk-body govuk-!-margin-bottom-4">
-          Submit Sitting records for {{tribService}}, {{region}}, up to and including the {{date}}
-        </p>
+        
     
         <ng-container style="width: 100%;">
           <table 
             datatable 
             [dtOptions]="dtOptions" 
-            [dtTrigger]="dtTrigger"
             class="govuk-table"
-            id="sittingRecordViewTable"
+            id="submitRecordViewTable"
             aria-describedby="records to submit table">
             <thead class="govuk-table__head">
               <tr class="govuk-table__row">
@@ -38,11 +42,14 @@
             <tbody class="govuk-table__body">
               <tr class="govuk-table__row" *ngFor="let sittingRecord of sittingRecordData">
                 <td class="govuk-table__cell"> {{sittingRecord.personalName}} </td>
-                <td class="govuk-table__cell"> {{sittingRecord.judgeRoleTypeId}} </td>
+                <td class="govuk-table__cell"> {{sittingRecord.judgeRoleTypeId | convertRoleIdToString}} </td>
                 <td class="govuk-table__cell"> {{sittingRecord.am | convertToStringPeriod: sittingRecord.pm}} </td>
-                <td class="govuk-table__cell"> {{sittingRecord.sittingDate}} </td>
-                <td class="govuk-table__cell"> {{sittingRecord.createdByUserId}} </td>
-                <td class="govuk-table__cell"> {{sittingRecord.regionName}} </td>
+                <td class="govuk-table__cell"> {{sittingRecord.sittingDate }} </td>
+                <td class="govuk-table__cell"> {{sittingRecord.createdByUserName}} </td>
+                <td class="govuk-table__cell"> {{sittingRecord.venueName}} </td>
+              </tr>
+              <tr *ngIf="sittingRecordData?.length === 0">
+                <td colspan="6" class="no-data-available">No results available</td>
               </tr>
             </tbody>
           </table>

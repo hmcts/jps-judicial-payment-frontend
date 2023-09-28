@@ -20,6 +20,7 @@ export class ConvertRoleIdToString implements PipeTransform {
         'District Judge': 12,
         'District Judge (MC)': 13,
         'Recorder': 14,
+        'Deputy Upper Tribunal Judge': 15
     };
 
     transform(roleId: string): string {

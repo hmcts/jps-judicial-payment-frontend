@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { DeleteSittingRecordsComponent } from './delete-sitting-records.component';
-import { ManageSittingRecordsWorkflowService } from '../../_workflows/manage-sitting-record-workflow.service';
+import { RecorderWorkflowService } from '../../_workflows/recorder-workflow.service';
 import { DeleteSittingRecordHttp } from '../../_services/delete-sitting-records-http-service';
 import { of, throwError } from 'rxjs';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -10,7 +10,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 describe('DeleteSittingRecordsComponent', () => {
   let component: DeleteSittingRecordsComponent;
   let router: Router;
-  let srWorkflowService: ManageSittingRecordsWorkflowService;
+  let srWorkflowService: RecorderWorkflowService;
   let deleteService: DeleteSittingRecordHttp;
 
   beforeEach(async () => {
@@ -18,7 +18,7 @@ describe('DeleteSittingRecordsComponent', () => {
       providers: [
         DeleteSittingRecordsComponent,
         { provide: Router, useValue: { navigate: jasmine.createSpy('navigate') } },
-        { provide: ManageSittingRecordsWorkflowService },
+        { provide: RecorderWorkflowService },
         { provide: DeleteSittingRecordHttp }
       ],
       imports: [HttpClientTestingModule]
@@ -26,7 +26,7 @@ describe('DeleteSittingRecordsComponent', () => {
 
     component = TestBed.inject(DeleteSittingRecordsComponent);
     router = TestBed.inject(Router);
-    srWorkflowService = TestBed.inject(ManageSittingRecordsWorkflowService);
+    srWorkflowService = TestBed.inject(RecorderWorkflowService);
     deleteService = TestBed.inject(DeleteSittingRecordHttp);
 
     const record = { sittingRecordId: '123' };
@@ -50,7 +50,7 @@ describe('DeleteSittingRecordsComponent', () => {
   it('should set error when delete fails', () => {
     const errorResponse = {
       status: 404,
-      error: { message: 'Error:Delete failed' }  
+      error: { message: 'Delete failed' }  
     };
 
     spyOn(deleteService, 'deleteRecord').and.returnValue(throwError(() => errorResponse));

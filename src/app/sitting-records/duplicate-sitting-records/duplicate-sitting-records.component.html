@@ -1,0 +1,25 @@
+<main class="govuk-main-wrapper " id="main-content" role="main">
+    <span class="govuk-caption-l">
+        <app-sitting-records-info-banner amendedText="Add sitting records"></app-sitting-records-info-banner>
+    </span>
+    <h1 class="govuk-heading-l">Records could not be saved</h1>
+    <app-error-summary [errorMessage]="errorMessages"></app-error-summary>
+    <div *ngFor="let record of recordsWithErrors; let i = index;">
+        <ng-container *ngIf="record.errorCode === 'POTENTIAL_DUPLICATE_RECORD'">
+            <app-potential-duplicate [index]="i" [potentialRecord]="record" (valueChange)="updateReplaceDuplicate($event, i)"></app-potential-duplicate>
+        </ng-container>
+        <ng-container *ngIf="record.errorCode === 'INVALID_DUPLICATE_RECORD'">
+            <app-invalid-duplicate [invalidRecord]="record"></app-invalid-duplicate>
+        </ng-container>
+    </div>
+    <app-valid-sitting-records *ngIf="validRecords.length !== 0" [recordData]="validRecords"></app-valid-sitting-records>
+    <div class="govuk-button-group">
+        <button class="govuk-button govuk-button--secondary" data-module="govuk-button" (click)="navigateToPreviousPage()">
+            Previous
+        </button>
+        <button class="govuk-button" data-module="govuk-button" (click)="resubmitSittingRecords()" [disabled]="!allOptionsSelected">
+            Continue
+        </button>
+    </div>
+    <a class="govuk-link link-color" (click)="cancelCurrentFlow()">Cancel</a>
+</main>
