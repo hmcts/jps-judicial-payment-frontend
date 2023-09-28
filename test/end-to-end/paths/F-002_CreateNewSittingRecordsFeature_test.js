@@ -5,12 +5,23 @@ const ManageJudicialSittingRecordsPage = require('../pages/ManageJudicialSitting
 
 Feature('Create new Sitting Records Feature Tests @functional @F-002');
 
-const randomDay = ('0' + (Math.floor(Math.random() * 28) + 1)).slice(-2);
-const randomMonth = ('0' + (Math.floor(Math.random() * 12) + 1)).slice(-2);
+const randomDays = [];
+for (let i = 0; randomDays.length < 7; i++) {
+  let num = ('0' + (Math.floor(Math.random() * 28) + 1)).slice(-2);
+  if (randomDays.includes(num)) { continue; }
+  randomDays.push(num);
+}
+
+const randomMonths = [];
+for (let i = 0; randomMonths.length < 7; i++) {
+  let num = ('0' + (Math.floor(Math.random() * 12) + 1)).slice(-2);
+  if (randomMonths.includes(num)) { continue; }
+  randomMonths.push(num);
+}
 
 Scenario('User is able to successfully save a single Sitting Record @S-002.1',({ I}) => {
   I.loginWithJPSRecorderUser();
-  ManageJudicialSittingRecordsPage.addSittingRecordsInformation('Social Security and Child Support', 'Sutton', randomDay, randomMonth, '2022');
+  ManageJudicialSittingRecordsPage.addSittingRecordsInformation('Social Security and Child Support', 'Sutton', randomDays[0], randomMonths[0], '2022');
   I.click('Continue');
   JudicialSittingRecordsPage.clickAddSittingRecords();
   I.createSittingRecord('Joe Ambrose', 'Tribunal Judge', 'Afternoon');
@@ -18,7 +29,7 @@ Scenario('User is able to successfully save a single Sitting Record @S-002.1',({
 
 Scenario('User is successfully able to save multiple Sitting Records @S-002.2',({ I}) => {
   I.loginWithJPSRecorderUser();
-  ManageJudicialSittingRecordsPage.addSittingRecordsInformation('Social Security and Child Support', 'Sutton', randomDay, randomMonth, '2022');
+  ManageJudicialSittingRecordsPage.addSittingRecordsInformation('Social Security and Child Support', 'Sutton', randomDays[0], randomMonths[0], '2022');
   I.click('Continue');
   JudicialSittingRecordsPage.clickAddSittingRecords();
   AddSittingRecordsPage.selectJOH('Joe Ambrose', 'Tribunal Judge');
@@ -35,7 +46,7 @@ Scenario('User is successfully able to save multiple Sitting Records @S-002.2',(
 
 Scenario('User is able to remove a Sitting Record by clicking on Remove button @S-002.3',({ I}) => {
   I.loginWithJPSRecorderUser();
-  ManageJudicialSittingRecordsPage.addSittingRecordsInformation('Social Security and Child Support', 'Sutton', randomDay, randomMonth, '2022');
+  ManageJudicialSittingRecordsPage.addSittingRecordsInformation('Social Security and Child Support', 'Sutton', randomDays[0], randomMonths[0], '2022');
   I.click('Continue');
   JudicialSittingRecordsPage.clickAddSittingRecords();
   AddSittingRecordsPage.selectJOH('Joe Ambrose', 'Tribunal Judge');
@@ -49,7 +60,7 @@ Scenario('User is able to remove a Sitting Record by clicking on Remove button @
 
 Scenario('User should not be able to add more than 3 Sitting Records in UI @S-002.4',({ I}) => {
   I.loginWithJPSRecorderUser();
-  ManageJudicialSittingRecordsPage.addSittingRecordsInformation('Social Security and Child Support', 'Sutton', randomDay, randomMonth, '2022');
+  ManageJudicialSittingRecordsPage.addSittingRecordsInformation('Social Security and Child Support', 'Sutton', randomDays[0], randomMonths[0], '2022');
   I.click('Continue');
   JudicialSittingRecordsPage.clickAddSittingRecords();
   AddSittingRecordsPage.selectJOH('Joe Ambrose', 'Tribunal Judge');
@@ -62,7 +73,7 @@ Scenario('User should not be able to add more than 3 Sitting Records in UI @S-00
 
 Scenario('Continue button is disabled when Role is not selected @S-002.6',({ I}) => {
   I.loginWithJPSRecorderUser();
-  ManageJudicialSittingRecordsPage.addSittingRecordsInformation('Social Security and Child Support', 'Sutton', randomDay, randomMonth, '2022');
+  ManageJudicialSittingRecordsPage.addSittingRecordsInformation('Social Security and Child Support', 'Sutton', randomDays[0], randomMonths[0], '2022');
   I.click('Continue');
   JudicialSittingRecordsPage.clickAddSittingRecords();
   AddSittingRecordsPage.selectJOH('Joe Ambrose', '');
@@ -72,7 +83,7 @@ Scenario('Continue button is disabled when Role is not selected @S-002.6',({ I})
 
 Scenario('User should not be allowed to select a Role for Judicial Office Holder before entering valid Name @S-002.7',({ I}) => {
   I.loginWithJPSRecorderUser();
-  ManageJudicialSittingRecordsPage.addSittingRecordsInformation('Social Security and Child Support', 'Sutton', randomDay, randomMonth, '2022');
+  ManageJudicialSittingRecordsPage.addSittingRecordsInformation('Social Security and Child Support', 'Sutton', randomDays[0], randomMonths[0], '2022');
   I.click('Continue');
   JudicialSittingRecordsPage.clickAddSittingRecords();
   I.seeElement('#role[disabled]');
@@ -80,7 +91,7 @@ Scenario('User should not be allowed to select a Role for Judicial Office Holder
 
 Scenario('Continue button is disabled when Period is not selected @S-002.8',({ I}) => {
   I.loginWithJPSRecorderUser();
-  ManageJudicialSittingRecordsPage.addSittingRecordsInformation('Social Security and Child Support', 'Sutton', randomDay, randomMonth, '2022');
+  ManageJudicialSittingRecordsPage.addSittingRecordsInformation('Social Security and Child Support', 'Sutton', randomDays[0], randomMonths[0], '2022');
   I.click('Continue');
   JudicialSittingRecordsPage.clickAddSittingRecords();
   AddSittingRecordsPage.selectJOH('Joe Ambrose', 'Tribunal Judge');
@@ -89,7 +100,7 @@ Scenario('Continue button is disabled when Period is not selected @S-002.8',({ I
 
 Scenario('User is displayed "Manage judicial sitting records" when Cancel is clicked while adding new Sitting Record(s) @S-002.9',({ I}) => {
   I.loginWithJPSRecorderUser();
-  ManageJudicialSittingRecordsPage.addSittingRecordsInformation('Social Security and Child Support', 'Sutton', randomDay, randomMonth, '2022');
+  ManageJudicialSittingRecordsPage.addSittingRecordsInformation('Social Security and Child Support', 'Sutton', randomDays[0], randomMonths[0], '2022');
   I.click('Continue');
   JudicialSittingRecordsPage.clickAddSittingRecords();
   AddSittingRecordsPage.selectJOH('Joe Ambrose', 'Tribunal Judge');
@@ -100,7 +111,7 @@ Scenario('User is displayed "Manage judicial sitting records" when Cancel is cli
 
 Scenario('User is displayed "Manage judicial sitting records" when Cancel is clicked while confirming new Sitting Record(s) @S-002.10',({ I}) => {
   I.loginWithJPSRecorderUser();
-  ManageJudicialSittingRecordsPage.addSittingRecordsInformation('Social Security and Child Support', 'Sutton', randomDay, randomMonth, '2022');
+  ManageJudicialSittingRecordsPage.addSittingRecordsInformation('Social Security and Child Support', 'Sutton', randomDays[0], randomMonths[0], '2022');
   I.click('Continue');
   JudicialSittingRecordsPage.clickAddSittingRecords();
   AddSittingRecordsPage.selectJOH('Joe Ambrose', 'Tribunal Judge');
@@ -113,7 +124,7 @@ Scenario('User is displayed "Manage judicial sitting records" when Cancel is cli
 
 Scenario('User is displayed "Judicial sitting records" when Previous button is clicked while confirming new Sitting Record(s) @S-002.11',({ I}) => {
   I.loginWithJPSRecorderUser();
-  ManageJudicialSittingRecordsPage.addSittingRecordsInformation('Social Security and Child Support', 'Sutton', randomDay, randomMonth, '2022');
+  ManageJudicialSittingRecordsPage.addSittingRecordsInformation('Social Security and Child Support', 'Sutton', randomDays[0], randomMonths[0], '2022');
   I.click('Continue');
   JudicialSittingRecordsPage.clickAddSittingRecords();
   AddSittingRecordsPage.selectJOH('Joe Ambrose', 'Tribunal Judge');
@@ -121,14 +132,14 @@ Scenario('User is displayed "Judicial sitting records" when Previous button is c
   I.click('Continue');
   ConfirmNewSittingRecordsPage.confirmSittingRecords('Joe Ambrose', 'Tribunal Judge', 'Full day', 'jps recorder');
   I.click('Previous');
-  I.see('Add sitting records for Social Security and Child Support, Sutton Social Security and Child Support Tribunal (Copthall House), for ' + randomDay + '/' + randomMonth + '/2022');
+  I.see('Add sitting records for Social Security and Child Support, Sutton Social Security and Child Support Tribunal (Copthall House), for ' + randomDays[0] + '/' + randomMonths[0] + '/2022');
   I.seeInField('#judge-0', 'Joe Ambrose');
   I.seeInField('#role', 'Tribunal Judge');
 });
 
 Scenario('User will be displayed potential duplicate record #AC01 @S-002.12',({ I}) => {
   I.loginWithJPSRecorderUser();
-  ManageJudicialSittingRecordsPage.addSittingRecordsInformation('Social Security and Child Support', 'Sutton', randomDay, randomMonth, '2022');
+  ManageJudicialSittingRecordsPage.addSittingRecordsInformation('Social Security and Child Support', 'Sutton', randomDays[1], randomMonths[1], '2022');
   I.click('Continue');  
   JudicialSittingRecordsPage.clickAddSittingRecords();
   I.createSittingRecord('Joe Am', 'Tribunal Judge', 'Morning');
@@ -155,7 +166,7 @@ Scenario('User will be displayed potential duplicate record #AC01 @S-002.12',({ 
 
 Scenario('User will be displayed invalid duplicate record #AC02 @S-002.13',({ I}) => {
   I.loginWithJPSRecorderUser();
-  ManageJudicialSittingRecordsPage.addSittingRecordsInformation('Social Security and Child Support', 'Sutton', randomDay, randomMonth, '2022');
+  ManageJudicialSittingRecordsPage.addSittingRecordsInformation('Social Security and Child Support', 'Sutton', randomDays[2], randomMonths[2], '2022');
   I.click('Continue');  
   JudicialSittingRecordsPage.clickAddSittingRecords();
   I.createSittingRecord('Joe Ambrose', 'Tribunal Judge', 'Morning');
@@ -178,7 +189,7 @@ Scenario('User will be displayed invalid duplicate record #AC02 @S-002.13',({ I}
 
 Scenario('User will be displayed potential duplicate and invalid duplicate records #AC03 @S-002.14',({ I}) => {
   I.loginWithJPSRecorderUser();
-  ManageJudicialSittingRecordsPage.addSittingRecordsInformation('Social Security and Child Support', 'Sutton', randomDay, randomMonth, '2022');
+  ManageJudicialSittingRecordsPage.addSittingRecordsInformation('Social Security and Child Support', 'Sutton', randomDays[3], randomMonths[3], '2022');
   I.click('Continue');  
   JudicialSittingRecordsPage.clickAddSittingRecords();
   I.createSittingRecord('Joe Ambrose', 'Recorder', 'Morning');
@@ -206,7 +217,7 @@ Scenario('User will be displayed potential duplicate and invalid duplicate recor
 
 Scenario('User will be displayed potential duplicate and user saves already existing record(s) screen #AC04 @S-002.15',({ I}) => {
   I.loginWithJPSRecorderUser();
-  ManageJudicialSittingRecordsPage.addSittingRecordsInformation('Social Security and Child Support', 'Sutton', randomDay, randomMonth, '2022');
+  ManageJudicialSittingRecordsPage.addSittingRecordsInformation('Social Security and Child Support', 'Sutton', randomDays[4], randomMonths[4], '2022');
   I.click('Continue');  
   JudicialSittingRecordsPage.clickAddSittingRecords();
   I.createSittingRecord('Joe Ambrose', 'Tribunal Judge', 'Morning');
@@ -230,7 +241,7 @@ Scenario('User will be displayed potential duplicate and user saves already exis
 
 Scenario('User will be displayed only one potential duplicate record and user saves already existing record @S-002.16',({ I}) => {
   I.loginWithJPSRecorderUser();
-  ManageJudicialSittingRecordsPage.addSittingRecordsInformation('Social Security and Child Support', 'Sutton', randomDay, randomMonth, '2022');
+  ManageJudicialSittingRecordsPage.addSittingRecordsInformation('Social Security and Child Support', 'Sutton', randomDays[5], randomMonths[5], '2022');
   I.click('Continue');  
   JudicialSittingRecordsPage.clickAddSittingRecords();
   I.createSittingRecord('Joe Ambrose', 'Tribunal Judge', 'Morning');
@@ -248,7 +259,7 @@ Scenario('User will be displayed only one potential duplicate record and user sa
 
 Scenario('User will be displayed one invalid duplicate record and nothing saved @S-002.17',({ I}) => {
   I.loginWithJPSRecorderUser();
-  ManageJudicialSittingRecordsPage.addSittingRecordsInformation('Social Security and Child Support', 'Sutton', randomDay, randomMonth, '2022');
+  ManageJudicialSittingRecordsPage.addSittingRecordsInformation('Social Security and Child Support', 'Sutton', randomDays[6], randomMonths[6], '2022');
   I.click('Continue');  
   JudicialSittingRecordsPage.clickAddSittingRecords();
   I.createSittingRecord('Joe Ambrose', 'Tribunal Judge', 'Afternoon');
