@@ -1,21 +1,21 @@
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
-import { ManageSittingRecordsWorkflowService } from '../../_workflows/manage-sitting-record-workflow.service';
+import { RecorderWorkflowService } from '../../_workflows/recorder-workflow.service';
 import { SittingRecordsViewGuard } from './sitting-records-view.guard';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('SittingRecordsViewGuard', () => {
   let guard: SittingRecordsViewGuard;
-  let mockmsrWorkflowService: ManageSittingRecordsWorkflowService;
+  let mockmsrWorkflowService: RecorderWorkflowService;
   let mockRouter: Router;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientModule]
+      imports: [HttpClientTestingModule]
     });
     guard = TestBed.inject(SittingRecordsViewGuard);
     mockRouter = TestBed.inject(Router);
-    mockmsrWorkflowService = TestBed.inject(ManageSittingRecordsWorkflowService);
+    mockmsrWorkflowService = TestBed.inject(RecorderWorkflowService);
   });
 
   it('should return true if manageVisited is true', () => {

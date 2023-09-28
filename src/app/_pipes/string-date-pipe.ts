@@ -21,3 +21,21 @@ export class StringFromDatePipe implements PipeTransform {
         return formattedDate;
     }
 }
+
+
+@Pipe({
+    name: 'stringFromDateYDM'
+})
+export class StringFromDatePipeYDM implements PipeTransform {
+    transform(dateString: string): string {
+        const [day, month, year] = dateString.split("/").map(Number);
+        const date = new Date(year, month-1, day);
+        const formattedDate = date.toLocaleDateString("en-GB", {
+            day: "numeric",
+            month: "long",
+            year: "numeric",
+        });
+
+        return formattedDate;
+    }
+}

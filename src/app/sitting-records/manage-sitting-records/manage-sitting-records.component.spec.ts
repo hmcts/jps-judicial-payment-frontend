@@ -3,29 +3,30 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, ReactiveFormsModu
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ManageSittingRecordsComponent } from './manage-sitting-records.component';
-import { ManageSittingRecordsWorkflowService } from '../../_workflows/manage-sitting-record-workflow.service';
-import { CookieService } from 'ngx-cookie-service';
-import { HttpClientModule } from '@angular/common/http';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { TribunalServiceComponent } from '../shared-components/tribunal-service/tribunal-service.component';
-import { SittingDateComponent } from '../shared-components/sitting-date/sitting-date.component';
-import { VenueComponent } from '../shared-components/venue/venue.component';
+import { RecorderWorkflowService } from '../../_workflows/recorder-workflow.service';
 import { LocationService } from '../../_services/location-service/location.service';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { of } from 'rxjs';
+import { CookieService } from 'ngx-cookie-service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('ManageSittingRecordsComponent', () => {
   let component: ManageSittingRecordsComponent;
   let fixture: ComponentFixture<ManageSittingRecordsComponent>;
   let router: Router;
-  let msrWorkFlowService: ManageSittingRecordsWorkflowService;
+  let recorderWorkFlowService: RecorderWorkflowService;
   let mockCookieService: jasmine.SpyObj<CookieService>;
   let locationService: LocationService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule, RouterTestingModule, HttpClientModule, MatAutocompleteModule],
-      providers: [ManageSittingRecordsWorkflowService, LocationService],
-      declarations: [ManageSittingRecordsComponent, TribunalServiceComponent, SittingDateComponent, VenueComponent],
+      imports: [ReactiveFormsModule, RouterTestingModule, HttpClientTestingModule, MatAutocompleteModule],
+      declarations: [ManageSittingRecordsComponent],
+      providers: [
+        RecorderWorkflowService, 
+        LocationService,
+        CookieService
+      ],
     }).compileComponents();
   });
 
@@ -33,7 +34,7 @@ describe('ManageSittingRecordsComponent', () => {
     fixture = TestBed.createComponent(ManageSittingRecordsComponent);
     component = fixture.componentInstance;
     router = TestBed.inject(Router);
-    msrWorkFlowService = TestBed.inject(ManageSittingRecordsWorkflowService);
+    recorderWorkFlowService = TestBed.inject(RecorderWorkflowService);
     mockCookieService = TestBed.inject(CookieService) as jasmine.SpyObj<CookieService>;
     locationService = TestBed.inject(LocationService);
     spyOn(locationService, 'getAllVenues').and.returnValue(of([]))
@@ -66,13 +67,13 @@ describe('ManageSittingRecordsComponent', () => {
   });
 
   it('should navigate to view-sitting-records when the form is submitted', () => {
-    spyOn(msrWorkFlowService, 'setFormData');
-    spyOn(msrWorkFlowService, 'setManageVisited');
+    spyOn(recorderWorkFlowService, 'setFormData');
+    spyOn(recorderWorkFlowService, 'setManageVisited');
     spyOn(router, 'navigate');
     component.submitForm();
 
-    expect(msrWorkFlowService.setFormData).toHaveBeenCalled();
-    expect(msrWorkFlowService.setManageVisited).toHaveBeenCalled();
+    expect(recorderWorkFlowService.setFormData).toHaveBeenCalled();
+    expect(recorderWorkFlowService.setManageVisited).toHaveBeenCalled();
     expect(router.navigate).toHaveBeenCalledWith(['sittingRecords', 'view']);
   });
 
@@ -87,6 +88,7 @@ describe('ManageSittingRecordsComponent', () => {
   it('should not show the previous button for user role "jps-recorder"', () => {
     spyOn(mockCookieService, 'get').and.returnValue('jps-recorder');
 
+    recorderWorkFlowService.setFormData(formDataMock)
     component.ngOnInit();
 
     expect(component.showPreviousButton).toBeFalse();

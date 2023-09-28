@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
-import { ManageSittingRecordsWorkflowService } from './manage-sitting-record-workflow.service';
+import { RecorderWorkflowService } from './recorder-workflow.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ViewSittingRecordResponse } from '../_models/viewSittingRecords.model';
 import { ViewSittingRecordService } from '../_services/sitting-records-service/view-sitting-records-service';
@@ -8,18 +8,18 @@ import { DateService } from '../_services/date-service/date-service';
 import { of } from 'rxjs';
 
 describe('RecorderWorkflowService', () => {
-  let mockmsrWorkflowService: ManageSittingRecordsWorkflowService;
+  let mockWorkflowService: RecorderWorkflowService;
   let mockViewSittingRecordService: ViewSittingRecordService;
   let mockformData: FormGroup;
   let mockDateSvc: DateService
   
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [ManageSittingRecordsWorkflowService, ViewSittingRecordService, DateService],
+      providers: [RecorderWorkflowService, ViewSittingRecordService, DateService],
       imports: [HttpClientModule]
     });
 
-    mockmsrWorkflowService = TestBed.inject(ManageSittingRecordsWorkflowService);
+    mockWorkflowService = TestBed.inject(RecorderWorkflowService);
     mockViewSittingRecordService = TestBed.inject(ViewSittingRecordService);
     mockDateSvc = TestBed.inject(DateService);
     mockformData= new FormBuilder().group({
@@ -28,39 +28,39 @@ describe('RecorderWorkflowService', () => {
       venue: ['Venue 1'],
     });
 
-    mockmsrWorkflowService.setFormData(mockformData);
+    mockWorkflowService.setFormData(mockformData);
   });
 
   it('should be created', () => {
-    expect(mockmsrWorkflowService).toBeTruthy();
+    expect(mockWorkflowService).toBeTruthy();
   });
 
   describe('setManageVisited', () => {
     it('should set hasVisitedManage to true', () => {
-      mockmsrWorkflowService.setManageVisited();
-      expect(mockmsrWorkflowService.getManageVisited()).toBe(true);
+      mockWorkflowService.setManageVisited();
+      expect(mockWorkflowService.getManageVisited()).toBe(true);
     });
   });
 
   describe('setFormData and getFormData', () => {
     it('should set and get the form data', () => {
-      expect(mockmsrWorkflowService.getFormData()).toBe(mockformData);
+      expect(mockWorkflowService.getFormData()).toBe(mockformData);
     });
   });
 
   describe('resetFormData', () => {
     it('should reset the form data', () => {
-      expect(mockmsrWorkflowService.getFormData()).toBe(mockformData);
-      mockmsrWorkflowService.resetFormData();
-      expect(mockmsrWorkflowService.getFormData().getRawValue()).toEqual({ dateSelected: null, tribunalService: null, venue: null });
+      expect(mockWorkflowService.getFormData()).toBe(mockformData);
+      mockWorkflowService.resetFormData();
+      expect(mockWorkflowService.getFormData().getRawValue()).toEqual({ dateSelected: null, tribunalService: null, venue: null });
     });
   });
 
   describe('resetVisitedManaged', () => {
     it('should set hasVisitedManaged to false', () => {
-      mockmsrWorkflowService.setManageVisited()
-      mockmsrWorkflowService.resetVisitedManaged()
-      expect(mockmsrWorkflowService.getManageVisited()).toBe(false);
+      mockWorkflowService.setManageVisited()
+      mockWorkflowService.resetVisitedManaged()
+      expect(mockWorkflowService.getManageVisited()).toBe(false);
     });
   });
 
@@ -80,11 +80,11 @@ describe('RecorderWorkflowService', () => {
         venue: ['Venue 1'],
       });
   
-      mockmsrWorkflowService.setFormData(formDataMock)
-      mockmsrWorkflowService.setAddSittingRecords(postFormData);
+      mockWorkflowService.setFormData(formDataMock)
+      mockWorkflowService.setAddSittingRecords(postFormData);
   
-      mockmsrWorkflowService.setAddSittingRecords(postFormData)
-      mockmsrWorkflowService.formAndPostNewSittingRecord();
+      mockWorkflowService.setAddSittingRecords(postFormData)
+      mockWorkflowService.formAndPostNewSittingRecord();
   
 
     });
@@ -104,12 +104,12 @@ describe('RecorderWorkflowService', () => {
         venue: ['Venue 1'],
       });
   
-      mockmsrWorkflowService.setFormData(formDataMock)
-      mockmsrWorkflowService.setAddSittingRecords(postFormData)
+      mockWorkflowService.setFormData(formDataMock)
+      mockWorkflowService.setAddSittingRecords(postFormData)
   
 
-      mockmsrWorkflowService.setAddSittingRecords(postFormData)
-      mockmsrWorkflowService.formAndPostNewSittingRecord();
+      mockWorkflowService.setAddSittingRecords(postFormData)
+      mockWorkflowService.formAndPostNewSittingRecord();
   
 
     });
@@ -129,12 +129,12 @@ describe('RecorderWorkflowService', () => {
         venue: ['Venue 1'],
       });
   
-      mockmsrWorkflowService.setFormData(formDataMock)
-      mockmsrWorkflowService.setAddSittingRecords(postFormData)
+      mockWorkflowService.setFormData(formDataMock)
+      mockWorkflowService.setAddSittingRecords(postFormData)
   
   
-      mockmsrWorkflowService.setAddSittingRecords(postFormData)
-      mockmsrWorkflowService.formAndPostNewSittingRecord();
+      mockWorkflowService.setAddSittingRecords(postFormData)
+      mockWorkflowService.formAndPostNewSittingRecord();
 
 
     });
@@ -147,7 +147,7 @@ describe('RecorderWorkflowService', () => {
       spyOn(mockDateSvc,'formatDateFromForm').and.returnValue(dateSelected);
       spyOn(mockViewSittingRecordService,'postObject').and.returnValue(of(mockResponse))
   
-      mockmsrWorkflowService.getSittingRecordsData().subscribe(response => expect(response).toEqual(mockResponse));
+      mockWorkflowService.getSittingRecordsData().subscribe(response => expect(response).toEqual(mockResponse));
     });
   });
   

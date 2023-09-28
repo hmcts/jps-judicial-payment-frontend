@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ManageSittingRecordsWorkflowService } from '../../_workflows/manage-sitting-record-workflow.service';
+import { RecorderWorkflowService } from '../../_workflows/recorder-workflow.service';
 import { DeleteSittingRecordHttp } from '../../_services/delete-sitting-records-http-service'
 import { defaultDtOptions }  from '../../_services/default-dt-options'
 
@@ -20,7 +20,7 @@ export class DeleteSittingRecordsComponent implements OnInit{
   dtOptions: DataTables.Settings = {};
 
   constructor(
-    private msrWorkFlow: ManageSittingRecordsWorkflowService,
+    private recorderWorkFlow: RecorderWorkflowService,
     private router: Router,
     private deleteRecordHttp: DeleteSittingRecordHttp
   ){
@@ -48,8 +48,8 @@ export class DeleteSittingRecordsComponent implements OnInit{
   }
 
   ngOnInit(){
-    this.recordToDelete = this.msrWorkFlow.getSittingRecordToDelete();
-    const {venue} = this.msrWorkFlow.getFormData().value
+    this.recordToDelete = this.recorderWorkFlow.getSittingRecordToDelete();
+    const {venue} = this.recorderWorkFlow.getFormData().value
     this.selectedVenue = venue.site_name;
   }
   
@@ -61,8 +61,8 @@ export class DeleteSittingRecordsComponent implements OnInit{
           void this.router.navigate(['sittingRecords', 'deleteSuccess'])
         },
         error: (error) => {
-          const errorMsg = error.error.message.split(':')[1];
-          if(errorMsg == " User IDAM ID does not match the oldest Changed by IDAM ID "){
+          const errorMsg = error.error.message;
+          if(errorMsg.indexOf("User IDAM ID does not match the oldest Changed by IDAM ID")){
             this.apiErrorMsg = `Selected sitting record was not recorded by the recorder. Record cannot be deleted.`
           }else{
             this.apiErrorMsg = errorMsg
@@ -73,7 +73,7 @@ export class DeleteSittingRecordsComponent implements OnInit{
   }
 
   goBack(){
-    this.msrWorkFlow.resetSittingRecordToDelete()
+    this.recorderWorkFlow.resetSittingRecordToDelete()
     this.router.navigate(['sittingRecords', 'view'])
   }
 

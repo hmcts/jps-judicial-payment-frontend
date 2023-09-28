@@ -39,11 +39,11 @@ describe('SittingRecordsService', () => {
         recordedSittingRecords: []
       };
 
-      service.postNewSittingRecord(record).subscribe();
+      service.postNewSittingRecord(record, 'BBA4').subscribe();
 
       const req = httpMock.expectOne('/sittingrecord/add');
       expect(req.request.method).toEqual('POST');
-      expect(req.request.body).toEqual({ sittingRecords: record });
+      expect(req.request.body).toEqual({ sittingRecords: record, serviceCode: 'BBA4' });
       expect(req.request.headers.get('Content-Type')).toEqual('application/json');
 
       req.flush({});
