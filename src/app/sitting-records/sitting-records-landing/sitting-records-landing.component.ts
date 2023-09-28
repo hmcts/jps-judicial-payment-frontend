@@ -141,9 +141,7 @@ export class SittingRecordsLandingComponent implements OnInit {
     const optionValue = this.userForm.controls["options"].value;
 
     this.landingWorkflow.setupWorkflows(optionValue, this.userForm, this.submitterFormValues, this.publisherFormValues, this.johAdminFormValues)
-    .subscribe(() =>{
-      console.log(`set data`)
-    })
+    .subscribe()
 
     switch(optionValue){
 

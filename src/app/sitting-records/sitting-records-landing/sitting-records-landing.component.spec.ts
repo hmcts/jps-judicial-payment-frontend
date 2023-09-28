@@ -10,12 +10,15 @@ import { AdminWorkflowService } from '../../_workflows/admin-workflow.service';
 import { SittingRecordsLandingComponent } from './sitting-records-landing.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Router } from '@angular/router';
+import { LandingWorkflowService } from 'src/app/_workflows/landing-workflow.service';
+import { of } from 'rxjs';
 
 describe('SittingRecordsLandingComponent', () => {
   let component: SittingRecordsLandingComponent;
   let fixture: ComponentFixture<SittingRecordsLandingComponent>;
   let cookieService: CookieService;
   let router: Router;
+  let landingWorkflow: LandingWorkflowService
   
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -40,6 +43,7 @@ describe('SittingRecordsLandingComponent', () => {
     component = fixture.componentInstance;
     cookieService = TestBed.inject(CookieService);
     router = TestBed.inject(Router);
+    landingWorkflow = TestBed.inject(LandingWorkflowService)
 
     fixture.detectChanges();
   });
@@ -68,6 +72,36 @@ describe('SittingRecordsLandingComponent', () => {
       component.handleFormValidChange([false, 'publisher']);
       expect(component.publisherFormValid).toBeFalse();
     });
+
+    it('should set johAdminFormValid to true when called with true', () => {
+      component.handleFormValidChange([true, 'johAdmin']);
+      expect(component.johAdminFormValid).toBeTrue();
+    });
+
+    it('should set johAdminFormValid to false when called with false', () => {
+      component.handleFormValidChange([false, 'johAdmin']);
+      expect(component.johAdminFormValid).toBeFalse();
+    });
+  });
+
+  describe('handleFormValues', () => {
+    it('should set submitterFormValues when called with submitter', () => {
+      const value = ['submitterValue', 'submitter'];
+      component.handleFormValues(value);
+      expect(component.submitterFormValues).toEqual('submitterValue');
+    });
+
+    it('should set publisherFormValues when called with publisher', () => {
+      const value = ['publisherValue', 'publisher'];
+      component.handleFormValues(value);
+      expect(component.publisherFormValues).toEqual('publisherValue');
+    });
+
+    it('should set johAdminFormValues when called with johAdmin', () => {
+      const value = ['johAdminValue', 'johAdmin'];
+      component.handleFormValues(value);
+      expect(component.johAdminFormValues).toEqual('johAdminValue');
+    });
   });
 
   describe('ngOnInit', () => {
@@ -80,26 +114,36 @@ describe('SittingRecordsLandingComponent', () => {
   });
 
   describe('submitForm', () => {
+
     it('should navigate to manage records page for submitter', () => {
-      component.userRole = 'jps-submitter';
-      component.userForm.controls['options'].setValue('manageSittingRecords');
+      component.userForm.controls['options'].setValue('viewManageJudicialInfo');
+      spyOn(landingWorkflow, 'setupWorkflows').and.returnValue(of())
       spyOn(router, 'navigate');
       component.submitForm();
   
       expect(router.navigate)
-        .toHaveBeenCalledWith(['sittingRecords', 'manage']);
+        .toHaveBeenCalledWith(['sittingRecords', 'manageJudicial']);
     });
 
-    it('should navigate to submit page for submitter', () => {
-      component.userRole = 'jps-submitter';
+    it('should navigate to manage records page for submitter', () => {
       component.userForm.controls['options'].setValue('submitToFinance');
+      spyOn(landingWorkflow, 'setupWorkflows').and.returnValue(of())
       spyOn(router, 'navigate');
       component.submitForm();
   
       expect(router.navigate)
         .toHaveBeenCalledWith(['sittingRecords', 'submit']);
     });
-    
+
+    it('should navigate to manage records page for submitter', () => {
+      component.userForm.controls['options'].setValue('manageSittingRecords');
+      spyOn(landingWorkflow, 'setupWorkflows').and.returnValue(of())
+      spyOn(router, 'navigate');
+      component.submitForm();
+  
+      expect(router.navigate)
+        .toHaveBeenCalledWith(['sittingRecords', 'manage']);
+    });
     
   });
 
