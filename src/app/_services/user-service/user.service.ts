@@ -23,8 +23,8 @@ export class UserService {
     if(serviceCode){
       requestBody['serviceCode'] = serviceCode
     }
-    if(venueEpims){
-      requestBody['location'] = venueEpims
+    if(venueEpimms){
+      requestBody['location'] = venueEpimms
     }
 
     const headers = {
