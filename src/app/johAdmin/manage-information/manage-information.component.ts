@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { UserInfoModel, UserModel } from '../../_models/user.model';
-import { UserService } from '../../_services/user-service/user.service';
 import { AdminWorkflowService } from '../../_workflows/admin-workflow.service';
 
 @Component({
@@ -16,7 +15,6 @@ export class ManageInformationComponent implements OnInit{
 
   constructor(
     private adminWorkflow: AdminWorkflowService,
-    private userSvc: UserService
   ){
     this.userInfo = this.adminWorkflow.getUserInfo();
   }

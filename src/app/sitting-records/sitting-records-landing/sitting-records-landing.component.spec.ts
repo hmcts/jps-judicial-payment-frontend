@@ -12,6 +12,8 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Router } from '@angular/router';
 import { LandingWorkflowService } from 'src/app/_workflows/landing-workflow.service';
 import { of } from 'rxjs';
+import { UserService } from 'src/app/_services/user-service/user.service';
+import { UserInfoModel } from 'src/app/_models/user.model';
 
 describe('SittingRecordsLandingComponent', () => {
   let component: SittingRecordsLandingComponent;
@@ -19,6 +21,8 @@ describe('SittingRecordsLandingComponent', () => {
   let cookieService: CookieService;
   let router: Router;
   let landingWorkflow: LandingWorkflowService
+  let userService: UserService;
+  let adminWorkflow: AdminWorkflowService
   
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -28,7 +32,8 @@ describe('SittingRecordsLandingComponent', () => {
         CookieService,
         SubmitterWorkflowService,
         PublisherWorkflowService,
-        AdminWorkflowService
+        AdminWorkflowService,
+        UserService
       ],
       imports: [
         ReactiveFormsModule,
@@ -44,6 +49,8 @@ describe('SittingRecordsLandingComponent', () => {
     cookieService = TestBed.inject(CookieService);
     router = TestBed.inject(Router);
     landingWorkflow = TestBed.inject(LandingWorkflowService)
+    userService = TestBed.inject(UserService)
+    adminWorkflow = TestBed.inject(AdminWorkflowService)
 
     fixture.detectChanges();
   });
@@ -115,14 +122,67 @@ describe('SittingRecordsLandingComponent', () => {
 
   describe('submitForm', () => {
 
-    it('should navigate to manage records page for submitter', () => {
+    it('should navigate to manageJudicial records page for JOH Admin', () => {
       component.userForm.controls['options'].setValue('viewManageJudicialInfo');
+      const johFormData = new FormBuilder().group({
+        tribunalService: [null],
+        johName: [{value: {personalCode: "1234"}}]
+      });
+      const mockResponse: UserInfoModel[] = [
+        {
+          sidam_id: '',
+          object_id: '',
+          known_as: '',
+          surname: '',
+          full_name: '',
+          post_nominals: '',
+          email_id: '',
+          personal_code: '',
+          appointments: [
+            {
+                base_location_id: '',
+                epimms_id: '',
+                court_name: '',
+                cft_region_id: '',
+                cft_region: '',
+                location_id: '',
+                location: '',
+                is_principal_appointment: '',
+                appointment: '',
+                appointment_type: '',
+                service_code: '',
+                roles: [
+                  ''
+                ],
+                start_date: '',
+                end_date: ''
+            }
+          ],
+          authorisations: [
+            {
+                jurisdiction: '',
+                ticket_description: '',
+                ticket_code: '',
+                service_codes: [
+                  ''
+                ],
+                start_date: '',
+                end_date: ''
+            }
+          ]
+      }
+    ]
+      
+      adminWorkflow.setFormData(johFormData)
       spyOn(landingWorkflow, 'setupWorkflows').and.returnValue(of())
+      spyOn(adminWorkflow, 'setUserInfo')
+      spyOn(userService, 'getUserInfo').and.returnValue(of(mockResponse))
       spyOn(router, 'navigate');
+
       component.submitForm();
   
-      expect(router.navigate)
-        .toHaveBeenCalledWith(['sittingRecords', 'manageJudicial']);
+      expect(adminWorkflow.setUserInfo).toHaveBeenCalled()
+      expect(router.navigate).toHaveBeenCalledWith(['sittingRecords', 'manageJudicial']);
     });
 
     it('should navigate to manage records page for submitter', () => {
