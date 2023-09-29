@@ -30,4 +30,9 @@ export class ManageInformationComponent implements OnInit{
     this.selectedTribService = this.adminWorkflow.getFormData().value['tribunalService'];
   }
 
+  cancelFlow(){
+    this.adminWorkflow.resetFormData();
+    this.router.navigate(['sittingRecords', 'home'])
+  }
+
 }
