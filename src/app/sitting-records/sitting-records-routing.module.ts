@@ -18,6 +18,7 @@ import { SittingRecordsSubmitGuard } from '../_guards/sitting-records/sitting-re
 import { AuthGuard } from '../_guards/auth/auth.guard';
 
 import { ManageInformationComponent } from '../johAdmin/manage-information/manage-information.component'
+import { ManageFlagsComponent } from '../johAdmin/manage-flags/manage-flags.component'
 
 import { JohAdminGuard } from '../_guards/joh-admin/joh-admin-guard';
 
@@ -76,6 +77,10 @@ const routes: Routes = [
             path: 'manageJudicial',
             component: ManageInformationComponent,
             canActivate:[JohAdminGuard]
+          },
+          {
+            path: 'johFlags',
+            component: ManageFlagsComponent
           }
         ]
     }

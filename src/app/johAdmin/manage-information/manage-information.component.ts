@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserInfoModel, UserModel } from '../../_models/user.model';
 import { AdminWorkflowService } from '../../_workflows/admin-workflow.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-manage-information',
@@ -15,8 +16,13 @@ export class ManageInformationComponent implements OnInit{
 
   constructor(
     private adminWorkflow: AdminWorkflowService,
+    private router: Router
   ){
     this.userInfo = this.adminWorkflow.getUserInfo();
+  }
+
+  editJohFlags(){
+    void this.router.navigate(['sittingRecords', 'johFlags'])
   }
 
   ngOnInit(){

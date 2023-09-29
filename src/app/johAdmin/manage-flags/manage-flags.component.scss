@@ -1,0 +1,10 @@
+@import 'node_modules/govuk-frontend/govuk/all.scss';
+
+.border-color{ 
+    border: 2px solid govuk-colour("mid-grey");
+    padding-top: govuk-spacing(3);
+    padding-bottom: govuk-spacing(3);
+    padding-left: govuk-spacing(2);
+    padding-right: govuk-spacing(2);
+    margin-bottom: govuk-spacing(3);
+}

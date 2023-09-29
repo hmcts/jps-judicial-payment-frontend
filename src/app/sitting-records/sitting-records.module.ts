@@ -38,7 +38,9 @@ import { CapitalizeFirstLetterPipe } from '../_pipes/convertTableStatus'
 import { ConvertRoleIdToString } from '../_pipes/convertRoleIdToString';
 import { SittingRecordsLandingJohadminComponent } from './sitting-records-landing/sitting-records-landing-johadmin/sitting-records-landing-johadmin.component';
 import { UserSearchComponent } from './shared-components/user-search/user-search.component'
+
 import { ManageInformationComponent } from '../johAdmin/manage-information/manage-information.component';
+import { ManageFlagsComponent } from '../johAdmin/manage-flags/manage-flags.component'
 
 @NgModule({
   imports: [
@@ -81,7 +83,8 @@ import { ManageInformationComponent } from '../johAdmin/manage-information/manag
     ConvertRoleIdToString,
     SittingRecordsLandingJohadminComponent,
     UserSearchComponent,
-    ManageInformationComponent
+    ManageInformationComponent,
+    ManageFlagsComponent
   ]
 })
 export class SittingRecordsModule { }
