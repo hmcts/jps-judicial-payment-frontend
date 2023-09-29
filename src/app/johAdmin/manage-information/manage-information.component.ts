@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserInfoModel, UserModel } from '../../_models/user.model';
 import { AdminWorkflowService } from '../../_workflows/admin-workflow.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-manage-information',
@@ -15,6 +16,7 @@ export class ManageInformationComponent implements OnInit{
 
   constructor(
     private adminWorkflow: AdminWorkflowService,
+    private router: Router
   ){
     this.userInfo = this.adminWorkflow.getUserInfo();
   }
@@ -22,6 +24,11 @@ export class ManageInformationComponent implements OnInit{
   ngOnInit(){
     this.selectedJOH = this.adminWorkflow.getFormData().value['johName'] as UserModel
     this.selectedTribService = this.adminWorkflow.getFormData().value['tribunalService'];
+  }
+
+  cancelFlow(){
+    this.adminWorkflow.resetFormData();
+    this.router.navigate(['sittingRecords', 'home'])
   }
 
 }
