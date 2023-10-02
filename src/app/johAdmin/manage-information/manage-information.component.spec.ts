@@ -4,11 +4,13 @@ import { ManageInformationComponent } from './manage-information.component';
 import { AdminWorkflowService } from '../../_workflows/admin-workflow.service';
 import { FormBuilder } from '@angular/forms';
 import { UserModel } from '../../_models/user.model';
+import { Router } from '@angular/router';
 
 describe('ManageInformationComponent', () => {
   let component: ManageInformationComponent;
   let fixture: ComponentFixture<ManageInformationComponent>;
   let adminWorkflowService: AdminWorkflowService;
+  let router: Router
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -19,6 +21,7 @@ describe('ManageInformationComponent', () => {
   });
 
   beforeEach(() => {
+    router = TestBed.inject(Router)
     fixture = TestBed.createComponent(ManageInformationComponent);
     component = fixture.componentInstance;
     adminWorkflowService = TestBed.inject(AdminWorkflowService);
@@ -59,4 +62,23 @@ describe('ManageInformationComponent', () => {
     expect(component.selectedTribService).toEqual({hmctsServiceCode: '1234', service: 'service 1'});
 
   });
+
+  it('should reset form data and navigate to home', () => {
+    spyOn(adminWorkflowService, 'resetFormData');
+    spyOn(router, 'navigate');
+
+    component.cancelFlow();
+
+    expect(adminWorkflowService.resetFormData).toHaveBeenCalled();
+    expect(router.navigate).toHaveBeenCalledWith(['sittingRecords', 'home']);
+  });
+
+  it('should navigate to "sittingRecords/johFlags" when editJohFlags() is called', () => {
+    spyOn(router, 'navigate');
+  
+    component.editJohFlags();
+  
+    expect(router.navigate).toHaveBeenCalledWith(['sittingRecords', 'johFlags']);
+  });
+
 });

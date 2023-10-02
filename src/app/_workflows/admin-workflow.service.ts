@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { UserInfoModel } from '../_models/user.model';
+import { DateService } from '../_services/date-service/date-service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,10 @@ export class AdminWorkflowService {
   userLandingData!: FormGroup;
   hasLandingVisited = false;
   userRole!: UserInfoModel
+
+  constructor(
+    private dateSvc: DateService
+  ){}
 
   setLandingVisited(){
     this.hasLandingVisited = true;
@@ -59,5 +64,14 @@ export class AdminWorkflowService {
   }
   getUserInfo(){
     return this.userRole
+  }
+
+  createPostObject(flagValues){
+    const postObj = {
+      "londonWeightingFlag": flagValues.londonFlag,
+      "crownServantFlag": flagValues.crownFlag,
+      "effectiveFromDate": this.dateSvc.formatDateForPostJoh(flagValues.flagDate)
+    }
+    return postObj
   }
 }

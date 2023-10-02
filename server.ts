@@ -12,6 +12,7 @@ import { getXuiNodeMiddleware } from './api/auth';
 import refDataRouter from './api/refdata/routes';
 import { IdamAuthenticatorService } from './api/refdata/authenticator/index';
 import sittingRecordsRouter from './api/sittingrecords/routes';
+import johRouter from './api/joh/routes';
 import { Logger } from '@hmcts/nodejs-logging';
 const logger = Logger.getLogger()
 const TOKEN_REFRESH = 1000 * 60 * 60 * 3;
@@ -68,6 +69,7 @@ export function app(): express.Express {
   server.use('/refdata', IdamAuthSvc.assignTokensMiddleware.bind(IdamAuthSvc))
   server.use('/refdata', refDataRouter, errorHandler)
   server.use('/sittingrecord', sittingRecordsRouter, errorHandler)
+  server.use('/joh', johRouter, errorHandler)
 
   server.engine('html', ngExpressEngine({
     bootstrap: AppServerModule,

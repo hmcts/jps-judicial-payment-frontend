@@ -35,7 +35,7 @@
         </tbody>
     </table> 
 
-    <div class="border-color">
+    <div class="border-color" [formGroup]="flagForm">
         <div class="govuk-form-group">
             <fieldset class="govuk-fieldset" aria-describedby="changedName-hint">
                 <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
@@ -48,14 +48,14 @@
                 </div>
                 <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
                     <div class="govuk-radios__item">
-                        <input class="govuk-radios__input" id="londonFlag" name="londonFlag" type="radio" value="yes">
-                        <label class="govuk-label govuk-radios__label" for="londonFlag">
+                        <input class="govuk-radios__input" id="londonFlag-true" name="londonFlag" type="radio" value="true" formControlName="londonFlag">
+                        <label class="govuk-label govuk-radios__label" for="londonFlag-true">
                             Yes
                         </label>
                     </div>
                     <div class="govuk-radios__item">
-                        <input class="govuk-radios__input" id="londonFlag-2" name="londonFlag" type="radio" value="no">
-                        <label class="govuk-label govuk-radios__label" for="londonFlag-2">
+                        <input class="govuk-radios__input" id="londonFlag-false" name="londonFlag" type="radio" value="false" formControlName="londonFlag">
+                        <label class="govuk-label govuk-radios__label" for="londonFlag-false">
                             No
                         </label>
                     </div>
@@ -66,15 +66,14 @@
                 </div>
                 <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
                     <div class="govuk-radios__item">
-                        <input class="govuk-radios__input" id="crownServFlag" name="crownServFlag" type="radio" value="yes">
-                        <label class="govuk-label govuk-radios__label" for="crownServFlag">
+                        <input class="govuk-radios__input" id="crownServFlag-true" name="crownFlag" type="radio" value="true" formControlName="crownFlag">
+                        <label class="govuk-label govuk-radios__label" for="crownServFlag-true">
                             Yes
                         </label>
                     </div>
                     <div class="govuk-radios__item">
-                        <input class="govuk-radios__input" id="crownServFlag-2" name="crownServFlag" type="radio"
-                            value="no">
-                        <label class="govuk-label govuk-radios__label" for="crownServFlag-2">
+                        <input class="govuk-radios__input" id="crownServFlag-false" name="crownFlag" type="radio" value="false" formControlName="crownFlag">
+                        <label class="govuk-label govuk-radios__label" for="crownServFlag-false">
                             No
                         </label>
                     </div>
@@ -82,37 +81,56 @@
     
             </fieldset>
     
-            <div class="govuk-form-group">
-                <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
+            <div class="govuk-form-group" formGroupName="flagDate" [class.govuk-form-group--error]="f['flagDate'].errors !== null && f['flagDate'].dirty">
+                <fieldset class="govuk-fieldset" role="group" aria-describedby="flag-date-hint">
                     <legend class="govuk-fieldset__legend">
                         When should this change be effective from?
                     </legend>
-                    <div class="govuk-date-input" id="passport-issued">
+                    <p id="flagDate-error-out-of-support" class="govuk-error-message" *ngIf="f['flagDate'].hasError('date_out_of_support')">
+                        <span class="govuk-visually-hidden">Error:</span> The date you have selected is out of support
+                    </p>
+                    <p id="flagDate-error-out-of-support" class="govuk-error-message" *ngIf="f['flagDate'].hasError('date_invalid')">
+                        <span class="govuk-visually-hidden">Error:</span> Invalid date selected
+                    </p>
+                    <div class="govuk-date-input" id="flag-date">
                         <div class="govuk-date-input__item">
                             <div class="govuk-form-group">
-                                <label class="govuk-label govuk-date-input__label" for="passport-issued-day">
+                                <label class="govuk-label govuk-date-input__label" for="flag-date-day">
                                     Day
                                 </label>
                                 <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                                    id="passport-issued-day" name="passport-issued-day" type="text" inputmode="numeric">
+                                    id="flag-date-day" name="flagDay" type="text" inputmode="numeric" formControlName="flagDay"
+                                    [maxlength]="2"
+                                    appNumbersOnly
+                                    [class.govuk-input--error] = "f['flagDate'].errors !== null && f['flagDate'].dirty"
+                                    >
                             </div>
                         </div>
                         <div class="govuk-date-input__item">
                             <div class="govuk-form-group">
-                                <label class="govuk-label govuk-date-input__label" for="passport-issued-month">
+                                <label class="govuk-label govuk-date-input__label" for="flag-date-month">
                                     Month
                                 </label>
                                 <input class="govuk-input govuk-date-input__input govuk-input--width-2"
-                                    id="passport-issued-month" name="passport-issued-month" type="text" inputmode="numeric">
+                                    id="flag-date-month" name="flagMonth" type="text" inputmode="numeric" formControlName="flagMonth"
+                                    [maxlength]="2"
+                                    appNumbersOnly
+                                    [class.govuk-input--error] = "f['flagDate'].errors !== null && f['flagDate'].dirty"
+                                    >
                             </div>
                         </div>
                         <div class="govuk-date-input__item">
                             <div class="govuk-form-group">
-                                <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
+                                <label class="govuk-label govuk-date-input__label" for="flag-date-year">
                                     Year
                                 </label>
                                 <input class="govuk-input govuk-date-input__input govuk-input--width-4"
-                                    id="passport-issued-year" name="passport-issued-year" type="text" inputmode="numeric">
+                                    id="flag-date-year" name="flagYear" type="text" inputmode="numeric" formControlName="flagYear"
+                                    [maxlength]="4"
+                                    [minlength]="4"
+                                    appNumbersOnly
+                                    [class.govuk-input--error] = "f['flagDate'].errors !== null && f['flagDate'].dirty"
+                                    >
                             </div>
                         </div>
                     </div>
@@ -129,7 +147,7 @@
         <button class="govuk-button govuk-button--secondary" data-module="govuk-button" (click)="goBack()">
             Previous
         </button>
-        <button class="govuk-button" data-module="govuk-button">
+        <button class="govuk-button" data-module="govuk-button" [disabled]="flagForm.invalid" (click)="continueFlow()">
             Continue
         </button>
     </div>

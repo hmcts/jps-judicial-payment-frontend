@@ -36,5 +36,9 @@
   "/sittingrecords/add/*" : {
     "target": "http://localhost:3000",
     "secure": false
+  },
+  "/joh/*" : {
+    "target": "http://localhost:3000",
+    "secure": false
   }
 }

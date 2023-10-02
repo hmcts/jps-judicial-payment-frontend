@@ -2,13 +2,18 @@ import { TestBed } from '@angular/core/testing';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { AdminWorkflowService } from './admin-workflow.service';
+import { JohService } from '../_services/joh-service/joh.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('AdminWorkflowService', () => {
   let mockWorkflowService: AdminWorkflowService;
   let mockUserFormData: FormGroup;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      providers: [JohService],
+      imports: [HttpClientTestingModule]
+    });
     mockWorkflowService = TestBed.inject(AdminWorkflowService);
 
     mockUserFormData = new FormBuilder().group({
