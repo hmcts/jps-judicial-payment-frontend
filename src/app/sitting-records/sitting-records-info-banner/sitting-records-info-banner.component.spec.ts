@@ -2,8 +2,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SittingRecordsInfoBannerComponent } from './sitting-records-info-banner.component';
 import { ManageSittingRecordsWorkflowService } from '../../_workflows/manage-sitting-record-workflow.service';
 import { DateService } from '../../_services/date-service/date-service';
-import { HttpClientModule } from '@angular/common/http';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { of } from 'rxjs';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('SittingRecordsInfoBannerComponent', () => {
   let component: SittingRecordsInfoBannerComponent;
@@ -16,7 +17,7 @@ describe('SittingRecordsInfoBannerComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [SittingRecordsInfoBannerComponent],
       providers: [ManageSittingRecordsWorkflowService, DateService, FormBuilder],
-      imports: [HttpClientModule],
+      imports: [HttpClientTestingModule],
     }).compileComponents();
   });
 

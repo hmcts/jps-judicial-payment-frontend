@@ -133,6 +133,7 @@ export class ManageSittingRecordsComponent implements OnInit {
 
     if (userRole.indexOf('jps-recorder') != -1)
       this.showPreviousButton = false;
+      
   }
   
   public getVenues(serviceCode: string) {

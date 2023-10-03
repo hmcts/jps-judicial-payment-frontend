@@ -170,19 +170,19 @@ describe('AddSittingRecordComponent', () => {
   });
   
   it('should initialize component properties and set value change listeners for JOH form controls', () => {
-    component.ngOnInit();
-    srWorkflowService.setAddSittingRecords(component.addSittingRecordsFG)
-    srWorkflowService.setCameFromConfirm();
-    
-    spyOn(srWorkflowService, 'getAddSittingRecords').and.returnValue(component.addSittingRecordsFG);
-    spyOn(srWorkflowService, 'checkCameFromConfirm').and.returnValue(true);
-  
     const johFormArray = new FormArray([
       new FormGroup({
-        johName: new FormControl(),
+        johName: new FormControl({ personalCode: '12355' }),
         johRole: new FormControl()
       })
     ]);
+    
+    const formGroup = new FormGroup({
+      JOH: johFormArray
+    });
+    spyOn(srWorkflowService, 'getAddSittingRecords').and.returnValue(formGroup);
+    spyOn(srWorkflowService, 'checkCameFromConfirm').and.returnValue(true);
+  
     component.ngOnInit();
   
     for (let i = 0; i < johFormArray.length; i++) {
@@ -190,5 +190,4 @@ describe('AddSittingRecordComponent', () => {
     }
   });
   
-
 });

@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { JPHeaderComponent } from './jp-header.component';
 import { LogoutComponent } from '../logout/logout.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('JPHeaderComponent', () => {
   let component: JPHeaderComponent;
@@ -10,7 +10,7 @@ describe('JPHeaderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientModule],
+      imports: [HttpClientTestingModule],
       declarations: [ JPHeaderComponent, LogoutComponent ]
     })
     .compileComponents();

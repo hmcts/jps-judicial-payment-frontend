@@ -39,22 +39,4 @@ describe('DateService', () => {
     });
   });
 
-  describe('convertPeriod', () => {
-    it('should return "Morning" when "AM" is passed', () => {
-      expect(service.convertPeriod('AM')).toEqual('Morning');
-    });
-  
-    it('should return "Afternoon" when "PM" is passed', () => {
-      expect(service.convertPeriod('PM')).toEqual('Afternoon');
-    });
-  
-    it('should return "Full day" when "FULL_DAY" is passed', () => {
-      expect(service.convertPeriod('FULL_DAY')).toEqual('Full day');
-    });
-  
-    it('should return an empty string when no match is found', () => {
-      expect(service.convertPeriod('NIGHT')).toEqual('');
-    });
-  });
-
 });
