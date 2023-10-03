@@ -1,19 +1,19 @@
 
 // Import relevant packages and mock any services or modules as needed
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormBuilder, ReactiveFormsModule, FormGroup, FormControl } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CookieService } from 'ngx-cookie-service';
 import { SubmitterWorkflowService } from '../../_workflows/submitter-workflow.service';
 import { PublisherWorkflowService } from '../../_workflows/publisher-workflow.service';
 import { AdminWorkflowService } from '../../_workflows/admin-workflow.service';
-import { SittingRecordsLandingComponent } from './sitting-records-landing.component';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Router } from '@angular/router';
 import { LandingWorkflowService } from 'src/app/_workflows/landing-workflow.service';
 import { of } from 'rxjs';
 import { UserService } from 'src/app/_services/user-service/user.service';
 import { UserInfoModel } from 'src/app/_models/user.model';
+import { SittingRecordsLandingComponent } from './sitting-records-landing.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('SittingRecordsLandingComponent', () => {
   let component: SittingRecordsLandingComponent;
@@ -26,7 +26,8 @@ describe('SittingRecordsLandingComponent', () => {
   
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SittingRecordsLandingComponent ],
+      imports: [ RouterTestingModule, HttpClientTestingModule, ReactiveFormsModule],
+      declarations: [ SittingRecordsLandingComponent,  SittingRecordsLandingComponent ],
       providers: [
         FormBuilder,
         CookieService,
@@ -35,11 +36,6 @@ describe('SittingRecordsLandingComponent', () => {
         AdminWorkflowService,
         UserService
       ],
-      imports: [
-        ReactiveFormsModule,
-        RouterTestingModule,
-        HttpClientTestingModule
-      ]
     }).compileComponents();
   });
 
