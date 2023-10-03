@@ -1,11 +1,11 @@
 import { TestBed } from '@angular/core/testing';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { ManageSittingRecordsWorkflowService } from './manage-sitting-record-workflow.service';
-import { HttpClientModule } from '@angular/common/http';
 import { ViewSittingRecordResponse } from '../_models/viewSittingRecords.model';
 import { ViewSittingRecordService } from '../_services/sitting-records-service/view-sitting-records-service';
 import { DateService } from '../_services/date-service/date-service';
 import { of } from 'rxjs';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('RecorderWorkflowService', () => {
   let mockmsrWorkflowService: ManageSittingRecordsWorkflowService;
@@ -16,7 +16,7 @@ describe('RecorderWorkflowService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [ManageSittingRecordsWorkflowService, ViewSittingRecordService, DateService],
-      imports: [HttpClientModule]
+      imports: [HttpClientTestingModule]
     });
 
     mockmsrWorkflowService = TestBed.inject(ManageSittingRecordsWorkflowService);

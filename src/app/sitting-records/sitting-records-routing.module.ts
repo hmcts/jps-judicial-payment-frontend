@@ -10,12 +10,16 @@ import { DeleteSuccessComponent } from './delete-sitting-records/delete-success/
 import { AddSittingRecordComponent } from './add-sitting-record/add-sitting-record.component'
 import { AddSittingRecordSuccessComponent } from './add-sitting-record/add-sitting-record-success/add-sitting-record-success.component';
 import { AddSittingRecordsConfirmComponent } from './add-sitting-record/add-sitting-records-confirm/add-sitting-records-confirm.component'
+import { DuplicateSittingRecordsComponent } from './duplicate-sitting-records/duplicate-sitting-records.component'
 import { SittingRecordsLandingComponent } from './sitting-records-landing/sitting-records-landing.component';
 import { SittingRecordsViewGuard } from '../_guards/sitting-records/sitting-records-view.guard';
 import { SittingRecordsLandingGuard } from '../_guards/sitting-records/sitting-records-landing.guard';
 import { SittingRecordsManageGuard } from '../_guards/sitting-records/sitting-records-manage.guard';
 import { SittingRecordsSubmitGuard } from '../_guards/sitting-records/sitting-records-submit.guard';
 import { AuthGuard } from '../_guards/auth/auth.guard';
+import { DuplicateConfirmComponent } from './duplicate-sitting-records/duplicate-confirm/duplicate-option-confirm/duplicate-confirm.component';
+import { DuplicateExistingConfirmComponent } from './duplicate-sitting-records/duplicate-confirm/duplicate-existing-confirm/duplicate-existing-confirm.component'
+import { DuplicateConfirmSuccessComponent } from './duplicate-sitting-records/duplicate-confirm/duplicate-confirm-success/duplicate-confirm-success.component';
 
 import { ManageInformationComponent } from '../johAdmin/manage-information/manage-information.component'
 import { ManageFlagsComponent } from '../johAdmin/manage-flags/manage-flags.component'
@@ -83,6 +87,26 @@ const routes: Routes = [
             path: 'johFlags',
             component: ManageFlagsComponent,
             canActivate: [JohAdminFlagGuard]
+          },
+          {
+            path: 'addDuplicates',
+            component: DuplicateSittingRecordsComponent,
+            canActivate: [SittingRecordsViewGuard]
+          },
+          {
+            path: 'confirmDuplicates',
+            component: DuplicateConfirmComponent,
+            canActivate: [SittingRecordsViewGuard]
+          },
+          {
+            path: 'confirmExisting',
+            component: DuplicateExistingConfirmComponent,
+            canActivate: [SittingRecordsViewGuard]
+          },
+          {
+            path: 'confirmDupeSuccess',
+            component: DuplicateConfirmSuccessComponent,
+            canActivate: [SittingRecordsViewGuard]
           }
         ]
     }

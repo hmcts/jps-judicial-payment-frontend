@@ -8,7 +8,7 @@ import { DataTablesModule } from 'angular-datatables';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ViewSittingRecordResponse } from '../../_models/viewSittingRecords.model';
 import { of } from 'rxjs';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { SittingRecordsInfoBannerComponent } from '../sitting-records-info-banner/sitting-records-info-banner.component';
 
 describe('ViewSittingRecordsComponent', () => {
@@ -22,7 +22,7 @@ describe('ViewSittingRecordsComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ ViewSittingRecordsComponent, SittingRecordsInfoBannerComponent ],
       providers: [ ManageSittingRecordsWorkflowService, DateService ],
-      imports: [RouterTestingModule, DataTablesModule, HttpClientModule]
+      imports: [RouterTestingModule, DataTablesModule, HttpClientTestingModule]
     }).compileComponents();
   });
 
@@ -68,5 +68,5 @@ describe('ViewSittingRecordsComponent', () => {
     component.goBack();
     expect(mockRouter.navigate).toHaveBeenCalledWith(['sittingRecords','manage']);
   });
- 
+
 });
