@@ -40,4 +40,47 @@ describe('UserInfoService', () => {
             expect(userName).toEqual('John Doe');
         });
     });
+
+    describe('isRecorder', () => {
+        it('should return the index of "jps-recorder" in userRoles', () => {
+            service.userRoles = 'jps-recorder';
+            const index = service.isRecorder();
+            expect(index).toEqual(0);
+        });
+
+        it('should return -1 if "jps-recorder" is not in userRoles', () => {
+            service.userRoles = 'User';
+            const index = service.isRecorder();
+            expect(index).toEqual(-1);
+        });
+    });
+
+    describe('isPublisher', () => {
+        it('should return the index of "jps-publisher" in userRoles', () => {
+            service.userRoles = 'jps-publisher';
+            const index = service.isPublisher();
+            expect(index).toEqual(0);
+        });
+
+        it('should return -1 if "jps-publisher" is not in userRoles', () => {
+            service.userRoles = 'User';
+            const index = service.isPublisher();
+            expect(index).toEqual(-1);
+        });
+    });
+
+    describe('isJohAdmin', () => {
+        it('should return the index of "jps-JOH-admin" in userRoles', () => {
+            service.userRoles = 'jps-JOH-admin';
+            const index = service.isJohAdmin();
+            expect(index).toEqual(0);
+        });
+
+        it('should return -1 if "jps-JOH-admin" is not in userRoles', () => {
+            service.userRoles = 'User';
+            const index = service.isJohAdmin();
+            expect(index).toEqual(-1);
+        });
+    });
+
 });

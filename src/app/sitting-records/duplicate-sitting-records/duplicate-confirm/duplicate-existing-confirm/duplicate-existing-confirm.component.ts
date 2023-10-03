@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { SittingRecordWorkflowService } from 'src/app/_workflows/sitting-record-workflow.service';
+import { ManageSittingRecordsWorkflowService} from 'src/app/_workflows/manage-sitting-record-workflow.service'
 
 @Component({
   selector: 'app-duplicate-existing-confirm',
@@ -11,7 +11,7 @@ export class DuplicateExistingConfirmComponent {
 
   constructor(
     private router: Router,
-    private srWorkFlow: SittingRecordWorkflowService
+    private srWorkFlow: ManageSittingRecordsWorkflowService
   ){}
 
   navigateBackToView(){

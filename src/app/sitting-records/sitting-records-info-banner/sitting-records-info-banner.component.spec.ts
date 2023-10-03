@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SittingRecordsInfoBannerComponent } from './sitting-records-info-banner.component';
-import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-workflow.service';
+import { ManageSittingRecordsWorkflowService } from '../../_workflows/manage-sitting-record-workflow.service';
 import { DateService } from '../../_services/date-service/date-service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { of } from 'rxjs';
@@ -9,14 +9,14 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 describe('SittingRecordsInfoBannerComponent', () => {
   let component: SittingRecordsInfoBannerComponent;
   let fixture: ComponentFixture<SittingRecordsInfoBannerComponent>;
-  let srWorkFlowService: SittingRecordWorkflowService;
+  let srWorkFlowService: ManageSittingRecordsWorkflowService;
   let dateService: DateService;
   let formBuilder: FormBuilder;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [SittingRecordsInfoBannerComponent],
-      providers: [SittingRecordWorkflowService, DateService, FormBuilder],
+      providers: [ManageSittingRecordsWorkflowService, DateService, FormBuilder],
       imports: [HttpClientTestingModule],
     }).compileComponents();
   });
@@ -24,7 +24,7 @@ describe('SittingRecordsInfoBannerComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SittingRecordsInfoBannerComponent);
     component = fixture.componentInstance;
-    srWorkFlowService = TestBed.inject(SittingRecordWorkflowService);
+    srWorkFlowService = TestBed.inject(ManageSittingRecordsWorkflowService);
     dateService = TestBed.inject(DateService);
     formBuilder = TestBed.inject(FormBuilder);
 

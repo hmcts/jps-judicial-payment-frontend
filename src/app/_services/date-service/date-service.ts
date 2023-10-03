@@ -20,6 +20,16 @@ export class DateService {
     return `${year}-${month}-${day}`;
   }
 
+  formatDateForPostJoh(flagObj): string{
+    const {flagDay, flagMonth, flagYear} = flagObj;
+    const date = new Date(Number(flagYear), Number(flagMonth)-1, Number(flagDay));
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
+  }
+
   getPeriod(am: boolean, pm: boolean): string {
     if(am && pm){ return "Full day" }
     if(am){ return "Morning" }

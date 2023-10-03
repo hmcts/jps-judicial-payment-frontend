@@ -1,13 +1,13 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ViewSittingRecordsComponent } from './view-sitting-records.component';
+import { ManageSittingRecordsWorkflowService } from '../../_workflows/manage-sitting-record-workflow.service';
 import { DateService } from '../../_services/date-service/date-service';
 import { Router } from '@angular/router';
 import { DataTablesModule } from 'angular-datatables';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ViewSittingRecordResponse } from '../../_models/viewSittingRecords.model';
 import { of } from 'rxjs';
-import { SittingRecordWorkflowService } from 'src/app/_workflows/sitting-record-workflow.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { SittingRecordsInfoBannerComponent } from '../sitting-records-info-banner/sitting-records-info-banner.component';
 
@@ -15,13 +15,13 @@ describe('ViewSittingRecordsComponent', () => {
   let component: ViewSittingRecordsComponent;
   let fixture: ComponentFixture<ViewSittingRecordsComponent>;
   let mockRouter: Router;
-  let mockSRWorkflowService: SittingRecordWorkflowService;
+  let mockmsrWorkflowService: ManageSittingRecordsWorkflowService;
   let mockDateSvc: DateService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [ ViewSittingRecordsComponent, SittingRecordsInfoBannerComponent ],
-      providers: [ SittingRecordWorkflowService, DateService ],
+      providers: [ ManageSittingRecordsWorkflowService, DateService ],
       imports: [RouterTestingModule, DataTablesModule, HttpClientTestingModule]
     }).compileComponents();
   });
@@ -30,7 +30,7 @@ describe('ViewSittingRecordsComponent', () => {
     fixture = TestBed.createComponent(ViewSittingRecordsComponent);
     component = fixture.componentInstance;
     mockRouter = TestBed.inject(Router);
-    mockSRWorkflowService = TestBed.inject(SittingRecordWorkflowService);
+    mockmsrWorkflowService = TestBed.inject(ManageSittingRecordsWorkflowService);
     mockDateSvc = TestBed.inject(DateService)
   });
 
@@ -49,10 +49,10 @@ describe('ViewSittingRecordsComponent', () => {
       "sittingRecords": []
     }
 
-    mockSRWorkflowService.setFormData(formDataMock);
+    mockmsrWorkflowService.setFormData(formDataMock);
     fixture.detectChanges();
     spyOn(mockDateSvc, 'formatDateFromForm').and.returnValue(formattedDate);
-    spyOn(mockSRWorkflowService, 'getSittingRecordsData').and.returnValue(of(response));
+    spyOn(mockmsrWorkflowService, 'getSittingRecordsData').and.returnValue(of(response));
     
     component.ngOnInit();
     

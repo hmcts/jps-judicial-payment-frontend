@@ -11,6 +11,7 @@ import { HealthCheck } from './src/app/server/healthcheck';
 import { getXuiNodeMiddleware } from './api/auth';
 import refDataRouter from './api/refdata/routes';
 import sittingRecordsRouter from './api/sittingrecords/routes';
+import johRouter from './api/joh/routes';
 import { Logger } from '@hmcts/nodejs-logging';
 const logger = Logger.getLogger()
 
@@ -57,6 +58,7 @@ export function app(): express.Express {
   server.use(getXuiNodeMiddleware());
   server.use('/refdata', refDataRouter, errorHandler)
   server.use('/sittingrecord', sittingRecordsRouter, errorHandler)
+  server.use('/joh', johRouter, errorHandler)
 
   server.engine('html', ngExpressEngine({
     bootstrap: AppServerModule,

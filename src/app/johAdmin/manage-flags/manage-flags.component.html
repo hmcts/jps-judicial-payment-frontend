@@ -1,0 +1,159 @@
+<main class="govuk-main-wrapper " id="main-content" role="main">
+
+    <span class="govuk-caption-l">
+        Manage judicial information 
+    </span>
+    <h1 class="govuk-heading-l">
+        Flags for {{selectedJOH.fullName}}
+    </h1>
+
+    <p class="govuk-body">The current flag statuses and any planned changes are listed below.</p>
+
+    <a class="govuk-link link-color">
+        Hide/unhide suprseeded flags
+    </a>
+
+    <table class="govuk-table">
+        <caption class="govuk-table__caption govuk-table__caption--m"></caption>
+        <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__cell">London Flag</th>
+                <th scope="col" class="govuk-table__cell">Crown Servant Flag</th>
+                <th scope="col" class="govuk-table__cell">Effective from</th>
+                <th scope="col" class="govuk-table__cell">Date time created</th>
+                <th scope="col" class="govuk-table__cell">Status</th>
+            </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+            <tr class="govuk-table__row">
+                <td scope="row" class="govuk-table__cell">Yes</td>
+                <td class="govuk-table__cell"> No </td>
+                <td class="govuk-table__cell"> 01/09/2022 </td>
+                <td class="govuk-table__cell"> 00:00 10/10/2023</td>
+                <td class="govuk-table__cell"> Superseeded</td>
+            </tr>
+        </tbody>
+    </table> 
+
+    <div class="border-color" [formGroup]="flagForm">
+        <div class="govuk-form-group">
+            <fieldset class="govuk-fieldset" aria-describedby="changedName-hint">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                    <h1 class="govuk-fieldset__heading">
+                        Use the radio buttons to make flag changes
+                    </h1>
+                </legend>
+                <div id="changedName-hint" class="govuk-fieldset__legend">
+                    Should this JOH have a London flag?
+                </div>
+                <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="londonFlag-true" name="londonFlag" type="radio" value="true" formControlName="londonFlag">
+                        <label class="govuk-label govuk-radios__label" for="londonFlag-true">
+                            Yes
+                        </label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="londonFlag-false" name="londonFlag" type="radio" value="false" formControlName="londonFlag">
+                        <label class="govuk-label govuk-radios__label" for="londonFlag-false">
+                            No
+                        </label>
+                    </div>
+                </div>
+    
+                <div id="changedName-hint" class="govuk-fieldset__legend">
+                    Should this JOH have a Crown Servant flag?
+                </div>
+                <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="crownServFlag-true" name="crownFlag" type="radio" value="true" formControlName="crownFlag">
+                        <label class="govuk-label govuk-radios__label" for="crownServFlag-true">
+                            Yes
+                        </label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="crownServFlag-false" name="crownFlag" type="radio" value="false" formControlName="crownFlag">
+                        <label class="govuk-label govuk-radios__label" for="crownServFlag-false">
+                            No
+                        </label>
+                    </div>
+                </div>
+    
+            </fieldset>
+    
+            <div class="govuk-form-group" formGroupName="flagDate" [class.govuk-form-group--error]="f['flagDate'].errors !== null && f['flagDate'].dirty">
+                <fieldset class="govuk-fieldset" role="group" aria-describedby="flag-date-hint">
+                    <legend class="govuk-fieldset__legend">
+                        When should this change be effective from?
+                    </legend>
+                    <p id="flagDate-error-out-of-support" class="govuk-error-message" *ngIf="f['flagDate'].hasError('date_out_of_support')">
+                        <span class="govuk-visually-hidden">Error:</span> The date you have selected is out of support
+                    </p>
+                    <p id="flagDate-error-out-of-support" class="govuk-error-message" *ngIf="f['flagDate'].hasError('date_invalid')">
+                        <span class="govuk-visually-hidden">Error:</span> Invalid date selected
+                    </p>
+                    <div class="govuk-date-input" id="flag-date">
+                        <div class="govuk-date-input__item">
+                            <div class="govuk-form-group">
+                                <label class="govuk-label govuk-date-input__label" for="flag-date-day">
+                                    Day
+                                </label>
+                                <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                                    id="flag-date-day" name="flagDay" type="text" inputmode="numeric" formControlName="flagDay"
+                                    [maxlength]="2"
+                                    appNumbersOnly
+                                    [class.govuk-input--error] = "f['flagDate'].errors !== null && f['flagDate'].dirty"
+                                    >
+                            </div>
+                        </div>
+                        <div class="govuk-date-input__item">
+                            <div class="govuk-form-group">
+                                <label class="govuk-label govuk-date-input__label" for="flag-date-month">
+                                    Month
+                                </label>
+                                <input class="govuk-input govuk-date-input__input govuk-input--width-2"
+                                    id="flag-date-month" name="flagMonth" type="text" inputmode="numeric" formControlName="flagMonth"
+                                    [maxlength]="2"
+                                    appNumbersOnly
+                                    [class.govuk-input--error] = "f['flagDate'].errors !== null && f['flagDate'].dirty"
+                                    >
+                            </div>
+                        </div>
+                        <div class="govuk-date-input__item">
+                            <div class="govuk-form-group">
+                                <label class="govuk-label govuk-date-input__label" for="flag-date-year">
+                                    Year
+                                </label>
+                                <input class="govuk-input govuk-date-input__input govuk-input--width-4"
+                                    id="flag-date-year" name="flagYear" type="text" inputmode="numeric" formControlName="flagYear"
+                                    [maxlength]="4"
+                                    [minlength]="4"
+                                    appNumbersOnly
+                                    [class.govuk-input--error] = "f['flagDate'].errors !== null && f['flagDate'].dirty"
+                                    >
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+        <p class="govuk-body govuk-!-margin-bottom-0">
+            Flag changes may impact the fees due to the judicial member. <br>
+            Changes will not apply to Published records.
+        </p>
+    </div>
+
+    <div class="govuk-button-group">
+        <button class="govuk-button govuk-button--secondary" data-module="govuk-button" (click)="goBack()">
+            Previous
+        </button>
+        <button class="govuk-button" data-module="govuk-button" [disabled]="flagForm.invalid" (click)="continueFlow()">
+            Continue
+        </button>
+    </div>
+
+    <a class="govuk-link link-color" (click)="cancelFlow()">
+        Cancel
+    </a>
+
+</main>

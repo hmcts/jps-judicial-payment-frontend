@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-workflow.service';
+import { ManageSittingRecordsWorkflowService } from '../../_workflows/manage-sitting-record-workflow.service';
 import { DateService } from '../../_services/date-service/date-service';
 
 @Component({
@@ -16,11 +16,11 @@ export class SittingRecordsInfoBannerComponent implements OnInit {
 
   constructor(
     private dateSvc: DateService,
-    private srWorkFlow: SittingRecordWorkflowService,
+    private msrWorkFlow: ManageSittingRecordsWorkflowService,
   ){}
 
   ngOnInit() {
-    const formData = this.srWorkFlow.getFormData().value;
+    const formData = this.msrWorkFlow.getFormData().value;
     const { dateSelected, tribunalService, venue } = formData;
     this.tribService = tribunalService.service;
     this.venue = venue.site_name;

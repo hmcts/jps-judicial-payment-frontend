@@ -24,4 +24,20 @@ export class UserInfoService {
         return this.userName
     }
 
+    getUserRole(){
+        return this.userRoles
+    }
+
+    isRecorder(){
+        return this.userRoles.indexOf('jps-recorder')
+    }
+    
+    isPublisher(){
+        return this.userRoles.indexOf('jps-publisher')
+    }
+
+    isJohAdmin(){
+        return this.userRoles.indexOf('jps-JOH-admin')
+    }
+
 }

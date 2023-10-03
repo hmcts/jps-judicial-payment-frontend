@@ -1,6 +1,5 @@
 import { TestBed } from '@angular/core/testing';
 import { CookieService } from 'ngx-cookie-service';
-import { Cookie } from 'playwright';
 import { SittingRecordsLandingGuard } from './sitting-records-landing.guard';
 
 describe('SittingRecordsLandingGuard', () => {

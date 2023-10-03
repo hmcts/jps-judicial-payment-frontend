@@ -9,7 +9,7 @@ import { DateService } from '../_services/date-service/date-service'
 @Injectable({
   providedIn: 'root'
 })
-export class SittingRecordWorkflowService {
+export class ManageSittingRecordsWorkflowService {
   
   formData!: FormGroup;
   hasVisitedManage = false; 

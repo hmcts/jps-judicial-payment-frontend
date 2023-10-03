@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-workflow.service';
+import { ManageSittingRecordsWorkflowService } from '../../_workflows/manage-sitting-record-workflow.service';
 import { DeleteSittingRecordHttp } from '../../_services/delete-sitting-records-http-service'
 import { defaultDtOptions }  from '../../_services/default-dt-options'
 
@@ -20,7 +20,7 @@ export class DeleteSittingRecordsComponent implements OnInit{
   dtOptions: DataTables.Settings = {};
 
   constructor(
-    private srWorkFlow: SittingRecordWorkflowService,
+    private msrWorkFlow: ManageSittingRecordsWorkflowService,
     private router: Router,
     private deleteRecordHttp: DeleteSittingRecordHttp
   ){
@@ -48,8 +48,8 @@ export class DeleteSittingRecordsComponent implements OnInit{
   }
 
   ngOnInit(){
-    this.recordToDelete = this.srWorkFlow.getSittingRecordToDelete();
-    const {venue} = this.srWorkFlow.getFormData().value
+    this.recordToDelete = this.msrWorkFlow.getSittingRecordToDelete();
+    const {venue} = this.msrWorkFlow.getFormData().value
     this.selectedVenue = venue.site_name;
   }
   
@@ -73,7 +73,7 @@ export class DeleteSittingRecordsComponent implements OnInit{
   }
 
   goBack(){
-    this.srWorkFlow.resetSittingRecordToDelete()
+    this.msrWorkFlow.resetSittingRecordToDelete()
     this.router.navigate(['sittingRecords', 'view'])
   }
 

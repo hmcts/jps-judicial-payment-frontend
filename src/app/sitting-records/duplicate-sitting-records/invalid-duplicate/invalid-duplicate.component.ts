@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { SittingRecordWorkflowService } from '../../../_workflows/sitting-record-workflow.service';
+import { Component, Input } from '@angular/core';
+import { ManageSittingRecordsWorkflowService } from '../../../_workflows/manage-sitting-record-workflow.service';
 import { DateService } from '../../../_services/date-service/date-service';
 import { UserInfoService } from 'src/app/_services/user-info-service/user-info-service';
 import { DuplicateRecordWorkflowService } from 'src/app/_workflows/duplicate-record-workflow.service';
@@ -18,7 +18,7 @@ export class InvalidDuplicateComponent {
   duplicateInvalidFormObject;
 
   constructor(
-    private srWorkFlow: SittingRecordWorkflowService,
+    private srWorkFlow: ManageSittingRecordsWorkflowService,
     private dateSvc: DateService,
     private uInfoSvc: UserInfoService,
     private dupeRecordWorkflow: DuplicateRecordWorkflowService

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { DateService } from '../_services/date-service/date-service'
 import { UserInfoService } from '../_services/user-info-service/user-info-service';
 import { SittingRecordsService } from '../_services/sitting-records-service/sitting-records.service';
-import { SittingRecordWorkflowService } from './sitting-record-workflow.service';
+import { ManageSittingRecordsWorkflowService } from './manage-sitting-record-workflow.service';
 import { Observable, of } from 'rxjs';
 
 @Injectable({
@@ -18,7 +18,7 @@ export class DuplicateRecordWorkflowService {
     private dateSvc: DateService,
     private uInfoSvc: UserInfoService,
     private sittingRecordsSvc: SittingRecordsService,
-    private srWorkFlow: SittingRecordWorkflowService
+    private srWorkFlow: ManageSittingRecordsWorkflowService
   ) { }
 
   getErrorRecords() {

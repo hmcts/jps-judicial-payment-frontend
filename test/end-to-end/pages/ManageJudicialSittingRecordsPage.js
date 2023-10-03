@@ -1,4 +1,4 @@
-const { I } = inject();
+sconst { I } = inject();
 
 function addSittingRecordsInformation(tribunal, venue, day, month, year) {
   I.waitForVisible('.govuk-heading-l', 10);
