@@ -30,7 +30,7 @@ export class UserSearchComponent implements OnInit{
         tap(() => this.usersFound = true),
         tap(() => this.userList = [] as UserModel[]),
         tap(term => this.searchTerm = term),
-        filter(value => value.length >= 3),
+        filter(value => value && value.length >= 3),
         debounceTime(500),
         mergeMap(value => this.getUsers(value).pipe(
           catchError(() => {

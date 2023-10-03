@@ -1,0 +1,5 @@
+@import 'node_modules/govuk-frontend/govuk/all';
+.grey-table{
+    background: govuk-colour("light-grey") !important;
+}
+.success-panel { background: govuk-colour("turquoise");}

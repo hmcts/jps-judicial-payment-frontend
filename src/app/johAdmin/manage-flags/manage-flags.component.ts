@@ -49,13 +49,14 @@ export class ManageFlagsComponent implements OnInit{
   
   continueFlow(){
     const postObj = this.adminWorkflow.createPostObject(this.flagForm.value)
+    this.adminWorkflow.setFlagValues(this.flagForm.value)
     this.johService.postJohAttributes(postObj, this.selectedJOH.personalCode)
     .subscribe({
       next: () => {
         //
       },
       error: () => {
-        //
+        this.router.navigate(['sittingRecords', 'johFlagsSuccess'])
       }
     })
   }

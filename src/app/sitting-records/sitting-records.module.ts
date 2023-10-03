@@ -36,11 +36,14 @@ import { CookieManagerComponent } from '../static-elements/cookies/cookie-manage
 import { LogoutComponent } from '../static-elements/logout/logout.component';
 import { CapitalizeFirstLetterPipe } from '../_pipes/convertTableStatus'
 import { ConvertRoleIdToString } from '../_pipes/convertRoleIdToString';
+import { ConvertBooleanPipe } from '../_pipes/convertBoolean-pipe'
+import { ConvertFlagDateToString } from '../_pipes/convertFlagDates-pipe'
 import { SittingRecordsLandingJohadminComponent } from './sitting-records-landing/sitting-records-landing-johadmin/sitting-records-landing-johadmin.component';
 import { UserSearchComponent } from './shared-components/user-search/user-search.component'
 
 import { ManageInformationComponent } from '../johAdmin/manage-information/manage-information.component';
 import { ManageFlagsComponent } from '../johAdmin/manage-flags/manage-flags.component'
+import { FlagsSuccessComponent } from '../johAdmin/flags-success/flags-success.component'
 
 @NgModule({
   imports: [
@@ -62,6 +65,7 @@ import { ManageFlagsComponent } from '../johAdmin/manage-flags/manage-flags.comp
     StringFromDatePipe,
     ConvertToStringPeriodPipe,
     ConvertAddPeriodPipe,
+    ConvertBooleanPipe,
     AddSittingRecordComponent,
     AddSittingRecordSuccessComponent,
     SittingRecordsInfoBannerComponent,
@@ -84,7 +88,9 @@ import { ManageFlagsComponent } from '../johAdmin/manage-flags/manage-flags.comp
     SittingRecordsLandingJohadminComponent,
     UserSearchComponent,
     ManageInformationComponent,
-    ManageFlagsComponent
+    ManageFlagsComponent,
+    FlagsSuccessComponent,
+    ConvertFlagDateToString
   ]
 })
 export class SittingRecordsModule { }

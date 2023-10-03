@@ -12,7 +12,8 @@ export class AdminWorkflowService {
   userLandingData!: FormGroup;
   hasLandingVisited = false;
   userRole!: UserInfoModel
-  cameFromManage = false
+  cameFromManage = false;
+  flagValues;
 
   constructor(
     private dateSvc: DateService
@@ -21,31 +22,26 @@ export class AdminWorkflowService {
   setLandingVisited(){
     this.hasLandingVisited = true;
   }
-
   getLandingVisited(){
     return this.hasLandingVisited;
-  }
-
-  setUserFormData(data : FormGroup){
-    this.userFormData = data;
   }
 
   setFormData(formData){
     this.formData = formData;
   }
-
   getFormData(){
     return this.formData;
   }
-
-  getUserFormData(){
-    return this.userFormData;
-  }
-
   resetFormData(){
     this.formData.reset();
   }
-
+  
+  getUserFormData(){
+    return this.userFormData;
+  }
+  setUserFormData(data : FormGroup){
+    this.userFormData = data;
+  }
   resetUserFormData() {
     this.userFormData.reset();
   }
@@ -76,6 +72,13 @@ export class AdminWorkflowService {
   }
   resetCameFromManage(){
     this.cameFromManage = false;
+  }
+
+  setFlagValues(flagVals){
+    this.flagValues = flagVals
+  }
+  getFlagValues(){
+    return this.flagValues
   }
 
   createPostObject(flagValues){

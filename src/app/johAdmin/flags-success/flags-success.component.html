@@ -1,0 +1,55 @@
+<main class="govuk-main-wrapper " id="main-content" role="main">
+
+    <span class="govuk-caption-l">
+        Manage judicial information 
+    </span>
+    <h1 class="govuk-heading-l">
+        Flags for {{selectedJOH.fullName}}
+    </h1>
+
+    <div class="govuk-panel govuk-panel--confirmation success-panel">
+        <h1 class="govuk-panel__title">
+            Flag updated
+        </h1>
+    </div>
+
+    <div class="govuk-body-l">The following changes have been recorded:</div>
+
+    <dl class="govuk-summary-list">
+        <div class="govuk-summary-list__row grey-table">
+            <dt class="govuk-summary-list__value">
+                Date of change
+            </dt>
+            <dd class="govuk-summary-list__value">
+                {{flagOptions.flagDate | ConvertFlagDateToString}}
+            </dd>
+        </div>
+        <div class="govuk-summary-list__row grey-table">
+            <dt class="govuk-summary-list__value">
+                London flag
+            </dt>
+            <dd class="govuk-summary-list__value">
+                {{flagOptions.londonFlag | convertBooleanToYN}}
+            </dd>
+        </div>
+        <div class="govuk-summary-list__row grey-table">
+            <dt class="govuk-summary-list__value">
+                Crown servant flag
+            </dt>
+            <dd class="govuk-summary-list__value">
+                {{flagOptions.crownFlag | convertBooleanToYN}}
+            </dd>
+        </div>
+    </dl>
+
+    <div class="govuk-button-group">
+        <button class="govuk-button govuk-button--secondary" data-module="govuk-button" (click)="navigateToManage()">
+            Manage judicial sitting records 
+        </button>
+        <button class="govuk-button" data-module="govuk-button" (click)="navigateToFlags()">
+            Flag information
+        </button>
+        
+    </div>
+
+</main>

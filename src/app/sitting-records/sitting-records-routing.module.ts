@@ -22,6 +22,7 @@ import { ManageFlagsComponent } from '../johAdmin/manage-flags/manage-flags.comp
 
 import { JohAdminGuard } from '../_guards/joh-admin/joh-admin-guard';
 import { JohAdminFlagGuard } from '../_guards/joh-admin/joh-admin-flags-guard';
+import { FlagsSuccessComponent } from '../johAdmin/flags-success/flags-success.component';
 
 const routes: Routes = [
     {
@@ -82,6 +83,11 @@ const routes: Routes = [
           {
             path: 'johFlags',
             component: ManageFlagsComponent,
+            canActivate: [JohAdminFlagGuard]
+          },
+          {
+            path: 'johFlagsSuccess',
+            component: FlagsSuccessComponent,
             canActivate: [JohAdminFlagGuard]
           }
         ]
