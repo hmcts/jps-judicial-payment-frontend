@@ -22,6 +22,7 @@ export class ManageInformationComponent implements OnInit{
   }
 
   editJohFlags(){
+    this.adminWorkflow.setCameFromManage()
     void this.router.navigate(['sittingRecords', 'johFlags'])
   }
 

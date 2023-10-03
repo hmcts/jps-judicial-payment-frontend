@@ -62,6 +62,7 @@ export class ManageFlagsComponent implements OnInit{
 
   cancelFlow(){
     this.adminWorkflow.resetFormData();
+    this.adminWorkflow.resetCameFromManage()
     this.router.navigate(['sittingRecords', 'home'])
   }
 
