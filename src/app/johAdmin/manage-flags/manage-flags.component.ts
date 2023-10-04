@@ -56,7 +56,7 @@ export class ManageFlagsComponent implements OnInit{
         //
       },
       error: () => {
-        this.router.navigate(['sittingRecords', 'johFlagsSuccess'])
+        this.router.navigate(['sittingRecords', 'joh', 'flagsSuccess'])
       }
     })
   }
@@ -68,7 +68,7 @@ export class ManageFlagsComponent implements OnInit{
   }
 
   goBack(){
-    this.router.navigate(['sittingRecords', 'manageJudicial'])
+    this.router.navigate(['sittingRecords', 'joh', 'manage'])
   }
 
 }

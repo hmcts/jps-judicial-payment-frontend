@@ -23,7 +23,7 @@ export class ManageInformationComponent implements OnInit{
 
   editJohFlags(){
     this.adminWorkflow.setCameFromManage()
-    void this.router.navigate(['sittingRecords', 'johFlags'])
+    void this.router.navigate(['sittingRecords', 'joh', 'flags'])
   }
 
   ngOnInit(){
@@ -34,6 +34,11 @@ export class ManageInformationComponent implements OnInit{
   cancelFlow(){
     this.adminWorkflow.resetFormData();
     this.router.navigate(['sittingRecords', 'home'])
+  }
+
+  gotToPayroll(appointment){
+    this.adminWorkflow.setJohAppointment(appointment)
+    this.router.navigate(['sittingRecords', 'payroll', 'manage'])
   }
 
 }

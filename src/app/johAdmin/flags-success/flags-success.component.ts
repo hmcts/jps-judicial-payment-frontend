@@ -29,7 +29,7 @@ export class FlagsSuccessComponent implements OnInit{
   }
 
   navigateToFlags(){
-    this.router.navigate(['sittingRecords', 'manageJudicial'])
+    this.router.navigate(['sittingRecords', 'joh', 'manage'])
   }
   
 }

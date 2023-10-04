@@ -52,6 +52,7 @@ import { ValidSittingRecordsComponent } from './duplicate-sitting-records/valid-
 import { DuplicateConfirmComponent } from './duplicate-sitting-records/duplicate-confirm/duplicate-option-confirm/duplicate-confirm.component';
 import { DuplicateExistingConfirmComponent } from './duplicate-sitting-records/duplicate-confirm/duplicate-existing-confirm/duplicate-existing-confirm.component';
 import { DuplicateConfirmSuccessComponent } from './duplicate-sitting-records/duplicate-confirm/duplicate-confirm-success/duplicate-confirm-success.component'
+import { PayrollIdComponent } from '../johAdmin/payroll-id/payroll-id.component';
 
 @NgModule({
   imports: [
@@ -107,7 +108,8 @@ import { DuplicateConfirmSuccessComponent } from './duplicate-sitting-records/du
     InvalidDuplicateComponent,
     PotentialDuplicateComponent,
     ErrorSummaryComponent,
-    ValidSittingRecordsComponent
+    ValidSittingRecordsComponent,
+    PayrollIdComponent
   ]
 })
 export class SittingRecordsModule { }

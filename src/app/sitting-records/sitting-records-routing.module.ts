@@ -27,6 +27,8 @@ import { ManageFlagsComponent } from '../johAdmin/manage-flags/manage-flags.comp
 import { JohAdminGuard } from '../_guards/joh-admin/joh-admin-guard';
 import { JohAdminFlagGuard } from '../_guards/joh-admin/joh-admin-flags-guard';
 import { FlagsSuccessComponent } from '../johAdmin/flags-success/flags-success.component';
+import { PayrollIdComponent } from '../johAdmin/payroll-id/payroll-id.component';
+import { JohPayrollGuard } from '../_guards/joh-admin/joh-payroll-guard';
 
 const routes: Routes = [
     {
@@ -80,21 +82,6 @@ const routes: Routes = [
             canActivate: [SittingRecordsViewGuard]
           },
           {
-            path: 'manageJudicial',
-            component: ManageInformationComponent,
-            canActivate:[JohAdminGuard]
-          },
-          {
-            path: 'johFlags',
-            component: ManageFlagsComponent,
-            canActivate: [JohAdminFlagGuard]
-          },
-          {
-            path: 'johFlagsSuccess',
-            component: FlagsSuccessComponent,
-            canActivate: [JohAdminFlagGuard]
-          },
-          {
             path: 'addDuplicates',
             component: DuplicateSittingRecordsComponent,
             canActivate: [SittingRecordsViewGuard]
@@ -113,6 +100,36 @@ const routes: Routes = [
             path: 'confirmDupeSuccess',
             component: DuplicateConfirmSuccessComponent,
             canActivate: [SittingRecordsViewGuard]
+          },
+          {
+            path: 'payroll',
+            children: [
+              {
+                path: 'manage',
+                component: PayrollIdComponent, 
+                canActivate: [JohPayrollGuard]
+              }
+            ]
+          },
+          {
+            path: 'joh',
+            children: [
+              {
+                path: 'manage',
+                component: ManageInformationComponent,
+                canActivate:[JohAdminGuard]
+              },
+              {
+                path: 'flags',
+                component: ManageFlagsComponent,
+                canActivate: [JohAdminFlagGuard]
+              },
+              {
+                path: 'flagsSuccess',
+                component: FlagsSuccessComponent,
+                canActivate: [JohAdminFlagGuard]
+              },
+            ]
           }
         ]
     }

@@ -150,7 +150,7 @@ export class SittingRecordsLandingComponent implements OnInit {
         .subscribe({
           next: (userRoleInfo) => {
             this.adminWorkflow.setUserInfo(userRoleInfo[0])
-            void this.router.navigate(['sittingRecords', 'manageJudicial'])
+            void this.router.navigate(['sittingRecords', 'joh', 'manage'])
           }
         });
         break;

@@ -14,6 +14,7 @@ export class AdminWorkflowService {
   userRole!: UserInfoModel
   cameFromManage = false;
   flagValues;
+  johAppointment;
 
   constructor(
     private dateSvc: DateService
@@ -79,6 +80,16 @@ export class AdminWorkflowService {
   }
   getFlagValues(){
     return this.flagValues
+  }
+
+  setJohAppointment(appointment: string){
+    this.johAppointment = appointment
+  }
+  getJohAppointment(){
+    return this.johAppointment;
+  }
+  resetJohAppointment(){
+    this.johAppointment = null;
   }
 
   createPostObject(flagValues){

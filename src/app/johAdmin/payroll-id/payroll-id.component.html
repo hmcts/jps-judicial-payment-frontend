@@ -1,0 +1,30 @@
+<main class="govuk-main-wrapper " id="main-content" role="main">
+
+    <span class="govuk-caption-l">
+        Manage judicial information 
+    </span>
+    <h1 class="govuk-heading-l">
+        Payroll ID for {{selectedJOH?.fullName}} as {{currentAppointment.appointment}}
+    </h1>
+
+    <div class="govuk-form-group">
+        <label class="govuk-label" for="event-name">
+            Payroll ID
+        </label>
+        <input class="govuk-input" id="event-name" name="eventName" type="text" [(ngModel)]="payrollId">
+    </div>
+
+    <div class="govuk-button-group">
+        <button class="govuk-button govuk-button--secondary" data-module="govuk-button" (click)="goBack()">
+            Previous
+        </button>
+        <button class="govuk-button" data-module="govuk-button">
+            Continue
+        </button>
+    </div>
+
+    <a class="govuk-link link-color" (click)="cancelFlow()">
+        Cancel
+    </a>
+
+</main>
