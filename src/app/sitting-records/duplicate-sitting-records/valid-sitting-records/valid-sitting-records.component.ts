@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DateService } from '../../../_services/date-service/date-service';
-import { SittingRecordWorkflowService } from '../../../_workflows/sitting-record-workflow.service';
+import { RecorderWorkflowService } from '../../../_workflows/recorder-workflow.service';
 import { UserInfoService } from '../../../_services/user-info-service/user-info-service';
 import { DuplicateRecordWorkflowService } from '../../../_workflows/duplicate-record-workflow.service';
 
@@ -19,12 +19,12 @@ export class ValidSittingRecordsComponent implements OnInit {
   tableHeaderText
 
   constructor(
-    private srWorkFlow: SittingRecordWorkflowService,
+    private recorderWorkFlow: RecorderWorkflowService,
     private dateSvc: DateService,
     private dupeRecordWorkflow: DuplicateRecordWorkflowService,
     private uInfoSvc: UserInfoService,
   ){
-    const formData = this.srWorkFlow.getFormData().value;
+    const formData = this.recorderWorkFlow.getFormData().value;
     const { dateSelected, venue } = formData;
     this.selectedVenue = venue.site_name;
     this.selectedDate = this.dateSvc.formatDateFromForm(dateSelected);
@@ -33,7 +33,7 @@ export class ValidSittingRecordsComponent implements OnInit {
   }
 
   filterRecords() {
-      this.validRecords = this.dupeRecordWorkflow.matchValidRecords(this.recordData, this.srWorkFlow.getAddSittingRecords());
+      this.validRecords = this.dupeRecordWorkflow.matchValidRecords(this.recordData, this.recorderWorkFlow.getAddSittingRecords());
   }
 
   ngOnInit(){

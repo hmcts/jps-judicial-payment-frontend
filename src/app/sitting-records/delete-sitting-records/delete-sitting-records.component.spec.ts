@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { DeleteSittingRecordsComponent } from './delete-sitting-records.component';
-import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-workflow.service';
+import { RecorderWorkflowService } from '../../_workflows/recorder-workflow.service';
 import { DeleteSittingRecordHttp } from '../../_services/delete-sitting-records-http-service';
 import { of, throwError } from 'rxjs';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -10,7 +10,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 describe('DeleteSittingRecordsComponent', () => {
   let component: DeleteSittingRecordsComponent;
   let router: Router;
-  let srWorkflowService: SittingRecordWorkflowService;
+  let srWorkflowService: RecorderWorkflowService;
   let deleteService: DeleteSittingRecordHttp;
 
   beforeEach(async () => {
@@ -18,7 +18,7 @@ describe('DeleteSittingRecordsComponent', () => {
       providers: [
         DeleteSittingRecordsComponent,
         { provide: Router, useValue: { navigate: jasmine.createSpy('navigate') } },
-        { provide: SittingRecordWorkflowService },
+        { provide: RecorderWorkflowService },
         { provide: DeleteSittingRecordHttp }
       ],
       imports: [HttpClientTestingModule]
@@ -26,7 +26,7 @@ describe('DeleteSittingRecordsComponent', () => {
 
     component = TestBed.inject(DeleteSittingRecordsComponent);
     router = TestBed.inject(Router);
-    srWorkflowService = TestBed.inject(SittingRecordWorkflowService);
+    srWorkflowService = TestBed.inject(RecorderWorkflowService);
     deleteService = TestBed.inject(DeleteSittingRecordHttp);
 
     const record = { sittingRecordId: '123' };

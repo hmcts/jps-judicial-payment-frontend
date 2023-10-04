@@ -19,6 +19,6 @@ input::-webkit-contacts-auto-fill-button {
     position: absolute;
     right: 0;
 }
-.white-text{
-    color: govuk-colour("white");
-}
+.white-text{ color: govuk-colour("white"); }
+.blue-text { color: govuk-colour("blue"); }  
+.dataTables_empty { display: none; }

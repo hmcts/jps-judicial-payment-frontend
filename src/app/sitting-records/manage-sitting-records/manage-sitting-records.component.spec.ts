@@ -3,10 +3,10 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, ReactiveFormsModu
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ManageSittingRecordsComponent } from './manage-sitting-records.component';
-import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-workflow.service';
+import { RecorderWorkflowService } from '../../_workflows/recorder-workflow.service';
+import { LocationService } from '../../_services/location-service/location.service';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { of } from 'rxjs';
-import { LocationService } from 'src/app/_services/location-service/location.service';
 import { CookieService } from 'ngx-cookie-service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
@@ -14,7 +14,7 @@ describe('ManageSittingRecordsComponent', () => {
   let component: ManageSittingRecordsComponent;
   let fixture: ComponentFixture<ManageSittingRecordsComponent>;
   let router: Router;
-  let srWorkflowService: SittingRecordWorkflowService;
+  let recorderWorkFlowService: RecorderWorkflowService;
   let locationService: LocationService;
   let cookieService: CookieService;
   
@@ -23,7 +23,7 @@ describe('ManageSittingRecordsComponent', () => {
       imports: [ReactiveFormsModule, RouterTestingModule, HttpClientTestingModule, MatAutocompleteModule],
       declarations: [ManageSittingRecordsComponent],
       providers: [
-        SittingRecordWorkflowService, 
+        RecorderWorkflowService, 
         LocationService,
         CookieService
       ],
@@ -34,7 +34,7 @@ describe('ManageSittingRecordsComponent', () => {
     fixture = TestBed.createComponent(ManageSittingRecordsComponent);
     component = fixture.componentInstance;
     router = TestBed.inject(Router);
-    srWorkflowService = TestBed.inject(SittingRecordWorkflowService);
+    recorderWorkFlowService = TestBed.inject(RecorderWorkflowService);
     locationService = TestBed.inject(LocationService);
     cookieService = TestBed.inject(CookieService);
   });
@@ -66,13 +66,13 @@ describe('ManageSittingRecordsComponent', () => {
   });
 
   it('should navigate to view-sitting-records when the form is submitted', () => {
-    spyOn(srWorkflowService, 'setFormData');
-    spyOn(srWorkflowService, 'setManageVisited');
+    spyOn(recorderWorkFlowService, 'setFormData');
+    spyOn(recorderWorkFlowService, 'setManageVisited');
     spyOn(router, 'navigate');
     component.submitForm();
 
-    expect(srWorkflowService.setFormData).toHaveBeenCalled();
-    expect(srWorkflowService.setManageVisited).toHaveBeenCalled();
+    expect(recorderWorkFlowService.setFormData).toHaveBeenCalled();
+    expect(recorderWorkFlowService.setManageVisited).toHaveBeenCalled();
     expect(router.navigate).toHaveBeenCalledWith(['sittingRecords', 'view']);
   });
 
@@ -83,7 +83,7 @@ describe('ManageSittingRecordsComponent', () => {
       venue: ['Venue 1'],
     });
 
-    srWorkflowService.setFormData(formDataMock)
+    recorderWorkFlowService.setFormData(formDataMock)
     component.ngOnInit();
 
     expect(component.manageRecords).toEqual(formDataMock)

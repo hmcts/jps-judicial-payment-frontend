@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
-import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-workflow.service';
+import { RecorderWorkflowService } from '../../_workflows/recorder-workflow.service';
 import { SittingRecordsViewGuard } from './sitting-records-view.guard';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('SittingRecordsViewGuard', () => {
   let guard: SittingRecordsViewGuard;
-  let mockWorkflowService: SittingRecordWorkflowService;
+  let mockWorkflowService: RecorderWorkflowService;
   let mockRouter: Router;
 
   beforeEach(() => {
@@ -15,7 +15,7 @@ describe('SittingRecordsViewGuard', () => {
     });
     guard = TestBed.inject(SittingRecordsViewGuard);
     mockRouter = TestBed.inject(Router);
-    mockWorkflowService = TestBed.inject(SittingRecordWorkflowService);
+    mockWorkflowService = TestBed.inject(RecorderWorkflowService);
   });
 
   it('should return true if manageVisited is true', () => {
