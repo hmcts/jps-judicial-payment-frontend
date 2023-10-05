@@ -77,10 +77,10 @@ describe('PayrollIdComponent', () => {
     expect(router.navigate).toHaveBeenCalledWith(['sittingRecords', 'joh', 'manage'])
   })
 
-  it('should navigate to sittingRecords/home on goBack', () => {
+  it('should navigate to sittingRecords/home on cancelFlow', () => {
     spyOn(component, 'clearStoredValues')
     spyOn(router, 'navigate')
-    component.goBack()
+    component.cancelFlow()
     expect(component.clearStoredValues).toHaveBeenCalled();
     expect(router.navigate).toHaveBeenCalledWith(['sittingRecords', 'home'])
   })

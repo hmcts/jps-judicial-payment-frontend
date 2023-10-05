@@ -81,4 +81,14 @@ describe('ManageInformationComponent', () => {
     expect(router.navigate).toHaveBeenCalledWith(['sittingRecords', 'joh', 'flags']);
   });
 
+  it('should navigate to "sittingRecords/payroll/manage" when gotToPayroll() is called', () => {
+    spyOn(router, 'navigate');
+    spyOn(adminWorkflowService, 'setJohAppointment')
+    spyOn(adminWorkflowService, 'setPayrollId')
+    component.gotToPayroll('123', '123');
+    expect(adminWorkflowService.setJohAppointment).toHaveBeenCalled()
+    expect(adminWorkflowService.setPayrollId).toHaveBeenCalled()
+    expect(router.navigate).toHaveBeenCalledWith(['sittingRecords', 'payroll', 'manage']);
+  });
+
 });
