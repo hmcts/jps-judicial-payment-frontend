@@ -1,8 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { SittingRecordWorkflowService } from '../../../_workflows/sitting-record-workflow.service';
+import { RecorderWorkflowService } from '../../../_workflows/recorder-workflow.service';
 import { DateService } from '../../../_services/date-service/date-service';
 import { UserInfoService } from 'src/app/_services/user-info-service/user-info-service';
-import { DuplicateRecordWorkflowService } from 'src/app/_workflows/duplicate-record-workflow.service';
 
 @Component({
   selector: 'app-invalid-duplicate',
@@ -18,12 +17,11 @@ export class InvalidDuplicateComponent {
   duplicateInvalidFormObject;
 
   constructor(
-    private srWorkFlow: SittingRecordWorkflowService,
+    private recorderWorkFlow: RecorderWorkflowService,
     private dateSvc: DateService,
     private uInfoSvc: UserInfoService,
-    private dupeRecordWorkflow: DuplicateRecordWorkflowService
   ){
-    const formData = this.srWorkFlow.getFormData().value;
+    const formData = this.recorderWorkFlow.getFormData().value;
     const { dateSelected, venue } = formData;
     this.selectedVenue = venue.site_name;
     this.selectedDate = this.dateSvc.formatDateFromForm(dateSelected);

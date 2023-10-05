@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { SittingRecordsComponent } from './sitting-records.component';
 import { ManageSittingRecordsComponent } from './manage-sitting-records/manage-sitting-records.component';
 import { ViewSittingRecordsComponent } from './view-sitting-records/view-sitting-records.component';
+import { SubmitSittingRecordsComponent } from './submit-sitting-records/submit-sitting-records.component';
 import { DeleteSittingRecordsComponent } from './delete-sitting-records/delete-sitting-records.component'
 import { DeleteSuccessComponent } from './delete-sitting-records/delete-success/delete-success.component'
 import { AddSittingRecordComponent } from './add-sitting-record/add-sitting-record.component'
@@ -14,6 +15,7 @@ import { SittingRecordsLandingComponent } from './sitting-records-landing/sittin
 import { SittingRecordsViewGuard } from '../_guards/sitting-records/sitting-records-view.guard';
 import { SittingRecordsLandingGuard } from '../_guards/sitting-records/sitting-records-landing.guard';
 import { SittingRecordsManageGuard } from '../_guards/sitting-records/sitting-records-manage.guard';
+import { SittingRecordsSubmitGuard } from '../_guards/sitting-records/sitting-records-submit.guard';
 import { AuthGuard } from '../_guards/auth/auth.guard';
 import { DuplicateConfirmComponent } from './duplicate-sitting-records/duplicate-confirm/duplicate-option-confirm/duplicate-confirm.component';
 import { DuplicateExistingConfirmComponent } from './duplicate-sitting-records/duplicate-confirm/duplicate-existing-confirm/duplicate-existing-confirm.component'
@@ -39,6 +41,11 @@ const routes: Routes = [
             path: 'view',
             component: ViewSittingRecordsComponent,
             canActivate: [SittingRecordsViewGuard]
+          },
+          {
+            path: 'submit',
+            canActivate: [SittingRecordsSubmitGuard],
+            component: SubmitSittingRecordsComponent
           },
           {
             path: 'delete',

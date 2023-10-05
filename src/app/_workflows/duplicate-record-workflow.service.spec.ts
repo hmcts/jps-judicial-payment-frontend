@@ -3,7 +3,7 @@ import { DuplicateRecordWorkflowService } from './duplicate-record-workflow.serv
 import { DateService } from '../_services/date-service/date-service'
 import { UserInfoService } from '../_services/user-info-service/user-info-service';
 import { SittingRecordsService } from '../_services/sitting-records-service/sitting-records.service';
-import { SittingRecordWorkflowService } from './sitting-record-workflow.service';
+import { RecorderWorkflowService } from './recorder-workflow.service';
 import { of } from 'rxjs';
 
 describe('DuplicateRecordWorkflowService', () => {
@@ -11,7 +11,7 @@ describe('DuplicateRecordWorkflowService', () => {
     let dateSvcStub: Partial<DateService>;
     let uInfoSvcStub: Partial<UserInfoService>;
     let sittingRecordsSvcStub: Partial<SittingRecordsService>;
-    let srWorkFlowStub: Partial<SittingRecordWorkflowService>;
+    let srWorkFlowStub: Partial<RecorderWorkflowService>;
 
     beforeEach(() => {
         dateSvcStub = {};
@@ -32,7 +32,7 @@ describe('DuplicateRecordWorkflowService', () => {
                 { provide: DateService, useValue: dateSvcStub },
                 { provide: UserInfoService, useValue: uInfoSvcStub },
                 { provide: SittingRecordsService, useValue: sittingRecordsSvcStub },
-                { provide: SittingRecordWorkflowService, useValue: srWorkFlowStub },
+                { provide: RecorderWorkflowService, useValue: srWorkFlowStub },
             ]
         });
         service = TestBed.inject(DuplicateRecordWorkflowService);

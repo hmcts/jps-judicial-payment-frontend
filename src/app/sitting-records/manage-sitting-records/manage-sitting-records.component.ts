@@ -6,9 +6,9 @@ import {
   AbstractControl
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { RecorderWorkflowService } from '../../_workflows/recorder-workflow.service';
 import { ManageSittingRecord } from '../../_validators/sittingRecordsFormValidator/sitting-records-form-validator';
 import { debounceTime, map, startWith, takeUntil, tap } from 'rxjs/operators';
-import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-workflow.service';
 import { LocationService } from '../../_services/location-service/location.service'
 import { VenueModel } from '../../_models/venue.model';
 import { AutoCompleteValidator } from '../../_validators/autoCompleteValidator/auto-complete-validator'
@@ -34,9 +34,9 @@ export class ManageSittingRecordsComponent implements OnInit {
   showPreviousButton = true;
   
   submitForm(){
-    this.srWorkFlow.setFormData(this.manageRecords)
-    this.srWorkFlow.setVenueData(this.venues)
-    this.srWorkFlow.setManageVisited()
+    this.recorderWorkFlowService.setFormData(this.manageRecords)
+    this.recorderWorkFlowService.setVenueData(this.venues)
+    this.recorderWorkFlowService.setManageVisited()
 
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
@@ -51,7 +51,7 @@ export class ManageSittingRecordsComponent implements OnInit {
   constructor(
     protected router: Router,
     private formBuilder: FormBuilder,
-    private srWorkFlow: SittingRecordWorkflowService,
+    private recorderWorkFlowService: RecorderWorkflowService,
     private locationService : LocationService,
     private cookies: CookieService,
   ){
@@ -117,15 +117,13 @@ export class ManageSittingRecordsComponent implements OnInit {
       );
   }
 
-
-  ngOnInit() {
-
-    if(this.srWorkFlow.getFormData()){
-      this.manageRecords = this.srWorkFlow.getFormData();
+  ngOnInit(): void {
+    if(this.recorderWorkFlowService.getFormData()){
+      this.manageRecords = this.recorderWorkFlowService.getFormData();
     }
 
-    if(this.srWorkFlow.getVenueData()){
-      this.venues = this.srWorkFlow.getVenueData();
+    if(this.recorderWorkFlowService.getVenueData()){
+      this.venues = this.recorderWorkFlowService.getVenueData();
     }
 
     this.createEventListeners();

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-workflow.service';
+import { RecorderWorkflowService } from '../../_workflows/recorder-workflow.service';
 import { DateService } from '../../_services/date-service/date-service';
 import { Router } from '@angular/router';
 import {
@@ -42,7 +42,7 @@ export class AddSittingRecordComponent implements OnInit, OnDestroy {
   
 
   goBack() {
-    this.srWorkFlow.resetCameFromConfirm()
+    this.recorderWorkFlow.resetCameFromConfirm()
     void this.router.navigate(['sittingRecords', 'manage'])
   }
 
@@ -51,8 +51,8 @@ export class AddSittingRecordComponent implements OnInit, OnDestroy {
   }
 
   submitNewSittingRecord() {
-    this.srWorkFlow.setAddSittingRecords(this.addSittingRecordsFG)
-    this.srWorkFlow.setSittingRecordsRoleList(this.userRoleList)
+    this.recorderWorkFlow.setAddSittingRecords(this.addSittingRecordsFG)
+    this.recorderWorkFlow.setSittingRecordsRoleList(this.userRoleList)
     void this.router.navigate(['sittingRecords', 'addConfirm'])
   }
 
@@ -209,7 +209,7 @@ export class AddSittingRecordComponent implements OnInit, OnDestroy {
   }
 
   constructor(
-    public srWorkFlow: SittingRecordWorkflowService,
+    public recorderWorkFlow: RecorderWorkflowService,
     private dateSvc: DateService,
     public router: Router,
     private http: HttpClient,
@@ -230,14 +230,14 @@ export class AddSittingRecordComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    const formData = this.srWorkFlow.getFormData().value;
+    const formData = this.recorderWorkFlow.getFormData().value;
     const { tribunalService, venue } = formData;
     this.serviceCode = tribunalService.hmctsServiceCode;
     this.venueEpimmsId = venue.epimms_id;
 
-    if (this.srWorkFlow.getAddSittingRecords() && this.srWorkFlow.checkCameFromConfirm()) {
-      this.addSittingRecordsFG = this.srWorkFlow.getAddSittingRecords();
-      this.userRoleList = this.srWorkFlow.getSittingRecordsRoleList()
+    if (this.recorderWorkFlow.getAddSittingRecords() && this.recorderWorkFlow.checkCameFromConfirm()) {
+      this.addSittingRecordsFG = this.recorderWorkFlow.getAddSittingRecords();
+      this.userRoleList = this.recorderWorkFlow.getSittingRecordsRoleList()
       for (let i = 0; i < this.johFormArray.length; i++) {
         this.createValueChangesListener(i);
         this.userPersonalCode[i] = this.johFormArray.value[i]['johName']['personalCode']

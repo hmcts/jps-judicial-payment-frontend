@@ -10,11 +10,9 @@ import { AppServerModule } from './src/main.server';
 import { HealthCheck } from './src/app/server/healthcheck';
 import { getXuiNodeMiddleware } from './api/auth';
 import refDataRouter from './api/refdata/routes';
-import { IdamAuthenticatorService } from './api/refdata/authenticator/index';
 import sittingRecordsRouter from './api/sittingrecords/routes';
 import { Logger } from '@hmcts/nodejs-logging';
 const logger = Logger.getLogger()
-const TOKEN_REFRESH = 1000 * 60 * 60 * 3;
 
 const errorHandler = ((err, req, res, next) => {
   if (err) {
@@ -46,17 +44,8 @@ const errorHandler = ((err, req, res, next) => {
     });
   }
 });
-const IdamAuthSvc = new IdamAuthenticatorService()
 
-function getSystemAuthTokens(){
-  IdamAuthSvc.createSystemUserAuth();
-  IdamAuthSvc.createS2SAuth();
-}
 
-setInterval(() => {
-  logger.debug(`Refreshing tokens`)
-  getSystemAuthTokens();
-}, TOKEN_REFRESH);
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
@@ -65,11 +54,7 @@ export function app(): express.Express {
   const indexHtml = existsSync(join(distFolder, 'index.original.html')) ? 'index.original.html' : 'index';
   server.use(express.json())
   
-  // setup system auth tokens
-  getSystemAuthTokens()
-  
   server.use(getXuiNodeMiddleware());
-  server.use('/refdata', IdamAuthSvc.assignTokensMiddleware.bind(IdamAuthSvc))
   server.use('/refdata', refDataRouter, errorHandler)
   server.use('/sittingrecord', sittingRecordsRouter, errorHandler)
 
