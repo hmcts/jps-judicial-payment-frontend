@@ -59,15 +59,18 @@ Scenario('Region drop down will be populated with values when Submit sitting rec
   ManageJudicialSittingRecordsPage.seeCommonLandingPage();
   I.click('Submit sitting records to Finance');
   I.selectOption('Select a service', 'Social Security and Child Support');
-  I.click('Select a region');
-  I.seeNumberOfElements('option[value="[object Object]"]', 10);
+  I.click('#region-select');
+  let regions = ['National', 'London', 'Midlands', 'North East', 'North West', 'South East', 'South West', 'Wales', 'Northern Ireland', 'Scotland'];
+  for(i = 0; i < regions.length; i++) {
+      I.seeInField('#region-select', i);
+  } 
 });
 
 Scenario('Region field should be enabled only after tribunal service is selected @S-006.9',({ I}) => {
   I.loginWithJPSSubmitterUser();
   ManageJudicialSittingRecordsPage.seeCommonLandingPage();
   I.click('Submit sitting records to Finance');
-  I.seeElement('#region[disabled]');
+  I.seeElement('#region-select[disabled]');
 });
 
 Scenario('Region field selected value should be removed if a different tribunal service is selected @S-006.10',({ I}) => {
