@@ -61,8 +61,8 @@ Scenario('Region drop down will be populated with values when Submit sitting rec
   I.selectOption('Select a service', 'Social Security and Child Support');
   I.click('#region-select');
   let regions = ['National', 'London', 'Midlands', 'North East', 'North West', 'South East', 'South West', 'Wales', 'Northern Ireland', 'Scotland'];
-  for(i = 0; i < regions.length; i++) {
-      I.seeInField('#region-select', i);
+  for (x=0; x < regions.length; x++) {
+      I.seeInField('#region-select', regions[x]);
   } 
 });
 
