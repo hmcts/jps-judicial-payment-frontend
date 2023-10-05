@@ -36,8 +36,9 @@ export class ManageInformationComponent implements OnInit{
     this.router.navigate(['sittingRecords', 'home'])
   }
 
-  gotToPayroll(appointment){
+  gotToPayroll(appointment, payrollId){
     this.adminWorkflow.setJohAppointment(appointment)
+    this.adminWorkflow.setPayrollId(payrollId)
     this.router.navigate(['sittingRecords', 'payroll', 'manage'])
   }
 

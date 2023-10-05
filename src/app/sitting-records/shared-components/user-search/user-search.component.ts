@@ -34,6 +34,7 @@ export class UserSearchComponent implements OnInit{
         debounceTime(500),
         mergeMap(value => this.getUsers(value).pipe(
           catchError(() => {
+            this.usersFound = false;
             return [];
           })
         )),

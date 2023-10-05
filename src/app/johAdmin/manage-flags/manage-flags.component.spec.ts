@@ -74,6 +74,6 @@ describe('ManageFlagsComponent', () => {
 
     component.goBack();
 
-    expect(router.navigate).toHaveBeenCalledWith(['sittingRecords', 'manageJudicial']);
+    expect(router.navigate).toHaveBeenCalledWith(['sittingRecords', 'joh', 'manage']);
   });
 });

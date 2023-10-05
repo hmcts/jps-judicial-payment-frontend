@@ -71,6 +71,6 @@ describe('FlagsSuccessComponent', () => {
   it('should navigate to sittingRecords/manageJudicial', () => {
     spyOn(router, 'navigate');
     component.navigateToFlags();
-    expect(router.navigate).toHaveBeenCalledWith(['sittingRecords', 'manageJudicial']);
+    expect(router.navigate).toHaveBeenCalledWith(['sittingRecords', 'joh', 'manage']);
   });
 });

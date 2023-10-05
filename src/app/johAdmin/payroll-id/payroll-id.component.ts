@@ -22,17 +22,22 @@ export class PayrollIdComponent implements OnInit{
   ngOnInit(){
     this.selectedJOH = this.adminWorkflow.getFormData().value['johName'] as UserModel
     this.currentAppointment = this.adminWorkflow.getJohAppointment()
+    this.payrollId = this.adminWorkflow.getPayrollId();
+  }
+
+  clearStoredValues(){
+    this.adminWorkflow.resetJohAppointment()
+    this.adminWorkflow.resetCameFromManage()
+    this.adminWorkflow.resetPayrollId()
   }
 
   goBack(){
-    this.adminWorkflow.resetJohAppointment()
-    this.adminWorkflow.resetCameFromManage()
+    this.clearStoredValues()
     this.router.navigate(['sittingRecords', 'joh', 'manage'])
   }
 
   cancelFlow(){
-    this.adminWorkflow.resetJohAppointment()
-    this.adminWorkflow.resetCameFromManage()
+    this.clearStoredValues()
     this.router.navigate(['sittingRecords', 'home'])
   }
 

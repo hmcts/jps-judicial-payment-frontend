@@ -178,7 +178,7 @@ describe('SittingRecordsLandingComponent', () => {
       component.submitForm();
   
       expect(adminWorkflow.setUserInfo).toHaveBeenCalled()
-      expect(router.navigate).toHaveBeenCalledWith(['sittingRecords', 'manageJudicial']);
+      expect(router.navigate).toHaveBeenCalledWith(['sittingRecords', 'joh', 'manage']);
     });
 
     it('should navigate to manage records page for submitter', () => {

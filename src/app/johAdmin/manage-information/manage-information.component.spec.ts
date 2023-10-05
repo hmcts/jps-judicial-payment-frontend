@@ -78,7 +78,7 @@ describe('ManageInformationComponent', () => {
   
     component.editJohFlags();
   
-    expect(router.navigate).toHaveBeenCalledWith(['sittingRecords', 'johFlags']);
+    expect(router.navigate).toHaveBeenCalledWith(['sittingRecords', 'joh', 'flags']);
   });
 
 });
