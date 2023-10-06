@@ -23,8 +23,8 @@ data "azurerm_key_vault" "s2s_vault" {
 }
 
 data "azurerm_key_vault_secret" "s2s_secret" {
-  key_vault_id        = data.azurerm_key_vault.s2s_vault.id
   name                = "microservicekey-jps-judicial-payment-frontend"
+  key_vault_id        = data.azurerm_key_vault.s2s_vault.id
 }
 
 resource "azurerm_key_vault_secret" "jps_s2s_client_secret" {
