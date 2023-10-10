@@ -17,7 +17,7 @@ export class SubmitSittingRecordsComponent implements OnInit {
   date = "";
 
   apiError = false;
-  apiErrorMessage = ['An error has occured.']
+  apiErrorMessage = ['An error has occurred.']
 
   dtOptions: DataTables.Settings = {};
   sittingRecordData: SittingRecord[] = [];
