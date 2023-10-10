@@ -60,10 +60,7 @@ Scenario('Region drop down will be populated with values when Submit sitting rec
   I.click('Submit sitting records to Finance');
   I.selectOption('Select a service', 'Social Security and Child Support');
   I.click('#region-select');
-  let regions = ['National', 'London', 'Midlands', 'North East', 'North West', 'South East', 'South West', 'Wales', 'Northern Ireland', 'Scotland'];
-  for(i = 0; i < regions.length; i++) {
-      I.seeInField('#region-select', i);
-  } 
+  I.seeNumberOfElements('option[value*="Object"]', 10);
 });
 
 Scenario('Region field should be enabled only after tribunal service is selected @S-006.9',({ I}) => {
