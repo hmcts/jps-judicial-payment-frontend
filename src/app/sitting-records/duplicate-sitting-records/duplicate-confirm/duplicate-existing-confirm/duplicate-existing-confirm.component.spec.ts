@@ -4,14 +4,14 @@ import { DuplicateExistingConfirmComponent } from './duplicate-existing-confirm.
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ConvertAddPeriodPipe, ConvertToStringPeriodPipe } from '../../../../_pipes/convert-period-pipe'
 import { Router } from '@angular/router';
-import { SittingRecordWorkflowService } from 'src/app/_workflows/sitting-record-workflow.service';
+import { RecorderWorkflowService } from 'src/app/_workflows/recorder-workflow.service';
 import { FormControl, FormGroup } from '@angular/forms';
 
 describe('DuplicateExistingConfirmComponent', () => {
   let component: DuplicateExistingConfirmComponent;
   let fixture: ComponentFixture<DuplicateExistingConfirmComponent>;
   let router: Router;
-  let srWorkflow: SittingRecordWorkflowService;
+  let srWorkflow: RecorderWorkflowService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -22,7 +22,7 @@ describe('DuplicateExistingConfirmComponent', () => {
 
     fixture = TestBed.createComponent(DuplicateExistingConfirmComponent);
     router = TestBed.inject(Router);
-    srWorkflow = TestBed.inject(SittingRecordWorkflowService);
+    srWorkflow = TestBed.inject(RecorderWorkflowService);
     component = fixture.componentInstance;
   });
 

@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ValidSittingRecordsComponent } from './valid-sitting-records.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { DuplicateRecordWorkflowService } from '../../../_workflows/duplicate-record-workflow.service';
-import { SittingRecordWorkflowService } from 'src/app/_workflows/sitting-record-workflow.service';
+import { RecorderWorkflowService } from 'src/app/_workflows/recorder-workflow.service';
 import { ConvertAddPeriodPipe, ConvertToStringPeriodPipe } from './../../../_pipes/convert-period-pipe'
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ConvertRoleIdToString } from './../../../_pipes/convertRoleIdToString'
@@ -13,7 +13,7 @@ describe('ValidSittingRecordsComponent', () => {
   let component: ValidSittingRecordsComponent;
   let fixture: ComponentFixture<ValidSittingRecordsComponent>;
   let duplicateRecordWorkflow: DuplicateRecordWorkflowService;
-  let srWorkFlow: SittingRecordWorkflowService;
+  let srWorkFlow: RecorderWorkflowService;
   let mockformData: FormGroup;
   
 
@@ -21,10 +21,10 @@ describe('ValidSittingRecordsComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ ValidSittingRecordsComponent, ConvertAddPeriodPipe, ConvertToStringPeriodPipe, ConvertRoleIdToString, StringFromDatePipeYDM, StringFromDatePipe ],
       imports: [HttpClientTestingModule],
-      providers: [SittingRecordWorkflowService, DuplicateRecordWorkflowService]
+      providers: [RecorderWorkflowService, DuplicateRecordWorkflowService]
     })
     .compileComponents();
-    srWorkFlow = TestBed.inject(SittingRecordWorkflowService);
+    srWorkFlow = TestBed.inject(RecorderWorkflowService);
     duplicateRecordWorkflow = TestBed.inject(DuplicateRecordWorkflowService);
 
     

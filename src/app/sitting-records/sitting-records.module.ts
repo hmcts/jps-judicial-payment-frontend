@@ -22,6 +22,7 @@ import { SittingRecordsLandingComponent } from './sitting-records-landing/sittin
 import { SittingRecordsLandingManageRecordsComponent } from './sitting-records-landing/sitting-records-landing-manage-records/sitting-records-landing-manage-records.component';
 
 import { DataTablesModule } from "angular-datatables";
+import { SubmitSittingRecordsComponent } from './submit-sitting-records/submit-sitting-records.component';
 import { DeleteSuccessComponent } from './delete-sitting-records/delete-success/delete-success.component';
 import { DeleteSittingRecordsComponent } from './delete-sitting-records/delete-sitting-records.component'
 
@@ -73,8 +74,6 @@ import { DuplicateConfirmSuccessComponent } from './duplicate-sitting-records/du
     CapitalizeFirstLetterPipe,
     SittingRecordsInfoBannerComponent,
     ValidSittingRecordsComponent,
-    SittingRecordsInfoBannerComponent,
-    AddSittingRecordsConfirmComponent,
     JPFooterComponent,
     JPHeaderComponent,
     CookieManagerComponent,
@@ -82,6 +81,7 @@ import { DuplicateConfirmSuccessComponent } from './duplicate-sitting-records/du
     NumberDirective,
     SittingRecordsLandingComponent,
     SittingRecordsLandingManageRecordsComponent,
+    SubmitSittingRecordsComponent,
     CapitalizeFirstLetterPipe,
     ConvertRoleIdToString,
     DuplicateConfirmComponent,

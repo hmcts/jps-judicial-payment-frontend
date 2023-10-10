@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AddSittingRecordsConfirmComponent } from './add-sitting-records-confirm.component';
-import { SittingRecordWorkflowService } from '../../../_workflows/sitting-record-workflow.service';
+import { RecorderWorkflowService } from '../../../_workflows/recorder-workflow.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
@@ -14,7 +14,7 @@ import { SittingRecordsInfoBannerComponent } from '../../sitting-records-info-ba
 describe('AddSittingRecordsConfirmComponent', () => {
   let component: AddSittingRecordsConfirmComponent;
   let fixture: ComponentFixture<AddSittingRecordsConfirmComponent>;
-  let srWorkFlow: SittingRecordWorkflowService;
+  let srWorkFlow: RecorderWorkflowService;
   let router: Router;
   let httpMock: HttpTestingController;
   let dateSvc: DateService;
@@ -24,7 +24,7 @@ describe('AddSittingRecordsConfirmComponent', () => {
     await TestBed.configureTestingModule({
       imports: [RouterTestingModule, HttpClientTestingModule],
       declarations: [AddSittingRecordsConfirmComponent, SittingRecordsInfoBannerComponent],
-      providers: [SittingRecordWorkflowService, DuplicateRecordWorkflowService]
+      providers: [RecorderWorkflowService, DuplicateRecordWorkflowService]
     }).compileComponents();
 
   });
@@ -32,7 +32,7 @@ describe('AddSittingRecordsConfirmComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(AddSittingRecordsConfirmComponent);
     component = fixture.componentInstance;
-    srWorkFlow = TestBed.inject(SittingRecordWorkflowService);
+    srWorkFlow = TestBed.inject(RecorderWorkflowService);
     drWorkFlow = TestBed.inject(DuplicateRecordWorkflowService)
     router = TestBed.inject(Router);
     httpMock= TestBed.inject(HttpTestingController);
