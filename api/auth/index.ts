@@ -42,6 +42,7 @@ export const successCallback = (req: EnhancedRequest, res: Response, next: NextF
 
 export const failureCallback = (req: EnhancedRequest, res: Response, next: NextFunction) => {
   const errorMsg = `Auth Error: ${res.locals['message']}`;
+  console.log(res)
   console.log(errorMsg)
 }
 

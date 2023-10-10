@@ -16,7 +16,7 @@ export class ViewSittingRecordsComponent implements OnInit{
   constructor(
     private msrWorkFlow: ManageSittingRecordsWorkflowService,
     private dateSvc: DateService,
-    private router: Router
+    private router: Router,
   ){}
 
   tribService = "";
@@ -37,8 +37,6 @@ export class ViewSittingRecordsComponent implements OnInit{
     void this.router.navigate(['sittingRecords','add'])
   }
 
-  
-    
   ngOnInit(){
     const formData = this.msrWorkFlow.getFormData().value;
     const { dateSelected, tribunalService, venue } = formData;

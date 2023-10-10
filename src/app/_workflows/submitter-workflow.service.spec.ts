@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { of } from 'rxjs';
 import { RegionModel } from '../_models/region.model';
-import { ViewSittingRecordResponse } from '../_models/viewSittingRecords.model';
+import { ViewSittingRecordPost, ViewSittingRecordResponse } from '../_models/viewSittingRecords.model';
 import { DateService } from '../_services/date-service/date-service';
 import { ViewSittingRecordService } from '../_services/sitting-records-service/view-sitting-records-service';
 
@@ -100,13 +100,27 @@ describe('SubmitterWorkflowService', () => {
 
   describe('getSittingRecordsData', () => {
     it('should return a valid ViewSittingRecordResponse object', () => {
+      const postObj: ViewSittingRecordPost = {
+        pageSize: 100,
+        offset: 0,
+        dateOrder: 'ASCENDING',
+        regionId: '',
+        epimmsId: '',
+        createdByUserId: '',
+        personalCode: '',
+        judgeRoleTypeId: '',
+        duration: '',
+        dateRangeFrom: '',
+        dateRangeTo: '',
+        statusId: ''
+      };
       const mockResponse: ViewSittingRecordResponse = { "sittingRecords": [] };
       const dateSelected = '2022-01-01';
 
       spyOn(mockDateSvc,'formatDateFromForm').and.returnValue(dateSelected);
       spyOn(mockViewSittingRecordService,'postObject').and.returnValue(of(mockResponse))
   
-      mockWorkflowService.getSittingRecordsData().subscribe(response => expect(response).toEqual(mockResponse));
+      mockWorkflowService.getSittingRecordsData(1).subscribe(response => expect(response).toEqual(mockResponse));
     });
   });
 });

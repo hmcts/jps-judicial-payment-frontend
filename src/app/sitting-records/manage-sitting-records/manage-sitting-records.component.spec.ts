@@ -12,6 +12,7 @@ import { SittingDateComponent } from '../shared-components/sitting-date/sitting-
 import { VenueComponent } from '../shared-components/venue/venue.component';
 import { LocationService } from '../../_services/location-service/location.service';
 import { of } from 'rxjs';
+import { VenueModel } from 'src/app/_models/venue.model';
 
 describe('ManageSittingRecordsComponent', () => {
   let component: ManageSittingRecordsComponent;
@@ -90,6 +91,54 @@ describe('ManageSittingRecordsComponent', () => {
     component.ngOnInit();
 
     expect(component.showPreviousButton).toBeFalse();
+  });
+  
+  it('should populate venues if object exists in recorderWorkFlowService', () => {
+    const venueMock: VenueModel[] = [
+      {
+        court_venue_id: '',
+        epimms_id: '',
+        site_name: '',
+        region_id: '',
+        region: '',
+        court_type: '',
+        court_type_id: '',
+        cluster_id: '',
+        cluster_name: '',
+        open_for_public: '',
+        court_address: '',
+        postcode: '',
+        phone_number: '',
+        closed_date: '',
+        court_location_code: '',
+        dx_address: '',
+        welsh_site_name :  '',
+        welsh_court_address :  '',
+        court_status :  '',
+        court_open_date :  '',
+        court_name :  '',
+        venue_name :  '',
+        is_case_management_location: '',
+        is_hearing_location: '',
+        welsh_venue_name: '',
+        is_temporary_location: '',
+        is_nightingale_court: '',
+        location_type: '',
+        parent_location: '',
+        welsh_court_name: '',
+        uprn: '',
+        venue_ou_code: '',
+        mrd_building_location_id: '',
+        mrd_venue_id: '',
+        service_url: '',
+        fact_url: ''
+      }
+    ];
+
+    msrWorkFlowService.setVenueData(venueMock)
+    component.ngOnInit();
+
+    expect(component.venues).toEqual(venueMock)
   });
 
   it('should return the controls of manageRecords', () => {

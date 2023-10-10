@@ -1,5 +1,5 @@
 export class ViewSittingRecordPost {
-    pageSize = 100;
+    pageSize = 10;
     offset = 0;
     dateOrder = "ASCENDING";
     regionId!: string;
@@ -14,6 +14,7 @@ export class ViewSittingRecordPost {
 } 
 
 export class ViewSittingRecordResponse {
+    recordCount?: number;
     sittingRecords!: Array<SittingRecord>;
 }
 
@@ -37,4 +38,5 @@ export class SittingRecord {
     changedDateTime!: string;
     changedByUserId!: string;
     changedByUserName!: string;
+    venueName!: string;
 }

@@ -131,7 +131,7 @@ export class DuplicateRecordWorkflowService {
       recordedByName: this.uInfoSvc.getUserName(),
       recordedSittingRecords: resolvedObjects
     };
-    console.log(postBody)
+
     if(resolvedObjects.length === 0){
       return of('No_Records')
     }else{
