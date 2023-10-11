@@ -21,9 +21,21 @@ function selectPeriod (period) {
   I.checkOption(period)
 }
 
-function cancelClicked() {
+function cancelClicked(tribunal, venue, day, month, year) {
   I.click('Cancel');
   I.see('Manage judicial sitting records');
+  I.see(tribunal);
+  I.see(venue);
+  I.see(day);
+  I.see(month);
+  I.see(year);
 }
 
-module.exports = { selectJOH, selectPeriod, removeJOH, cancelClicked }
+function previousClicked(name, role){
+  I.click('Previous');
+  I.see('Select the Judicial office holders (JOH) associated with this sitting');
+  I.seeInField('#judge-0', name);
+  I.seeInField('#role', role);
+}
+
+module.exports = { selectJOH, selectPeriod, removeJOH, cancelClicked, previousClicked }

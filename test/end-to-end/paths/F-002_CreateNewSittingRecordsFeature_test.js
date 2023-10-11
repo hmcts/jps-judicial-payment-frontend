@@ -20,6 +20,7 @@ const afternoonPeriod = 'Afternoon';
 const fullDayPeriod = 'Full day';
 const socialSecurityTribunalService = 'Social Security and Child Support';
 const suttonVenue = 'Sutton';
+const suttonFullVenue = 'Sutton Social Security and Child Support Tribunal (Copthall House)'
 const jpsRecorderRole = 'jps recorder';
 
 
@@ -59,7 +60,7 @@ Scenario('User is able to remove a Sitting Record by clicking on Remove button @
   I.click('Add Another');
   AddSittingRecordsPage.selectJOH(brandonRojasName, tribunalMemberDisabilityRole, 2);
   AddSittingRecordsPage.removeJOH(brandonRojasName);
-  I.dontSee('Judicial office holder 3');
+  I.dontSee('Judicial Office Holder 3');
 });
 
 Scenario('User should not be able to add more than 3 Sitting Records in UI @S-002.4',({ I}) => {
@@ -109,7 +110,7 @@ Scenario('User is displayed "Manage judicial sitting records" when Cancel is cli
   JudicialSittingRecordsPage.clickAddSittingRecords();
   AddSittingRecordsPage.selectJOH(joeAmbroseName, tribunalJudgeRole);
   AddSittingRecordsPage.selectPeriod(afternoonPeriod);
-  AddSittingRecordsPage.cancelClicked();
+  AddSittingRecordsPage.cancelClicked(socialSecurityTribunalService, suttonVenue, randomDay, randomMonth, year);
 });
 
 Scenario('User is displayed "Manage judicial sitting records" when Cancel is clicked while confirming new Sitting Record(s) @S-002.9',({ I}) => {
@@ -121,7 +122,7 @@ Scenario('User is displayed "Manage judicial sitting records" when Cancel is cli
   AddSittingRecordsPage.selectPeriod(fullDayPeriod);
   I.click('Continue');
   ConfirmNewSittingRecordsPage.confirmSittingRecords(joeAmbroseName, tribunalJudgeRole, fullDayPeriod, jpsRecorderRole);
-  AddSittingRecordsPage.cancelClicked();
+  AddSittingRecordsPage.cancelClicked(socialSecurityTribunalService, suttonVenue, randomDay, randomMonth, year);
 });
 
 Scenario('User is displayed "Judicial sitting records" when Previous button is clicked while confirming new Sitting Record(s) @S-002.10',({ I}) => {
@@ -133,8 +134,5 @@ Scenario('User is displayed "Judicial sitting records" when Previous button is c
   AddSittingRecordsPage.selectPeriod(fullDayPeriod);
   I.click('Continue');
   ConfirmNewSittingRecordsPage.confirmSittingRecords(joeAmbroseName, tribunalJudgeRole, fullDayPeriod, jpsRecorderRole);
-  I.click('Previous');
-  I.see('Add sitting records for Social Security and Child Support, Sutton Social Security and Child Support Tribunal (Copthall House), for ' + randomDay + '/' + randomMonth + '/2022');
-  I.seeInField('#judge-0', joeAmbroseName);
-  I.seeInField('#role', tribunalJudgeRole);
+  AddSittingRecordsPage.previousClicked(joeAmbroseName, tribunalJudgeRole);
 });
