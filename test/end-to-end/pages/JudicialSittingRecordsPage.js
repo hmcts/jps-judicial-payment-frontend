@@ -1,7 +1,7 @@
 const { I } = inject();
 
 function clickAddSittingRecords() {
-  I.waitForVisible('Judicial sitting records');
+  I.waitForVisible('.govuk-button');
   I.click('Add Sitting Record(s)');
 }
 
