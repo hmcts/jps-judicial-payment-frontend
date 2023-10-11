@@ -1,4 +1,4 @@
-import { OnInit, Component } from '@angular/core';
+import { OnInit, Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
@@ -7,6 +7,7 @@ import { PublisherWorkflowService } from '../../_workflows/publisher-workflow.se
 import { AdminWorkflowService } from '../../_workflows/admin-workflow.service';
 import { LandingWorkflowService } from 'src/app/_workflows/landing-workflow.service';
 import { UserService } from 'src/app/_services/user-service/user.service';
+import { Subject, takeUntil } from 'rxjs';
 
 enum Options {
   SubmitToFinance = 'submitToFinance',
@@ -19,7 +20,7 @@ enum Options {
   styleUrls: ['./sitting-records-landing.component.scss']
 })
 
-export class SittingRecordsLandingComponent implements OnInit {
+export class SittingRecordsLandingComponent implements OnInit, OnDestroy {
 
   userForm!: FormGroup;
   hideManageRecordsSubmitter = true;
@@ -47,6 +48,8 @@ export class SittingRecordsLandingComponent implements OnInit {
 
 
   options = Options;
+
+  private destroy$ = new Subject<void>();
 
   constructor(
     protected router: Router,
@@ -129,7 +132,9 @@ export class SittingRecordsLandingComponent implements OnInit {
   }
   
   private subscribeToUserFormChanges() {
-    this.userForm.controls['options'].valueChanges.subscribe(optionValue => {
+    this.userForm.controls['options'].valueChanges
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(optionValue => {
       this.hideManageRecordsSubmitter = optionValue !== 'submitToFinance';
       this.hideManageRecordsPublisher = optionValue !== 'publishRecords';
       this.hideManageRecordsJohAdmin = optionValue !== 'viewManageJudicialInfo';
@@ -164,6 +169,11 @@ export class SittingRecordsLandingComponent implements OnInit {
 
     }
 
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
   
 }

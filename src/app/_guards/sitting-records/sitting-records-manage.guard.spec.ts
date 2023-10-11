@@ -45,6 +45,13 @@ describe('SittingRecordsManageGuard', () => {
     expect(result).toBeTrue();
   });
 
+  it('should return true if jps-admin role is logged in and Landing Page is visited', () => {
+    spyOn(mockCookieService, 'get').and.returnValue('jps-admin');
+    spyOn(mockAdminWorkflowService, 'getLandingVisited').and.returnValue(true);
+    const result = guard.canActivate();
+    expect(result).toBeTrue();
+  });
+
   it('should navigate to /sittingRecords/home and return false if jps-submitter role is logged in and Landing Page is not visited', () => {
     spyOn(mockRouter, 'navigate');
     spyOn(mockCookieService, 'get').and.returnValue('jps-publisher');

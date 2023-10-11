@@ -18,7 +18,7 @@ export class LandingWorkflowService {
         private userInfoSvc: UserInfoService
     ){}
     
-    setupWorkflows(optionValue, userForm, submitterFormValues, publisherFormValues, johAdminFormValues): Observable<any> {
+    setupWorkflows(optionValue, userForm, submitterFormValues, publisherFormValues, johAdminFormValues): Observable<null> {
     
         const userRole = this.userInfoSvc.getUserRole();
     

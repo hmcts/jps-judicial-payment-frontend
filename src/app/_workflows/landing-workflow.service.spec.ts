@@ -11,7 +11,6 @@ describe('LandingWorkflowService', () => {
     let service: LandingWorkflowService;
     let submitterWorkflow: SubmitterWorkflowService;
     let adminWorkflow: AdminWorkflowService;
-    let publisherWorkflow: PublisherWorkflowService;
     let userInfoSvc: UserInfoService;
     
     beforeEach(() => {
@@ -30,7 +29,6 @@ describe('LandingWorkflowService', () => {
         service = TestBed.inject(LandingWorkflowService);
         submitterWorkflow = TestBed.inject(SubmitterWorkflowService);
         adminWorkflow = TestBed.inject(AdminWorkflowService);
-        publisherWorkflow = TestBed.inject(PublisherWorkflowService);
         userInfoSvc = TestBed.inject(UserInfoService);
     });
 
