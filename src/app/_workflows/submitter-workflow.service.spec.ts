@@ -105,14 +105,14 @@ describe('SubmitterWorkflowService', () => {
         offset: 0,
         dateOrder: 'ASCENDING',
         regionId: '',
-        epimsId: '',
+        epimmsId: '',
         createdByUserId: '',
         personalCode: '',
         judgeRoleTypeId: '',
         duration: '',
         dateRangeFrom: '',
         dateRangeTo: '',
-        statusIds: []
+        statusId: ''
       };
       const mockResponse: ViewSittingRecordResponse = { "sittingRecords": [] };
       const dateSelected = '2022-01-01';
@@ -120,7 +120,7 @@ describe('SubmitterWorkflowService', () => {
       spyOn(mockDateSvc,'formatDateFromForm').and.returnValue(dateSelected);
       spyOn(mockViewSittingRecordService,'postObject').and.returnValue(of(mockResponse))
   
-      mockWorkflowService.getSittingRecordsData().subscribe(response => expect(response).toEqual(mockResponse));
+      mockWorkflowService.getSittingRecordsData(1).subscribe(response => expect(response).toEqual(mockResponse));
     });
   });
 });

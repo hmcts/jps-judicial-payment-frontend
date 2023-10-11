@@ -1,5 +1,5 @@
 export class ViewSittingRecordPost {
-    pageSize = 100;
+    pageSize = 10;
     offset = 0;
     dateOrder = "ASCENDING";
     regionId!: string;
@@ -10,10 +10,11 @@ export class ViewSittingRecordPost {
     duration!: string;
     dateRangeFrom!: string;
     dateRangeTo!: string;
-    statusIds!: string[];
+    statusId!: string;
 } 
 
 export class ViewSittingRecordResponse {
+    recordCount?: number;
     sittingRecords!: Array<SittingRecord>;
 }
 
@@ -29,12 +30,13 @@ export class SittingRecord {
     personalName!: string;
     contractTypeId!: number;
     judgeRoleTypeId!: string;
-    am!: string;
-    pm!: string;
+    am!: boolean;
+    pm!: boolean;
     createdDateTime!: string;
     createdByUserId!: string;
     createdByUserName!: string;
     changedDateTime!: string;
     changedByUserId!: string;
     changedByUserName!: string;
-  }
+    venueName!: string;
+}

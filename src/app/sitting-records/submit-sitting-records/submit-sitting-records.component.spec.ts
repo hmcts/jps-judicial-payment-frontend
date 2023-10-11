@@ -58,7 +58,7 @@ describe('SubmitSittingRecordsComponent', () => {
     expect(component.tribService).toBe(formDataMock.controls['tribunalService'].value);
     expect(component.region).toBe(formDataMock.controls['region'].value.description);
     expect(component.date).toBe(formattedDate);
-    expect(component.sittingRecordData).toBe(response.sittingRecords);
+    expect(component.sittingRecordData).toEqual(response.sittingRecords);
   });
 
   it('should navigate to the home page on goBack', () => {
@@ -67,10 +67,4 @@ describe('SubmitSittingRecordsComponent', () => {
     expect(mockRouter.navigate).toHaveBeenCalledWith(['sittingRecords','home']);
   });
 
-  it('getPeriod should convert the period correctly', () => {
-    spyOn(mockDateSvc,'getPeriod').and.returnValue('Full Day');
-    expect(component.getPeriod('AM','PM')).toEqual('Full Day');
-    expect(mockDateSvc.getPeriod).toHaveBeenCalledWith('AM','PM');
-  
-  });
 });

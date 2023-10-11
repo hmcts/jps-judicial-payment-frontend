@@ -3,7 +3,7 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import './styles/datatable_overrides.scss';
 
-.link-color{ color: $govuk-link-colour; }
+.link-color{ color: $govuk-link-colour; cursor: pointer;}
 .datatable-row-detail { width: 100vw; }
 .textErrorColor{
     color: $govuk-error-colour;
@@ -11,3 +11,14 @@
 }
 .deleteCell{ cursor: pointer; color: $govuk-link-colour;}
 .govuk-button[disabled]{ border-top: 0; }
+.success-panel { background: govuk-colour("turquoise");}
+input::-webkit-contacts-auto-fill-button {
+    visibility: hidden;
+    display: none !important;
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+}
+.white-text{ color: govuk-colour("white"); }
+.blue-text { color: govuk-colour("blue"); }  
+.dataTables_empty { display: none; }

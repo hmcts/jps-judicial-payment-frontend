@@ -9,7 +9,7 @@ import {
   FormControl,
 } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { debounceTime, filter, mergeMap, tap } from 'rxjs/operators';
+import { catchError, debounceTime, filter, mergeMap, tap } from 'rxjs/operators';
 import { UserService } from '../../_services/user-service/user.service'
 import { UserModel } from '../../_models/user.model';
 import { AutoCompleteValidator } from '../../_validators/autoCompleteValidator/auto-complete-validator'
@@ -34,10 +34,12 @@ export class AddSittingRecordComponent implements OnInit, OnDestroy {
   venueEpimmsId = "";
   userList: any[] = [[] as UserModel[], [] as UserModel[], [] as UserModel[]];
   userRoleList: any[] = [[] as RolesModel[], [] as RolesModel[], [] as RolesModel[]];
+  userPersonalCode: Array<string> = ["", "", ""]
   searchTerm = ["", "", ""];
   usersFound = [true, true, true]
   subscriptions: Subscription[] = [];
   serviceCode = "";
+  
 
   goBack() {
     this.srWorkFlow.resetCameFromConfirm()
@@ -94,6 +96,7 @@ export class AddSittingRecordComponent implements OnInit, OnDestroy {
     const user = event.option.value as UserModel
     this.johFormArray.controls[index].get('johName')?.setValue(user)
     this.userList[index] = [] as UserModel[]
+    this.userPersonalCode[index] = user.personalCode;
     this.getUserRoles(user.personalCode, index)
   }
 
@@ -108,23 +111,33 @@ export class AddSittingRecordComponent implements OnInit, OnDestroy {
     const subscription = this.johFormArray.controls[index].get('johName')?.valueChanges
       .pipe(
         tap(() => {
-          this.johFormArray.controls[index].get('johRole')?.reset()
-          this.johFormArray.controls[index].get('johRole')?.disable()
+          this.johFormArray.controls[index].get('johRole')?.reset();
+          this.johFormArray.controls[index].get('johRole')?.disable();
         }),
+        tap(() => this.userPersonalCode[index] = ""),
         tap(() => this.usersFound[index] = true),
         tap(() => this.userList[index] = [] as UserModel[]),
         tap(term => this.searchTerm[index] = term),
         filter(value => value.length >= 3),
         debounceTime(500),
-        mergeMap(value => this.getUsers(value))
-      ).subscribe(users => {
-        this.changeDetector.markForCheck()
-        this.userList[index] = users;
-        if (users.length === 0) {
-          this.usersFound[index] = false
+        mergeMap(value => this.getUsers(value).pipe(
+          catchError(() => {
+            return [];
+          })
+        )),
+        
+      )
+      .subscribe({
+        next: (users) => {
+          this.changeDetector.markForCheck();
+          const filteredUsers = users.filter(user => !this.userPersonalCode.includes(user.personalCode));
+          this.userList[index] = filteredUsers;
+          if (filteredUsers.length === 0) {
+            this.usersFound[index] = false;
+          }
         }
-      })
-
+      });
+  
     this.subscriptions.push(subscription as Subscription)
   }
   /**
@@ -152,7 +165,8 @@ export class AddSittingRecordComponent implements OnInit, OnDestroy {
    */
   getUserRoles(userPersonalCode: string, index: number) {
     this.userSvc.getUserInfo(userPersonalCode)
-      .subscribe(userRoleInfo => {
+      .subscribe({
+        next: (userRoleInfo) => {
         const appointments = userRoleInfo[0].appointments;
         const rolesArray: RolesModel[] = appointments.map((appointment) => {
           const roleObject: RolesModel = {
@@ -162,8 +176,12 @@ export class AddSittingRecordComponent implements OnInit, OnDestroy {
           return roleObject
         })
         this.userRoleList[index] = rolesArray;
+      },
+      complete: () => {
         this.johFormArray.controls[index].get('johRole')?.enable()
-      })
+        this.changeDetector.markForCheck()
+      }
+    })
   }
 
   /**
@@ -222,6 +240,7 @@ export class AddSittingRecordComponent implements OnInit, OnDestroy {
       this.userRoleList = this.srWorkFlow.getSittingRecordsRoleList()
       for (let i = 0; i < this.johFormArray.length; i++) {
         this.createValueChangesListener(i);
+        this.userPersonalCode[i] = this.johFormArray.value[i]['johName']['personalCode']
       }
     }
   }

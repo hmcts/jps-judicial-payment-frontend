@@ -1,7 +1,7 @@
 <main class="govuk-main-wrapper " id="main-content" role="main">
 
     <span class="govuk-caption-l">
-        <app-sitting-records-info-banner></app-sitting-records-info-banner>
+        <app-sitting-records-info-banner amendedText="Add sitting records"></app-sitting-records-info-banner>
     </span>
     <h1 class="govuk-heading-l">
         Select the Judicial office holders (JOH) associated with this sitting
@@ -9,14 +9,14 @@
     <p class="govuk-body govuk-!-margin-bottom-5">
         You can select a maximum of 3 office holders for each sitting.
     </p>
-    <div [formGroup]="addSittingRecordsFG">
+    <div [formGroup]="addSittingRecordsFG" autocomplete="off">
         <div formArrayName="JOH">
             <div class="govuk-grid-row" [class.govuk-inset-text]="johFormArray.length !== 1"
                 *ngFor="let joh of johFormArray.controls; let i=index;" [formGroupName]="i">
                 <div class="govuk-grid-column-full govuk-!-static-margin-bottom-2">
             
                     <h1 class="govuk-grid-column-three-quarters govuk-!-static-margin-0 govuk-!-static-padding-0">
-                        <label class="govuk-label govuk-label--m" for="judge">
+                        <label class="govuk-label govuk-label--m govuk-!-margin-0" for="judge">
                             Judicial Office Holder <span *ngIf="johFormArray.length > 1">{{ i + 1 }}</span>
                         </label>
             
@@ -38,16 +38,17 @@
                         </div>
                         <input 
                             class="govuk-input" attr.id="judge-{{i}}" name="judge" 
-                            type="text" aria-describedby="judge-hint"
+                            type="search" aria-describedby="judge-hint"
                             placeholder="Start typing to find a JOH name" 
                             formControlName="johName"
+                            autocomplete="off" autocorrect="off" spellcheck="off" autocapitalize="off"
                             [matAutocomplete]="johUserSearch"
                         >
                         <mat-autocomplete class="mat-autocomplete-panel-extend" autoActiveFirstOption #johUserSearch="matAutocomplete" (optionSelected)="optionSelected($event, i)" [displayWith]="showUserName">
                             <mat-option *ngFor="let user of userList[i]" [value]="user" (mousedown)=$event.preventDefault()  >
                             {{ user.fullName }}
                             </mat-option>
-                            <mat-option *ngIf="!userList[i].length && searchTerm[i].length >= 3 && !usersFound[i]">No results found</mat-option>
+                            <mat-option *ngIf="!userList[i].length && searchTerm[i].length >= 3 && !usersFound[i]" disabled>No results found</mat-option>
                         </mat-autocomplete>
                         <mat-error *ngIf="johFormArray.controls[i].get('johName')?.errors !== null && johFormArray.controls[i].get('johName')?.dirty && johFormArray.controls[i].get('johName')?.touched">
                             <p class="govuk-error-message">Please select a value</p>
@@ -67,7 +68,7 @@
                 </div>
                 <div class="govuk-grid-column-full">
                     <button class="govuk-button" data-module="govuk-button" (click)="addNewJoh()"
-                        *ngIf="(i === johFormArray.length-1)">
+                        *ngIf="(i === johFormArray.length-1) && johFormArray.length < 3">
                         Add Another
                     </button>
                 </div>
@@ -99,7 +100,7 @@
                         <input class="govuk-radios__input" id="period-3" name="period" type="radio" value="FULL_DAY"
                             formControlName="period">
                         <label class="govuk-label govuk-radios__label" for="period-3">
-                            Full Day
+                            Full day
                         </label>
                     </div>
                 </div>
@@ -110,7 +111,7 @@
             Continue
         </button>
         <br>
-        <a class="govuk-link" (click)="goBack()">
+        <a class="govuk-link link-color" (click)="goBack()">
             Cancel
         </a>
     </div>

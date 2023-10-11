@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ManageSittingRecordsWorkflowService } from '../../../_workflows/manage-sitting-record-workflow.service';
 import { Router } from '@angular/router';
 import { FormArray, FormGroup } from '@angular/forms';
-import { DateService } from '../../../_services/date-service/date-service';
+import { DuplicateRecordWorkflowService } from '../../../_workflows/duplicate-record-workflow.service'
 import { UserInfoService } from '../../../_services/user-info-service/user-info-service';
 
 @Component({
@@ -17,7 +17,7 @@ export class AddSittingRecordsConfirmComponent{
 
   constructor(
     public srWorkFlow: ManageSittingRecordsWorkflowService,
-    private dateSvc: DateService,
+    public drWorkFlow: DuplicateRecordWorkflowService,
     private uInfoSvc: UserInfoService,
     public router: Router,
   ) {
@@ -26,9 +26,9 @@ export class AddSittingRecordsConfirmComponent{
   }
 
   cancelAdd(){
+    void this.router.navigate(['sittingRecords', 'manage'])
     this.srWorkFlow.resetCameFromConfirm()
     this.srWorkFlow.resetAddSittingRecords()
-    void this.router.navigate(['sittingRecords', 'manage'])
   }
 
   goBack(){
@@ -41,12 +41,17 @@ export class AddSittingRecordsConfirmComponent{
   }
 
   submitNewRecords(){
-    this.srWorkFlow.formAndPostNewSittingRecord().subscribe(
-      () => {
-        void this.router.navigate(['sittingRecords', 'addSuccess'])
-
+    this.srWorkFlow.formAndPostNewSittingRecord()
+    .subscribe({
+      next: () => {
+        void this.router.navigate(['sittingRecords', 'addSuccess']);
+      },
+      error: (error) => {
+        const errorRecords = error.error['message'];
+        this.drWorkFlow.setErrorRecords(errorRecords);
+          void this.router.navigate(['sittingRecords', 'addDuplicates']);
       }
-    )
+    });
   }
 
 }

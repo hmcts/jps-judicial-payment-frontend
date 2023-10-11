@@ -7,12 +7,14 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ManageSittingRecord } from '../../_validators/sittingRecordsFormValidator/sitting-records-form-validator';
+import { debounceTime, map, startWith, takeUntil, tap } from 'rxjs/operators';
 import { LocationService } from '../../_services/location-service/location.service'
 import { VenueModel } from '../../_models/venue.model';
 import { AutoCompleteValidator } from '../../_validators/autoCompleteValidator/auto-complete-validator'
 import { ManageSittingRecordsWorkflowService } from '../../_workflows/manage-sitting-record-workflow.service';
 import { environment } from '../../environments/environment'
 import { CookieService } from 'ngx-cookie-service';
+import { Subject } from 'rxjs';
 @Component({
   selector: 'app-manage-sitting-records',
   templateUrl: './manage-sitting-records.component.html',
@@ -22,6 +24,8 @@ export class ManageSittingRecordsComponent implements OnInit {
   manageRecords: FormGroup;
   venues: VenueModel[] = [];
   readonly minSearchCharacters = 3;
+  public searchTerm = '';
+  private unsubscribe$ = new Subject<void>()
   delay = 300;
   typeaheadResultsFound = true;
   tribunalServices = environment.tribunalServices;
@@ -29,8 +33,13 @@ export class ManageSittingRecordsComponent implements OnInit {
   showPreviousButton = true;
   
   submitForm(){
-    this.msrWorkFlowService.setFormData(this.manageRecords)
-    this.msrWorkFlowService.setManageVisited()
+    this.recorderWorkFlowService.setFormData(this.manageRecords)
+    this.recorderWorkFlowService.setVenueData(this.venues)
+    this.recorderWorkFlowService.setManageVisited()
+
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+    
     void this.router.navigate(['sittingRecords','view'])
   }
 
@@ -41,7 +50,7 @@ export class ManageSittingRecordsComponent implements OnInit {
   constructor(
     protected router: Router,
     private formBuilder: FormBuilder,
-    private msrWorkFlowService: ManageSittingRecordsWorkflowService,
+    private recorderWorkFlowService: ManageSittingRecordsWorkflowService,
     private locationService : LocationService,
     private cookies: CookieService,
   ){
@@ -61,16 +70,36 @@ export class ManageSittingRecordsComponent implements OnInit {
       }
     );
 
-    this.manageRecords.controls['venue'].disable();
+  }
+
+  private _filter(value: string): object[] {
+    if (typeof value !== 'string' || !value || value.length < this.minSearchCharacters) {
+      return [];
+    }
+    this.typeaheadResultsFound = true;
+    const filterValue = value.toLowerCase();
+    const filteredValues = this.venues.filter(venue => venue['site_name'].toLowerCase().includes(filterValue));
+    if (filteredValues.length === 0) {
+      this.typeaheadResultsFound = false;
+    }
+
+    return filteredValues;
+  }
+
+  createEventListeners(){
+
+    if(this.manageRecords.controls['venue'].value === null){
+      this.manageRecords.controls['venue'].disable();
+    }
     
-    this.manageRecords.valueChanges.subscribe(() => {
-      if(this.manageRecords.controls['tribunalService'].value !== null && this.manageRecords.controls['venue'].disabled){
+    this.manageRecords.valueChanges.pipe(takeUntil(this.unsubscribe$)).subscribe(() => {
+      if(this.manageRecords.controls['tribunalService'].value !== "" && this.manageRecords.controls['venue'].disabled){
         this.manageRecords.controls['venue'].enable();
       }
 
     })
 
-    this.manageRecords.controls['tribunalService'].valueChanges.subscribe(() => {
+    this.manageRecords.controls['tribunalService'].valueChanges.pipe(takeUntil(this.unsubscribe$)).subscribe(() => {
       if(this.manageRecords.controls['venue'].value !== null){
         this.manageRecords.controls['venue'].reset();
       }else{
@@ -78,17 +107,31 @@ export class ManageSittingRecordsComponent implements OnInit {
       }
     });
 
+    this.filteredVenues = this.manageRecords.controls['venue'].valueChanges.pipe(takeUntil(this.unsubscribe$))
+      .pipe(
+        startWith(''),
+        debounceTime(this.delay), 
+        tap((term) => this.searchTerm = term),
+        map(value => this._filter(value))
+      );
   }
 
   ngOnInit(): void {
-    if(this.msrWorkFlowService.getFormData()){
-      this.manageRecords = this.msrWorkFlowService.getFormData();
+    if(this.recorderWorkFlowService.getFormData()){
+      this.manageRecords = this.recorderWorkFlowService.getFormData();
     }
+
+    if(this.recorderWorkFlowService.getVenueData()){
+      this.venues = this.recorderWorkFlowService.getVenueData();
+    }
+
+    this.createEventListeners();
 
     const userRole = this.cookies.get('__userrole__');
 
     if (userRole.indexOf('jps-recorder') != -1)
       this.showPreviousButton = false;
+      
   }
   
   public getVenues(serviceCode: string) {

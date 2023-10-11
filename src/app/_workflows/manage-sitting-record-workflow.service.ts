@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { SittingRecordsService } from '../_services/sitting-records-service/sitting-records.service';
+import { UserInfoService } from '../_services/user-info-service/user-info-service'
 import { ViewSittingRecordService } from '../_services/sitting-records-service/view-sitting-records-service'
 import { ViewSittingRecordPost } from '../_models/viewSittingRecords.model'
 import { DateService } from '../_services/date-service/date-service'
-import { SittingRecordsService } from '../_services/sitting-records-service/sitting-records.service';
-import { UserInfoService } from '../_services/user-info-service/user-info-service'
 
 @Injectable({
   providedIn: 'root'
@@ -17,13 +17,14 @@ export class ManageSittingRecordsWorkflowService {
   addSittingRecords!: FormGroup;
   cameFromConfirm = false;
   sittingRecordsRoleList;
-  
+  venueData;
+    
   constructor(
     private dateSvc: DateService,
     private sittingRecordsSvc: SittingRecordsService,
+    private uInfoSvc: UserInfoService,
     private ViewSittingRecordService: ViewSittingRecordService,
-    private uInfoSvc: UserInfoService
-  ) {}
+    ) {}
 
 
   setManageVisited(){
@@ -50,6 +51,10 @@ export class ManageSittingRecordsWorkflowService {
     this.formData.reset();
   }
 
+  getHmctsServiceCode(){
+    return this.formData.value['tribunalService'].hmctsServiceCode
+  }
+  
   getSittingRecordToDelete(){
     return this.sittingRecordToDelete
   }
@@ -89,6 +94,16 @@ export class ManageSittingRecordsWorkflowService {
     this.addSittingRecords.reset();
   }
 
+
+  setVenueData(venues){
+    this.venueData = venues;
+  }
+
+  getVenueData(){
+    return this.venueData;
+  }
+  
+
   // confirmation get, set, reset
   checkCameFromConfirm(){
     return this.cameFromConfirm
@@ -123,8 +138,8 @@ export class ManageSittingRecordsWorkflowService {
       recordedByName: this.uInfoSvc.getUserName(),
       recordedSittingRecords: JOH.value.map(joh => this.sittingRecordsSvc.createNewSRPostObj(joh, tribunalService, dateSelected, venue, period))
     };
-    return this.sittingRecordsSvc.postNewSittingRecord(postBody);
+    
+    return this.sittingRecordsSvc.postNewSittingRecord(postBody, tribunalService.hmctsServiceCode);
   }
 
-  
 }

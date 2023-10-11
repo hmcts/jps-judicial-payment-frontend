@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ManageSittingRecordsWorkflowService } from '../../_workflows/manage-sitting-record-workflow.service';
 import { DeleteSittingRecordHttp } from '../../_services/delete-sitting-records-http-service'
+import { defaultDtOptions }  from '../../_services/default-dt-options'
 
 @Component({
   selector: 'app-delete-sitting-records',
@@ -16,12 +17,35 @@ export class DeleteSittingRecordsComponent implements OnInit{
   apiError = false;
   selectedVenue: string | undefined;
   apiErrorMsg;
+  dtOptions: DataTables.Settings = {};
 
   constructor(
     private srWorkFlow: ManageSittingRecordsWorkflowService,
     private router: Router,
     private deleteRecordHttp: DeleteSittingRecordHttp
-  ){}
+  ){
+    this.dtOptions = {
+      ...defaultDtOptions,
+      columnDefs:[
+        { targets: [0, 1, 2, 3, 4, 5], orderable: false, searchable: false },
+      ],
+      info: false,
+      order: [],
+      drawCallback: 
+        /* istanbul ignore next */ 
+        () => {
+        /* istanbul ignore next */
+        document
+          .querySelectorAll(`#deleteRecordViewTable_info`)
+          .forEach((elem) => elem.classList.add('govuk-body'))
+
+        document
+          .querySelectorAll(`#deleteRecordViewTable_paginate`)
+          .forEach((elem) => elem.classList.add('govuk-body'))
+
+      }
+    }
+  }
 
   ngOnInit(){
     this.recordToDelete = this.srWorkFlow.getSittingRecordToDelete();
@@ -37,7 +61,12 @@ export class DeleteSittingRecordsComponent implements OnInit{
           void this.router.navigate(['sittingRecords', 'deleteSuccess'])
         },
         error: (error) => {
-          this.apiErrorMsg = error.error.message.split(':')[1];
+          const errorMsg = error.error.message.split(':')[1];
+          if(errorMsg == " User IDAM ID does not match the oldest Changed by IDAM ID "){
+            this.apiErrorMsg = `Selected sitting record was not recorded by the recorder. Record cannot be deleted.`
+          }else{
+            this.apiErrorMsg = errorMsg
+          }
           this.apiError = true;
         }
       });
@@ -45,7 +74,7 @@ export class DeleteSittingRecordsComponent implements OnInit{
 
   goBack(){
     this.srWorkFlow.resetSittingRecordToDelete()
-    this.router.navigate(['sittingRecords', 'manage'])
+    this.router.navigate(['sittingRecords', 'view'])
   }
 
 }

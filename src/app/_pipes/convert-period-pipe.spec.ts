@@ -13,19 +13,19 @@ describe('ConvertToStringPeriodPipe', () => {
     });
 
     it('should return "Full Day" if both am and pm are true', () => {
-        expect(pipe.transform('AM', 'PM')).toEqual('Full Day');
+        expect(pipe.transform(true, true)).toEqual('Full day');
     });
 
     it('should return "Morning" if only am is true', () => {
-        expect(pipe.transform('AM', '')).toEqual('Morning');
+        expect(pipe.transform(true, false)).toEqual('Morning');
     });
 
     it('should return "Afternoon" if only pm is true', () => {
-        expect(pipe.transform('', 'PM')).toEqual('Afternoon');
+        expect(pipe.transform(false, true)).toEqual('Afternoon');
     });
 
     it('should return empty string if neither am or pm are true', () => {
-        expect(pipe.transform('', '')).toEqual('');
+        expect(pipe.transform(false, false)).toEqual('');
     });
 
 });
@@ -51,7 +51,7 @@ describe('ConvertAddPeriodPipe', () => {
     });
 
     it('should return "Full Day" when passed "FULL_DAY"', () => {
-        expect(pipe.transform('FULL_DAY')).toEqual('Full Day');
+        expect(pipe.transform('FULL_DAY')).toEqual('Full day');
     });
 
     it('should return empty string when passed invalid value', () => {

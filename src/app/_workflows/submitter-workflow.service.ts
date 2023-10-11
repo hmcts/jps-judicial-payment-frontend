@@ -61,17 +61,19 @@ export class SubmitterWorkflowService {
     return this.financeRegions;
   }
 
-  getSittingRecordsData() {
+  getSittingRecordsData(offsetNumber: number) {
     const postObj = new ViewSittingRecordPost();
     const { dateSelected, region, tribunalService } = this.formData.value;
-    const hmctsServCode = tribunalService.hmctsServiceCode
-    const dateToGet = this.dateSvc.formatDateFromForm(dateSelected);
+    const hmctsServiceCode = tribunalService
+    const dateToGet = this.dateSvc.formatDateForPost(dateSelected);
+    postObj.pageSize = 20
     postObj.regionId = region.region_id;
-    postObj.statusIds = ['RECORDED'];
+    postObj.statusId = 'RECORDED';
     postObj.dateRangeFrom = dateToGet;
     postObj.dateRangeTo = dateToGet;
+    postObj.offset = offsetNumber;
 
-    return this.viewSittingRecordService.postObject(postObj, hmctsServCode);
+    return this.viewSittingRecordService.postObject(postObj, hmctsServiceCode);
   }
 
 }

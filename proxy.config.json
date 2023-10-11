@@ -17,11 +17,11 @@
     "target": "http://localhost:3000",
     "secure": false
   },
-  "/sittingRecords/searchSittingRecords": {
+  "/sittingrecords/searchSittingRecords": {
     "target": "http://localhost:3000",
     "secure": false
   },
-  "/sittingRecords/": {
+  "/sittingrecords/add/*" : {
     "target": "http://localhost:3000",
     "secure": false
   },
@@ -30,11 +30,7 @@
     "secure": false
   },
   "/refdata/userInfo/*": {
-    "target": "http://localhost:3001",
+    "target": "http://localhost:3000",
     "secure": false
   },
-  "/sittingrecords/add/*" : {
-    "target": "http://localhost:3001",
-    "secure": false
-  }
 }

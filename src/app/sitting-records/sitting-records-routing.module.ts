@@ -10,6 +10,7 @@ import { AddSittingRecordComponent } from './add-sitting-record/add-sitting-reco
 import { AddSittingRecordSuccessComponent } from './add-sitting-record/add-sitting-record-success/add-sitting-record-success.component';
 import { AddSittingRecordsConfirmComponent } from './add-sitting-record/add-sitting-records-confirm/add-sitting-records-confirm.component'
 import { SubmitSittingRecordsComponent } from './submit-sitting-records/submit-sitting-records.component';
+import { DuplicateSittingRecordsComponent } from './duplicate-sitting-records/duplicate-sitting-records.component'
 import { SittingRecordsLandingComponent } from './sitting-records-landing/sitting-records-landing.component';
 import { SittingRecordsViewGuard } from '../_guards/sitting-records/sitting-records-view.guard';
 import { SittingRecordsLandingGuard } from '../_guards/sitting-records/sitting-records-landing.guard';
@@ -17,6 +18,9 @@ import { SittingRecordsManageGuard } from '../_guards/sitting-records/sitting-re
 import { SittingRecordsSubmitGuard } from '../_guards/sitting-records/sitting-records-submit.guard';
 import { PublishRecordsComponent } from '../publisher-flow/publish-records/publish-records.component'
 import { AuthGuard } from '../_guards/auth/auth.guard';
+import { DuplicateConfirmComponent } from './duplicate-sitting-records/duplicate-confirm/duplicate-option-confirm/duplicate-confirm.component';
+import { DuplicateExistingConfirmComponent } from './duplicate-sitting-records/duplicate-confirm/duplicate-existing-confirm/duplicate-existing-confirm.component'
+import { DuplicateConfirmSuccessComponent } from './duplicate-sitting-records/duplicate-confirm/duplicate-confirm-success/duplicate-confirm-success.component';
 
 const routes: Routes = [
     {
@@ -38,6 +42,11 @@ const routes: Routes = [
             path: 'view',
             component: ViewSittingRecordsComponent,
             canActivate: [SittingRecordsViewGuard]
+          },
+          {
+            path: 'submit',
+            canActivate: [SittingRecordsSubmitGuard],
+            component: SubmitSittingRecordsComponent
           },
           {
             path: 'delete',
@@ -65,14 +74,29 @@ const routes: Routes = [
             canActivate: [SittingRecordsViewGuard]
           },
           {
-            path: 'submit',
-            canActivate: [SittingRecordsSubmitGuard],
-            component: SubmitSittingRecordsComponent
-          },
-          {
             path: 'publish',
             canActivate:[],
             component: PublishRecordsComponent
+          },
+          {
+            path: 'addDuplicates',
+            component: DuplicateSittingRecordsComponent,
+            canActivate: [SittingRecordsViewGuard]
+          },
+          {
+            path: 'confirmDuplicates',
+            component: DuplicateConfirmComponent,
+            canActivate: [SittingRecordsViewGuard]
+          },
+          {
+            path: 'confirmExisting',
+            component: DuplicateExistingConfirmComponent,
+            canActivate: [SittingRecordsViewGuard]
+          },
+          {
+            path: 'confirmDupeSuccess',
+            component: DuplicateConfirmSuccessComponent,
+            canActivate: [SittingRecordsViewGuard]
           }
         ]
     }

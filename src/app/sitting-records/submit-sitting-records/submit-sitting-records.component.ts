@@ -4,7 +4,6 @@ import { DateService } from '../../_services/date-service/date-service';
 import { Router } from '@angular/router';
 import { defaultDtOptions }  from '../../_services/default-dt-options'
 import { SittingRecord } from 'src/app/_models/viewSittingRecords.model';
-import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-submit-sitting-records',
@@ -16,9 +15,11 @@ export class SubmitSittingRecordsComponent implements OnInit {
   tribService = "";
   region = "";
   date = "";
- 
+
+  apiError = false;
+  apiErrorMessage = ['An error has occured.']
+
   dtOptions: DataTables.Settings = {};
-  dtTrigger: Subject<any> = new Subject<any>();
   sittingRecordData: SittingRecord[] = [];
 
   showFilters = false;
@@ -35,38 +36,49 @@ export class SubmitSittingRecordsComponent implements OnInit {
     this.tribService = tribunalService;
     this.region = region.description;
     this.date = this.dateSvc.formatDateFromForm(dateSelected);
+    $.fn.dataTable.ext.classes.sPageButton = 'govuk-pagination__item govuk-link govuk-pagination__link blue-text';
+    $.fn.dataTable.ext.classes.sPageButtonActive = 'govuk-pagination__item--current govuk-link white-text';
 
     this.dtOptions = {
       ...defaultDtOptions,
-      
+      paging: true,
+      serverSide: true,
+      ordering:false,
+      ajax: (dataTablesParameters: any, callback) => {
+        this.submitterWorkflow.getSittingRecordsData(dataTablesParameters.start)
+        .subscribe({
+          next: (records) => {
+            this.apiError = false
+            this.sittingRecordData = records.sittingRecords;
+            callback({
+              recordsTotal: records.recordCount,
+              recordsFiltered: records.recordCount,
+              data: []
+            });
+          },
+          error: (err) => {
+            this.apiError = true
+          }
+        });
+      },
       drawCallback: 
         /* istanbul ignore next */ 
         () => {
         /* istanbul ignore next */
         document
-          .querySelectorAll(`#sittingRecordViewTable_info`)
+          .querySelectorAll(`#submitRecordViewTable_info`)
           .forEach((elem) => elem.classList.add('govuk-body'))
-
         document
-          .querySelectorAll(`#sittingRecordViewTable_paginate`)
-          .forEach((elem) => elem.classList.add('govuk-body'))
+          .querySelector(`#submitRecordViewTable_paginate`)?.classList.add('govuk-pagination')
+        document
+          .querySelector(`#submitRecordViewTable_previous`)?.classList.add('govuk-pagination__prev')
+          document
+          .querySelector(`#submitRecordViewTable_next`)?.classList.add('govuk-pagination__next')
 
       }
     };
 
-    this.loadViewSittingRecords();
   } 
-
-  getPeriod(am: string, pm: string): string {
-    return this.dateSvc.getPeriod(am, pm);
-  }
-
-  loadViewSittingRecords() {
-    this.submitterWorkflow.getSittingRecordsData().subscribe(records => {
-      this.sittingRecordData = records.sittingRecords;
-      this.dtTrigger.next(null); 
-    });
-  }
 
   goBack(){
     void this.router.navigate(['sittingRecords','home'])

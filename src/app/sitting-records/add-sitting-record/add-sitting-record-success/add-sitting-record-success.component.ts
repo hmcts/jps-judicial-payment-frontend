@@ -16,13 +16,11 @@ export class AddSittingRecordSuccessComponent implements OnInit {
   date!: string;
   newSittingRecords!: FormGroup;
   recordedByName!: string;
-
+  
   navigateBackToStart(){
-    this.srWorkFlow.resetFormData();
-    this.srWorkFlow.resetVisitedManaged();
     this.srWorkFlow.resetAddSittingRecords();
     this.srWorkFlow.resetCameFromConfirm();
-    void this.router.navigate(['sittingRecords','manage']);
+    void this.router.navigate(['sittingRecords','view']);
   }
 
   get johFormArray(): FormArray {
@@ -44,6 +42,6 @@ export class AddSittingRecordSuccessComponent implements OnInit {
     this.date = this.dateSvc.formatDateFromForm(dateSelected);
     this.recordedByName = this.uInfoSvc.getUserName()
     this.newSittingRecords = this.srWorkFlow.getAddSittingRecords();
-
   }
+
 }

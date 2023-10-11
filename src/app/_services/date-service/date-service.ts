@@ -20,13 +20,16 @@ export class DateService {
     return `${year}-${month}-${day}`;
   }
 
-  getPeriod(am: string, pm: string): string {
-    const amBool = am === 'AM' ? true : false
-    const pmBool = pm === 'PM' ? true : false
-    if(amBool && pmBool){ return "Full day" }
-    if(amBool){ return "Morning" }
-    if(pmBool){ return "Afternoon" }
+  getPeriod(am: boolean, pm: boolean): string {
+    if(am && pm){ return "Full day" }
+    if(am){ return "Morning" }
+    if(pm){ return "Afternoon" }
     return ""
+  }
+
+  createDateObjFromFormData(dateObj){
+    const {dateDay, dateMonth, dateYear} = dateObj;
+    return new Date(Date.UTC(dateYear, dateMonth - 1, dateDay));
   }
 
 }

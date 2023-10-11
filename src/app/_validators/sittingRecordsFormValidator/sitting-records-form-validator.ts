@@ -18,7 +18,7 @@ export class ManageSittingRecord extends Validators {
     if (dateDay.value && dateMonth.value && (dateYear.value && dateYear.value.length == 4)) {
       const dateObj = new Date(`${dateMonth.value}-${dateDay.value}-${dateYear.value}`.replace(/-/g, "/"))
       const todaysDate = new Date()
-      const supportedDate = new Date('12-11-2021')
+      const supportedDate = new Date('12/11/2021')
       if (dateObj > todaysDate) {
         return { 'date_after_today': true }
       }

@@ -7,6 +7,7 @@ import uk.gov.hmcts.contino.GithubAPI
 def type = "angular"
 def product = "jps"
 def component = "judicial-payment-frontend"
+def branchesToSync = ['demo', 'perftest', 'ithc']
 
 def yarnBuilder = new uk.gov.hmcts.contino.YarnBuilder(this)
 
@@ -45,13 +46,10 @@ static LinkedHashMap<String, Object> secret(String secretName, String envVar) {
 
 withPipeline(type, product, component) {
   overrideVaultEnvironments(vaultOverrides)
+  syncBranchesWithMaster(branchesToSync)
   loadVaultSecrets(secrets)
-  onPR {
-    def githubApi = new GithubAPI(this)
-    if (!githubApi.getLabelsbyPattern(env.BRANCH_NAME, "keep-helm")) {
-        enableCleanupOfHelmReleaseOnSuccess()
-    }
-  }
+  enableAksStagingDeployment()
+  disableLegacyDeployment()
 
   afterAlways('build') {
     yarnBuilder.yarn('build')

@@ -31,7 +31,7 @@ describe('DeleteSittingRecordHttp', () => {
       expect(response).toEqual(responseMock);
     });
 
-    const req = httpMock.expectOne(`/sittingRecords/${recordID}`);
+    const req = httpMock.expectOne(`/sittingrecord/${recordID}`);
     expect(req.request.method).toBe('DELETE');
 
     req.flush(responseMock);
