@@ -6,7 +6,7 @@ home: https://github.com/hmcts/jps-judicial-payment-frontend
 version: 0.0.7
 dependencies:
   - name: nodejs
-    version: 2.4.14
+    version: 3.0.0
     repository: 'https://hmctspublic.azurecr.io/helm/v1/repo/'
   - name: idam-pr
     version: ~2.1.3
