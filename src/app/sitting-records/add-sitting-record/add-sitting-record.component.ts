@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { RecorderWorkflowService } from '../../_workflows/recorder-workflow.service';
-import { DateService } from '../../_services/date-service/date-service';
+import { ManageSittingRecordsWorkflowService } from '../../_workflows/manage-sitting-record-workflow.service';
 import { Router } from '@angular/router';
 import {
   FormGroup,
@@ -8,7 +7,6 @@ import {
   FormArray,
   FormControl,
 } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
 import { catchError, debounceTime, filter, mergeMap, tap } from 'rxjs/operators';
 import { UserService } from '../../_services/user-service/user.service'
 import { UserModel } from '../../_models/user.model';
@@ -41,8 +39,27 @@ export class AddSittingRecordComponent implements OnInit, OnDestroy {
   serviceCode = "";
   
 
+  constructor(
+    public msrWorkFlow: ManageSittingRecordsWorkflowService,
+    public router: Router,
+    private userSvc: UserService,
+    private changeDetector: ChangeDetectorRef
+  ) {
+
+    this.addSittingRecordsFG = new FormGroup(
+      {
+        JOH: new FormArray([
+          this.createJohFormGroup()
+        ]),
+        period: new FormControl(null, [Validators.required]),
+      }
+    );
+
+    this.createValueChangesListener(0);
+  }
+
   goBack() {
-    this.recorderWorkFlow.resetCameFromConfirm()
+    this.msrWorkFlow.resetCameFromConfirm()
     void this.router.navigate(['sittingRecords', 'manage'])
   }
 
@@ -51,8 +68,8 @@ export class AddSittingRecordComponent implements OnInit, OnDestroy {
   }
 
   submitNewSittingRecord() {
-    this.recorderWorkFlow.setAddSittingRecords(this.addSittingRecordsFG)
-    this.recorderWorkFlow.setSittingRecordsRoleList(this.userRoleList)
+    this.msrWorkFlow.setAddSittingRecords(this.addSittingRecordsFG)
+    this.msrWorkFlow.setSittingRecordsRoleList(this.userRoleList)
     void this.router.navigate(['sittingRecords', 'addConfirm'])
   }
 
@@ -208,36 +225,17 @@ export class AddSittingRecordComponent implements OnInit, OnDestroy {
     this.subscriptions[index].unsubscribe();
   }
 
-  constructor(
-    public recorderWorkFlow: RecorderWorkflowService,
-    private dateSvc: DateService,
-    public router: Router,
-    private http: HttpClient,
-    private userSvc: UserService,
-    private changeDetector: ChangeDetectorRef
-  ) {
-
-    this.addSittingRecordsFG = new FormGroup(
-      {
-        JOH: new FormArray([
-          this.createJohFormGroup()
-        ]),
-        period: new FormControl(null, [Validators.required]),
-      }
-    );
-
-    this.createValueChangesListener(0);
-  }
+  
 
   ngOnInit() {
-    const formData = this.recorderWorkFlow.getFormData().value;
+    const formData = this.msrWorkFlow.getFormData().value;
     const { tribunalService, venue } = formData;
     this.serviceCode = tribunalService.hmctsServiceCode;
     this.venueEpimmsId = venue.epimms_id;
 
-    if (this.recorderWorkFlow.getAddSittingRecords() && this.recorderWorkFlow.checkCameFromConfirm()) {
-      this.addSittingRecordsFG = this.recorderWorkFlow.getAddSittingRecords();
-      this.userRoleList = this.recorderWorkFlow.getSittingRecordsRoleList()
+    if (this.msrWorkFlow.getAddSittingRecords() && this.msrWorkFlow.checkCameFromConfirm()) {
+      this.addSittingRecordsFG = this.msrWorkFlow.getAddSittingRecords();
+      this.userRoleList = this.msrWorkFlow.getSittingRecordsRoleList()
       for (let i = 0; i < this.johFormArray.length; i++) {
         this.createValueChangesListener(i);
         this.userPersonalCode[i] = this.johFormArray.value[i]['johName']['personalCode']

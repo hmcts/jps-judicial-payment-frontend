@@ -3,7 +3,7 @@ import { FormArray, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DateService } from '../../../_services/date-service/date-service';
 import { UserInfoService } from '../../../_services/user-info-service/user-info-service';
-import { RecorderWorkflowService } from '../../../_workflows/recorder-workflow.service';
+import { ManageSittingRecordsWorkflowService } from '../../../_workflows/manage-sitting-record-workflow.service';
 
 @Component({
   selector: 'app-add-sitting-record-success',
@@ -18,8 +18,8 @@ export class AddSittingRecordSuccessComponent implements OnInit {
   recordedByName!: string;
   
   navigateBackToStart(){
-    this.recorderWorkFlow.resetAddSittingRecords();
-    this.recorderWorkFlow.resetCameFromConfirm();
+    this.msrWorkFlow.resetAddSittingRecords();
+    this.msrWorkFlow.resetCameFromConfirm();
     void this.router.navigate(['sittingRecords','view']);
   }
 
@@ -28,20 +28,20 @@ export class AddSittingRecordSuccessComponent implements OnInit {
   }
 
   constructor(
-    private recorderWorkFlow: RecorderWorkflowService,
+    private msrWorkFlow: ManageSittingRecordsWorkflowService,
     private dateSvc: DateService,
     private uInfoSvc: UserInfoService,
     private router: Router,
     ){}
 
   ngOnInit(){
-    const formData = this.recorderWorkFlow.getFormData().value;
+    const formData = this.msrWorkFlow.getFormData().value;
     const { dateSelected, tribunalService, venue } = formData;
     this.tribService = tribunalService.service;
     this.venueSiteName = venue.site_name;
     this.date = this.dateSvc.formatDateFromForm(dateSelected);
     this.recordedByName = this.uInfoSvc.getUserName()
-    this.newSittingRecords = this.recorderWorkFlow.getAddSittingRecords();
+    this.newSittingRecords = this.msrWorkFlow.getAddSittingRecords();
   }
 
 }

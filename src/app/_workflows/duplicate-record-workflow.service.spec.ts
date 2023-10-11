@@ -3,15 +3,16 @@ import { DuplicateRecordWorkflowService } from './duplicate-record-workflow.serv
 import { DateService } from '../_services/date-service/date-service'
 import { UserInfoService } from '../_services/user-info-service/user-info-service';
 import { SittingRecordsService } from '../_services/sitting-records-service/sitting-records.service';
-import { RecorderWorkflowService } from './recorder-workflow.service';
+import { ManageSittingRecordsWorkflowService } from './manage-sitting-record-workflow.service';
 import { of } from 'rxjs';
+import { DuplicateResponse, SittingRecordsPostObj } from '../_models/addSittingRecords.model';
 
 describe('DuplicateRecordWorkflowService', () => {
     let service: DuplicateRecordWorkflowService;
     let dateSvcStub: Partial<DateService>;
     let uInfoSvcStub: Partial<UserInfoService>;
     let sittingRecordsSvcStub: Partial<SittingRecordsService>;
-    let srWorkFlowStub: Partial<RecorderWorkflowService>;
+    let srWorkFlowStub: Partial<ManageSittingRecordsWorkflowService>;
 
     beforeEach(() => {
         dateSvcStub = {};
@@ -32,7 +33,7 @@ describe('DuplicateRecordWorkflowService', () => {
                 { provide: DateService, useValue: dateSvcStub },
                 { provide: UserInfoService, useValue: uInfoSvcStub },
                 { provide: SittingRecordsService, useValue: sittingRecordsSvcStub },
-                { provide: RecorderWorkflowService, useValue: srWorkFlowStub },
+                { provide: ManageSittingRecordsWorkflowService, useValue: srWorkFlowStub },
             ]
         });
         service = TestBed.inject(DuplicateRecordWorkflowService);
@@ -71,11 +72,6 @@ describe('DuplicateRecordWorkflowService', () => {
 
         describe('getDuplicateRecordErrors', () => {
             it('should return correct error records structure', () => {
-                const mockErrorRecords = [
-                    { errorCode: 'INVALID_DUPLICATE_RECORD' },
-                    { errorCode: 'VALID' },
-                    { errorCode: 'VALID' }
-                ];
                 service.setErrorRecords(mockErrorRecords);
                 const result = service.getDuplicateRecordErrors();
                 expect(result.validRecords).toEqual([mockErrorRecords[1], mockErrorRecords[2]]);
@@ -206,3 +202,50 @@ describe('DuplicateRecordWorkflowService', () => {
         });
     });
 });
+
+const postedRoecordMock: SittingRecordsPostObj = {
+    hmctsServiceCode: '',
+    sittingDate: new Date(),
+    epimmsId: '',
+    personalCode: '',
+    contractTypeId: '',
+    judgeRoleTypeId: '',
+    durationBoolean: '',
+    replaceDuplicate: false
+}
+
+const mockErrorRecords: DuplicateResponse[] = [
+    {
+        errorCode: 'INVALID_DUPLICATE_RECORD',
+        postedRecord: postedRoecordMock,
+        createdByName: '123',
+        AM: true,
+        PM: false,
+        judgeRoleTypeId: '2',
+        judgeRoleTypeName: 'Medical Member',
+        createdDateTime: '',
+        statusId: ''
+    },
+    {
+        errorCode: 'VALID',
+        postedRecord: postedRoecordMock,
+        createdByName: '456',
+        AM: true,
+        PM: false,
+        judgeRoleTypeId: '3',
+        judgeRoleTypeName: 'Judge',
+        createdDateTime: '',
+        statusId: ''
+    },
+    {
+        errorCode: 'VALID',
+        postedRecord: postedRoecordMock,
+        createdByName: '789',
+        AM: true,
+        PM: false,
+        judgeRoleTypeId: '1',
+        judgeRoleTypeName: 'Recorder',
+        createdDateTime: '',
+        statusId: ''
+    }
+];

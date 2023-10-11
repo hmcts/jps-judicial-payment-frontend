@@ -6,14 +6,14 @@ import { UserInfoService } from 'src/app/_services/user-info-service/user-info-s
 import { Router } from '@angular/router';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { SittingRecordsInfoBannerComponent } from '../../../sitting-records-info-banner/sitting-records-info-banner.component';
-import { RecorderWorkflowService } from 'src/app/_workflows/recorder-workflow.service';
+import { ManageSittingRecordsWorkflowService } from 'src/app/_workflows/manage-sitting-record-workflow.service';
 import { FormControl, FormGroup } from '@angular/forms';
 
 describe('DuplicateConfirmSuccessComponent', () => {
   let component: DuplicateConfirmSuccessComponent;
   let fixture: ComponentFixture<DuplicateConfirmSuccessComponent>;
   let drWorkFlow: DuplicateRecordWorkflowService;
-  let srWorkFlow: RecorderWorkflowService;
+  let srWorkFlow: ManageSittingRecordsWorkflowService;
   let uInfoSvc: UserInfoService;
   let router: Router;
 
@@ -27,7 +27,7 @@ describe('DuplicateConfirmSuccessComponent', () => {
     fixture = TestBed.createComponent(DuplicateConfirmSuccessComponent);
     component = fixture.componentInstance;
     drWorkFlow = TestBed.inject(DuplicateRecordWorkflowService);
-    srWorkFlow = TestBed.inject(RecorderWorkflowService)
+    srWorkFlow = TestBed.inject(ManageSittingRecordsWorkflowService)
     uInfoSvc = TestBed.inject(UserInfoService);
     router = TestBed.inject(Router);
   });

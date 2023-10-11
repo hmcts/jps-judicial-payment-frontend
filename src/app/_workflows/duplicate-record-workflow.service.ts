@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { DateService } from '../_services/date-service/date-service'
 import { UserInfoService } from '../_services/user-info-service/user-info-service';
 import { SittingRecordsService } from '../_services/sitting-records-service/sitting-records.service';
-import { RecorderWorkflowService } from './recorder-workflow.service';
+import { ManageSittingRecordsWorkflowService } from './manage-sitting-record-workflow.service';
 import { Observable, of } from 'rxjs';
+import { SittingRecordsPostObj, DuplicateResponse } from '../_models/addSittingRecords.model';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ export class DuplicateRecordWorkflowService {
     private dateSvc: DateService,
     private uInfoSvc: UserInfoService,
     private sittingRecordsSvc: SittingRecordsService,
-    private srWorkFlow: RecorderWorkflowService
+    private srWorkFlow: ManageSittingRecordsWorkflowService
   ) { }
 
   getErrorRecords() {
@@ -47,7 +48,7 @@ export class DuplicateRecordWorkflowService {
 
   getDuplicateRecordErrors(){
     const optionsSelected: (true | false | null)[] = []
-    let validRecords: any[] = [];
+    let validRecords: DuplicateResponse[] = [];
 
     this.recordErrors.forEach((record, index) => {
       optionsSelected.push(null)
@@ -96,8 +97,8 @@ export class DuplicateRecordWorkflowService {
   }
 
   formResolvedDuplicateObject(errorRecords, validRecords, optionsSelected){
-    const submitting: Array<any> = [];
-    const notSubmitting: Array<any> = [];
+    const submitting: Array<DuplicateResponse> = [];
+    const notSubmitting: Array<DuplicateResponse> = [];
     errorRecords.forEach((obj, index) => {
       if(obj.errorCode != 'VALID'){
         if (optionsSelected[index]) {
@@ -118,7 +119,7 @@ export class DuplicateRecordWorkflowService {
   }
 
   postResolvedDuplicates(resolvedDuplicates){
-    const resolvedObjects: any[] = []
+    const resolvedObjects: SittingRecordsPostObj[] = []
     resolvedDuplicates.forEach((data) => {
         if(data.errorCode !== 'VALID'){
           data.postedRecord.replaceDuplicate = true

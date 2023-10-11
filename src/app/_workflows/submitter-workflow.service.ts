@@ -11,7 +11,7 @@ import { ViewSittingRecordService } from '../_services/sitting-records-service/v
 export class SubmitterWorkflowService {
 
   formData!: FormGroup;
-  userFormData!: FormGroup;
+  userLandingData!: FormGroup;
   hasLandingVisited = false;
   financeRegions: RegionModel[] = [];
 
@@ -33,24 +33,24 @@ export class SubmitterWorkflowService {
     this.formData = data;
   }
 
-  setUserFormData(data : FormGroup){
-    this.userFormData = data;
+  setUserLandingData(data : FormGroup){
+    this.userLandingData = data;
   }
 
   getFormData(){
     return this.formData;
   }
 
-  getUserFormData(){
-    return this.userFormData;
+  getUserLandingData(){
+    return this.userLandingData;
   }
 
   resetFormData(){
     this.formData.reset();
   }
 
-  resetUserFormData() {
-    this.userFormData.reset();
+  resetUserLandingData() {
+    this.userLandingData.reset();
   }
 
   setFinanceRegions(regions: RegionModel[]){
@@ -64,7 +64,7 @@ export class SubmitterWorkflowService {
   getSittingRecordsData(offsetNumber: number) {
     const postObj = new ViewSittingRecordPost();
     const { dateSelected, region, tribunalService } = this.formData.value;
-    const hmctsServiceCode = tribunalService
+    const hmctsServiceCode = tribunalService.hmctsServiceCode;
     const dateToGet = this.dateSvc.formatDateForPost(dateSelected);
     postObj.pageSize = 20
     postObj.regionId = region.region_id;

@@ -19,10 +19,16 @@ import { InvalidDuplicateComponent } from './duplicate-sitting-records/invalid-d
 import { ErrorSummaryComponent } from '../error-summary/error-summary.component'
 import { SittingRecordsInfoBannerComponent } from './sitting-records-info-banner/sitting-records-info-banner.component';
 import { SittingRecordsLandingComponent } from './sitting-records-landing/sitting-records-landing.component';
-import { SittingRecordsLandingManageRecordsComponent } from './sitting-records-landing/sitting-records-landing-manage-records/sitting-records-landing-manage-records.component';
+import { SittingRecordsLandingManageRecordsSubmitterComponent } from './sitting-records-landing/sitting-records-landing-manage-records-submitter/sitting-records-landing-manage-records-submitter.component';
 
 import { DataTablesModule } from "angular-datatables";
 import { SubmitSittingRecordsComponent } from './submit-sitting-records/submit-sitting-records.component';
+import { SittingRecordsLandingManageRecordsPublisherComponent } from './sitting-records-landing/sitting-records-landing-manage-records-publisher/sitting-records-landing-manage-records-publisher.component';
+
+import { TribunalServiceComponent } from './shared-components/tribunal-service/tribunal-service.component';
+import { VenueComponent } from './shared-components/venue/venue.component';
+import { SittingDateComponent } from './shared-components/sitting-date/sitting-date.component';
+import { RegionComponent } from './shared-components/region/region.component';
 import { DeleteSuccessComponent } from './delete-sitting-records/delete-success/delete-success.component';
 import { DeleteSittingRecordsComponent } from './delete-sitting-records/delete-sitting-records.component'
 
@@ -33,8 +39,11 @@ import { JPHeaderComponent } from '../static-elements/jp-header/jp-header.compon
 import { CookieManagerComponent } from '../static-elements/cookies/cookie-manager/cookie-manager.component';
 import { LogoutComponent } from '../static-elements/logout/logout.component';
 import { CapitalizeFirstLetterPipe } from '../_pipes/convertTableStatus'
-import { ValidSittingRecordsComponent } from './duplicate-sitting-records/valid-sitting-records/valid-sitting-records.component';
 import { ConvertRoleIdToString } from '../_pipes/convertRoleIdToString';
+import { SittingRecordsLandingJohadminComponent } from './sitting-records-landing/sitting-records-landing-johadmin/sitting-records-landing-johadmin.component';
+import { UserSearchComponent } from './shared-components/user-search/user-search.component'
+import { ManageInformationComponent } from '../johAdmin/manage-information/manage-information.component';
+import { ValidSittingRecordsComponent } from './duplicate-sitting-records/valid-sitting-records/valid-sitting-records.component';
 import { DuplicateConfirmComponent } from './duplicate-sitting-records/duplicate-confirm/duplicate-option-confirm/duplicate-confirm.component';
 import { DuplicateExistingConfirmComponent } from './duplicate-sitting-records/duplicate-confirm/duplicate-existing-confirm/duplicate-existing-confirm.component';
 import { DuplicateConfirmSuccessComponent } from './duplicate-sitting-records/duplicate-confirm/duplicate-confirm-success/duplicate-confirm-success.component'
@@ -56,7 +65,6 @@ import { DuplicateConfirmSuccessComponent } from './duplicate-sitting-records/du
     ViewSittingRecordsComponent,
     DeleteSittingRecordsComponent,
     DeleteSuccessComponent,
-    NumberDirective,
     StringFromDatePipe,
     StringFromDatePipeYDM,
     ConvertToStringPeriodPipe,
@@ -70,7 +78,6 @@ import { DuplicateConfirmSuccessComponent } from './duplicate-sitting-records/du
     InvalidDuplicateComponent,
     ErrorSummaryComponent,
     SittingRecordsLandingComponent,
-    SittingRecordsLandingManageRecordsComponent,
     CapitalizeFirstLetterPipe,
     SittingRecordsInfoBannerComponent,
     ValidSittingRecordsComponent,
@@ -80,13 +87,21 @@ import { DuplicateConfirmSuccessComponent } from './duplicate-sitting-records/du
     LogoutComponent,
     NumberDirective,
     SittingRecordsLandingComponent,
-    SittingRecordsLandingManageRecordsComponent,
     SubmitSittingRecordsComponent,
     CapitalizeFirstLetterPipe,
     ConvertRoleIdToString,
+    SittingRecordsLandingJohadminComponent,
+    UserSearchComponent,
+    ManageInformationComponent,
     DuplicateConfirmComponent,
     DuplicateExistingConfirmComponent,
-    DuplicateConfirmSuccessComponent
-  ]
+    DuplicateConfirmSuccessComponent,
+    SittingRecordsLandingManageRecordsSubmitterComponent,
+    SittingRecordsLandingManageRecordsPublisherComponent,
+    TribunalServiceComponent,
+    VenueComponent,
+    SittingDateComponent,
+    RegionComponent
+]
 })
 export class SittingRecordsModule { }

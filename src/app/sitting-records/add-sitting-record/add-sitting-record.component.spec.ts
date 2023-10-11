@@ -5,7 +5,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { AddSittingRecordComponent } from './add-sitting-record.component';
-import { RecorderWorkflowService } from '../../_workflows/recorder-workflow.service';
+import { ManageSittingRecordsWorkflowService } from '../../_workflows/manage-sitting-record-workflow.service';
 import { DateService } from '../../_services/date-service/date-service';
 import { UserService } from '../../_services/user-service/user.service';
 import { Router } from '@angular/router';
@@ -16,14 +16,14 @@ describe('AddSittingRecordComponent', () => {
   let component: AddSittingRecordComponent;
   let fixture: ComponentFixture<AddSittingRecordComponent>;
   let userService: UserService;
-  let srWorkflowService: RecorderWorkflowService;
+  let srWorkflowService: ManageSittingRecordsWorkflowService;
   let router: Router;
   
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ReactiveFormsModule, HttpClientTestingModule, RouterTestingModule, MatAutocompleteModule],
       declarations: [AddSittingRecordComponent, SittingRecordsInfoBannerComponent],
-      providers: [RecorderWorkflowService, DateService, UserService]
+      providers: [ManageSittingRecordsWorkflowService, DateService, UserService]
     }).compileComponents();
   });
 
@@ -32,7 +32,7 @@ describe('AddSittingRecordComponent', () => {
     component = fixture.componentInstance;
     userService = TestBed.inject(UserService);
     router = TestBed.inject(Router);
-    srWorkflowService = TestBed.inject(RecorderWorkflowService);
+    srWorkflowService = TestBed.inject(ManageSittingRecordsWorkflowService);
     srWorkflowService.setManageVisited();
     const formDataMock: FormGroup = new FormBuilder().group({
       dateSelected: ['2022-01-01'],

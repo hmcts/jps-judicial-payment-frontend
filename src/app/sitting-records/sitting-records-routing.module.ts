@@ -21,6 +21,10 @@ import { DuplicateConfirmComponent } from './duplicate-sitting-records/duplicate
 import { DuplicateExistingConfirmComponent } from './duplicate-sitting-records/duplicate-confirm/duplicate-existing-confirm/duplicate-existing-confirm.component'
 import { DuplicateConfirmSuccessComponent } from './duplicate-sitting-records/duplicate-confirm/duplicate-confirm-success/duplicate-confirm-success.component';
 
+import { ManageInformationComponent } from '../johAdmin/manage-information/manage-information.component'
+
+import { JohAdminGuard } from '../_guards/joh-admin/joh-admin-guard';
+
 const routes: Routes = [
     {
         path: "sittingRecords",
@@ -71,6 +75,11 @@ const routes: Routes = [
             path: 'addSuccess',
             component: AddSittingRecordSuccessComponent,
             canActivate: [SittingRecordsViewGuard]
+          },
+          {
+            path: 'manageJudicial',
+            component: ManageInformationComponent,
+            canActivate:[JohAdminGuard]
           },
           {
             path: 'addDuplicates',

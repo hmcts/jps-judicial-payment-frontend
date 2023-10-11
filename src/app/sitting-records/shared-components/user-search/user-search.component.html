@@ -1,0 +1,24 @@
+<ng-container [formGroup]="parentFormGroup.control">
+    <div class="govuk-form-group govuk-!-static-margin-bottom-0"
+        [class.govuk-form-group--error]="parentFormGroup.control.controls['johName'].errors !== null && parentFormGroup.control.controls['johName'].dirty && parentFormGroup.control.controls['johName'].touched">
+        <div id="judge-hint" class="govuk-label">
+            Select a Judicial office holder 
+        </div>
+        <input class="govuk-input govuk-!-width-two-thirds" id="judge-search-component" name="judge" type="search" aria-describedby="judge-hint"
+            placeholder="Start typing to find a JOH name" formControlName="johName" autocomplete="off" autocorrect="off"
+            spellcheck="off" autocapitalize="off" [matAutocomplete]="userSearch">
+        <mat-autocomplete class="mat-autocomplete-panel-extend" autoActiveFirstOption #userSearch="matAutocomplete"
+            (optionSelected)="optionSelected($event)" [displayWith]="showUserName">
+            <mat-option *ngFor="let user of userList" [value]="user" (mousedown)=$event.preventDefault()>
+                {{ user.fullName }}
+            </mat-option>
+            <mat-option *ngIf="!userList.length && searchTerm.length >= 3 && !usersFound" disabled>No results
+                found</mat-option>
+        </mat-autocomplete>
+        <mat-error
+            *ngIf="parentFormGroup.control.controls['johName'].errors !== null && parentFormGroup.control.controls['johName'].dirty && parentFormGroup.control.controls['johName'].touched">
+            <p class="govuk-error-message">Please select a value</p>
+        </mat-error>
+    </div>
+</ng-container>
+
