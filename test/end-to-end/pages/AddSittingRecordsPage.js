@@ -13,7 +13,7 @@ function selectJOH(name, role, row=0) {
 
 function removeJOH(name) {
   I.click('Remove');
-  I.dontSee(name);
+  I.dontSeeInField(name);
 }
 
 function selectPeriod (period) {
@@ -21,4 +21,9 @@ function selectPeriod (period) {
   I.checkOption(period)
 }
 
-module.exports = { selectJOH, selectPeriod, removeJOH }
+function cancelClicked() {
+  I.click('Cancel');
+  I.see('Manage judicial sitting records');
+}
+
+module.exports = { selectJOH, selectPeriod, removeJOH, cancelClicked }
