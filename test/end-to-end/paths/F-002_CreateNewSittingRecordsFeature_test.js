@@ -59,7 +59,7 @@ Scenario('User is able to remove a Sitting Record by clicking on Remove button @
   AddSittingRecordsPage.selectJOH(maryGallegosName, regionalTribunalJudgeRole, 1);
   I.click('Add Another');
   AddSittingRecordsPage.selectJOH(brandonRojasName, tribunalMemberDisabilityRole, 2);
-  AddSittingRecordsPage.removeJOH(brandonRojasName);
+  AddSittingRecordsPage.removeJOH(2);
   I.dontSee('Judicial Office Holder 3');
 });
 
@@ -110,7 +110,7 @@ Scenario('User is displayed "Manage judicial sitting records" when Cancel is cli
   JudicialSittingRecordsPage.clickAddSittingRecords();
   AddSittingRecordsPage.selectJOH(joeAmbroseName, tribunalJudgeRole);
   AddSittingRecordsPage.selectPeriod(afternoonPeriod);
-  AddSittingRecordsPage.cancelClicked(socialSecurityTribunalService, suttonVenue, randomDay, randomMonth, year);
+  AddSittingRecordsPage.clickCancel(socialSecurityTribunalService, suttonVenue, randomDay, randomMonth, year);
 });
 
 Scenario('User is displayed "Manage judicial sitting records" when Cancel is clicked while confirming new Sitting Record(s) @S-002.9',({ I}) => {
@@ -122,7 +122,7 @@ Scenario('User is displayed "Manage judicial sitting records" when Cancel is cli
   AddSittingRecordsPage.selectPeriod(fullDayPeriod);
   I.click('Continue');
   ConfirmNewSittingRecordsPage.confirmSittingRecords(joeAmbroseName, tribunalJudgeRole, fullDayPeriod, jpsRecorderRole);
-  AddSittingRecordsPage.cancelClicked(socialSecurityTribunalService, suttonVenue, randomDay, randomMonth, year);
+  AddSittingRecordsPage.clickCancel(socialSecurityTribunalService, suttonVenue, randomDay, randomMonth, year);
 });
 
 Scenario('User is displayed "Judicial sitting records" when Previous button is clicked while confirming new Sitting Record(s) @S-002.10',({ I}) => {
@@ -134,5 +134,5 @@ Scenario('User is displayed "Judicial sitting records" when Previous button is c
   AddSittingRecordsPage.selectPeriod(fullDayPeriod);
   I.click('Continue');
   ConfirmNewSittingRecordsPage.confirmSittingRecords(joeAmbroseName, tribunalJudgeRole, fullDayPeriod, jpsRecorderRole);
-  AddSittingRecordsPage.previousClicked(joeAmbroseName, tribunalJudgeRole);
+  AddSittingRecordsPage.clickPrevious(joeAmbroseName, tribunalJudgeRole);
 });
