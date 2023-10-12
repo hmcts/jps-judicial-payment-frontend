@@ -13,7 +13,7 @@ function selectJOH(name, role, row=0) {
 
 function removeJOH(name) {
   I.click('Remove');
-  I.dontSeeInField(name);
+  I.dontSee(name);
 }
 
 function selectPeriod (period) {
@@ -24,11 +24,11 @@ function selectPeriod (period) {
 function cancelClicked(tribunal, venue, day, month, year) {
   I.click('Cancel');
   I.see('Manage judicial sitting records');
-  I.see(tribunal);
-  I.see(venue);
-  I.see(day);
-  I.see(month);
-  I.see(year);
+  I.seeInField('//*[@id="main-content"]/form/div[1]', tribunal);
+  I.seeInField('#venue-select', venue);
+  I.seeInField('input[name = "msr-date-day"]', day);
+  I.seeInField('input[name = "msr-date-month"]', month);
+  I.seeInField('input[name = "msr-date-year"]', year);
 }
 
 function previousClicked(name, role){
