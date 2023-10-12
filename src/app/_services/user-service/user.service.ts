@@ -14,12 +14,12 @@ export class UserService {
     private readonly cookies: CookieService
   ) { }
 
-  public getUsers(searchTerm: string, serviceCode: string, venueEpims: string): Observable<UserModel[]> {
+  public getUsers(searchTerm: string, serviceCode: string, venueEpimms: string): Observable<UserModel[]> {
 
     const requestBody = {
         "searchString": searchTerm,
         "serviceCode": serviceCode,
-        "location": venueEpims
+        "location": venueEpimms
       }
 
     const headers = {

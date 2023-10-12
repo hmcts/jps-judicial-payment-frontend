@@ -1,0 +1,77 @@
+<div *ngIf="index === 0">
+    <p class="govuk-body govuk-!-margin-bottom-0">The highlighted record(s) appears to be a duplicate.</p>
+    <p class="govuk-body govuk-!-margin-bottom-2">Please select the record you want to keep, and click below to save your record(s):</p>
+</div>
+<div *ngIf="index > 0">
+    <p class="govuk-body govuk-!-margin-bottom-2">Select the record you want to keep:</p>
+</div>
+<table class="govuk-table" aria-describedby="table for displaying potential duplicates">
+    <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+            <th scope="col" ></th>
+            <th scope="col" class="govuk-table__header textIndent"> Name </th>
+            <th scope="col" class="govuk-table__header"> Role </th>
+            <th scope="col" class="govuk-table__header"> Period </th>
+            <th scope="col" class="govuk-table__header"> Entered by </th>
+            <th scope="col" class="govuk-table__header"> Date </th>
+            <th scope="col" class="govuk-table__header"> Venue</th>
+            <th scope="col" class="govuk-table__header"> Status</th>
+            <th scope="col" class="govuk-table__header"> &nbsp;</th>
+        </tr>
+    </thead>
+    <tbody class="govuk-table__body">
+        <tr class="govuk-table__row">
+            <td class="userDefinedStyling"></td>
+            <td class="govuk-table__cell errorCellStyling textIndent"> {{potentialRecord.judgeRoleTypeName}}</td>
+            <td class="govuk-table__cell errorCellStyling"> {{potentialRecord.postedRecord.judgeRoleTypeId | convertRoleIdToString}}</td>
+            <td class="govuk-table__cell errorCellStyling"> {{potentialRecord.postedRecord.am | convertToStringPeriod: potentialRecord.postedRecord.pm}}</td>
+            <td class="govuk-table__cell errorCellStyling"> {{currentUser}}</td>
+            <td class="govuk-table__cell errorCellStyling"> {{selectedDate | stringFromDateYDM}}</td>
+            <td class="govuk-table__cell errorCellStyling"> {{selectedVenue}}</td>
+            <td class="govuk-table__cell errorCellStyling"> </td>
+            <td class="govuk-table__cell errorCellStyling"> 
+                <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+                    <div class="govuk-radios__item govuk-!-margin-0">
+                        <input class="govuk-radios__input" id="changed-name-{{potentialRecord.judgeRoleTypeName}}" 
+                            name="record-selected-{{potentialRecord.judgeRoleTypeName}}" 
+                            type="radio" value="true"
+                            (change)="updateSelection(true)"
+                        >
+                        <label class="govuk-label govuk-radios__label govuk-!-padding-0" for="changed-name-{{potentialRecord.judgeRoleTypeName}}">
+                            &nbsp;
+                        </label>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+        </tr>
+
+        <tr class="govuk-table__row">
+            <td ></td>
+            <td class="govuk-table__cell textIndent"> {{potentialRecord.judgeRoleTypeName}}</td>
+            <td class="govuk-table__cell"> {{potentialRecord.judgeRoleTypeId | convertRoleIdToString}}</td>
+            <td class="govuk-table__cell"> {{potentialRecord.am | convertToStringPeriod: potentialRecord.pm}}</td>
+            <td class="govuk-table__cell"> {{potentialRecord.createdByName}}</td>
+            <td class="govuk-table__cell"> {{selectedDate | stringFromDateYDM}}</td>
+            <td class="govuk-table__cell"> {{selectedVenue}}</td>
+            <td class="govuk-table__cell"> {{potentialRecord.statusId | capitalizeFirstLetterForStatus}}</td>
+            <td class="govuk-table__cell"> 
+                <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+                    <div class="govuk-radios__item govuk-!-margin-0">
+                        <input class="govuk-radios__input" id="changed-name-{{potentialRecord.judgeRoleTypeName}}" 
+                        name="record-selected-{{potentialRecord.judgeRoleTypeName}}" 
+                        type="radio" value="false"
+                        (change)="updateSelection(false)"
+                        >
+                        <label class="govuk-label govuk-radios__label govuk-!-padding-0" for="changed-type-{{potentialRecord.judgeRoleTypeName}}">
+                            &nbsp;
+                        </label>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+        </tr>
+    </tbody>
+</table>

@@ -3,27 +3,28 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, ReactiveFormsModu
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ManageSittingRecordsComponent } from './manage-sitting-records.component';
-import { SittingRecordWorkflowService } from '../../_workflows/sitting-record-workflow.service';
-import { HttpClientModule } from '@angular/common/http';
+import { RecorderWorkflowService } from '../../_workflows/recorder-workflow.service';
+import { LocationService } from '../../_services/location-service/location.service';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { of } from 'rxjs';
-import { LocationService } from 'src/app/_services/location-service/location.service';
 import { CookieService } from 'ngx-cookie-service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { VenueModel } from 'src/app/_models/venue.model';
 
 describe('ManageSittingRecordsComponent', () => {
   let component: ManageSittingRecordsComponent;
   let fixture: ComponentFixture<ManageSittingRecordsComponent>;
   let router: Router;
-  let srWorkflowService: SittingRecordWorkflowService;
+  let recorderWorkFlowService: RecorderWorkflowService;
   let locationService: LocationService;
   let cookieService: CookieService;
   
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule, RouterTestingModule, HttpClientModule, MatAutocompleteModule],
+      imports: [ReactiveFormsModule, RouterTestingModule, HttpClientTestingModule, MatAutocompleteModule],
       declarations: [ManageSittingRecordsComponent],
       providers: [
-        SittingRecordWorkflowService, 
+        RecorderWorkflowService, 
         LocationService,
         CookieService
       ],
@@ -34,7 +35,7 @@ describe('ManageSittingRecordsComponent', () => {
     fixture = TestBed.createComponent(ManageSittingRecordsComponent);
     component = fixture.componentInstance;
     router = TestBed.inject(Router);
-    srWorkflowService = TestBed.inject(SittingRecordWorkflowService);
+    recorderWorkFlowService = TestBed.inject(RecorderWorkflowService);
     locationService = TestBed.inject(LocationService);
     cookieService = TestBed.inject(CookieService);
   });
@@ -66,27 +67,75 @@ describe('ManageSittingRecordsComponent', () => {
   });
 
   it('should navigate to view-sitting-records when the form is submitted', () => {
-    spyOn(srWorkflowService, 'setFormData');
-    spyOn(srWorkflowService, 'setManageVisited');
+    spyOn(recorderWorkFlowService, 'setFormData');
+    spyOn(recorderWorkFlowService, 'setManageVisited');
     spyOn(router, 'navigate');
     component.submitForm();
 
-    expect(srWorkflowService.setFormData).toHaveBeenCalled();
-    expect(srWorkflowService.setManageVisited).toHaveBeenCalled();
+    expect(recorderWorkFlowService.setFormData).toHaveBeenCalled();
+    expect(recorderWorkFlowService.setManageVisited).toHaveBeenCalled();
     expect(router.navigate).toHaveBeenCalledWith(['sittingRecords', 'view']);
   });
 
-  it('should populate manageRecords if object exists in sittingRecordsWorkflow', () => {
+  it('should populate manageRecords if object exists in recorderWorkFlowService', () => {
     const formDataMock: FormGroup = new FormBuilder().group({
       dateSelected: ['2022-01-01'],
       tribunalService: ['Tribunal 1'],
       venue: ['Venue 1'],
     });
 
-    srWorkflowService.setFormData(formDataMock)
+    recorderWorkFlowService.setFormData(formDataMock)
     component.ngOnInit();
 
     expect(component.manageRecords).toEqual(formDataMock)
+  });
+  
+  it('should populate venues if object exists in recorderWorkFlowService', () => {
+    const venueMock: VenueModel[] = [
+      {
+        court_venue_id: '',
+        epimms_id: '',
+        site_name: '',
+        region_id: '',
+        region: '',
+        court_type: '',
+        court_type_id: '',
+        cluster_id: '',
+        cluster_name: '',
+        open_for_public: '',
+        court_address: '',
+        postcode: '',
+        phone_number: '',
+        closed_date: '',
+        court_location_code: '',
+        dx_address: '',
+        welsh_site_name :  '',
+        welsh_court_address :  '',
+        court_status :  '',
+        court_open_date :  '',
+        court_name :  '',
+        venue_name :  '',
+        is_case_management_location: '',
+        is_hearing_location: '',
+        welsh_venue_name: '',
+        is_temporary_location: '',
+        is_nightingale_court: '',
+        location_type: '',
+        parent_location: '',
+        welsh_court_name: '',
+        uprn: '',
+        venue_ou_code: '',
+        mrd_building_location_id: '',
+        mrd_venue_id: '',
+        service_url: '',
+        fact_url: ''
+      }
+    ];
+
+    recorderWorkFlowService.setVenueData(venueMock)
+    component.ngOnInit();
+
+    expect(component.venues).toEqual(venueMock)
   });
 
 

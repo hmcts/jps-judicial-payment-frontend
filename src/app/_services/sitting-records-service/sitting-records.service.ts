@@ -15,12 +15,12 @@ export class SittingRecordsService{
         private readonly cookies: CookieService
     ){}
 
-    postNewSittingRecord(newSittingRecords: SittingRecordsPostBody) {
+    postNewSittingRecord(newSittingRecords: SittingRecordsPostBody, hmctsServiceCode: string) {
         const headers = {
             'Content-Type': 'application/json',
         };
 
-        return this.http.post('/sittingrecord/add', { sittingRecords: newSittingRecords }, { headers: headers});
+        return this.http.post('/sittingrecord/add', { sittingRecords: newSittingRecords, serviceCode: hmctsServiceCode }, { headers: headers});
     }
 
     createNewSRPostObj(joh: JudicialOfficeHolder, tribunalService: TribunalService, dateSelected: Date, venue: Venue, period:SittingPeriod) {
@@ -65,7 +65,9 @@ export class SittingRecordsService{
         'District Judge': 12,
         'District Judge (MC)': 13,
         'Recorder': 14,
+        'Deputy Upper Tribunal Judge':15
     };
+
     contractTypeMap: Record<string, number> = {
         'Salaried': 1,
         'Fee-Paid': 2,
@@ -87,7 +89,7 @@ export class SittingRecordsService{
     }
 
     changeContractNameToId(contractName) {
-        return this.contractTypeMap[contractName].toString()
+        return this.contractTypeMap[contractName]
     }
 
 }
