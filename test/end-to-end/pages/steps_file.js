@@ -12,7 +12,7 @@ module.exports = function () {
   const johAdminPassword = process.env.JPS_JOH_ADMIN_PASSWORD || 'password';
   const invalidUsername = process.env.JPS_INVALID_USERNAME || 'jps-invalid-role@gmail.com';
   const invalidPassword = process.env.JPS_INVALID_PASSWORD || 'password';
-  
+      
   return actor({
     loginWithJPSRecorderUser: function(){
       const I = this;
@@ -68,15 +68,6 @@ module.exports = function () {
       I.click('Sign in');
     },
 
-    logOutThenLoginWithJPSRecorderUser: function(){
-      const I = this;
-      I.click('Sign out');
-      I.waitForVisible('#username', 10);
-      I.fillField('Email address', recorderUsername);
-      I.fillField('Password', recorderPassword);
-      I.click('Sign in');
-      },
-
     createSittingRecord: function(name, role, period){
       const I = this;
       I.fillField('.govuk-input', name);
@@ -85,7 +76,7 @@ module.exports = function () {
       I.checkOption(period);
       I.click('Continue');
       I.click('Save Record(s)');
-      I.wait(2);
+      I.waitForText('Sitting record(s) saved', 2);
       I.click('View Record Table');
       I.see(name);
       I.see(role);
