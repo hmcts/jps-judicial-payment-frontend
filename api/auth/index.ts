@@ -18,7 +18,9 @@ import {
   SERVICES_IDAM_ISS_URL,
   SERVICES_IDAM_LOGIN_URL,
   SERVICES_IDAM_OAUTH_CALLBACK_URL,
-  SESSION_SECRET
+  SESSION_SECRET,
+  JPS_SYSTEM_USERNAME,
+  JPS_SYSTEM_PASSWORD
 } from '../configuration/references';
 
 export const successCallback = (req: EnhancedRequest, res: Response, next: NextFunction) => {
@@ -40,6 +42,7 @@ export const successCallback = (req: EnhancedRequest, res: Response, next: NextF
 
 export const failureCallback = (req: EnhancedRequest, res: Response, next: NextFunction) => {
   const errorMsg = `Auth Error: ${res.locals['message']}`;
+  console.log(res)
   console.log(errorMsg)
 }
 
@@ -56,8 +59,18 @@ export const getXuiNodeMiddleware = () => {
   const idamApiPath = getConfigValue(SERVICES_IDAM_API_URL);
   const s2sSecret = getConfigValue(S2S_SECRET);
   const tokenUrl = `${getConfigValue(SERVICES_IDAM_API_URL)}/oauth2/token`;
+  const userName = getConfigValue(JPS_SYSTEM_USERNAME);
+  const password = getConfigValue(JPS_SYSTEM_PASSWORD);
+  
+  const routeCredential = {
+    password,
+    routes: [
+      '/refdata/userInfo'
+    ],
+    scope: 'openid profile roles',
+    userName
+  };
 
-  //TODO: we can move these out into proper config at some point to tidy up even further
   const options: AuthOptions = {
     allowRolesRegex: getConfigValue(LOGIN_ROLE_MATCHER),
     authorizationURL: authorizationUrl,
@@ -68,6 +81,7 @@ export const getXuiNodeMiddleware = () => {
     issuerURL: issuerUrl,
     logoutURL: idamApiPath,
     responseTypes: ['code'],
+    routeCredential,
     scope: 'profile openid roles',
     sessionKey: 'jps_judicial_payment_frontend',
     tokenEndpointAuthMethod: 'client_secret_post',

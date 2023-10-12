@@ -32,19 +32,6 @@ export class DateService {
     return new Date(Date.UTC(dateYear, dateMonth - 1, dateDay));
   }
 
-  convertPeriod(period: string): string {
-    switch(period){
-      case 'AM':
-        return "Morning"
-      case 'PM':
-        return "Afternoon"
-      case 'FULL_DAY':
-        return "Full day"
-      default:
-        return ''
-    }
-  }
-
 }
 
 export class dateObj{

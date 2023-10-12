@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AddSittingRecordSuccessComponent } from './add-sitting-record-success.component';
-import { SittingRecordWorkflowService } from '../../../_workflows/sitting-record-workflow.service';
+import { RecorderWorkflowService } from '../../../_workflows/recorder-workflow.service';
 import { DateService } from '../../../_services/date-service/date-service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -11,14 +11,14 @@ describe('AddSittingRecordSuccessComponent', () => {
   let component: AddSittingRecordSuccessComponent;
   let fixture: ComponentFixture<AddSittingRecordSuccessComponent>;
   let router: Router;
-  let srWorkflowService: SittingRecordWorkflowService;
+  let srWorkflowService: RecorderWorkflowService;
   let httpMock: HttpTestingController;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ AddSittingRecordSuccessComponent ],
       imports: [ RouterTestingModule,  HttpClientTestingModule],
-      providers: [ SittingRecordWorkflowService, DateService ],
+      providers: [ RecorderWorkflowService, DateService ],
     })
     .compileComponents();
     httpMock= TestBed.inject(HttpTestingController);
@@ -28,7 +28,7 @@ describe('AddSittingRecordSuccessComponent', () => {
     fixture = TestBed.createComponent(AddSittingRecordSuccessComponent);
     component = fixture.componentInstance;
     router = TestBed.inject(Router);
-    srWorkflowService = TestBed.inject(SittingRecordWorkflowService);
+    srWorkflowService = TestBed.inject(RecorderWorkflowService);
     srWorkflowService.setManageVisited();
     const formDataMock: FormGroup = new FormBuilder().group({
       dateSelected: ['2022-01-01'],
