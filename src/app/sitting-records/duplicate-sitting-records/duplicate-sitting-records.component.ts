@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DuplicateRecordWorkflowService } from '../../_workflows/duplicate-record-workflow.service'
+import { DuplicateResponse } from 'src/app/_models/addSittingRecords.model';
 @Component({
   selector: 'app-duplicate-sitting-records',
   templateUrl: './duplicate-sitting-records.component.html',
@@ -10,8 +11,8 @@ export class DuplicateSittingRecordsComponent implements OnInit {
 
 
   recordsWithErrors;
-  optionsSelected: any[] = []
-  validRecords: any[] = [];
+  optionsSelected: (true | false | null)[] = []
+  validRecords: DuplicateResponse[] = [];
   errorMessages: Array<string> = [];
 
   constructor(

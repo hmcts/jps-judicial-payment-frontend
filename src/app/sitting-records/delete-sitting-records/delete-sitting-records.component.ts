@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { RecorderWorkflowService } from '../../_workflows/recorder-workflow.service';
 import { DeleteSittingRecordHttp } from '../../_services/delete-sitting-records-http-service'
 import { defaultDtOptions }  from '../../_services/default-dt-options'
+import { SittingRecord } from '../../_models/sittingRecord.model';
 
 @Component({
   selector: 'app-delete-sitting-records',
@@ -13,7 +14,7 @@ export class DeleteSittingRecordsComponent implements OnInit{
   tribService!: string;
   venue!: string;
   date!: string;
-  recordToDelete: any;
+  recordToDelete?: SittingRecord;
   apiError = false;
   selectedVenue: string | undefined;
   apiErrorMsg;
@@ -55,6 +56,11 @@ export class DeleteSittingRecordsComponent implements OnInit{
   
   confirmDelete() {
     this.apiError = false;
+    if(!this.recordToDelete){
+      this.apiError = true
+      this.apiErrorMsg = `An error has occured.`
+      return;
+    } 
     this.deleteRecordHttp.deleteRecord(this.recordToDelete.sittingRecordId)
       .subscribe({
         next: () => {

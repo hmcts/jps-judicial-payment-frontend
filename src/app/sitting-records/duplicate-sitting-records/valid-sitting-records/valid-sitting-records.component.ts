@@ -3,6 +3,7 @@ import { DateService } from '../../../_services/date-service/date-service';
 import { RecorderWorkflowService } from '../../../_workflows/recorder-workflow.service';
 import { UserInfoService } from '../../../_services/user-info-service/user-info-service';
 import { DuplicateRecordWorkflowService } from '../../../_workflows/duplicate-record-workflow.service';
+import { ValidRecord } from '../../../_models/addSittingRecords.model';
 
 @Component({
   selector: 'app-valid-sitting-records',
@@ -12,7 +13,7 @@ import { DuplicateRecordWorkflowService } from '../../../_workflows/duplicate-re
 export class ValidSittingRecordsComponent implements OnInit {
 
   @Input() recordData;
-  validRecords: any[] | undefined;
+  validRecords: ValidRecord[] | undefined;
   selectedVenue
   selectedDate
   currentUser
@@ -34,6 +35,7 @@ export class ValidSittingRecordsComponent implements OnInit {
 
   filterRecords() {
       this.validRecords = this.dupeRecordWorkflow.matchValidRecords(this.recordData, this.recorderWorkFlow.getAddSittingRecords());
+      console.log(this.validRecords)
   }
 
   ngOnInit(){

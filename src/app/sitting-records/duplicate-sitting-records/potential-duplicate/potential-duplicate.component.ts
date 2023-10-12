@@ -12,15 +12,15 @@ export class PotentialDuplicateComponent{
   
   @Input() potentialRecord;
   @Input() index;
-  @Output() valueChange = new EventEmitter<any>();
+  @Output() valueChange = new EventEmitter<boolean>();
   selectedVenue;
   selectedDate;
   currentUser; 
   duplicatePotentialFormObject;
 
-  selectedValue: any;
+  selectedValue?: boolean;
 
-  updateSelection(newValue: any){
+  updateSelection(newValue: boolean){
     this.selectedValue = newValue
     this.valueChange.emit(this.selectedValue);
   }

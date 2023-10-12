@@ -1,7 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl, FormGroupDirective } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { debounceTime, map, startWith, tap } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { debounceTime, map, startWith, takeUntil, tap } from 'rxjs/operators';
 import { LocationService } from 'src/app/_services/location-service/location.service';
 
 @Component({
@@ -9,16 +10,17 @@ import { LocationService } from 'src/app/_services/location-service/location.ser
   templateUrl: './venue.component.html',
   styleUrls: ['./venue.component.scss']
 })
-export class VenueComponent implements OnInit{
+export class VenueComponent implements OnInit, OnDestroy{
 
   @Input() venues;
 
   readonly minSearchCharacters = 3;
   delay = 500;
   filteredVenues;
-  venueValueChange: any;
   typeaheadResultsFound = true;
-  public searchTerm = '';
+  public searchTerm = ''
+  private destroy$ = new Subject<void>();
+
 
   constructor(
     private locationService : LocationService,
@@ -26,12 +28,18 @@ export class VenueComponent implements OnInit{
 
   ngOnInit() {
     this.filteredVenues = this.parentFormGroup.control.controls['venue'].valueChanges
+      .pipe(takeUntil(this.destroy$))
       .pipe(
         startWith(''),
         debounceTime(this.delay), 
         tap((term) => this.searchTerm = term),
         map(value => this._filter(value))
       );
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   private _filter(value: string): object[] {
