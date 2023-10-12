@@ -20,7 +20,7 @@ const afternoonPeriod = 'Afternoon';
 const fullDayPeriod = 'Full day';
 const socialSecurityTribunalService = 'Social Security and Child Support';
 const suttonVenue = 'Sutton';
-const suttonFullVenue = 'Sutton Social Security and Child Support Tribunal (Copthall House)'
+const londonVenue = 'London';
 const jpsRecorderRole = 'jps recorder';
 
 
@@ -34,7 +34,7 @@ Scenario('User is able to successfully save a single Sitting Record @S-002.1',({
 
 Scenario('User is successfully able to save multiple Sitting Records @S-002.2',({ I}) => {
   I.loginWithJPSRecorderUser();
-  ManageJudicialSittingRecordsPage.addSittingRecordsInformation(socialSecurityTribunalService, suttonVenue, randomDay, randomMonth, year);
+  ManageJudicialSittingRecordsPage.addSittingRecordsInformation(socialSecurityTribunalService, londonVenue, randomDay, randomMonth, year);
   I.click('Continue');
   JudicialSittingRecordsPage.clickAddSittingRecords();
   AddSittingRecordsPage.selectJOH(joeAmbroseName, tribunalJudgeRole);
