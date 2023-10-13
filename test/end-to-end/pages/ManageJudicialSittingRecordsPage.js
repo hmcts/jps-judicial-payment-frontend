@@ -25,7 +25,7 @@ function selectSittingRecordsToSubmitToFinance(service, region, day, month, year
   I.click('Submit sitting records to Finance');
   I.selectOption('Select a service', service);
   I.click('Select a region');
-  I.selectOption('Select a region', region);
+  I.selectOption('#region-select', region);
   I.fillField('Day', day);
   I.fillField('Month', month);
   I.fillField('Year', year);
