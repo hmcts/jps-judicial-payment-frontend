@@ -2,6 +2,7 @@ const AddSittingRecordsPage = require('../pages/AddSittingRecordsPage');
 const ConfirmNewSittingRecordsPage = require('../pages/ConfirmNewSittingRecordsPage');
 const JudicialSittingRecordsPage = require('../pages/JudicialSittingRecordsPage');
 const ManageJudicialSittingRecordsPage = require('../pages/ManageJudicialSittingRecordsPage');
+const PossibleDuplicatesPage = require('../pages/PossibleDuplicatesPage')
 
 Feature('Create new Sitting Records Feature Tests @functional @F-002');
 
@@ -26,6 +27,7 @@ const brandonRojasName = 'Brandon Rojas';
 const tribunalJudgeRole = 'Tribunal Judge';
 const regionalTribunalJudgeRole = 'Regional Tribunal Judge';
 const tribunalMemberDisabilityRole = 'Tribunal Member Disability';
+const johRecorderRole = 'Recorder';
 const morningPeriod = 'Morning';
 const afternoonPeriod = 'Afternoon';
 const fullDayPeriod = 'Full day';
@@ -33,6 +35,8 @@ const socialSecurityTribunalService = 'Social Security and Child Support';
 const suttonVenue = 'Sutton';
 const londonVenue = 'London';
 const jpsRecorderRole = 'jps recorder';
+const recordedStatus = 'Recorded';
+const deletedStatus = 'Deleted';
 
 Scenario('User is able to successfully save a single Sitting Record @S-002.1',({ I}) => {
   I.loginWithJPSRecorderUser();
@@ -40,7 +44,7 @@ Scenario('User is able to successfully save a single Sitting Record @S-002.1',({
   I.click('Continue');
   JudicialSittingRecordsPage.clickAddSittingRecords();
   I.createSittingRecord(joeAmbroseName, tribunalJudgeRole, afternoonPeriod);
-};
+});
 
 Scenario('User is successfully able to save multiple Sitting Records @S-002.2',({ I}) => {
   I.loginWithJPSRecorderUser();
@@ -120,7 +124,7 @@ Scenario('User is displayed "Manage judicial sitting records" when Cancel is cli
   JudicialSittingRecordsPage.clickAddSittingRecords();
   AddSittingRecordsPage.selectJOH(joeAmbroseName, tribunalJudgeRole);
   AddSittingRecordsPage.selectPeriod(afternoonPeriod);
-  AddSittingRecordsPage.clickCancel(socialSecurityTribunalService, suttonVenue, randomDay, randomMonth, year);
+  AddSittingRecordsPage.clickCancel(socialSecurityTribunalService, suttonVenue, randomDays[0], randomMonths[0], year);
 });
 
 Scenario('User is displayed "Manage judicial sitting records" when Cancel is clicked while confirming new Sitting Record(s) @S-002.9',({ I}) => {
@@ -132,7 +136,7 @@ Scenario('User is displayed "Manage judicial sitting records" when Cancel is cli
   AddSittingRecordsPage.selectPeriod(fullDayPeriod);
   I.click('Continue');
   ConfirmNewSittingRecordsPage.confirmSittingRecords(joeAmbroseName, tribunalJudgeRole, fullDayPeriod, jpsRecorderRole);
-  AddSittingRecordsPage.clickCancel(socialSecurityTribunalService, suttonVenue, randomDay, randomMonth, year);
+  AddSittingRecordsPage.clickCancel(socialSecurityTribunalService, suttonVenue, randomDays[0], randomMonths[0], year);
 });
 
 Scenario('User is displayed "Judicial sitting records" when Previous button is clicked while confirming new Sitting Record(s) @S-002.10',({ I}) => {
@@ -147,139 +151,139 @@ Scenario('User is displayed "Judicial sitting records" when Previous button is c
   AddSittingRecordsPage.clickPrevious(joeAmbroseName, tribunalJudgeRole);
 });
 
-Scenario('User will be displayed potential duplicate record #AC01 @S-002.12',({ I}) => {
+Scenario('User will be displayed potential duplicate record #AC01 @S-002.11',({ I}) => {
   I.loginWithJPSRecorderUser();
-  ManageJudicialSittingRecordsPage.addSittingRecordsInformation('Social Security and Child Support', 'Sutton', randomDays[1], randomMonths[1], '2022');
+  ManageJudicialSittingRecordsPage.addSittingRecordsInformation(socialSecurityTribunalService, suttonVenue, randomDays[1], randomMonths[1], year);
   I.click('Continue');  
   JudicialSittingRecordsPage.clickAddSittingRecords();
-  I.createSittingRecord('Joe Am', 'Tribunal Judge', 'Morning');
+  I.createSittingRecord(joeAmbroseName, tribunalJudgeRole, morningPeriod);
   JudicialSittingRecordsPage.clickAddSittingRecords();
-  AddSittingRecordsPage.selectJOH('Mary', 'Regional Tribunal Judge');
+  AddSittingRecordsPage.selectJOH(maryGallegosName, regionalTribunalJudgeRole);
   I.click('Add Another');
-  AddSittingRecordsPage.selectJOH('Joe Am', 'Recorder', 1);
+  AddSittingRecordsPage.selectJOH(joeAmbroseName, johRecorderRole, 1);
   I.click('Add Another');
-  AddSittingRecordsPage.selectJOH('Brandon', 'Tribunal Member Disability', 2);
-  AddSittingRecordsPage.selectPeriod('Morning');
+  AddSittingRecordsPage.selectJOH(brandonRojasName, tribunalMemberDisabilityRole, 2);
+  AddSittingRecordsPage.selectPeriod(morningPeriod);
   I.click('Continue');
-  ConfirmNewSittingRecordsPage.confirmSittingRecords('Joe Ambrose', 'Recorder', 'Morning', 'jps recorder');
-  I.potentialDuplicateFound();
+  ConfirmNewSittingRecordsPage.confirmSittingRecords(joeAmbroseName, johRecorderRole, morningPeriod, jpsRecorderRole);
+  PossibleDuplicatesPage.potentialDuplicateFound();
   I.checkOption('//*[@id="main-content"]/div[1]/app-potential-duplicate/table/tbody/tr[1]/td[9]/div/div/input');
   I.click('Continue');
-  ConfirmNewSittingRecordsPage.confirmSittingRecords('Joe Ambrose', 'Recorder', 'Morning', 'jps recorder');
-  I.saveNewRecord();
-  I.see('Judicial sitting records');
-  JudicialSittingRecordsPage.checkRecord('Brandon Rojas', 'Tribunal Member Disability', 'Morning', 'jps recorder', 'Recorded');
-  JudicialSittingRecordsPage.checkRecord('Joe Ambrose', 'Recorder', 'Morning', 'jps recorder', 'Recorded');
-  JudicialSittingRecordsPage.checkRecord('Joe Ambrose', 'Tribunal Judge', 'Morning', 'jps recorder', 'Deleted');
-  JudicialSittingRecordsPage.checkRecord('Mary Gallegos', 'Regional Tribunal Judge', 'Morning', 'jps recorder', 'Recorded');
+  ConfirmNewSittingRecordsPage.confirmSittingRecords(joeAmbroseName, johRecorderRole, morningPeriod, jpsRecorderRole);
+  PossibleDuplicatesPage.saveNewRecord();
+  I.waitForText('Judicial sitting records');
+  JudicialSittingRecordsPage.seeRecords(brandonRojasName, tribunalMemberDisabilityRole, morningPeriod, jpsRecorderRole, recordedStatus);
+  JudicialSittingRecordsPage.seeRecords(joeAmbroseName, johRecorderRole, morningPeriod, jpsRecorderRole, recordedStatus);
+  JudicialSittingRecordsPage.seeRecords(joeAmbroseName, tribunalJudgeRole, morningPeriod, jpsRecorderRole, deletedStatus);
+  JudicialSittingRecordsPage.seeRecords(maryGallegosName, regionalTribunalJudgeRole, morningPeriod, jpsRecorderRole, recordedStatus);
 });
 
-Scenario('User will be displayed invalid duplicate record #AC02 @S-002.13',({ I}) => {
+Scenario('User will be displayed invalid duplicate record #AC02 @S-002.12',({ I}) => {
   I.loginWithJPSRecorderUser();
-  ManageJudicialSittingRecordsPage.addSittingRecordsInformation('Social Security and Child Support', 'Sutton', randomDays[2], randomMonths[2], '2022');
+  ManageJudicialSittingRecordsPage.addSittingRecordsInformation(socialSecurityTribunalService, suttonVenue, randomDays[2], randomMonths[2], year);
   I.click('Continue');  
   JudicialSittingRecordsPage.clickAddSittingRecords();
-  I.createSittingRecord('Joe Ambrose', 'Tribunal Judge', 'Morning');
+  I.createSittingRecord(joeAmbroseName, tribunalJudgeRole, morningPeriod);
   JudicialSittingRecordsPage.clickAddSittingRecords();
-  AddSittingRecordsPage.selectJOH('Mary', 'Regional Tribunal Judge');
+  AddSittingRecordsPage.selectJOH(maryGallegosName, regionalTribunalJudgeRole);
   I.click('Add Another');
-  AddSittingRecordsPage.selectJOH('Joe Ambrose', 'Tribunal Judge', 1);
+  AddSittingRecordsPage.selectJOH(joeAmbroseName, tribunalJudgeRole, 1);
   I.click('Add Another');
-  AddSittingRecordsPage.selectJOH('Brandon', 'Tribunal Member Disability', 2);
-  AddSittingRecordsPage.selectPeriod('Morning');
+  AddSittingRecordsPage.selectJOH(brandonRojasName, tribunalMemberDisabilityRole, 2);
+  AddSittingRecordsPage.selectPeriod(morningPeriod);
   I.click('Continue');
-  ConfirmNewSittingRecordsPage.confirmSittingRecords('Joe Ambrose', 'Tribunal Judge', 'Morning', 'jps recorder');
-  I.recordAlreadyExists();
+  ConfirmNewSittingRecordsPage.confirmSittingRecords(joeAmbroseName, tribunalJudgeRole, morningPeriod, jpsRecorderRole);
+  PossibleDuplicatesPage.recordAlreadyExists();
   I.click('Continue');
-  I.saveNewRecord();
-  JudicialSittingRecordsPage.checkRecord('Brandon Rojas', 'Tribunal Member Disability', 'Morning', 'jps recorder', 'Recorded');
-  JudicialSittingRecordsPage.checkRecord('Joe Ambrose', 'Tribunal Judge', 'Morning', 'jps recorder', 'Recorded');
-  JudicialSittingRecordsPage.checkRecord('Mary Gallegos', 'Regional Tribunal Judge', 'Morning', 'jps recorder', 'Recorded');
+  PossibleDuplicatesPage.saveNewRecord();
+  JudicialSittingRecordsPage.seeRecords(brandonRojasName, tribunalMemberDisabilityRole, morningPeriod, jpsRecorderRole, recordedStatus);
+  JudicialSittingRecordsPage.seeRecords(joeAmbroseName, tribunalJudgeRole, morningPeriod, jpsRecorderRole, recordedStatus);
+  JudicialSittingRecordsPage.seeRecords(maryGallegosName, regionalTribunalJudgeRole, morningPeriod, jpsRecorderRole, recordedStatus);
 });
 
-Scenario('User will be displayed potential duplicate and invalid duplicate records #AC03 @S-002.14',({ I}) => {
+Scenario('User will be displayed potential duplicate and invalid duplicate records #AC03 @S-002.13',({ I}) => {
   I.loginWithJPSRecorderUser();
-  ManageJudicialSittingRecordsPage.addSittingRecordsInformation('Social Security and Child Support', 'Sutton', randomDays[3], randomMonths[3], '2022');
+  ManageJudicialSittingRecordsPage.addSittingRecordsInformation(socialSecurityTribunalService, suttonVenue, randomDays[3], randomMonths[3], year);
   I.click('Continue');  
   JudicialSittingRecordsPage.clickAddSittingRecords();
-  I.createSittingRecord('Joe Ambrose', 'Recorder', 'Morning');
+  I.createSittingRecord(joeAmbroseName, johRecorderRole, morningPeriod);
   JudicialSittingRecordsPage.clickAddSittingRecords();
-  I.createSittingRecord('Mary Gallegos', 'Regional Tribunal Judge', 'Morning');
+  I.createSittingRecord(maryGallegosName, regionalTribunalJudgeRole, morningPeriod);
   JudicialSittingRecordsPage.clickAddSittingRecords();
-  AddSittingRecordsPage.selectJOH('Mary', 'Regional Tribunal Judge');
+  AddSittingRecordsPage.selectJOH(maryGallegosName, regionalTribunalJudgeRole);
   I.click('Add Another');
-  AddSittingRecordsPage.selectJOH('Joe Ambrose', 'Tribunal Judge', 1);
+  AddSittingRecordsPage.selectJOH(joeAmbroseName, tribunalJudgeRole, 1);
   I.click('Add Another');
-  AddSittingRecordsPage.selectJOH('Brandon', 'Tribunal Member Disability', 2);
-  AddSittingRecordsPage.selectPeriod('Morning');
+  AddSittingRecordsPage.selectJOH(brandonRojasName, tribunalMemberDisabilityRole, 2);
+  AddSittingRecordsPage.selectPeriod(morningPeriod);
   I.click('Continue');
-  ConfirmNewSittingRecordsPage.confirmSittingRecords('Joe Ambrose', 'Tribunal Judge', 'Morning', 'jps recorder');
-  I.potentialDuplicateFound();
+  ConfirmNewSittingRecordsPage.confirmSittingRecords(joeAmbroseName, tribunalJudgeRole, morningPeriod, jpsRecorderRole);
+  PossibleDuplicatesPage.potentialDuplicateFound();
   I.see('Record already exists');
   I.checkOption('//*[@id="main-content"]/div[1]/app-potential-duplicate/table/tbody/tr[1]/td[9]/div/div/input');
-  I.newRecordToSubmit();
-  I.saveNewRecord();
-  JudicialSittingRecordsPage.checkRecord('Brandon Rojas', 'Tribunal Member Disability', 'Morning', 'jps recorder', 'Recorded');
-  JudicialSittingRecordsPage.checkRecord('Joe Ambrose', 'Tribunal Judge', 'Morning', 'jps recorder', 'Recorded');
-  JudicialSittingRecordsPage.checkRecord('Joe Ambrose', 'Recorder', 'Morning', 'jps recorder', 'Deleted');
-  JudicialSittingRecordsPage.checkRecord('Mary Gallegos', 'Regional Tribunal Judge', 'Morning', 'jps recorder', 'Recorded');
+  PossibleDuplicatesPage.newRecordToSubmit();
+  PossibleDuplicatesPage.saveNewRecord();
+  JudicialSittingRecordsPage.seeRecords(brandonRojasName, tribunalMemberDisabilityRole, morningPeriod, jpsRecorderRole, recordedStatus);
+  JudicialSittingRecordsPage.seeRecords(joeAmbroseName, tribunalJudgeRole, morningPeriod, jpsRecorderRole, recordedStatus);
+  JudicialSittingRecordsPage.seeRecords(joeAmbroseName, johRecorderRole, morningPeriod, jpsRecorderRole, deletedStatus);
+  JudicialSittingRecordsPage.seeRecords(maryGallegosName, regionalTribunalJudgeRole, morningPeriod, jpsRecorderRole, recordedStatus);
 });
 
-Scenario('User will be displayed potential duplicate and user saves already existing record(s) screen #AC04 @S-002.15',({ I}) => {
+Scenario('User will be displayed potential duplicate and user saves already existing record(s) screen #AC04 @S-002.14',({ I}) => {
   I.loginWithJPSRecorderUser();
-  ManageJudicialSittingRecordsPage.addSittingRecordsInformation('Social Security and Child Support', 'Sutton', randomDays[4], randomMonths[4], '2022');
+  ManageJudicialSittingRecordsPage.addSittingRecordsInformation(socialSecurityTribunalService, suttonVenue, randomDays[4], randomMonths[4], year);
   I.click('Continue');  
   JudicialSittingRecordsPage.clickAddSittingRecords();
-  I.createSittingRecord('Joe Ambrose', 'Tribunal Judge', 'Morning');
+  I.createSittingRecord(joeAmbroseName, tribunalJudgeRole, morningPeriod);
   JudicialSittingRecordsPage.clickAddSittingRecords();
-  AddSittingRecordsPage.selectJOH('Mary', 'Regional Tribunal Judge');
+  AddSittingRecordsPage.selectJOH(maryGallegosName, regionalTribunalJudgeRole);
   I.click('Add Another');
-  AddSittingRecordsPage.selectJOH('Joe Ambrose', 'Recorder', 1);
+  AddSittingRecordsPage.selectJOH(joeAmbroseName, johRecorderRole, 1);
   I.click('Add Another');
-  AddSittingRecordsPage.selectJOH('Brandon', 'Tribunal Member Disability', 2);
-  AddSittingRecordsPage.selectPeriod('Morning');
+  AddSittingRecordsPage.selectJOH(brandonRojasName, tribunalMemberDisabilityRole, 2);
+  AddSittingRecordsPage.selectPeriod(morningPeriod);
   I.click('Continue');
-  ConfirmNewSittingRecordsPage.confirmSittingRecords('Joe Ambrose', 'Recorder', 'Morning', 'jps recorder');
-  I.potentialDuplicateFound();
+  ConfirmNewSittingRecordsPage.confirmSittingRecords(joeAmbroseName, johRecorderRole, morningPeriod, jpsRecorderRole);
+  PossibleDuplicatesPage.potentialDuplicateFound();
   I.checkOption('//*[@id="main-content"]/div[1]/app-potential-duplicate/table/tbody/tr[3]/td[9]/div/div/input');
-  I.newRecordToSubmit();
-  I.saveNewRecord();
-  JudicialSittingRecordsPage.checkRecord('Brandon Rojas', 'Tribunal Member Disability', 'Morning', 'jps recorder', 'Recorded');
-  JudicialSittingRecordsPage.checkRecord('Joe Ambrose', 'Tribunal Judge', 'Morning', 'jps recorder', 'Recorded');
-  JudicialSittingRecordsPage.checkRecord('Mary Gallegos', 'Regional Tribunal Judge', 'Morning', 'jps recorder', 'Recorded');
+  PossibleDuplicatesPage.newRecordToSubmit();
+  PossibleDuplicatesPage.saveNewRecord();
+  JudicialSittingRecordsPage.seeRecords(brandonRojasName, tribunalMemberDisabilityRole, morningPeriod, jpsRecorderRole, recordedStatus);
+  JudicialSittingRecordsPage.seeRecords(joeAmbroseName, tribunalJudgeRole, morningPeriod, jpsRecorderRole, recordedStatus);
+  JudicialSittingRecordsPage.seeRecords(maryGallegosName, regionalTribunalJudgeRole, morningPeriod, jpsRecorderRole, recordedStatus);
 });
 
-Scenario('User will be displayed only one potential duplicate record and user saves already existing record @S-002.16',({ I}) => {
+Scenario('User will be displayed only one potential duplicate record and user saves already existing record @S-002.15',({ I}) => {
   I.loginWithJPSRecorderUser();
-  ManageJudicialSittingRecordsPage.addSittingRecordsInformation('Social Security and Child Support', 'Sutton', randomDays[5], randomMonths[5], '2022');
+  ManageJudicialSittingRecordsPage.addSittingRecordsInformation(socialSecurityTribunalService, suttonVenue, randomDays[5], randomMonths[5], year);
   I.click('Continue');  
   JudicialSittingRecordsPage.clickAddSittingRecords();
-  I.createSittingRecord('Joe Ambrose', 'Tribunal Judge', 'Morning');
+  I.createSittingRecord(joeAmbroseName, tribunalJudgeRole, morningPeriod);
   JudicialSittingRecordsPage.clickAddSittingRecords();
-  AddSittingRecordsPage.selectJOH('Joe Ambrose', 'Recorder');
-  AddSittingRecordsPage.selectPeriod('Morning');
+  AddSittingRecordsPage.selectJOH(joeAmbroseName, johRecorderRole);
+  AddSittingRecordsPage.selectPeriod(morningPeriod);
   I.click('Continue');
-  ConfirmNewSittingRecordsPage.confirmSittingRecords('Joe Ambrose', 'Recorder', 'Morning', 'jps recorder');
-  I.potentialDuplicateFound();
+  ConfirmNewSittingRecordsPage.confirmSittingRecords(joeAmbroseName, johRecorderRole, morningPeriod, jpsRecorderRole);
+  PossibleDuplicatesPage.potentialDuplicateFound();
   I.checkOption('//*[@id="main-content"]/div[1]/app-potential-duplicate/table/tbody/tr[3]/td[9]/div/div/input');
   I.click('Continue');
-  I.existingRecordSaved();
-  JudicialSittingRecordsPage.checkRecord('Joe Ambrose', 'Tribunal Judge', 'Morning', 'jps recorder', 'Recorded');
+  PossibleDuplicatesPage.existingRecordSaved();
+  JudicialSittingRecordsPage.seeRecords(joeAmbroseName, tribunalJudgeRole, morningPeriod, jpsRecorderRole, recordedStatus);
 });
 
-Scenario('User will be displayed one invalid duplicate record and nothing saved @S-002.17',({ I}) => {
+Scenario('User will be displayed one invalid duplicate record and nothing saved @S-002.16',({ I}) => {
   I.loginWithJPSRecorderUser();
-  ManageJudicialSittingRecordsPage.addSittingRecordsInformation('Social Security and Child Support', 'Sutton', randomDays[6], randomMonths[6], '2022');
+  ManageJudicialSittingRecordsPage.addSittingRecordsInformation(socialSecurityTribunalService, suttonVenue, randomDays[6], randomMonths[6], year);
   I.click('Continue');  
   JudicialSittingRecordsPage.clickAddSittingRecords();
-  I.createSittingRecord('Joe Ambrose', 'Tribunal Judge', 'Afternoon');
+  I.createSittingRecord(joeAmbroseName, tribunalJudgeRole, afternoonPeriod);
   JudicialSittingRecordsPage.clickAddSittingRecords();
-  AddSittingRecordsPage.selectJOH('Joe Ambrose', 'Tribunal Judge');
-  AddSittingRecordsPage.selectPeriod('Afternoon');
+  AddSittingRecordsPage.selectJOH(joeAmbroseName, tribunalJudgeRole);
+  AddSittingRecordsPage.selectPeriod(afternoonPeriod);
   I.click('Continue');
-  ConfirmNewSittingRecordsPage.confirmSittingRecords('Joe Ambrose', 'Tribunal Judge', 'Afternoon', 'jps recorder');
-  I.recordAlreadyExists();
+  ConfirmNewSittingRecordsPage.confirmSittingRecords(joeAmbroseName, tribunalJudgeRole, afternoonPeriod, jpsRecorderRole);
+  PossibleDuplicatesPage.recordAlreadyExists();
   I.click('Continue');
-  I.existingRecordSaved();
-  JudicialSittingRecordsPage.checkRecord('Joe Ambrose', 'Tribunal Judge', 'Afternoon', 'jps recorder', 'Recorded');
+  PossibleDuplicatesPage.existingRecordSaved();
+  JudicialSittingRecordsPage.seeRecords(joeAmbroseName, tribunalJudgeRole, afternoonPeriod, jpsRecorderRole, recordedStatus);
 });
