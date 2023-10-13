@@ -68,12 +68,10 @@ export async function deleteSittingRecord(req, res, next){
     try {
         const headers = {
             'Content-Type': 'application/json',
-            'Authorization': Authorization,
-            'ServiceAuthorization': ServiceAuthorization
         };
         const config: AxiosRequestConfig = {
-            url: `${url}/sittingRecord/${id}`,
-            method: 'DELETE',
+            url: `${url}`,
+            method: 'GET',
             headers: headers,
         };
 

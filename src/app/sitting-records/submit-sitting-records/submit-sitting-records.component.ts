@@ -50,6 +50,7 @@ export class SubmitSittingRecordsComponent implements OnInit {
           next: (records) => {
             this.apiError = false
             this.sittingRecordData = records.sittingRecords;
+            console.log(this.sittingRecordData.length)
             callback({
               recordsTotal: records.recordCount,
               recordsFiltered: records.recordCount,
