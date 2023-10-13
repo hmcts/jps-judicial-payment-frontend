@@ -1,16 +1,16 @@
 const { I } = inject();
 
 function clickAddSittingRecords() {
-  I.see('Judicial sitting records');
+  I.waitForVisible('.govuk-button');
   I.click('Add Sitting Record(s)');
+  I.waitForText('Select the Judicial office holders (JOH) associated with this sitting', 3);
 }
 
-function checkRecord(name, role, period, enteredBy, status) {
+function seeRecords(name, role, period, enteredBy) {
   I.see(name);
   I.see(role);
   I.see(period);
   I.see(enteredBy);
-  I.see(status);
 }
 
-module.exports = { clickAddSittingRecords, checkRecord }
+module.exports = { clickAddSittingRecords, seeRecords }
