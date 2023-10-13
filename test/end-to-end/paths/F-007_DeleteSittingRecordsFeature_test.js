@@ -7,7 +7,11 @@ const randomMonth = ('0' + (Math.floor(Math.random() * 12) + 1)).slice(-2);
 const year = '2022';
 
 const joeAmbroseName = 'Joe Ambrose';
+const maryGallegosName = 'Mary Gallegos';
+const brandonRojasName = 'Brandon Rojas';
 const tribunalJudgeRole = 'Tribunal Judge';
+const regionalTribunalJudgeRole = 'Regional Tribunal Judge';
+const tribunalMemberDisabilityRole = 'Tribunal Member Disability';
 const morningPeriod = 'Morning';
 const afternoonPeriod = 'Afternoon';
 const socialSecurityTribunalService = 'Social Security and Child Support';
@@ -24,7 +28,7 @@ Scenario('Successfully delete a sitting record @S-007.1',({ I}) => {
   ManageJudicialSittingRecordsPage.addSittingRecordsInformation(socialSecurityTribunalService, bournemouthVenue, randomDay, randomMonth, year);
   I.click("Continue");
   I.see("Judicial sitting records");
-  I.see("Sitting records for Social Security and Child Support, Bournemouth Combined Court, for " + randomDay + "/" + randomMonth + "/" + year);
+  I.see("Sitting records for " + socialSecurityTribunalService + ', ' + bournemouthFullVenue + ", for " + randomDay + "/" + randomMonth + "/" + year);
   JudicialSittingRecordsPage.clickAddSittingRecords();
   I.createSittingRecord(joeAmbroseName, tribunalJudgeRole, morningPeriod);
   JudicialSittingRecordsPage.clickDelete();
@@ -38,15 +42,14 @@ Scenario('Return back to View Sitting Records page when cancel is clicked @S-007
   ManageJudicialSittingRecordsPage.addSittingRecordsInformation(socialSecurityTribunalService, bournemouthVenue, randomDay, randomMonth, year);
   I.click("Continue");
   I.see("Judicial sitting records");
-  I.see("Sitting records for Social Security and Child Support, Bournemouth Combined Court, for " + randomDay + "/" + randomMonth + "/" + year);
+  I.see("Sitting records for " + socialSecurityTribunalService + ', ' + bournemouthFullVenue + ", for " + randomDay + "/" + randomMonth + "/" + year);
   JudicialSittingRecordsPage.clickAddSittingRecords();
-  I.createSittingRecord(joeAmbroseName, tribunalJudgeRole, morningPeriod);
+  I.createSittingRecord(maryGallegosName, regionalTribunalJudgeRole, morningPeriod);
   JudicialSittingRecordsPage.clickDelete();
-  pause();
   I.click('Cancel');
   I.see("Judicial sitting records");
-  I.see("Sitting records for Social Security and Child Support, Bournemouth Combined Court, for " + randomDay + "/" + randomMonth + "/" + year);
-  JudicialSittingRecordsPage.seeSittingRecords(joeAmbroseName, tribunalJudgeRole, morningPeriod, jpsRecorderRole);
+  I.see("Sitting records for " + socialSecurityTribunalService + ', ' + bournemouthFullVenue + ", for " + randomDay + "/" + randomMonth + "/" + year);
+  JudicialSittingRecordsPage.seeSittingRecords(maryGallegosName, regionalTribunalJudgeRole, morningPeriod, jpsRecorderRole);
 });
 
 Scenario('Show error when trying to delete record created by another user @S-007.3',({ I}) => {
@@ -59,7 +62,7 @@ Scenario('Show error when trying to delete record created by another user @S-007
   I.see("Judicial sitting records");
   I.see("Sitting records for "  + socialSecurityTribunalService + ', ' + londonFullVenue + ', for ' + randomDay + "/" + randomMonth + "/" + year);
   JudicialSittingRecordsPage.clickAddSittingRecords();
-  I.createSittingRecord(joeAmbroseName, tribunalJudgeRole, afternoonPeriod);
+  I.createSittingRecord(brandonRojasName, tribunalMemberDisabilityRole, afternoonPeriod);
   I.click('Sign out');
   I.loginWithJPSRecorderUser();
   ManageJudicialSittingRecordsPage.addSittingRecordsInformation(socialSecurityTribunalService, londonVenue, randomDay, randomMonth, year);
