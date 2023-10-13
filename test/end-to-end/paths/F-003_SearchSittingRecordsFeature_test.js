@@ -1,5 +1,3 @@
-const AddSittingRecordsPage = require('../pages/AddSittingRecordsPage');
-const ConfirmNewSittingRecordsPage = require('../pages/ConfirmNewSittingRecordsPage');
 const JudicialSittingRecordsPage = require('../pages/JudicialSittingRecordsPage');
 const ManageJudicialSittingRecordsPage = require('../pages/ManageJudicialSittingRecordsPage');
 
@@ -16,7 +14,6 @@ const suttonFullVenue = 'Sutton Social Security and Child Support Tribunal (Copt
 const londonVenue = 'London';
 const londonFullVenue = 'East London Tribunal Hearing Centre (Import Building)';
 const jpsRecorderRole = 'jps recorder';
-const recordedStatus = 'Recorded';
 
 Feature('Search Sitting Records Feature Tests @functional @F-003');
 
@@ -28,7 +25,7 @@ Scenario('User is able to view Sitting Record(s) @S-003.1',({ I}) => {
   I.see('Sitting records for ' + socialSecurityTribunalService + ', ' + londonFullVenue + ', for ' + randomDay + '/' + randomMonth + '/' + year);
   I.click('Add Sitting Record(s)');
   I.createSittingRecord(joeAmbroseName, tribunalJudgeRole, morningPeriod);
-  JudicialSittingRecordsPage.seeSittingRecord(joeAmbroseName, tribunalJudgeRole, morningPeriod, jpsRecorderRole, recordedStatus);
+  JudicialSittingRecordsPage.seeRecords(joeAmbroseName, tribunalJudgeRole, morningPeriod, jpsRecorderRole);
 });
 
 Scenario('User is displayed "Manage judicial sitting records" when Previous button is clicked @S-003.2',({ I}) => {
@@ -37,5 +34,5 @@ Scenario('User is displayed "Manage judicial sitting records" when Previous butt
   I.click('Continue');
   I.see('Judicial sitting records');
   I.see('Sitting records for ' + socialSecurityTribunalService + ', ' + suttonFullVenue + ', for ' + randomDay + '/' + randomMonth + '/' + year);
-  JudicialSittingRecordsPage.previousClicked(socialSecurityTribunalService, suttonVenue, randomDay, randomMonth, year);
+  JudicialSittingRecordsPage.clickPrevious(socialSecurityTribunalService, suttonVenue, randomDay, randomMonth, year);
 });
