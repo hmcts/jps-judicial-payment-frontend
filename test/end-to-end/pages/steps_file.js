@@ -12,7 +12,7 @@ module.exports = function () {
   const johAdminPassword = process.env.JPS_JOH_ADMIN_PASSWORD || 'password';
   const invalidUsername = process.env.JPS_INVALID_USERNAME || 'jps-invalid-role@gmail.com';
   const invalidPassword = process.env.JPS_INVALID_PASSWORD || 'password';
-      
+
   return actor({
     loginWithJPSRecorderUser: function(){
       const I = this;
@@ -20,7 +20,9 @@ module.exports = function () {
       I.waitForVisible('#username', 10);
       I.fillField('Email address', recorderUsername);
       I.fillField('Password', recorderPassword);
+      I.wait(2);
       I.click('Sign in');
+      I.wait(2);
     },
 
     loginWithJPSSubmitterUser: function(){
@@ -29,7 +31,9 @@ module.exports = function () {
       I.waitForVisible('#username', 10);
       I.fillField('Email address', submitterUsername);
       I.fillField('Password', submitterPassword);
+      I.wait(2);
       I.click('Sign in');
+      I.wait(2);
     },
 
     loginWithJPSAdminUser: function(){
@@ -38,7 +42,9 @@ module.exports = function () {
       I.waitForVisible('#username', 10);
       I.fillField('Email address', adminUsername);
       I.fillField('Password', adminPassword);
+      I.wait(2);
       I.click('Sign in');
+      I.wait(2);
     },
 
     loginWithJPSJOHAdminUser: function(){
@@ -47,7 +53,9 @@ module.exports = function () {
       I.waitForVisible('#username', 10);
       I.fillField('Email address', johAdminUsername);
       I.fillField('Password', johAdminPassword);
+      I.wait(2);
       I.click('Sign in');
+      I.wait(2);
     },
 
     loginWithJPSPublisherUser: function(){
@@ -56,7 +64,9 @@ module.exports = function () {
       I.waitForVisible('#username', 10);
       I.fillField('Email address', publisherUsername);
       I.fillField('Password', publisherPassword);
+      I.wait(2);
       I.click('Sign in');
+      I.wait(2);
     },
 
     loginWithJPSInvalidUser: function(){
@@ -65,7 +75,9 @@ module.exports = function () {
       I.waitForVisible('#username', 10);
       I.fillField('Email address', invalidUsername);
       I.fillField('Password', invalidPassword);
+      I.wait(2);
       I.click('Sign in');
+      I.wait(2);
     },
 
     createSittingRecord: function(name, role, period){
