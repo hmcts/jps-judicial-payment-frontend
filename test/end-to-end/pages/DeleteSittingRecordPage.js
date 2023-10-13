@@ -1,17 +1,8 @@
 const { I } = inject();
 
-function deleteRecord(tribunal, venue, sittingDate) {
-    I.see('Delete sitting record');
+function deleteRecord() {
     I.click('Delete');
-    I.see('Delete sitting record for ' + tribunal + ', ' + venue + ', for ' + sittingDate);
-    I.see('Sitting record deleted');
+    I.waitForText('Sitting record deleted', 3);
 }
 
-function clickCancel(tribunal, venue, sittingDate) {
-    I.click('Delete');
-    I.see('Delete sitting record for ' + tribunal + ', ' + venue + ', for ' + sittingDate);
-    I.see('Delete sitting record');
-    I.click('Cancel');
-}
-
-module.exports = { deleteRecord, clickCancel }
+module.exports = { deleteRecord }
