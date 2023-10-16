@@ -17,12 +17,13 @@ export class SubmitSittingRecordsComponent implements OnInit {
   date = "";
 
   apiError = false;
-  apiErrorMessage = ['An error has occured.']
+  apiErrorMessage = ['An error has occurred.']
 
   dtOptions: DataTables.Settings = {};
   sittingRecordData: SittingRecord[] = [];
 
   showFilters = false;
+  recordCount: number | undefined;
 
   constructor(
     private submitterWorkflow: SubmitterWorkflowService,
@@ -37,20 +38,22 @@ export class SubmitSittingRecordsComponent implements OnInit {
     console.log(this.tribService)
     this.region = region.description;
     this.date = this.dateSvc.formatDateFromForm(dateSelected);
-    $.fn.dataTable.ext.classes.sPageButton = 'govuk-pagination__item govuk-link govuk-pagination__link blue-text';
-    $.fn.dataTable.ext.classes.sPageButtonActive = 'govuk-pagination__item--current govuk-link white-text';
+    $.fn.dataTable.ext.classes.sPageButton = 'govuk-pagination__item blue-text';
+    $.fn.dataTable.ext.classes.sPageButtonActive = 'govuk-pagination__item activePagination';
 
     this.dtOptions = {
       ...defaultDtOptions,
       paging: true,
       serverSide: true,
       ordering:false,
+      autoWidth: false,
       ajax: (dataTablesParameters: any, callback) => {
         this.submitterWorkflow.getSittingRecordsData(dataTablesParameters.start)
         .subscribe({
           next: (records) => {
             this.apiError = false
             this.sittingRecordData = records.sittingRecords;
+            this.recordCount = records.recordCount;
             callback({
               recordsTotal: records.recordCount,
               recordsFiltered: records.recordCount,
@@ -60,10 +63,17 @@ export class SubmitSittingRecordsComponent implements OnInit {
           error: (err) => {
             this.apiError = true
           }
-        });
+        })
+      },
+      preDrawCallback: function (settings) {
+        const api = new $.fn.dataTable.Api(settings);
+        const pagination = $(this)
+            .closest('.dataTables_wrapper')
+            .find('.dataTables_paginate');
+        pagination.toggle(api.page.info().pages > 1);
       },
       drawCallback: 
-        /* istanbul ignore next */ 
+        /* istanbul ignore next */  
         () => {
         /* istanbul ignore next */
         document

@@ -20,7 +20,7 @@ export class ViewSittingRecordResponse {
 
 export class SittingRecord {  
     sittingRecordId!: string;
-    sittingDate!: Date;
+    sittingDate!: string;
     statusId!: string;
     regionId!: string;
     regionName!: string;
