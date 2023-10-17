@@ -16,6 +16,8 @@ module.exports = function () {
     loginWithJPSRecorderUser: function () {
       const I = this;
       I.amOnPage('/');
+      I.wait(10);
+      I.waitForElement('//*[@id="footer"]/div/div/div[2]');
       I.waitForVisible('#username', 10);
       I.fillField('Email address', recorderUsername);
       I.fillField('Password', recorderPassword);
@@ -25,6 +27,8 @@ module.exports = function () {
     loginWithJPSSubmitterUser: function () {
       const I = this;
       I.amOnPage('/');
+      I.wait(10);
+      I.waitForElement('//*[@id="footer"]/div/div/div[2]');
       I.waitForVisible('#username', 10);
       I.fillField('Email address', submitterUsername);
       I.fillField('Password', submitterPassword);
@@ -34,6 +38,8 @@ module.exports = function () {
     loginWithJPSAdminUser: function () {
       const I = this;
       I.amOnPage('/');
+      I.wait(10);
+      I.waitForElement('//*[@id="footer"]/div/div/div[2]');
       I.waitForVisible('#username', 10);
       I.fillField('Email address', adminUsername);
       I.fillField('Password', adminPassword);
@@ -43,6 +49,8 @@ module.exports = function () {
     loginWithJPSJOHAdminUser: function () {
       const I = this;
       I.amOnPage('/');
+      I.wait(10);
+      I.waitForElement('//*[@id="footer"]/div/div/div[2]');
       I.waitForVisible('#username', 10);
       I.fillField('Email address', johAdminUsername);
       I.fillField('Password', johAdminPassword);
@@ -52,6 +60,8 @@ module.exports = function () {
     loginWithJPSPublisherUser: function () {
       const I = this;
       I.amOnPage('/');
+      I.wait(10);
+      I.waitForElement('//*[@id="footer"]/div/div/div[2]');
       I.waitForVisible('#username', 10);
       I.fillField('Email address', publisherUsername);
       I.fillField('Password', publisherPassword);
@@ -61,6 +71,8 @@ module.exports = function () {
     loginWithJPSInvalidUser: function () {
       const I = this;
       I.amOnPage('/');
+      I.wait(10);
+      I.waitForElement('//*[@id="footer"]/div/div/div[2]');
       I.waitForVisible('#username', 10);
       I.fillField('Email address', invalidUsername);
       I.fillField('Password', invalidPassword);
