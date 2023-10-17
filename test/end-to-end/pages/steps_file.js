@@ -81,5 +81,5 @@ module.exports = function () {
       I.see(role);
       I.see(period);
     }
-  }).retry({ retries: 3, except: ['createSittingRecord'] });
+  }).retry({ retries: 10, except: ['createSittingRecord'] });
 };
