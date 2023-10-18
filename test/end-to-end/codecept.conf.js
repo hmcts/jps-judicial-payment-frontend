@@ -23,6 +23,15 @@ exports.config = {
   include: {
     I: './pages/steps_file.js'
   },
+  plugins: {
+    retryFailedStep: {
+      enabled: true,
+    },
+    screenshotOnFail: {
+      enabled: true,
+      fullPageScreenshots: true,
+    },
+  },
   name: 'hmc-judicial-payment-frontend',
   mocha: {
     reporterOptions: {

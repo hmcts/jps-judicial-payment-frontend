@@ -16,55 +16,73 @@ module.exports = function () {
     loginWithJPSRecorderUser: function () {
       const I = this;
       I.amOnPage('/');
+      I.wait(5);
+      I.waitForElement('//*[@id="footer"]/div/div/div[2]');
       I.waitForVisible('#username', 10);
       I.fillField('Email address', recorderUsername);
       I.fillField('Password', recorderPassword);
       I.click('Sign in');
+      I.wait(3);
     },
 
     loginWithJPSSubmitterUser: function () {
       const I = this;
       I.amOnPage('/');
+      I.wait(5);
+      I.waitForElement('//*[@id="footer"]/div/div/div[2]');
       I.waitForVisible('#username', 10);
       I.fillField('Email address', submitterUsername);
       I.fillField('Password', submitterPassword);
       I.click('Sign in');
+      I.wait(3);
     },
 
     loginWithJPSAdminUser: function () {
       const I = this;
       I.amOnPage('/');
+      I.wait(5);
+      I.waitForElement('//*[@id="footer"]/div/div/div[2]');
       I.waitForVisible('#username', 10);
       I.fillField('Email address', adminUsername);
       I.fillField('Password', adminPassword);
       I.click('Sign in');
+      I.wait(3);
     },
 
     loginWithJPSJOHAdminUser: function () {
       const I = this;
       I.amOnPage('/');
+      I.wait(5);
+      I.waitForElement('//*[@id="footer"]/div/div/div[2]');
       I.waitForVisible('#username', 10);
       I.fillField('Email address', johAdminUsername);
       I.fillField('Password', johAdminPassword);
       I.click('Sign in');
+      I.wait(3);
     },
 
     loginWithJPSPublisherUser: function () {
       const I = this;
       I.amOnPage('/');
+      I.wait(5);
+      I.waitForElement('//*[@id="footer"]/div/div/div[2]');
       I.waitForVisible('#username', 10);
       I.fillField('Email address', publisherUsername);
       I.fillField('Password', publisherPassword);
       I.click('Sign in');
+      I.wait(3);
     },
 
     loginWithJPSInvalidUser: function () {
       const I = this;
       I.amOnPage('/');
+      I.wait(5);
+      I.waitForElement('//*[@id="footer"]/div/div/div[2]');
       I.waitForVisible('#username', 10);
       I.fillField('Email address', invalidUsername);
       I.fillField('Password', invalidPassword);
       I.click('Sign in');
+      I.wait(3);
     },
 
     createSittingRecord: function (name, role, period) {
