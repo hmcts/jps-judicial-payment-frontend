@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { SubmitterWorkflowService } from '../../_workflows/submitter-workflow.service';
 import { DateService } from '../../_services/date-service/date-service';
 import { Router } from '@angular/router';
@@ -7,6 +7,7 @@ import { SittingRecord } from 'src/app/_models/viewSittingRecords.model';
 
 @Component({
   selector: 'app-submit-sitting-records',
+  encapsulation: ViewEncapsulation.None,
   templateUrl: './submit-sitting-records.component.html',
   styleUrls: ['./submit-sitting-records.component.scss']
 })
@@ -35,7 +36,6 @@ export class SubmitSittingRecordsComponent implements OnInit {
     const formData = this.submitterWorkflow.getFormData().value;
     const { dateSelected, tribunalService, region } = formData;
     this.tribService = tribunalService;
-    console.log(this.tribService)
     this.region = region.description;
     this.date = this.dateSvc.formatDateFromForm(dateSelected);
     $.fn.dataTable.ext.classes.sPageButton = 'govuk-pagination__item blue-text';
@@ -62,6 +62,7 @@ export class SubmitSittingRecordsComponent implements OnInit {
           },
           error: (err) => {
             this.apiError = true
+            this.recordCount = 0;
           }
         })
       },
@@ -80,11 +81,11 @@ export class SubmitSittingRecordsComponent implements OnInit {
           .querySelectorAll(`#submitRecordViewTable_info`)
           .forEach((elem) => elem.classList.add('govuk-body'))
         document
-          .querySelector(`#submitRecordViewTable_paginate`)?.classList.add('govuk-pagination')
+          .querySelector(`#submitRecordViewTable_paginate`)?.classList.add('blue-text', 'govuk-pagination')
         document
-          .querySelector(`#submitRecordViewTable_previous`)?.classList.add('govuk-pagination__prev')
+          .querySelector(`#submitRecordViewTable_previous`)?.classList.add('blue-text', 'govuk-pagination__prev')
           document
-          .querySelector(`#submitRecordViewTable_next`)?.classList.add('govuk-pagination__next')
+          .querySelector(`#submitRecordViewTable_next`)?.classList.add('blue-text', 'govuk-pagination__next')
 
       }
     };

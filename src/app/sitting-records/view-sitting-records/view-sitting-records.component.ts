@@ -12,6 +12,8 @@ import { Subject } from 'rxjs';
   styleUrls: ['./view-sitting-records.component.scss']
 })
 export class ViewSittingRecordsComponent implements OnInit{
+  recordCount: number | undefined;
+  apiError: boolean | undefined;
 
   constructor(
     private router: Router,
@@ -24,7 +26,6 @@ export class ViewSittingRecordsComponent implements OnInit{
   date = "";
 
   dtOptions: DataTables.Settings = {};
-  dtTrigger: Subject<any> = new Subject<any>();
   sittingRecordData: SittingRecord[] = [];
 
   showFilters = false;
@@ -49,7 +50,25 @@ export class ViewSittingRecordsComponent implements OnInit{
       columnDefs:[
         { targets: [5], orderable: false },
       ],
-      
+      ajax: (dataTablesParameters: any, callback) => {
+        this.srWorkFlow.getSittingRecordsData(dataTablesParameters.start)
+        .subscribe({
+          next: (records) => {
+            this.sittingRecordData = records.sittingRecords;
+            this.recordCount = records.recordCount;
+            callback({
+              recordsTotal: records.recordCount,
+              recordsFiltered: records.recordCount,
+              data: []
+            });
+          },
+          error: (err) => {
+            this.apiError = true
+            this.dtOptions.ordering = false
+            this.recordCount = 0;
+          }
+        })
+      },
       drawCallback: 
         /* istanbul ignore next */ 
         () => {
@@ -65,22 +84,7 @@ export class ViewSittingRecordsComponent implements OnInit{
       }
     };
 
-    this.loadViewSittingRecords();
   } 
-
-  loadViewSittingRecords() {
-    this.srWorkFlow.getSittingRecordsData().subscribe(
-      records => {
-        this.sittingRecordData = records.sittingRecords;
-        this.dtTrigger.next(null); 
-      },
-      () => {
-        this.sittingRecordData = []
-        this.dtTrigger.next(null);
-      }
-    );
-    
-  }
 
   navigateDeleteSittingRecord(sittingRecord){
     this.srWorkFlow.setSittingRecordToDelete(sittingRecord);

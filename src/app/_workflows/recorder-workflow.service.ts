@@ -67,7 +67,7 @@ export class RecorderWorkflowService {
     this.sittingRecordToDelete = {};
   }
 
-  getSittingRecordsData() {
+  getSittingRecordsData(offset: number) {
     const postObj = new ViewSittingRecordPost();
     const { dateSelected, venue, tribunalService } = this.formData.value;
     const hmctsServiceCode = tribunalService.hmctsServiceCode;

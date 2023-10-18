@@ -26,7 +26,6 @@
           <table 
             datatable 
             [dtOptions]="dtOptions" 
-            [dtTrigger]="dtTrigger"
             class="govuk-table"
             id="sittingRecordViewTable">
             <caption></caption>
@@ -48,7 +47,9 @@
                 <td class="govuk-table__cell"> {{sittingRecord.createdByUserName}} </td>
                 <td class="govuk-table__cell"> {{sittingRecord.statusId | capitalizeFirstLetterForStatus}} </td>
                 <td class="govuk-table__cell deleteCell"> <a class="govuk-link" (click)="navigateDeleteSittingRecord(sittingRecord)">Delete</a> </td>
-
+              </tr>
+              <tr *ngIf="recordCount === 0">
+                <td colspan="6" class="no-data-available">No results available</td>
               </tr>
             </tbody>
           </table>
