@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, flush } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ViewSittingRecordsComponent } from './view-sitting-records.component';
 import { RecorderWorkflowService } from '../../_workflows/recorder-workflow.service';
@@ -46,6 +46,7 @@ describe('ViewSittingRecordsComponent', () => {
       venue: { site_name: 'Venue 1' }
     });
     const response: ViewSittingRecordResponse = {
+      "recordCount": 1,
       "sittingRecords": []
     }
 
@@ -53,15 +54,42 @@ describe('ViewSittingRecordsComponent', () => {
     fixture.detectChanges();
     spyOn(mockDateSvc, 'formatDateFromForm').and.returnValue(formattedDate);
     spyOn(mockWorkflowService, 'getSittingRecordsData').and.returnValue(of(response));
+    spyOn(mockWorkflowService, 'getFormData').and.returnValue(formDataMock)
     
     component.ngOnInit();
-    
+  
+    expect(mockWorkflowService.getFormData).toHaveBeenCalled();
     expect(mockDateSvc.formatDateFromForm).toHaveBeenCalledWith(formDataMock.controls['dateSelected'].value);
     expect(component.tribService).toBe(formDataMock.controls['tribunalService'].value.service);
     expect(component.venueSiteName).toBe(formDataMock.controls['venue'].value.site_name);
     expect(component.date).toBe(formattedDate);
+
     expect(component.sittingRecordData).toEqual(response.sittingRecords);
+    
   });
+
+  it('should execute ajaxFunction correctly', () => {
+    // Arrange
+    const fakeDataTablesParams = { start: 0 };
+    const fakeCallback = jasmine.createSpy('fakeCallback');
+    const response: ViewSittingRecordResponse = {
+      recordCount: 1,
+      sittingRecords: []
+    };
+    spyOn(mockWorkflowService, 'getSittingRecordsData').and.returnValue(of(response));
+  
+    // Act
+    component.getViewTableData(fakeDataTablesParams, fakeCallback);
+  
+    // Assert
+    expect(fakeCallback).toHaveBeenCalledWith({
+      recordsTotal: response.recordCount,
+      recordsFiltered: response.recordCount,
+      data: []
+    });
+    expect(mockWorkflowService.getSittingRecordsData).toHaveBeenCalledWith(fakeDataTablesParams.start);
+  });
+  
 
   it('should navigate to the manage page on goBack', () => {
     spyOn(mockRouter, 'navigate');

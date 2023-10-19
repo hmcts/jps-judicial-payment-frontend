@@ -4,7 +4,6 @@ import { DateService } from '../../_services/date-service/date-service';
 import { Router } from '@angular/router';
 import { defaultDtOptions }  from '../../_services/default-dt-options'
 import { SittingRecord } from '../../_models/viewSittingRecords.model';
-import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-view-sitting-records',
@@ -50,25 +49,7 @@ export class ViewSittingRecordsComponent implements OnInit{
       columnDefs:[
         { targets: [5], orderable: false },
       ],
-      ajax: (dataTablesParameters: any, callback) => {
-        this.srWorkFlow.getSittingRecordsData(dataTablesParameters.start)
-        .subscribe({
-          next: (records) => {
-            this.sittingRecordData = records.sittingRecords;
-            this.recordCount = records.recordCount;
-            callback({
-              recordsTotal: records.recordCount,
-              recordsFiltered: records.recordCount,
-              data: []
-            });
-          },
-          error: (err) => {
-            this.apiError = true
-            this.dtOptions.ordering = false
-            this.recordCount = 0;
-          }
-        })
-      },
+      ajax: this.getViewTableData.bind(this),
       drawCallback: 
         /* istanbul ignore next */ 
         () => {
@@ -85,6 +66,26 @@ export class ViewSittingRecordsComponent implements OnInit{
     };
 
   } 
+  
+  getViewTableData(dataTablesParameters: any, callback: any) {
+    this.srWorkFlow.getSittingRecordsData(dataTablesParameters.start)
+      .subscribe({
+        next: (records) => {
+          this.sittingRecordData = records.sittingRecords;
+            this.recordCount = records.recordCount;
+          callback({
+            recordsTotal: records.recordCount,
+            recordsFiltered: records.recordCount,
+            data: []
+          });
+        },
+        error: (err) => {
+          this.apiError = true
+            this.dtOptions.ordering = false
+            this.recordCount = 0;
+        }
+      });
+  }
 
   navigateDeleteSittingRecord(sittingRecord){
     this.srWorkFlow.setSittingRecordToDelete(sittingRecord);
