@@ -28,4 +28,4 @@ function clickPrevious(tribunal, venue, day, month, year) {
   I.seeInField('input[name = "msr-date-year"]', year);
 }
 
-module.exports = { clickAddSittingRecords, seeRecords, clickDelete, clickPrevious }
+module.exports = { clickAddSittingRecords, seeSittingRecords, clickDelete, clickPrevious }
