@@ -12,11 +12,20 @@ function seeSittingRecords(name, role, period, enteredBy) {
   I.see(period);
   I.see(enteredBy);
 }
-
 function clickDelete() {
   I.doubleClick('//*[@id="sittingRecordViewTable"]/thead/tr/th[5]');
   I.click('Delete');
   I.waitForText('Delete sitting record', 3);
 }
 
-module.exports = { clickAddSittingRecords, seeSittingRecords, clickDelete }
+function clickPrevious(tribunal, venue, day, month, year) {
+  I.click('Previous');
+  I.see('Manage judicial sitting records');
+  I.seeInField('//*[@id="main-content"]/form/div[1]', tribunal);
+  I.seeInField('#venue-select', venue);
+  I.seeInField('input[name = "msr-date-day"]', day);
+  I.seeInField('input[name = "msr-date-month"]', month);
+  I.seeInField('input[name = "msr-date-year"]', year);
+}
+
+module.exports = { clickAddSittingRecords, seeRecords, clickDelete, clickPrevious }
