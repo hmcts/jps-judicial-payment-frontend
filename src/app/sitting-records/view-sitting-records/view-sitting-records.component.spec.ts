@@ -60,7 +60,7 @@ describe('ViewSittingRecordsComponent', () => {
     expect(component.tribService).toBe(formDataMock.controls['tribunalService'].value.service);
     expect(component.venueSiteName).toBe(formDataMock.controls['venue'].value.site_name);
     expect(component.date).toBe(formattedDate);
-    expect(component.sittingRecordData).toBe(response.sittingRecords);
+    expect(component.sittingRecordData).toEqual(response.sittingRecords);
   });
 
   it('should navigate to the manage page on goBack', () => {
