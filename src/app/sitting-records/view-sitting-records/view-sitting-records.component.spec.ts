@@ -69,4 +69,41 @@ describe('ViewSittingRecordsComponent', () => {
     expect(mockRouter.navigate).toHaveBeenCalledWith(['sittingRecords','manage']);
   });
 
+  it('should navigate to sittingRecords/delete on navigateDeleteSittingRecord', () => {
+    spyOn(mockRouter, 'navigate')
+    spyOn(mockWorkflowService, 'setSittingRecordToDelete')
+    component.navigateDeleteSittingRecord(mockRecord)
+    expect(mockWorkflowService.setSittingRecordToDelete).toHaveBeenCalledWith(mockRecord)
+    expect(mockRouter.navigate).toHaveBeenCalledWith(['sittingRecords','delete'])
+  })
+
+  it('should navigate to sittingRecords/add on addNewRecord', () => {
+    spyOn(mockRouter, 'navigate')
+    component.addNewRecord()
+    expect(mockRouter.navigate).toHaveBeenCalledWith(['sittingRecords','add'])
+  })
+
 });
+
+const mockRecord ={  
+  sittingRecordId: 'string',
+  sittingDate: 'string',
+  statusId: 'string',
+  regionId: 'string',
+  regionName: 'string',
+  epimmsId: 'string',
+  hmctsServiceId: 'string',
+  personalCode: 'string',
+  personalName: 'string',
+  contractTypeId: 0,
+  judgeRoleTypeId: 'string',
+  am: true,
+  pm: false,
+  createdDateTime: 'string',
+  createdByUserId: 'string',
+  createdByUserName: 'string',
+  changedDateTime: 'string',
+  changedByUserId: 'string',
+  changedByUserName: 'string',
+  venueName: 'string',
+}
