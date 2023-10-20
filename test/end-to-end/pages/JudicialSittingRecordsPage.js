@@ -13,4 +13,14 @@ function seeRecords(name, role, period, enteredBy) {
   I.see(enteredBy);
 }
 
-module.exports = { clickAddSittingRecords, seeRecords }
+function clickPrevious(tribunal, venue, day, month, year) {
+  I.click('Previous');
+  I.see('Manage judicial sitting records');
+  I.seeInField('//*[@id="main-content"]/form/div[1]', tribunal);
+  I.seeInField('#venue-select', venue);
+  I.seeInField('input[name = "msr-date-day"]', day);
+  I.seeInField('input[name = "msr-date-month"]', month);
+  I.seeInField('input[name = "msr-date-year"]', year);
+}
+
+module.exports = { clickAddSittingRecords, seeRecords, clickPrevious }
