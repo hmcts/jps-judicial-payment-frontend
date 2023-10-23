@@ -20,7 +20,8 @@ import {
   SERVICES_IDAM_OAUTH_CALLBACK_URL,
   SESSION_SECRET,
   JPS_SYSTEM_USERNAME,
-  JPS_SYSTEM_PASSWORD
+  JPS_SYSTEM_PASSWORD,
+  OIDC_ENABLED
 } from '../configuration/references';
 
 export const successCallback = (req: EnhancedRequest, res: Response, next: NextFunction) => {
@@ -122,7 +123,9 @@ export const getXuiNodeMiddleware = () => {
     },
     session: fileStoreOptions,
   };
-  
+
+  const type = showFeature(OIDC_ENABLED) ? 'oidc' : 'oauth2';
+  nodeLibOptions.auth[type] = options;
   return xuiNode.configure(nodeLibOptions);
 
 };

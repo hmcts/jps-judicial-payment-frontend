@@ -44,3 +44,5 @@ export const FEATURE_SECURE_COOKIE_ENABLED = 'secureCookieEnabled';
 export const CASE_SHARE_PERMISSIONS = 'pui-case-manager';
 
 export const SESSION_TIMEOUTS = 'sessionTimeouts';
+
+export const OIDC_ENABLED = 'oidcEnabled'
