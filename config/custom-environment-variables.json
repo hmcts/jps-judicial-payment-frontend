@@ -37,6 +37,11 @@
             "__name": "FEATURE_SECURE_COOKIE_ENABLED",
             "__format": "json"
         }
+    },
+    "redis_enabled": "REDIS_ENABLED",
+    "redis":{
+        "prefix": "REDIS_KEY_PREFIX",
+        "ttl": "REDIS_TTL"
     }
 }
 

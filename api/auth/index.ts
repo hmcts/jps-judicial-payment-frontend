@@ -20,7 +20,11 @@ import {
   SERVICES_IDAM_OAUTH_CALLBACK_URL,
   SESSION_SECRET,
   JPS_SYSTEM_USERNAME,
-  JPS_SYSTEM_PASSWORD
+  JPS_SYSTEM_PASSWORD,
+  REDIS_ENABLED,
+  REDIS_CLOUD_URL,
+  REDIS_KEY_PREFIX,
+  REDIS_TTL
 } from '../configuration/references';
 
 export const successCallback = (req: EnhancedRequest, res: Response, next: NextFunction) => {
@@ -61,7 +65,6 @@ export const getXuiNodeMiddleware = () => {
   const tokenUrl = `${getConfigValue(SERVICES_IDAM_API_URL)}/oauth2/token`;
   const userName = getConfigValue(JPS_SYSTEM_USERNAME);
   const password = getConfigValue(JPS_SYSTEM_PASSWORD);
-  
   const routeCredential = {
     password,
     routes: [
@@ -111,6 +114,18 @@ export const getXuiNodeMiddleware = () => {
     },
   };
 
+  const redisStoreOptions = {
+    redisStore: {
+      ...baseStoreOptions, ...{
+        redisStoreOptions: {
+          redisCloudUrl: getConfigValue(REDIS_CLOUD_URL),
+          redisKeyPrefix: getConfigValue(REDIS_KEY_PREFIX),
+          redisTtl: getConfigValue(REDIS_TTL)
+        }
+      }
+    }
+  };
+
   const nodeLibOptions = {
     auth: {
       s2s: {
@@ -120,7 +135,7 @@ export const getXuiNodeMiddleware = () => {
       },
       oauth2:options,
     },
-    session: fileStoreOptions,
+    session: getConfigValue(REDIS_ENABLED) ? redisStoreOptions : fileStoreOptions
   };
   
   return xuiNode.configure(nodeLibOptions);
