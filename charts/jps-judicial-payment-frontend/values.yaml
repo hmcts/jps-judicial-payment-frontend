@@ -29,6 +29,7 @@ nodejs:
     REDIS_ENABLED: false
     REDIS_KEY_PREFIX: 'activity:'
     REDIS_TTL: 6000
+    REDIS_CLOUD_URL: jps-session-storage-{{ .Values.global.environment }}.redis.cache.windows.net
 
     memoryRequests: "512Mi"
     cpuRequests: "25m"

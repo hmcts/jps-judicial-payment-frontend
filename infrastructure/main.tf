@@ -47,7 +47,7 @@ resource "azurerm_key_vault_secret" "redis6_connection_string" {
 
 module "redis6-cache" {
   source                   = "git@github.com:hmcts/cnp-module-redis?ref=master"
-  product                  = var.product
+  product                  = "${var.product}-${var.component}-session-storage"
   location                 = var.location
   env                      = var.env
   common_tags              = var.common_tags
