@@ -8,6 +8,7 @@ nodejs:
     DEBUG: xuiNode:*,-xuiNode:auth:s2s,-xuiNode:auth:oauth2
     SERVICES_LOCATION_REF_API_URL: http://rd-location-ref-api-aat.service.core-compute-aat.internal
     SERVICES_USERS_REF_API_URL: http://rd-judicial-api-aat.service.core-compute-aat.internal
+    REDIS_ENABLED: false
   keyVaults:
     jps:
       resourceGroup: jps
@@ -25,3 +26,5 @@ idam-pr:
   redirect_uris:
     jps_judicial_payment_frontend:
       - https://${SERVICE_FQDN}/oauth2/callback
+redis: 
+  enabled: true
