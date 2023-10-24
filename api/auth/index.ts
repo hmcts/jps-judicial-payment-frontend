@@ -22,7 +22,7 @@ import {
   JPS_SYSTEM_USERNAME,
   JPS_SYSTEM_PASSWORD,
   REDIS_ENABLED,
-  REDIS_CLOUD_URL,
+  REDISCLOUD_URL,
   REDIS_KEY_PREFIX,
   REDIS_TTL
 } from '../configuration/references';
@@ -54,7 +54,7 @@ xuiNode.on(AUTH.EVENT.AUTHENTICATE_SUCCESS, successCallback);
 xuiNode.on(AUTH.EVENT.AUTHENTICATE_FAILURE, failureCallback);
 
 export const getXuiNodeMiddleware = () => {
-
+  console.log(`Redis enabled is set to ${getConfigValue(REDIS_ENABLED)}`)
   const idamWebUrl = getConfigValue(SERVICES_IDAM_LOGIN_URL);
   const authorizationUrl = `${idamWebUrl}/login`;
   const secret = getConfigValue(IDAM_SECRET);
@@ -118,7 +118,7 @@ export const getXuiNodeMiddleware = () => {
     redisStore: {
       ...baseStoreOptions, ...{
         redisStoreOptions: {
-          redisCloudUrl: getConfigValue(REDIS_CLOUD_URL),
+          redisCloudUrl: getConfigValue(REDISCLOUD_URL),
           redisKeyPrefix: getConfigValue(REDIS_KEY_PREFIX),
           redisTtl: getConfigValue(REDIS_TTL)
         }

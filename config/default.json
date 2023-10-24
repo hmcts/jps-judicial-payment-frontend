@@ -28,7 +28,7 @@
     },
     "redis_enabled": false,
     "redis": {
-        "host": "jps_judicial_payment_frontend-prod.redis.cache.windows.net",
+        "host": "jps-judicial-payment-frontend-session-storage-aat.redis.cache.windows.net",
         "port": 6379,
         "tls": true,
         "prefix": "activity:",

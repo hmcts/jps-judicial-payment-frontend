@@ -9,6 +9,7 @@ nodejs:
     SERVICES_LOCATION_REF_API_URL: http://rd-location-ref-api-aat.service.core-compute-aat.internal
     SERVICES_USERS_REF_API_URL: http://rd-judicial-api-aat.service.core-compute-aat.internal
     REDIS_ENABLED: false
+    REDISCLOUD_URL: redis://${SERVICE_NAME}-redis-master:6379
   keyVaults:
     jps:
       resourceGroup: jps
