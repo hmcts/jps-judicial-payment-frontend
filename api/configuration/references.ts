@@ -49,3 +49,5 @@ export const REDIS_ENABLED = 'redis_enabled'
 export const REDISCLOUD_URL = 'secrets.jps.judicial-payment-frontend-redis6-connection-string'
 export const REDIS_TTL = 'redis.ttl'
 export const REDIS_KEY_PREFIX = 'redis.prefix'
+
+export const OIDC_ENABLED = 'oidcEnabled'

@@ -37,6 +37,10 @@
         "secureCookieEnabled": {
             "__name": "FEATURE_SECURE_COOKIE_ENABLED",
             "__format": "json"
+        },
+        "oidcEnabled": {
+            "__name": "OIDC_ENABLED",
+            "__format": "json"
         }
     },
     "redis_enabled": "REDIS_ENABLED",

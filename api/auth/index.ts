@@ -24,7 +24,8 @@ import {
   REDIS_ENABLED,
   REDISCLOUD_URL,
   REDIS_KEY_PREFIX,
-  REDIS_TTL
+  REDIS_TTL,
+  OIDC_ENABLED
 } from '../configuration/references';
 
 export const successCallback = (req: EnhancedRequest, res: Response, next: NextFunction) => {
@@ -137,7 +138,9 @@ export const getXuiNodeMiddleware = () => {
     },
     session: getConfigValue(REDIS_ENABLED) ? redisStoreOptions : fileStoreOptions
   };
-  
+
+  const type = showFeature(OIDC_ENABLED) ? 'oidc' : 'oauth2';
+  nodeLibOptions.auth[type] = options;
   return xuiNode.configure(nodeLibOptions);
 
 };

@@ -24,7 +24,8 @@
     "sessionSecret": "secretSauce",
     "loginRoleMatcher": "(jps-recorder|jps-publisher|jps-submitter|jps-admin|jps-JOH-admin)",
     "feature": {
-        "secureCookieEnabled": true
+        "secureCookieEnabled": true,
+        "oidcEnabled": false
     },
     "redis_enabled": false,
     "redis": {
