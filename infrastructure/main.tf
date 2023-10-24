@@ -33,13 +33,19 @@ resource "azurerm_key_vault_secret" "jps_s2s_client_secret" {
   key_vault_id = data.azurerm_key_vault.jps_shared_key_vault.id
 }
 
+data "azurerm_subnet" "core_infra_redis_subnet" {
+  name                 = "core-infra-subnet-1-${var.env}"
+  virtual_network_name = "core-infra-vnet-${var.env}"
+  resource_group_name  = "core-infra-${var.env}"
+}
+
 resource "azurerm_key_vault_secret" "redis6_connection_string" {
   name         = "${var.component}-redis6-connection-string"
   value        = "redis://${urlencode(module.redis6-cache.access_key)}@${module.redis6-cache.host_name}:${module.redis6-cache.redis_port}?tls=true"
   key_vault_id = data.azurerm_key_vault.jps_shared_key_vault.id
 }
 
-module "redis" {
+module "redis6-cache" {
   source                   = "git@github.com:hmcts/cnp-module-redis?ref=master"
   product                  = var.product
   location                 = var.location
