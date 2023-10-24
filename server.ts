@@ -54,7 +54,7 @@ export function app(): express.Express {
   const indexHtml = existsSync(join(distFolder, 'index.original.html')) ? 'index.original.html' : 'index';
   server.use(express.json())
   
-  //server.use(getXuiNodeMiddleware());
+  server.use(getXuiNodeMiddleware());
   server.use('/refdata', refDataRouter, errorHandler)
   server.use('/sittingrecord', sittingRecordsRouter, errorHandler)
 

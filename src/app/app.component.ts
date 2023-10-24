@@ -18,17 +18,6 @@ export class AppComponent {
 
   ngOnInit(){
     this.setUserInfoValues();
-    this.callJPSService();
-  }
-
-  callJPSService(){
-    console.log('hits the FE ')
-    this.dsrwfl.deleteRecord('1').subscribe({
-      next: (res) => {
-        console.log(res)
-        console.log('good response')
-      }
-    })
   }
 
   setUserInfoValues(){

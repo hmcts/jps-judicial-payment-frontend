@@ -68,14 +68,15 @@ export async function deleteSittingRecord(req, res, next){
     try {
         const headers = {
             'Content-Type': 'application/json',
+            'Authorization': Authorization,
+            'ServiceAuthorization': ServiceAuthorization
         };
         const config: AxiosRequestConfig = {
-            url: `${url}`,
-            method: 'GET',
+            url: `${url}/sittingRecord/${id}`,
+            method: 'DELETE',
             headers: headers,
         };
 
-        logger.log(config)
 
         const response = await axios(config);
         
