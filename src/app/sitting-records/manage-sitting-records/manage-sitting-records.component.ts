@@ -1,18 +1,17 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { 
+  AbstractControl,
   FormBuilder, 
   FormGroup, 
   Validators, 
-  AbstractControl
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { RecorderWorkflowService } from '../../_workflows/recorder-workflow.service';
 import { ManageSittingRecord } from '../../_validators/sittingRecordsFormValidator/sitting-records-form-validator';
 import { debounceTime, map, startWith, takeUntil, tap } from 'rxjs/operators';
 import { LocationService } from '../../_services/location-service/location.service'
 import { VenueModel } from '../../_models/venue.model';
 import { AutoCompleteValidator } from '../../_validators/autoCompleteValidator/auto-complete-validator'
-import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { ManageSittingRecordsWorkflowService } from '../../_workflows/manage-sitting-record-workflow.service';
 import { environment } from '../../environments/environment'
 import { CookieService } from 'ngx-cookie-service';
 import { Subject } from 'rxjs';
@@ -51,7 +50,7 @@ export class ManageSittingRecordsComponent implements OnInit {
   constructor(
     protected router: Router,
     private formBuilder: FormBuilder,
-    private recorderWorkFlowService: RecorderWorkflowService,
+    private recorderWorkFlowService: ManageSittingRecordsWorkflowService,
     private locationService : LocationService,
     private cookies: CookieService,
   ){
@@ -129,22 +128,12 @@ export class ManageSittingRecordsComponent implements OnInit {
     this.createEventListeners();
 
     const userRole = this.cookies.get('__userrole__');
+
     if (userRole.indexOf('jps-recorder') != -1)
       this.showPreviousButton = false;
       
   }
-
-  public showVenue(value) {
-    if(value) { 
-      return value.site_name; 
-    }
-    return ""
-  }
-
-  public optionSelected(event: MatAutocompleteSelectedEvent): void {
-    this.manageRecords.controls['venue'].patchValue(event.option.value, {emitEvent: false, onlySelf: true});
-  }
-
+  
   public getVenues(serviceCode: string) {
     this.locationService.getAllVenues(serviceCode).subscribe((locations) => {
       this.venues = locations['court_venues'];
@@ -154,6 +143,6 @@ export class ManageSittingRecordsComponent implements OnInit {
   goBack(){
     void this.router.navigate(['sittingRecords','home'])
   }
-
+  
 }
 

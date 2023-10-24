@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DateService } from '../../../_services/date-service/date-service';
-import { RecorderWorkflowService } from '../../../_workflows/recorder-workflow.service';
+import { ManageSittingRecordsWorkflowService } from '../../../_workflows/manage-sitting-record-workflow.service';
 import { UserInfoService } from '../../../_services/user-info-service/user-info-service';
 import { DuplicateRecordWorkflowService } from '../../../_workflows/duplicate-record-workflow.service';
 
@@ -19,7 +19,7 @@ export class ValidSittingRecordsComponent implements OnInit {
   tableHeaderText
 
   constructor(
-    private recorderWorkFlow: RecorderWorkflowService,
+    private recorderWorkFlow: ManageSittingRecordsWorkflowService,
     private dateSvc: DateService,
     private dupeRecordWorkflow: DuplicateRecordWorkflowService,
     private uInfoSvc: UserInfoService,

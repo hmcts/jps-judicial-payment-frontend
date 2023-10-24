@@ -1,0 +1,57 @@
+<main class="govuk-main-wrapper " id="main-content" role="main">
+    
+    <span class="govuk-caption-l">Create payroll file and publish records </span>
+    <h1 class="govuk-heading-l">Publish sitting records</h1>
+
+    <div class="govuk-error-summary govuk-!-margin-bottom-3" data-module="govuk-error-summary">
+        <div role="alert">
+            <h2 class="govuk-error-summary__title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    <li>
+                        <a class="textErrorColor">Enter your full name</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <p class="govuk-body-m">
+        Are you sure you want to continue? <br>
+        Once published sitting records cannot be deleted or changed.
+    </p>
+
+    <div >
+        <table class="govuk-table">
+            <thead class="govuk-table__head">
+                <tr class="govuk-table__row">
+                    <th scope="col" class="govuk-table__header">File name</th>
+                    <th scope="col" class="govuk-table__header">No. of records </th>
+                    <th scope="col" class="govuk-table__header">Created by</th>
+                    <th scope="col" class="govuk-table__header"></th>
+                </tr>
+            </thead>
+            <tbody class="govuk-table__body">
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">£109.80 per week</td>
+                    <td class="govuk-table__cell">£109.80 per week</td>
+                    <td class="govuk-table__cell">£109.80 per week</td>
+                    <td class="govuk-table__cell link-color">
+                        <a class="govuk-link link-color">Download</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <button class="govuk-button" data-module="govuk-button">
+        Continue
+    </button>
+
+    <p class="govuk-body">
+        <a class="govuk-link link-color" (click)="goBack()">Cancel</a>
+    </p>
+
+</main>

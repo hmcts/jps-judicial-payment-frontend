@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RecorderWorkflowService } from '../../../_workflows/recorder-workflow.service';
+import { ManageSittingRecordsWorkflowService } from '../../../_workflows/manage-sitting-record-workflow.service';
 import { Router } from '@angular/router';
 import { FormArray, FormGroup } from '@angular/forms';
 import { DuplicateRecordWorkflowService } from '../../../_workflows/duplicate-record-workflow.service'
@@ -16,23 +16,23 @@ export class AddSittingRecordsConfirmComponent{
   recordedByName;
 
   constructor(
-    public recorderWorkFlow: RecorderWorkflowService,
+    public srWorkFlow: ManageSittingRecordsWorkflowService,
     public drWorkFlow: DuplicateRecordWorkflowService,
     private uInfoSvc: UserInfoService,
     public router: Router,
   ) {
-    this.newSittingRecords = this.recorderWorkFlow.getAddSittingRecords();
+    this.newSittingRecords = this.srWorkFlow.getAddSittingRecords();
     this.recordedByName = this.uInfoSvc.getUserName()
   }
 
   cancelAdd(){
     void this.router.navigate(['sittingRecords', 'manage'])
-    this.recorderWorkFlow.resetCameFromConfirm()
-    this.recorderWorkFlow.resetAddSittingRecords()
+    this.srWorkFlow.resetCameFromConfirm()
+    this.srWorkFlow.resetAddSittingRecords()
   }
 
   goBack(){
-    this.recorderWorkFlow.setCameFromConfirm();
+    this.srWorkFlow.setCameFromConfirm();
     void this.router.navigate(['sittingRecords', 'add'])
   }
 
@@ -41,7 +41,7 @@ export class AddSittingRecordsConfirmComponent{
   }
 
   submitNewRecords(){
-    this.recorderWorkFlow.formAndPostNewSittingRecord()
+    this.srWorkFlow.formAndPostNewSittingRecord()
     .subscribe({
       next: () => {
         void this.router.navigate(['sittingRecords', 'addSuccess']);

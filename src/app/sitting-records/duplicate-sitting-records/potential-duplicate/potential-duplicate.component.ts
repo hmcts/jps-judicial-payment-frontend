@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { DateService } from '../../../_services/date-service/date-service';
 import { UserInfoService } from '../../../_services/user-info-service/user-info-service';
-import { RecorderWorkflowService } from '../../../_workflows/recorder-workflow.service';
+import { ManageSittingRecordsWorkflowService } from '../../../_workflows/manage-sitting-record-workflow.service';
 
 @Component({
   selector: 'app-potential-duplicate',
@@ -26,7 +26,7 @@ export class PotentialDuplicateComponent{
   }
 
   constructor(
-    private recorderWorkFlow: RecorderWorkflowService,
+    private recorderWorkFlow: ManageSittingRecordsWorkflowService,
     private dateSvc: DateService,
     private uInfoSvc: UserInfoService,
   ){
