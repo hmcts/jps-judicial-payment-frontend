@@ -50,7 +50,7 @@ describe('DeleteSittingRecordsComponent', () => {
   it('should set error when delete fails', () => {
     const errorResponse = {
       status: 404,
-      error: { message: 'Error:Delete failed' }  
+      error: { message: 'Delete failed' }  
     };
 
     spyOn(deleteService, 'deleteRecord').and.returnValue(throwError(() => errorResponse));
