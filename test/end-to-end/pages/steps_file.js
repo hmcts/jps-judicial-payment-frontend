@@ -23,6 +23,7 @@ module.exports = function () {
       I.fillField('Password', recorderPassword);
       I.click('Sign in');
       I.wait(3);
+      I.waitForText('Manage judicial sitting records')
     },
 
     loginWithJPSSubmitterUser: function () {
@@ -35,6 +36,7 @@ module.exports = function () {
       I.fillField('Password', submitterPassword);
       I.click('Sign in');
       I.wait(3);
+      I.waitForText('Manage Judicial Sitting Records');
     },
 
     loginWithJPSAdminUser: function () {
@@ -47,6 +49,7 @@ module.exports = function () {
       I.fillField('Password', adminPassword);
       I.click('Sign in');
       I.wait(3);
+      I.waitForText('Manage Judicial Sitting Records');
     },
 
     loginWithJPSJOHAdminUser: function () {
@@ -59,6 +62,7 @@ module.exports = function () {
       I.fillField('Password', johAdminPassword);
       I.click('Sign in');
       I.wait(3);
+      I.waitForText('Manage Judicial Sitting Records');
     },
 
     loginWithJPSPublisherUser: function () {
@@ -71,6 +75,7 @@ module.exports = function () {
       I.fillField('Password', publisherPassword);
       I.click('Sign in');
       I.wait(3);
+      I.waitForText('Manage Judicial Sitting Records');
     },
 
     loginWithJPSInvalidUser: function () {
