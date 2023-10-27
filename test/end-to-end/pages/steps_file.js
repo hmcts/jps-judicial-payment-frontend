@@ -13,16 +13,17 @@ module.exports = function () {
   const invalidPassword = process.env.JPS_INVALID_PASSWORD || 'password';
 
   return actor({
-    loginWithJPSRecorderUser: function () {
+    loginWithJPSRecorderUser: async function () {
       const I = this;
-      I.amOnPage('/');
+      await I.amOnPage('/');
       I.wait(5);
       I.waitForElement('//*[@id="footer"]/div/div/div[2]');
       I.waitForVisible('#username', 10);
-      I.fillField('Email address', recorderUsername);
-      I.fillField('Password', recorderPassword);
-      I.click('Sign in');
+      await I.fillField('Email address', recorderUsername);
+      await I.fillField('Password', recorderPassword);
+      await I.click('Sign in');
       I.wait(3);
+      I.waitForText('Manage judicial sitting records');
     },
 
     loginWithJPSSubmitterUser: function () {
