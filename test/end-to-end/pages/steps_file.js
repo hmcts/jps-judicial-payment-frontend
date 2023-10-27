@@ -19,9 +19,9 @@ module.exports = function () {
       I.wait(5);
       I.waitForElement('//*[@id="footer"]/div/div/div[2]');
       I.waitForVisible('#username', 10);
-      await I.fillField('Email address', recorderUsername);
-      await I.fillField('Password', recorderPassword);
-      await I.click('Sign in');
+      I.fillField('Email address', recorderUsername);
+      I.fillField('Password', recorderPassword);
+      I.click('Sign in');
       I.wait(3);
       I.waitForText('Manage judicial sitting records');
     },
