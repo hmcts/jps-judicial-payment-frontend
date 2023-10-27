@@ -42,7 +42,7 @@ export class ViewSittingRecordsComponent implements OnInit{
     const formData = this.msrWorkFlow.getFormData().value;
     const { dateSelected, tribunalService, venue } = formData;
     this.tribService = tribunalService.service;
-    this.venueSiteName = venue.site_name;
+    this.venueSiteName = venue.court_name;
     this.date = this.dateSvc.formatDateFromForm(dateSelected);
 
     this.dtOptions = {

@@ -33,7 +33,7 @@ describe('AddSittingRecordSuccessComponent', () => {
     const formDataMock: FormGroup = new FormBuilder().group({
       dateSelected: ['2022-01-01'],
       tribunalService: ['Tribunal 1'],
-      venue: [{site_name: 'Venue 1'}],
+      venue: [{court_name: 'Venue 1'}],
     });
     
     srWorkflowService.setCameFromConfirm()

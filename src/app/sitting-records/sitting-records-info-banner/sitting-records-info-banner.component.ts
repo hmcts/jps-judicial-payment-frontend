@@ -23,7 +23,7 @@ export class SittingRecordsInfoBannerComponent implements OnInit {
     const formData = this.recorderWorkFlow.getFormData().value;
     const { dateSelected, tribunalService, venue } = formData;
     this.tribService = tribunalService.service;
-    this.venue = venue.site_name;
+    this.venue = venue.court_name;
     this.date = this.dateSvc.formatDateFromForm(dateSelected);
   }
 

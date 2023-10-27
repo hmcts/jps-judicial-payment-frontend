@@ -50,7 +50,7 @@ export class DeleteSittingRecordsComponent implements OnInit{
   ngOnInit(){
     this.recordToDelete = this.recorderWorkFlow.getSittingRecordToDelete();
     const {venue} = this.recorderWorkFlow.getFormData().value
-    this.selectedVenue = venue.site_name;
+    this.selectedVenue = venue.court_name;
   }
   
   confirmDelete() {
