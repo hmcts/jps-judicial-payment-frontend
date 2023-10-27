@@ -17,8 +17,8 @@ const jpsRecorderRole = 'jps recorder';
 
 Feature('Search Sitting Records Feature Tests @functional @F-003');
 
-Scenario('User is able to view Sitting Record(s) @S-003.1',({ I}) => {
-  I.loginWithJPSRecorderUser();
+Scenario('User is able to view Sitting Record(s) @S-003.1',async({ I}) => {
+  await I.loginWithJPSRecorderUser();
   ManageJudicialSittingRecordsPage.addSittingRecordsInformation(socialSecurityTribunalService, londonVenue, randomDay, randomMonth, year);
   I.click('Continue');
   I.see('Judicial sitting records');
@@ -28,8 +28,8 @@ Scenario('User is able to view Sitting Record(s) @S-003.1',({ I}) => {
   JudicialSittingRecordsPage.seeRecords(joeAmbroseName, tribunalJudgeRole, morningPeriod, jpsRecorderRole);
 });
 
-Scenario('User is displayed "Manage judicial sitting records" when Previous button is clicked @S-003.2',({ I}) => {
-  I.loginWithJPSRecorderUser();
+Scenario('User is displayed "Manage judicial sitting records" when Previous button is clicked @S-003.2',async({ I}) => {
+  await I.loginWithJPSRecorderUser();
   ManageJudicialSittingRecordsPage.addSittingRecordsInformation(socialSecurityTribunalService, suttonVenue, randomDay, randomMonth, year);
   I.click('Continue');
   I.see('Judicial sitting records');

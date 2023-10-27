@@ -2,8 +2,8 @@ const ManageJudicialSittingRecordsPage = require('../pages/ManageJudicialSitting
 
 Feature('Manage Judicial Sitting Records Pages Tests @functional @F-006');
 
-Scenario('Successfully continue to "Judicial sitting records" page @S-006.1',({ I}) => {
-  I.loginWithJPSRecorderUser();
+Scenario('Successfully continue to "Judicial sitting records" page @S-006.1',async ({ I}) => {
+  await I.loginWithJPSRecorderUser();
   ManageJudicialSittingRecordsPage.addSittingRecordsInformation('Social Security and Child Support', 'Bournemouth', '11', '03', '2022');
   I.click('Continue');
   I.see("Judicial sitting records");
@@ -15,15 +15,15 @@ Scenario('"Manage judicial sitting records" page is not displayed for a user tha
   I.dontSee('Find, add or delete judicial sitting records');
 });
 
-Scenario('Venue field should be enabled only after tribunal service is selected @S-006.3',  ({ I}) => {
-  I.loginWithJPSRecorderUser();
+Scenario('Venue field should be enabled only after tribunal service is selected @S-006.3',async ({ I}) => {
+  await I.loginWithJPSRecorderUser();
   I.see('Manage judicial sitting records');
   I.see('Find, add or delete judicial sitting records');
   I.seeElement('#venue-select[disabled]');
 });
 
-Scenario('"Manage Judicial Sitting Records" page will be displayed when Previous button is clicked @S-006.4',({ I}) => {
-  I.loginWithJPSRecorderUser();
+Scenario('"Manage Judicial Sitting Records" page will be displayed when Previous button is clicked @S-006.4',async ({ I}) => {
+  await I.loginWithJPSRecorderUser();
   ManageJudicialSittingRecordsPage.addSittingRecordsInformation('Social Security and Child Support', 'Bournemouth', '11', '03', '2022');
   I.click('Continue');
   I.click('Previous');

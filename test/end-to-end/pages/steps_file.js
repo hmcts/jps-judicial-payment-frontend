@@ -16,12 +16,12 @@ module.exports = function () {
     loginWithJPSRecorderUser: async function () {
       const I = this;
       await I.amOnPage('/');
-      await I.waitForElement('//*[@id="footer"]/div/div/div[2]');
+      await I.waitForElement('//*[@id="footer"]/div/div/div[2]', 10);
       await I.waitForVisible('#username', 10);
       await I.fillField('Email address', recorderUsername);
       await I.fillField('Password', recorderPassword);
       await I.click('Sign in');
-      await I.waitForText('Manage judicial sitting records');
+      await I.waitForText('Manage judicial sitting records', 10);
     },
 
     loginWithJPSSubmitterUser: function () {
@@ -98,5 +98,5 @@ module.exports = function () {
       I.see(role);
       I.see(period);
     }
-  }).retry({ retries: 10, except: ['createSittingRecord'] });
+  });
 };
