@@ -141,7 +141,7 @@ describe('ManageSittingRecordsComponent', () => {
 
 
   it('should return the site name when calling showVenue with a truthy value', () => {
-    const value = { site_name: 'Test Site' };
+    const value = { court_name: 'Test Site' };
     const result = component.showVenue(value);
     expect(result).toBe('Test Site');
   });
@@ -195,7 +195,7 @@ describe('ManageSittingRecordsComponent', () => {
             welsh_court_address :  '',
             court_status :  '',
             court_open_date :  '',
-            court_name :  '',
+            court_name :  'First Venue',
             venue_name :  '',
             is_case_management_location: '',
             is_hearing_location: '',
@@ -233,7 +233,7 @@ describe('ManageSittingRecordsComponent', () => {
             welsh_court_address :  '',
             court_status :  '',
             court_open_date :  '',
-            court_name :  '',
+            court_name :  'Second Venue',
             venue_name :  '',
             is_case_management_location: '',
             is_hearing_location: '',
@@ -257,7 +257,7 @@ describe('ManageSittingRecordsComponent', () => {
       const result = component['_filter']('first');
 
       expect(result.length).toBe(1);
-      expect(result[0]['site_name']).toBe('First Venue');
+      expect(result[0]['court_name']).toBe('First Venue');
     });
 
     it('should set typeaheadResultsFound to false if no results', () => {

@@ -30,7 +30,7 @@ describe('SittingRecordsInfoBannerComponent', () => {
 
     const mockFormData = formBuilder.group({
       tribunalService: { service: 'service 1' },
-      venue: { site_name: 'site 1' },
+      venue: { court_name: 'site 1' },
       dateSelected: formBuilder.group({
         dateDay: '01',
         dateMonth: '02',
