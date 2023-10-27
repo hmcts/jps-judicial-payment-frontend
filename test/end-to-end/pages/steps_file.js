@@ -16,14 +16,12 @@ module.exports = function () {
     loginWithJPSRecorderUser: async function () {
       const I = this;
       await I.amOnPage('/');
-      I.wait(5);
-      I.waitForElement('//*[@id="footer"]/div/div/div[2]');
-      I.waitForVisible('#username', 10);
-      I.fillField('Email address', recorderUsername);
-      I.fillField('Password', recorderPassword);
-      I.click('Sign in');
-      I.wait(3);
-      I.waitForText('Manage judicial sitting records');
+      await I.waitForElement('//*[@id="footer"]/div/div/div[2]');
+      await I.waitForVisible('#username', 10);
+      await I.fillField('Email address', recorderUsername);
+      await I.fillField('Password', recorderPassword);
+      await I.click('Sign in');
+      await I.waitForText('Manage judicial sitting records');
     },
 
     loginWithJPSSubmitterUser: function () {
