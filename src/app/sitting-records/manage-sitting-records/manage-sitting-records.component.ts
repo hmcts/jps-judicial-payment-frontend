@@ -79,7 +79,7 @@ export class ManageSittingRecordsComponent implements OnInit {
     }
     this.typeaheadResultsFound = true;
     const filterValue = value.toLowerCase();
-    const filteredValues = this.venues.filter(venue => venue['site_name'].toLowerCase().includes(filterValue));
+    const filteredValues = this.venues.filter(venue => venue['court_name'].toLowerCase().includes(filterValue));
     if (filteredValues.length === 0) {
       this.typeaheadResultsFound = false;
     }
@@ -136,7 +136,7 @@ export class ManageSittingRecordsComponent implements OnInit {
 
   public showVenue(value) {
     if(value) { 
-      return value.site_name; 
+      return value.court_name; 
     }
     return ""
   }
