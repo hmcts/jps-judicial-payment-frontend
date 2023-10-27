@@ -36,8 +36,8 @@
                 [matAutocomplete]="autoSearchVenue"
                 required>
               <mat-autocomplete class="mat-autocomplete-panel-extend" id="auto-venue-select" #autoSearchVenue="matAutocomplete" (optionSelected)="optionSelected($event)" [displayWith]="showVenue">
-                <mat-option *ngFor="let venue of filteredVenues | async" id="option-venue-select-{{venue.site_name}}" (mousedown)=$event.preventDefault() [value]="venue" >
-                  {{ venue.site_name }}
+                <mat-option *ngFor="let venue of filteredVenues | async" id="option-venue-select-{{venue.court_name}}" (mousedown)=$event.preventDefault() [value]="venue" >
+                  {{ venue.court_name }}
                 </mat-option>
                 <mat-option *ngIf="!typeaheadResultsFound && searchTerm.length >= this.minSearchCharacters" disabled>No results found</mat-option>
               </mat-autocomplete>

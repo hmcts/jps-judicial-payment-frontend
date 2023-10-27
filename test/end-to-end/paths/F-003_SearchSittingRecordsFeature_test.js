@@ -10,9 +10,9 @@ const tribunalJudgeRole = 'Tribunal Judge';
 const morningPeriod = 'Morning';
 const socialSecurityTribunalService = 'Social Security and Child Support';
 const suttonVenue = 'Sutton';
-const suttonFullVenue = 'Sutton Social Security and Child Support Tribunal (Copthall House)';
+const suttonFullVenue = 'Sutton Social Security And Child Support Tribunal';
 const londonVenue = 'London';
-const londonFullVenue = 'East London Tribunal Hearing Centre (Import Building)';
+const londonFullVenue = 'East London Tribunal Hearing Centre';
 const jpsRecorderRole = 'jps recorder';
 
 Feature('Search Sitting Records Feature Tests @functional @F-003');
