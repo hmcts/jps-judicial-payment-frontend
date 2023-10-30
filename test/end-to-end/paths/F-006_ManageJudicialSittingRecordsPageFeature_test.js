@@ -10,8 +10,8 @@ Scenario('Successfully continue to "Judicial sitting records" page @S-006.1',asy
   I.see("Sitting records for Social Security and Child Support, Bournemouth Combined Court, for 11/03/2022");
 });
 
-Scenario('"Manage judicial sitting records" page is not displayed for a user that does not have recorder role @S-006.2',({ I}) => {
-  I.loginWithJPSPublisherUser();
+Scenario('"Manage judicial sitting records" page is not displayed for a user that does not have recorder role @S-006.2',async ({ I}) => {
+  await I.loginWithJPSPublisherUser();
   I.dontSee('Find, add or delete judicial sitting records');
 });
 
@@ -34,28 +34,28 @@ Scenario('"Manage Judicial Sitting Records" page will be displayed when Previous
   I.seeInField('Year', '2022');
 });
 
-Scenario('User with jps-submitter can view the landing page and 2 radio buttons @S-006.5',({ I}) => {
-  I.loginWithJPSSubmitterUser();
+Scenario('User with jps-submitter can view the landing page and 2 radio buttons @S-006.5',async ({ I}) => {
+  await I.loginWithJPSSubmitterUser();
   ManageJudicialSittingRecordsPage.seeCommonLandingPage();
   I.see('Find, add or delete a sitting record');
   I.see('Submit sitting records to Finance');
 });
 
-Scenario('User with jps-admin can view the landing page and 1 radio button @S-006.6',({ I}) => {
-  I.loginWithJPSAdminUser();
+Scenario('User with jps-admin can view the landing page and 1 radio button @S-006.6',async ({ I}) => {
+  await I.loginWithJPSAdminUser();
   ManageJudicialSittingRecordsPage.seeCommonLandingPage();
   I.see('Find, add or delete a sitting record');
 });
 
-Scenario('User with jps-JOH-admin can view the landing page and does not see any radio buttons @S-006.7',({ I}) => {
-  I.loginWithJPSJOHAdminUser()
+Scenario('User with jps-JOH-admin can view the landing page and does not see any radio buttons @S-006.7',async ({ I}) => {
+  await I.loginWithJPSJOHAdminUser()
   ManageJudicialSittingRecordsPage.seeCommonLandingPage();
   I.dontSee('Find, add or delete a sitting record');
   I.dontSee('Submit sitting records to Finance');
 });
 
-Scenario('Region drop down will be populated with values when Submit sitting records to Finance is selected @S-006.8',({ I}) => {
-  I.loginWithJPSSubmitterUser();
+Scenario('Region drop down will be populated with values when Submit sitting records to Finance is selected @S-006.8',async ({ I}) => {
+  await I.loginWithJPSSubmitterUser();
   ManageJudicialSittingRecordsPage.seeCommonLandingPage();
   I.click('Submit sitting records to Finance');
   I.selectOption('Select a service', 'Social Security and Child Support');
@@ -63,23 +63,23 @@ Scenario('Region drop down will be populated with values when Submit sitting rec
   I.seeNumberOfElements('option[value*="Object"]', 10);
 });
 
-Scenario('Region field should be enabled only after tribunal service is selected @S-006.9',({ I}) => {
-  I.loginWithJPSSubmitterUser();
+Scenario('Region field should be enabled only after tribunal service is selected @S-006.9',async ({ I}) => {
+  await I.loginWithJPSSubmitterUser();
   ManageJudicialSittingRecordsPage.seeCommonLandingPage();
   I.click('Submit sitting records to Finance');
   I.seeElement('#region-select[disabled]');
 });
 
-Scenario('Region field selected value should be removed if a different tribunal service is selected @S-006.10',({ I}) => {
-  I.loginWithJPSSubmitterUser();
+Scenario('Region field selected value should be removed if a different tribunal service is selected @S-006.10',async ({ I}) => {
+  await I.loginWithJPSSubmitterUser();
   ManageJudicialSittingRecordsPage.seeCommonLandingPage();
   ManageJudicialSittingRecordsPage.selectSittingRecordsToSubmitToFinance('Social Security and Child Support', 'London', '11', '03', '2022');
   I.selectOption('Select a service', 'Private Law');
   I.see('Select a value');
 });
 
-Scenario('If date value is after today\'s date error should be displayed @S-006.11',({ I}) => {
-  I.loginWithJPSSubmitterUser();
+Scenario('If date value is after today\'s date error should be displayed @S-006.11',async ({ I}) => {
+  await I.loginWithJPSSubmitterUser();
   ManageJudicialSittingRecordsPage.seeCommonLandingPage();
   ManageJudicialSittingRecordsPage.selectSittingRecordsToSubmitToFinance('Social Security and Child Support', 'London', '11', '03', '2040');
   I.see('The date you have selected is in the future');
