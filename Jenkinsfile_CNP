@@ -52,7 +52,13 @@ withPipeline(type, product, component) {
   disableLegacyDeployment()
 
   afterAlways('build') {
+    yarnBuilder.yarn('rebuild puppeteer')
     yarnBuilder.yarn('build')
+  }
+
+  afterAlways('checkout') {
+    sh "yarn install"
+    echo 'Yarn install complete'
   }
 
   afterAlways('functionalTest:aat') {

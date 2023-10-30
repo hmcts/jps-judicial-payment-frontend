@@ -26,5 +26,13 @@
     "feature": {
         "secureCookieEnabled": true,
         "oidcEnabled": false
+    },
+    "redis_enabled": false,
+    "redis": {
+        "host": "jps-judicial-payment-frontend-session-storage-aat.redis.cache.windows.net",
+        "port": 6379,
+        "tls": true,
+        "prefix": "activity:",
+        "ttl": 86400
     }
 }

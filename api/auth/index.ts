@@ -21,6 +21,10 @@ import {
   SESSION_SECRET,
   JPS_SYSTEM_USERNAME,
   JPS_SYSTEM_PASSWORD,
+  REDIS_ENABLED,
+  REDISCLOUD_URL,
+  REDIS_KEY_PREFIX,
+  REDIS_TTL,
   OIDC_ENABLED
 } from '../configuration/references';
 
@@ -51,7 +55,7 @@ xuiNode.on(AUTH.EVENT.AUTHENTICATE_SUCCESS, successCallback);
 xuiNode.on(AUTH.EVENT.AUTHENTICATE_FAILURE, failureCallback);
 
 export const getXuiNodeMiddleware = () => {
-
+  console.log(`Redis enabled is set to ${getConfigValue(REDIS_ENABLED)}`)
   const idamWebUrl = getConfigValue(SERVICES_IDAM_LOGIN_URL);
   const authorizationUrl = `${idamWebUrl}/login`;
   const secret = getConfigValue(IDAM_SECRET);
@@ -62,7 +66,6 @@ export const getXuiNodeMiddleware = () => {
   const tokenUrl = `${getConfigValue(SERVICES_IDAM_API_URL)}/oauth2/token`;
   const userName = getConfigValue(JPS_SYSTEM_USERNAME);
   const password = getConfigValue(JPS_SYSTEM_PASSWORD);
-  
   const routeCredential = {
     password,
     routes: [
@@ -112,6 +115,18 @@ export const getXuiNodeMiddleware = () => {
     },
   };
 
+  const redisStoreOptions = {
+    redisStore: {
+      ...baseStoreOptions, ...{
+        redisStoreOptions: {
+          redisCloudUrl: getConfigValue(REDISCLOUD_URL),
+          redisKeyPrefix: getConfigValue(REDIS_KEY_PREFIX),
+          redisTtl: getConfigValue(REDIS_TTL)
+        }
+      }
+    }
+  };
+
   const nodeLibOptions = {
     auth: {
       s2s: {
@@ -121,7 +136,7 @@ export const getXuiNodeMiddleware = () => {
       },
       oauth2:options,
     },
-    session: fileStoreOptions,
+    session: getConfigValue(REDIS_ENABLED) ? redisStoreOptions : fileStoreOptions
   };
 
   const type = showFeature(OIDC_ENABLED) ? 'oidc' : 'oauth2';
