@@ -25,9 +25,9 @@
     "loginRoleMatcher": "(jps-recorder|jps-publisher|jps-submitter|jps-admin|jps-JOH-admin)",
     "feature": {
         "secureCookieEnabled": true,
-        "oidcEnabled": false
+        "oidcEnabled": false,
+        "redisEnabled": false
     },
-    "redis_enabled": false,
     "redis": {
         "host": "jps-judicial-payment-frontend-session-storage-aat.redis.cache.windows.net",
         "port": 6379,
