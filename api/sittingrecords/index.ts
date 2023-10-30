@@ -77,7 +77,6 @@ export async function deleteSittingRecord(req, res, next){
             headers: headers,
         };
 
-        logger.log(config)
 
         const response = await axios(config);
         
