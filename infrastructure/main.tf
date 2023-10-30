@@ -27,12 +27,6 @@ data "azurerm_key_vault_secret" "s2s_secret" {
   key_vault_id        = data.azurerm_key_vault.s2s_vault.id
 }
 
-resource "azurerm_key_vault_secret" "jps_s2s_client_secret" {
-  name         = "jps-s2s-client-secret"
-  value        = data.azurerm_key_vault_secret.s2s_secret.value
-  key_vault_id = data.azurerm_key_vault.jps_shared_key_vault.id
-}
-
 data "azurerm_subnet" "core_infra_redis_subnet" {
   name                 = "core-infra-subnet-1-${var.env}"
   virtual_network_name = "core-infra-vnet-${var.env}"
