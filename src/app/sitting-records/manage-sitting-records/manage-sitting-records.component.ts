@@ -73,20 +73,6 @@ export class ManageSittingRecordsComponent implements OnInit {
 
   }
 
-  private _filter(value: string): object[] {
-    if (typeof value !== 'string' || !value || value.length < this.minSearchCharacters) {
-      return [];
-    }
-    this.typeaheadResultsFound = true;
-    const filterValue = value.toLowerCase();
-    const filteredValues = this.venues.filter(venue => venue['court_name'].toLowerCase().includes(filterValue));
-    if (filteredValues.length === 0) {
-      this.typeaheadResultsFound = false;
-    }
-
-    return filteredValues;
-  }
-
   createEventListeners(){
 
     if(this.manageRecords.controls['venue'].value === null){
@@ -108,13 +94,6 @@ export class ManageSittingRecordsComponent implements OnInit {
       }
     });
 
-    this.filteredVenues = this.manageRecords.controls['venue'].valueChanges.pipe(takeUntil(this.unsubscribe$))
-      .pipe(
-        startWith(''),
-        debounceTime(this.delay), 
-        tap((term) => this.searchTerm = term),
-        map(value => this._filter(value))
-      );
   }
 
   ngOnInit(): void {
@@ -139,10 +118,6 @@ export class ManageSittingRecordsComponent implements OnInit {
       return value.court_name; 
     }
     return ""
-  }
-
-  public optionSelected(event: MatAutocompleteSelectedEvent): void {
-    this.manageRecords.controls['venue'].patchValue(event.option.value, {emitEvent: false, onlySelf: true});
   }
 
   public getVenues(serviceCode: string) {

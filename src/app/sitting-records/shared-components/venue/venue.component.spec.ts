@@ -33,7 +33,7 @@ describe('VenueComponent', () => {
   });
 
   it('should return the site name when calling showVenue with a truthy value', () => {
-    const value = { site_name: 'Test Site' };
+    const value = { court_name: 'Test Site' };
     const result = component.showVenue(value);
     expect(result).toBe('Test Site');
   });
@@ -45,7 +45,7 @@ describe('VenueComponent', () => {
 
   it('should patch the venue value without emitting an event or affecting other controls when calling optionSelected', () => {
     const venue: VenueModel = {
-      site_name: 'Test Site',
+      site_name: '',
       court_venue_id: '',
       epimms_id: '',
       region_id: '',
@@ -65,7 +65,7 @@ describe('VenueComponent', () => {
       welsh_court_address: '',
       court_status: '',
       court_open_date: '',
-      court_name: '',
+      court_name: 'Test Site',
       venue_name: '',
       is_case_management_location: '',
       is_hearing_location: '',
@@ -95,17 +95,17 @@ describe('VenueComponent', () => {
   it('should filter venues based on input value', () => {
 
     component.venues = [
-      { site_name: 'Test Venue 1' },
-      { site_name: 'Test Venue 2' },
-      { site_name: 'Another Venue' },
+      { court_name: 'Test Venue 1' },
+      { court_name: 'Test Venue 2' },
+      { court_name: 'Another Venue' },
     ];
   
     const filteredVenues = component['_filter']('Test');
   
     expect(filteredVenues.length).toBe(2);
     expect(filteredVenues).toEqual([
-      { site_name: 'Test Venue 1' },
-      { site_name: 'Test Venue 2' },
+      { court_name: 'Test Venue 1' },
+      { court_name: 'Test Venue 2' },
     ]);
   });
   
