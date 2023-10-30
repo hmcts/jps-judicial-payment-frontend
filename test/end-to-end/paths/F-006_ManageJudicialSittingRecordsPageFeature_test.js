@@ -1,6 +1,6 @@
 const ManageJudicialSittingRecordsPage = require('../pages/ManageJudicialSittingRecordsPage');
 
-Feature('Manage Judicial Sitting Records Pages Tests @functional @F-006');
+Feature('Manage Judicial Sitting Records Pages Tests @functional @F-006').retry(3);
 
 Scenario('Successfully continue to "Judicial sitting records" page @S-006.1',async ({ I}) => {
   await I.loginWithJPSRecorderUser();

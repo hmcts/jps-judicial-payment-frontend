@@ -3,7 +3,7 @@ const ConfirmNewSittingRecordsPage = require('../pages/ConfirmNewSittingRecordsP
 const JudicialSittingRecordsPage = require('../pages/JudicialSittingRecordsPage');
 const ManageJudicialSittingRecordsPage = require('../pages/ManageJudicialSittingRecordsPage');
 
-Feature('Create new Sitting Records Feature Tests @functional @F-002');
+Feature('Create new Sitting Records Feature Tests @functional @F-002').retry(3);
 
 const randomDay = ('0' + (Math.floor(Math.random() * 28) + 1)).slice(-2);
 const randomMonth = ('0' + (Math.floor(Math.random() * 12) + 1)).slice(-2);

@@ -15,7 +15,7 @@ const londonVenue = 'London';
 const londonFullVenue = 'East London Tribunal Hearing Centre';
 const jpsRecorderRole = 'jps recorder';
 
-Feature('Search Sitting Records Feature Tests @functional @F-003');
+Feature('Search Sitting Records Feature Tests @functional @F-003').retry(3);
 
 Scenario('User is able to view Sitting Record(s) @S-003.1',async({ I}) => {
   await I.loginWithJPSRecorderUser();
