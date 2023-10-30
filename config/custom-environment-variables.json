@@ -29,7 +29,8 @@
             "jps-s2s-client-secret": "S2S_SECRET",
             "jps-idam-client-secret": "IDAM_SECRET",
             "idam-jps-system-username": "JPS_SYSTEM_USERNAME",
-            "idam-jps-system-password": "JPS_SYSTEM_PASSWORD"
+            "idam-jps-system-password": "JPS_SYSTEM_PASSWORD",
+            "judicial-payment-frontend-redis6-connection-string": "REDISCLOUD_URL"
         }
     },
     "feature": {
@@ -40,7 +41,15 @@
         "oidcEnabled": {
             "__name": "OIDC_ENABLED",
             "__format": "json"
+        },
+        "redisEnabled": {
+            "__name": "REDIS_ENABLED",
+            "__format": "json"
         }
+    },
+    "redis":{
+        "prefix": "REDIS_KEY_PREFIX",
+        "ttl": "REDIS_TTL"
     }
 }
 
