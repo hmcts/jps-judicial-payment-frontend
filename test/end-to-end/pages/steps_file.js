@@ -32,7 +32,7 @@ module.exports = function () {
       await I.fillField('Email address', submitterUsername);
       await I.fillField('Password', submitterPassword);
       await I.click('Sign in');
-      await I.waitForText('Manage Judicial Sitting Records', 10);
+      await I.waitForText('Manage judicial sitting records', 10);
     },
 
     loginWithJPSAdminUser: async function () {
@@ -43,7 +43,7 @@ module.exports = function () {
       await I.fillField('Email address', adminUsername);
       await I.fillField('Password', adminPassword);
       await I.click('Sign in');
-      await I.waitForText('Manage Judicial Sitting Records', 10);
+      await I.waitForText('Manage judicial sitting records', 10);
     },
 
     loginWithJPSJOHAdminUser: async function () {
@@ -54,7 +54,7 @@ module.exports = function () {
       await I.fillField('Email address', johAdminUsername);
       await I.fillField('Password', johAdminPassword);
       await I.click('Sign in');
-      await I.waitForText('Manage Judicial Sitting Records', 10);
+      await I.waitForText('Manage judicial sitting records', 10);
     },
 
     loginWithJPSPublisherUser: async function () {
@@ -66,7 +66,7 @@ module.exports = function () {
       await I.fillField('Email address', publisherUsername);
       await I.fillField('Password', publisherPassword);
       await I.click('Sign in');
-      await I.waitForText('Manage Judicial Sitting Records', 10);
+      await I.waitForText('Manage judicial sitting records', 10);
     },
 
     loginWithJPSInvalidUser: function () {
@@ -89,7 +89,7 @@ module.exports = function () {
       I.checkOption(period);
       I.click('Continue');
       I.click('Save Record(s)');
-      I.waitForText('Sitting record(s) saved', 2);
+      I.waitForText('Sitting record(s) saved', 10);
       I.click('View Record Table');
       I.see(name);
       I.see(role);

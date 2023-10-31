@@ -3,7 +3,7 @@
     [class.govuk-form-group--error]="f['dateSelected'].errors !== null && f['dateSelected'].dirty" formGroupName="dateSelected">
         <fieldset class="govuk-fieldset" role="group" aria-describedby="msr-date-hint">
             <legend class="govuk-fieldset__legend">
-            Enter a date 
+            {{dateHeaderText}}
             </legend>
             <p id="msr-error-future" class="govuk-error-message" *ngIf="f['dateSelected'].hasError('date_after_today')">
             <span class="govuk-visually-hidden">Error:</span> The date you have selected is in the future

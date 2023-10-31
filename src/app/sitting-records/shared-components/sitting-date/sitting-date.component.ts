@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { AbstractControl, FormGroupDirective } from '@angular/forms';
 
 @Component({
@@ -7,6 +7,8 @@ import { AbstractControl, FormGroupDirective } from '@angular/forms';
   styleUrls: ['./sitting-date.component.scss']
 })
 export class SittingDateComponent {
+
+  @Input() dateHeaderText;
 
   constructor(public parentFormGroup: FormGroupDirective) { }
 

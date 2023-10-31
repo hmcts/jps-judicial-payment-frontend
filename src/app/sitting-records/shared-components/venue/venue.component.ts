@@ -3,7 +3,6 @@ import { AbstractControl, FormGroupDirective } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { Subject } from 'rxjs';
 import { debounceTime, map, startWith, takeUntil, tap } from 'rxjs/operators';
-import { LocationService } from 'src/app/_services/location-service/location.service';
 
 @Component({
   selector: 'app-venue',
@@ -23,7 +22,6 @@ export class VenueComponent implements OnInit, OnDestroy{
 
 
   constructor(
-    private locationService : LocationService,
     public parentFormGroup: FormGroupDirective ) { }
 
   ngOnInit() {
@@ -48,7 +46,7 @@ export class VenueComponent implements OnInit, OnDestroy{
     }
     this.typeaheadResultsFound = true;
     const filterValue = value.toLowerCase();
-    const filteredValues = this.venues.filter(venue => venue['site_name'].toLowerCase().includes(filterValue));
+    const filteredValues = this.venues.filter(venue => venue['court_name'].toLowerCase().includes(filterValue));
     if (filteredValues.length === 0) {
       this.typeaheadResultsFound = false;
     }
@@ -61,7 +59,7 @@ export class VenueComponent implements OnInit, OnDestroy{
 
   public showVenue(value) {
     if(value) { 
-      return value.site_name; 
+      return value.court_name; 
     }
     return ""
   }

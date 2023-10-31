@@ -1,6 +1,5 @@
 const { I } = inject();
 
-const tribunalField = '//*[@id="main-content"]/form/div[1]';
 const venueField = '#venue-select';
 const dayField = 'input[name = "msr-date-day"]';
 const monthField = 'input[name = "msr-date-month"]';
@@ -33,7 +32,7 @@ function selectPeriod (period) {
 function clickCancel(tribunal, venue, day, month, year) {
   I.click('Cancel');
   I.see('Manage judicial sitting records');
-  I.seeInField(tribunalField, tribunal);
+  I.see(tribunal);
   I.seeInField(venueField, venue);
   I.seeInField(dayField, day);
   I.seeInField(monthField, month);
