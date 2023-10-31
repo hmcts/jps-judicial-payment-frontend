@@ -32,7 +32,7 @@ export class PotentialDuplicateComponent{
   ){
     const formData = this.recorderWorkFlow.getFormData().value;
     const { dateSelected, venue } = formData;
-    this.selectedVenue = venue.site_name;
+    this.selectedVenue = venue.court_name;
     this.selectedDate = this.dateSvc.formatDateFromForm(dateSelected);
     this.currentUser = this.uInfoSvc.getUserName()
   }

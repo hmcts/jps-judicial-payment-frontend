@@ -44,3 +44,10 @@ export const FEATURE_SECURE_COOKIE_ENABLED = 'secureCookieEnabled';
 export const CASE_SHARE_PERMISSIONS = 'pui-case-manager';
 
 export const SESSION_TIMEOUTS = 'sessionTimeouts';
+
+export const REDIS_ENABLED = 'redisEnabled'
+export const REDISCLOUD_URL = 'secrets.jps.judicial-payment-frontend-redis6-connection-string'
+export const REDIS_TTL = 'redis.ttl'
+export const REDIS_KEY_PREFIX = 'redis.prefix'
+
+export const OIDC_ENABLED = 'oidcEnabled'

@@ -17,11 +17,21 @@ exports.config = {
       url: process.env.TEST_URL || 'http://localhost:3000',
       show: false,
       browser: 'chromium',
-      timeout: 10000
+      timeout: 10000,
+      ignoreHTTPSErrors: true
     }
   },
   include: {
     I: './pages/steps_file.js'
+  },
+  plugins: {
+    retryFailedStep: {
+      enabled: true,
+    },
+    screenshotOnFail: {
+      enabled: true,
+      fullPageScreenshots: true,
+    },
   },
   name: 'hmc-judicial-payment-frontend',
   mocha: {

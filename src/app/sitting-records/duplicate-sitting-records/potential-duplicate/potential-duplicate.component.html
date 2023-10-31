@@ -54,7 +54,7 @@
             <td class="govuk-table__cell"> {{potentialRecord.am | convertToStringPeriod: potentialRecord.pm}}</td>
             <td class="govuk-table__cell"> {{potentialRecord.createdByName}}</td>
             <td class="govuk-table__cell"> {{selectedDate | stringFromDateYDM}}</td>
-            <td class="govuk-table__cell"> {{selectedVenue}}</td>
+            <td class="govuk-table__cell"> {{potentialRecord.venue}}</td>
             <td class="govuk-table__cell"> {{potentialRecord.statusId | capitalizeFirstLetterForStatus}}</td>
             <td class="govuk-table__cell"> 
                 <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
