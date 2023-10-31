@@ -28,6 +28,7 @@ import { TribunalServiceComponent } from './shared-components/tribunal-service/t
 import { VenueComponent } from './shared-components/venue/venue.component';
 import { SittingDateComponent } from './shared-components/sitting-date/sitting-date.component';
 import { RegionComponent } from './shared-components/region/region.component';
+import { UserSearchComponent } from './shared-components/user-search/user-search.component'
 import { DeleteSuccessComponent } from './delete-sitting-records/delete-success/delete-success.component';
 import { DeleteSittingRecordsComponent } from './delete-sitting-records/delete-sitting-records.component'
 
@@ -45,6 +46,7 @@ import { DuplicateExistingConfirmComponent } from './duplicate-sitting-records/d
 import { DuplicateConfirmSuccessComponent } from './duplicate-sitting-records/duplicate-confirm/duplicate-confirm-success/duplicate-confirm-success.component'
 
 import { SittingRecordsLandingManageRecordsPublisherComponent } from './sitting-records-landing/sitting-records-landing-manage-records-publisher/sitting-records-landing-manage-records-publisher.component'
+import { SittingRecordsLandingJohadminComponent } from './sitting-records-landing/sitting-records-landing-johadmin/sitting-records-landing-johadmin.component'
 
 @NgModule({
   imports: [
@@ -83,11 +85,6 @@ import { SittingRecordsLandingManageRecordsPublisherComponent } from './sitting-
     JPHeaderComponent,
     CookieManagerComponent,
     LogoutComponent,
-    NumberDirective,
-    SittingRecordsLandingComponent,
-    SubmitSittingRecordsComponent,
-    CapitalizeFirstLetterPipe,
-    ConvertRoleIdToString,
     DuplicateConfirmComponent,
     DuplicateExistingConfirmComponent,
     DuplicateConfirmSuccessComponent,
@@ -96,7 +93,11 @@ import { SittingRecordsLandingManageRecordsPublisherComponent } from './sitting-
     VenueComponent,
     SittingDateComponent,
     RegionComponent,
-    SittingRecordsLandingManageRecordsPublisherComponent
+    SittingRecordsLandingManageRecordsPublisherComponent,
+    SubmitSittingRecordsComponent,
+    ConvertRoleIdToString,
+    SittingRecordsLandingJohadminComponent,
+    UserSearchComponent
   ]
 })
 export class SittingRecordsModule { }

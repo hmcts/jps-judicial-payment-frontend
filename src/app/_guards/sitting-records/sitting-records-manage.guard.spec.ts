@@ -2,7 +2,6 @@ import { TestBed } from '@angular/core/testing';
 import { SittingRecordsManageGuard } from './sitting-records-manage.guard';
 import { CookieService } from 'ngx-cookie-service';
 import { SubmitterWorkflowService } from '../../_workflows/submitter-workflow.service';
-import { AdminWorkflowService } from '../../_workflows/admin-workflow.service';
 import { Router } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -10,7 +9,6 @@ describe('SittingRecordsManageGuard', () => {
   let guard: SittingRecordsManageGuard;
   let mockCookieService: jasmine.SpyObj<CookieService>;
   let mockSubmitterWorkflowService: SubmitterWorkflowService;
-  let mockAdminWorkflowService: AdminWorkflowService;
   let mockRouter: Router;
 
   beforeEach(() => {
@@ -23,7 +21,6 @@ describe('SittingRecordsManageGuard', () => {
     guard = TestBed.inject(SittingRecordsManageGuard);
     mockCookieService = TestBed.inject(CookieService) as jasmine.SpyObj<CookieService>;
     mockSubmitterWorkflowService = TestBed.inject(SubmitterWorkflowService);
-    mockAdminWorkflowService = TestBed.inject(AdminWorkflowService);
     mockRouter = TestBed.inject(Router);
   });
 

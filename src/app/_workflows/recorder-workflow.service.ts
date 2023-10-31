@@ -5,6 +5,7 @@ import { UserInfoService } from '../_services/user-info-service/user-info-servic
 import { ViewSittingRecordService } from '../_services/sitting-records-service/view-sitting-records-service'
 import { ViewSittingRecordPost } from '../_models/viewSittingRecords.model'
 import { DateService } from '../_services/date-service/date-service'
+import { SittingRecord } from '../_models/sittingRecord.model';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class RecorderWorkflowService {
   
   formData!: FormGroup;
   hasVisitedManage = false; 
-  sittingRecordToDelete = {};
+  sittingRecordToDelete?: SittingRecord;
   addSittingRecords!: FormGroup;
   cameFromConfirm = false;
   sittingRecordsRoleList;
@@ -64,7 +65,7 @@ export class RecorderWorkflowService {
   }
 
   resetSittingRecordToDelete(){
-    this.sittingRecordToDelete = {};
+    this.sittingRecordToDelete = undefined;
   }
 
   getSittingRecordsData() {

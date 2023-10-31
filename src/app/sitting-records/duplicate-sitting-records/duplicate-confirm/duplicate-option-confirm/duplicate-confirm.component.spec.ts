@@ -12,9 +12,9 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 describe('DuplicateConfirmComponent', () => {
   let component: DuplicateConfirmComponent;
   let fixture: ComponentFixture<DuplicateConfirmComponent>;
-  let routerSpy: jasmine.SpyObj<any>;
-  let drWorkFlowSpy: jasmine.SpyObj<any>;
-  let uInfoSvcSpy: jasmine.SpyObj<any>;
+  let routerSpy: jasmine.SpyObj<Router>;
+  let drWorkFlowSpy: jasmine.SpyObj<DuplicateRecordWorkflowService>;
+  let uInfoSvcSpy: jasmine.SpyObj<UserInfoService>;
 
   beforeEach(async () => {
     const routerSpyObj = jasmine.createSpyObj('Router', ['navigate']);
@@ -33,9 +33,9 @@ describe('DuplicateConfirmComponent', () => {
 
     fixture = TestBed.createComponent(DuplicateConfirmComponent);
     component = fixture.componentInstance;
-    routerSpy = TestBed.inject(Router) as jasmine.SpyObj<any>;
-    drWorkFlowSpy = TestBed.inject(DuplicateRecordWorkflowService) as jasmine.SpyObj<any>;
-    uInfoSvcSpy = TestBed.inject(UserInfoService) as jasmine.SpyObj<any>;
+    routerSpy = TestBed.inject(Router) as jasmine.SpyObj<Router>;
+    drWorkFlowSpy = TestBed.inject(DuplicateRecordWorkflowService) as jasmine.SpyObj<DuplicateRecordWorkflowService>;
+    uInfoSvcSpy = TestBed.inject(UserInfoService) as jasmine.SpyObj<UserInfoService>;
   });
 
   it('should create', () => {

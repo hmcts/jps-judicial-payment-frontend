@@ -61,6 +61,30 @@ describe('DeleteSittingRecordsComponent', () => {
     expect(component.apiErrorMsg).toBe('Delete failed');
   });
 
+  it('should set IDAM ID doesnt match error when delete fails', () => {
+    const errorResponse = {
+      status: 404,
+      error: { message: 'User IDAM ID does not match the oldest Changed by IDAM ID' }  
+    };
+
+    spyOn(deleteService, 'deleteRecord').and.returnValue(throwError(() => errorResponse));
+    component.ngOnInit();
+    component.confirmDelete();
+
+    expect(component.apiError).toBeTrue();
+    expect(component.apiErrorMsg).toBe('Selected sitting record was not recorded by the recorder. Record cannot be deleted.');
+  });
+
+
+  it('should show an error is there is no record to delete', () => {
+    srWorkflowService.resetSittingRecordToDelete()
+    component.confirmDelete()
+    
+    expect(component.apiError).toBeTrue();
+    expect(component.apiErrorMsg).toBe('An error has occured.');
+
+  })
+
   it('should reset record and navigate on goBack', () => {
     spyOn(srWorkflowService, 'resetSittingRecordToDelete');
 

@@ -3,8 +3,7 @@ import { SubmitterWorkflowService } from '../../_workflows/submitter-workflow.se
 import { DateService } from '../../_services/date-service/date-service';
 import { Router } from '@angular/router';
 import { defaultDtOptions }  from '../../_services/default-dt-options'
-import { SittingRecord } from 'src/app/_models/viewSittingRecords.model';
-
+import { SittingRecord } from '../../_models/viewSittingRecords.model';
 @Component({
   selector: 'app-submit-sitting-records',
   templateUrl: './submit-sitting-records.component.html',
@@ -17,7 +16,7 @@ export class SubmitSittingRecordsComponent implements OnInit {
   date = "";
 
   apiError = false;
-  apiErrorMessage = ['An error has occured.']
+  apiErrorMessage = ['An error has occurred.']
 
   dtOptions: DataTables.Settings = {};
   sittingRecordData: SittingRecord[] = [];
@@ -45,6 +44,7 @@ export class SubmitSittingRecordsComponent implements OnInit {
       serverSide: true,
       ordering:false,
       ajax: (dataTablesParameters: any, callback) => {
+        console.log(dataTablesParameters)
         this.submitterWorkflow.getSittingRecordsData(dataTablesParameters.start)
         .subscribe({
           next: (records) => {
@@ -57,7 +57,7 @@ export class SubmitSittingRecordsComponent implements OnInit {
               data: []
             });
           },
-          error: (err) => {
+          error: () => {
             this.apiError = true
           }
         });

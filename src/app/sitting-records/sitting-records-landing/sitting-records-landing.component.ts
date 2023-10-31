@@ -22,20 +22,27 @@ export class SittingRecordsLandingComponent implements OnInit {
   userForm!: FormGroup;
   hideManageRecordsSubmitter = true;
   hideManageRecordsPublisher = true;
+  hideManageRecordsJohAdmin = true;
+
   showSubmitSittingRecordsOption = false;
   showFindAddDeleteSittingRecordsOption = false;
   showViewExportSittingRecordsOption = false;
   showCreatePayrollFilePublishSittingRecordsOption = false;
   showHeadingForPublisher = false;
+  showViewOrManageJudicialInfo = false;
+
   manageRecordsSubmitter!: FormGroup | undefined;
   manageRecordsPublisher!: FormGroup | undefined;
   userRole = '';
 
   publisherFormValid = false;
   submitterFormValid = false;
+  johAdminFormValid = false;
 
   submitterFormValues;
   publisherFormValues;
+  johAdminFormValues;
+
 
   options = Options;
 
@@ -68,6 +75,9 @@ export class SittingRecordsLandingComponent implements OnInit {
     else if(isValid[1] === 'publisher'){
       this.publisherFormValid = isValid[0];
     }
+    else if (isValid[1] == 'johAdmin'){
+      this.johAdminFormValid = isValid[0];
+    }
   }
 
   handleFormValues(value){
@@ -77,6 +87,9 @@ export class SittingRecordsLandingComponent implements OnInit {
     else if(value[1] === 'publisher'){
       this.publisherFormValues = value[0];
     }
+    else if(value[1] === 'johAdmin'){
+      this.johAdminFormValues = value[0];
+    }
   }
 
   ngOnInit() {
@@ -85,7 +98,7 @@ export class SittingRecordsLandingComponent implements OnInit {
   
   configureUserRoleSettings() {
     if (this.userRole.includes('jps-JOH-admin')) {
-      // show radio buttons visible to them
+      this.showViewOrManageJudicialInfo = true;
     } else if (this.userRole.includes('jps-publisher')) {
       this.showHeadingForPublisher = true;
       this.showViewExportSittingRecordsOption = true;
@@ -115,6 +128,7 @@ export class SittingRecordsLandingComponent implements OnInit {
     this.userForm.controls['options'].valueChanges.subscribe(optionValue => {
       this.hideManageRecordsSubmitter = optionValue !== 'submitToFinance';
       this.hideManageRecordsPublisher = optionValue !== 'publishRecords';
+      this.hideManageRecordsJohAdmin = optionValue !== 'viewManageJudicialInfo';
     });
   }
   
@@ -156,6 +170,10 @@ export class SittingRecordsLandingComponent implements OnInit {
   
       if (optionValue === 'manageSittingRecords') {
         void this.router.navigate(['sittingRecords', 'manage']);
+      }
+
+      if (optionValue === 'viewManageJudicialInfo'){
+        selectedWorkflow.setFormData(this.johAdminFormValues)
       }
     }
   }

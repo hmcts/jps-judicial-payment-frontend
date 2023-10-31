@@ -10,7 +10,7 @@ export class DeleteSittingRecordHttp {
 
   constructor(private http: HttpClient) { }
 
-  deleteRecord(recordID: string): Observable<string> {
+  deleteRecord(recordID: number): Observable<string> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'

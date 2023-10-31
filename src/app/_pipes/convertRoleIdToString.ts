@@ -26,7 +26,7 @@ export class ConvertRoleIdToString implements PipeTransform {
     transform(roleId: string): string {
         if (!roleId) return '';  // if the string is null or undefined, return an empty string
         const roleIdInt = Number(roleId)
-        const role = Object.entries(this.roleTypeMap).find(([key, value]) => value === roleIdInt);
+        const role = Object.entries(this.roleTypeMap).find(([, value]) => value === roleIdInt);
         return role ? role[0] : '';
     }
 

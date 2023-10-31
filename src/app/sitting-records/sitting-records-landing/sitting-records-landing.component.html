@@ -38,6 +38,13 @@
                             Create payroll file and publish records
                         </label>
                     </div>
+                    <div *ngIf="showViewOrManageJudicialInfo" class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="option-5" name="options" type="radio" value="viewManageJudicialInfo"
+                            formControlName="options">
+                        <label class="govuk-label govuk-radios__label" for="option-5">
+                            View or manage judicial information
+                        </label>
+                    </div>
 
                 </div>
             </fieldset>
@@ -48,9 +55,12 @@
         <div *ngIf="!hideManageRecordsPublisher" class="govuk-inset-text">
             <app-sitting-records-landing-manage-records-publisher (publisherFormValid)="handleFormValidChange($event)" (publisherFormValues)="handleFormValues($event)"></app-sitting-records-landing-manage-records-publisher>
         </div>
+        <div *ngIf="!hideManageRecordsJohAdmin" class="govuk-inset-text">
+            <app-sitting-records-landing-johadmin (johAdminFormValid)="handleFormValidChange($event)"></app-sitting-records-landing-johadmin>
+        </div>
 
         <div class="govuk-button-group">
-            <button type="submit" class="govuk-button" data-module="govuk-button" [disabled]="(!hideManageRecordsSubmitter && !submitterFormValid) || (!hideManageRecordsPublisher && !publisherFormValid)">
+            <button type="submit" class="govuk-button" data-module="govuk-button" [disabled]="(!hideManageRecordsSubmitter && !submitterFormValid) || (!hideManageRecordsPublisher && !publisherFormValid) || (!hideManageRecordsJohAdmin && !johAdminFormValid)">
                 Continue
             </button>
         </div>

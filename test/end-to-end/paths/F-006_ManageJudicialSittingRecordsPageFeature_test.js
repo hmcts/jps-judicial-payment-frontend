@@ -52,6 +52,7 @@ Scenario('User with jps-admin can view the landing page and 1 radio button @S-00
 Scenario('User with jps-JOH-admin can view the landing page and does not see any radio buttons @S-006.7',async ({ I}) => {
   await I.loginWithJPSJOHAdminUser()
   ManageJudicialSittingRecordsPage.seeCommonLandingPage();
+  I.see('View or manage judicial information');
   I.dontSee('Find, add or delete a sitting record');
   I.dontSee('Submit sitting records to Finance');
 });

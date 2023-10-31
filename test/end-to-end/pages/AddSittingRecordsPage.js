@@ -9,7 +9,7 @@ const roleField = '#role';
 const selectJudgeName = '.mdc-list-item__primary-text';
 
 function selectJOH(name, role, row=0) {
-  I.see('Select the Judicial office holders (JOH) associated with this sitting');
+  I.see('Select the judicial office holders (JOH) associated with this sitting');
   I.see('You can select a maximum of 3 office holders for each sitting.');
   I.fillField(judgeField + `${row}`, name);
   I.click(selectJudgeName);
@@ -41,7 +41,7 @@ function clickCancel(tribunal, venue, day, month, year) {
 
 function clickPrevious(name, role){
   I.click('Previous');
-  I.see('Select the Judicial office holders (JOH) associated with this sitting');
+  I.see('Select the judicial office holders (JOH) associated with this sitting');
   I.seeInField(judgeField + '0', name);
   I.seeInField(roleField, role);
 }

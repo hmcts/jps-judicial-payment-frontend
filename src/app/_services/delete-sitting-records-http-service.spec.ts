@@ -24,7 +24,7 @@ describe('DeleteSittingRecordHttp', () => {
   });
 
   it('should send a DELETE request and return the response', () => {
-    const recordID = '123';
+    const recordID = 123;
     const responseMock = 'Success';
 
     service.deleteRecord(recordID).subscribe(response => {

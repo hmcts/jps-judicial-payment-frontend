@@ -32,8 +32,8 @@ export class AddSittingRecordComponent implements OnInit, OnDestroy {
   venueSiteName = "";
   date = "";
   venueEpimmsId = "";
-  userList: any[] = [[] as UserModel[], [] as UserModel[], [] as UserModel[]];
-  userRoleList: any[] = [[] as RolesModel[], [] as RolesModel[], [] as RolesModel[]];
+  userList: Array<UserModel[]> = [[] as UserModel[], [] as UserModel[], [] as UserModel[]];
+  userRoleList: Array<RolesModel[]> = [[] as RolesModel[], [] as RolesModel[], [] as RolesModel[]];
   userPersonalCode: Array<string> = ["", "", ""]
   searchTerm = ["", "", ""];
   usersFound = [true, true, true]
