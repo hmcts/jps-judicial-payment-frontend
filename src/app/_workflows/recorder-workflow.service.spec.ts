@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { RecorderWorkflowService } from './recorder-workflow.service';
 import { HttpClientModule } from '@angular/common/http';
-import { ViewSittingRecordPost, ViewSittingRecordResponse } from '../_models/viewSittingRecords.model';
+import { ViewSittingRecordResponse } from '../_models/viewSittingRecords.model';
 import { ViewSittingRecordService } from '../_services/sitting-records-service/view-sitting-records-service';
 import { DateService } from '../_services/date-service/date-service';
 import { of } from 'rxjs';
@@ -141,20 +141,6 @@ describe('RecorderWorkflowService', () => {
   });
   describe('getSittingRecordsData', () => {
     it('should return a valid ViewSittingRecordResponse object', () => {
-      const postObj: ViewSittingRecordPost = {
-        pageSize: 100,
-        offset: 0,
-        dateOrder: 'ASCENDING',
-        regionId: '',
-        epimmsId: '',
-        createdByUserId: '',
-        personalCode: '',
-        judgeRoleTypeId: '',
-        duration: '',
-        dateRangeFrom: '',
-        dateRangeTo: '',
-        statusId: ''
-      };
       const mockResponse: ViewSittingRecordResponse = { "sittingRecords": [] };
       const dateSelected = '2022-01-01';
 

@@ -40,7 +40,6 @@ export class AddSittingRecordComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
   serviceCode = "";
   
-
   goBack() {
     this.recorderWorkFlow.resetCameFromConfirm()
     void this.router.navigate(['sittingRecords', 'manage'])

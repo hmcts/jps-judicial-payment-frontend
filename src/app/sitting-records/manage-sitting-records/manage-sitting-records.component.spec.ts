@@ -10,6 +10,9 @@ import { of } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { VenueModel } from 'src/app/_models/venue.model';
+import { VenueComponent } from '../shared-components/venue/venue.component';
+import { TribunalServiceComponent } from '../shared-components/tribunal-service/tribunal-service.component';
+import { SittingDateComponent } from '../shared-components/sitting-date/sitting-date.component';
 
 describe('ManageSittingRecordsComponent', () => {
   let component: ManageSittingRecordsComponent;
@@ -18,15 +21,21 @@ describe('ManageSittingRecordsComponent', () => {
   let recorderWorkFlowService: RecorderWorkflowService;
   let locationService: LocationService;
   let cookieService: CookieService;
-  
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule, RouterTestingModule, HttpClientTestingModule, MatAutocompleteModule],
-      declarations: [ManageSittingRecordsComponent],
+      imports: [ReactiveFormsModule, RouterTestingModule, HttpClientTestingModule, MatAutocompleteModule,],
+      declarations: [
+        ManageSittingRecordsComponent,
+        VenueComponent,
+        TribunalServiceComponent,
+        SittingDateComponent
+      ],
       providers: [
-        RecorderWorkflowService, 
+        RecorderWorkflowService,
         LocationService,
-        CookieService
+        CookieService,
+
       ],
     }).compileComponents();
   });
@@ -89,7 +98,7 @@ describe('ManageSittingRecordsComponent', () => {
 
     expect(component.manageRecords).toEqual(formDataMock)
   });
-  
+
   it('should populate venues if object exists in recorderWorkFlowService', () => {
     const venueMock: VenueModel[] = [
       {
@@ -109,12 +118,12 @@ describe('ManageSittingRecordsComponent', () => {
         closed_date: '',
         court_location_code: '',
         dx_address: '',
-        welsh_site_name :  '',
-        welsh_court_address :  '',
-        court_status :  '',
-        court_open_date :  '',
-        court_name :  '',
-        venue_name :  '',
+        welsh_site_name: '',
+        welsh_court_address: '',
+        court_status: '',
+        court_open_date: '',
+        court_name: '',
+        venue_name: '',
         is_case_management_location: '',
         is_hearing_location: '',
         welsh_venue_name: '',
@@ -151,152 +160,35 @@ describe('ManageSittingRecordsComponent', () => {
     const result = component.showVenue(value);
     expect(result).toBe('');
   })
-  
 
-    it('should return empty array if value is not a string', () => {
-      const venues = [];
-      component.venues = venues;
-      
-      const result = component['_filter']('123');
 
-      expect(result).toEqual([]);
+  it('should go to sittingRecords/home when goBack is called', () => {
+    spyOn(router, 'navigate');
+
+    component.goBack();
+
+    expect(router.navigate).toHaveBeenCalledWith(['sittingRecords', 'home']);
+  });
+
+  it('should not show the previous button for user role "jps-recorder"', () => {
+    spyOn(cookieService, 'get').and.returnValue('jps-recorder');
+
+    component.ngOnInit();
+
+    expect(component.showPreviousButton).toBeFalse();
+  });
+
+  it('should return the controls of manageRecords', () => {
+    component.manageRecords = new FormGroup({
+      'tribunalService': new FormControl(''),
+      'control2': new FormControl('')
     });
 
-    it('should return empty array if value length is less than minSearchCharacters', () => {
-      const venues = [];
-      component.venues = venues;
-      
-      const result = component['_filter']('te');
+    const controls: { [key: string]: AbstractControl } = component.f;
 
-      expect(result).toEqual([]);
-    });
-
-    it('should filter venues where name includes search term', () => {
-      const venues = {
-        court_venues:[
-          {
-            court_venue_id: '',
-            epimms_id: '',
-            site_name: 'First Venue',
-            region_id: '',
-            region: '',
-            court_type: '',
-            court_type_id: '',
-            cluster_id: '',
-            cluster_name: '',
-            open_for_public: '',
-            court_address: '',
-            postcode: '',
-            phone_number: '',
-            closed_date: '',
-            court_location_code: '',
-            dx_address: '',
-            welsh_site_name :  '',
-            welsh_court_address :  '',
-            court_status :  '',
-            court_open_date :  '',
-            court_name :  'First Venue',
-            venue_name :  '',
-            is_case_management_location: '',
-            is_hearing_location: '',
-            welsh_venue_name: '',
-            is_temporary_location: '',
-            is_nightingale_court: '',
-            location_type: '',
-            parent_location: '',
-            welsh_court_name: '',
-            uprn: '',
-            venue_ou_code: '',
-            mrd_building_location_id: '',
-            mrd_venue_id: '',
-            service_url: '',
-            fact_url: ''
-          },
-          {
-            court_venue_id: '',
-            epimms_id: '',
-            site_name: 'Second Venue',
-            region_id: '',
-            region: '',
-            court_type: '',
-            court_type_id: '',
-            cluster_id: '',
-            cluster_name: '',
-            open_for_public: '',
-            court_address: '',
-            postcode: '',
-            phone_number: '',
-            closed_date: '',
-            court_location_code: '',
-            dx_address: '',
-            welsh_site_name :  '',
-            welsh_court_address :  '',
-            court_status :  '',
-            court_open_date :  '',
-            court_name :  'Second Venue',
-            venue_name :  '',
-            is_case_management_location: '',
-            is_hearing_location: '',
-            welsh_venue_name: '',
-            is_temporary_location: '',
-            is_nightingale_court: '',
-            location_type: '',
-            parent_location: '',
-            welsh_court_name: '',
-            uprn: '',
-            venue_ou_code: '',
-            mrd_building_location_id: '',
-            mrd_venue_id: '',
-            service_url: '',
-            fact_url: ''
-          },
-        ]
-      };
-      component.venues = venues.court_venues;
-      
-      const result = component['_filter']('first');
-
-      expect(result.length).toBe(1);
-      expect(result[0]['court_name']).toBe('First Venue');
-    });
-
-    it('should set typeaheadResultsFound to false if no results', () => {
-      const venues = [];
-      component.venues = venues;
-      
-      component['_filter']('test');
-
-      expect(component.typeaheadResultsFound).toBe(false);
-    });
-
-    it('should go to sittingRecords/home when goBack is called', () => {
-      spyOn(router, 'navigate');
-
-      component.goBack();
-
-      expect(router.navigate).toHaveBeenCalledWith(['sittingRecords','home']);
-    });
-
-    it('should not show the previous button for user role "jps-recorder"', () => {
-      spyOn(cookieService, 'get').and.returnValue('jps-recorder');
-  
-      component.ngOnInit();
-  
-      expect(component.showPreviousButton).toBeFalse();
-    });
-
-    it('should return the controls of manageRecords', () => {
-      component.manageRecords = new FormGroup({
-        'tribunalService': new FormControl(''),
-        'control2': new FormControl('')
-      });
-    
-      const controls: { [key: string]: AbstractControl } = component.f;
-      
-      expect(controls).toBeTruthy();
-      expect(controls['tribunalService']).toBeDefined();
-      expect(controls['control2']).toBeDefined();
-    });
+    expect(controls).toBeTruthy();
+    expect(controls['tribunalService']).toBeDefined();
+    expect(controls['control2']).toBeDefined();
+  });
 
 })
-

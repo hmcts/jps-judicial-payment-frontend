@@ -14,9 +14,10 @@ import { Subject } from 'rxjs';
 export class ViewSittingRecordsComponent implements OnInit{
 
   constructor(
-    private router: Router,
+    private msrWorkFlow: RecorderWorkflowService,
     private dateSvc: DateService,
-    private srWorkFlow: RecorderWorkflowService
+    private srWorkFlow: RecorderWorkflowService,
+    private router: Router
   ){}
 
   tribService = "";
@@ -38,7 +39,7 @@ export class ViewSittingRecordsComponent implements OnInit{
   }
 
   ngOnInit(){
-    const formData = this.srWorkFlow.getFormData().value;
+    const formData = this.msrWorkFlow.getFormData().value;
     const { dateSelected, tribunalService, venue } = formData;
     this.tribService = tribunalService.service;
     this.venueSiteName = venue.court_name;
@@ -69,7 +70,7 @@ export class ViewSittingRecordsComponent implements OnInit{
   } 
 
   loadViewSittingRecords() {
-    this.srWorkFlow.getSittingRecordsData().subscribe(
+    this.msrWorkFlow.getSittingRecordsData().subscribe(
       records => {
         this.sittingRecordData = records.sittingRecords;
         this.dtTrigger.next(null); 
@@ -83,7 +84,7 @@ export class ViewSittingRecordsComponent implements OnInit{
   }
 
   navigateDeleteSittingRecord(sittingRecord){
-    this.srWorkFlow.setSittingRecordToDelete(sittingRecord);
+    this.msrWorkFlow.setSittingRecordToDelete(sittingRecord);
     this.router.navigate(['sittingRecords', 'delete'])
   }
   

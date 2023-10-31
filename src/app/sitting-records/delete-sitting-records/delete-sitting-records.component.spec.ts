@@ -5,7 +5,7 @@ import { RecorderWorkflowService } from '../../_workflows/recorder-workflow.serv
 import { DeleteSittingRecordHttp } from '../../_services/delete-sitting-records-http-service';
 import { of, throwError } from 'rxjs';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 describe('DeleteSittingRecordsComponent', () => {
   let component: DeleteSittingRecordsComponent;
@@ -50,7 +50,7 @@ describe('DeleteSittingRecordsComponent', () => {
   it('should set error when delete fails', () => {
     const errorResponse = {
       status: 404,
-      error: { message: 'Error:Delete failed' }  
+      error: { message: 'Delete failed' }  
     };
 
     spyOn(deleteService, 'deleteRecord').and.returnValue(throwError(() => errorResponse));

@@ -15,7 +15,7 @@ describe('ViewSittingRecordsComponent', () => {
   let component: ViewSittingRecordsComponent;
   let fixture: ComponentFixture<ViewSittingRecordsComponent>;
   let mockRouter: Router;
-  let mockWorkflowService: RecorderWorkflowService;
+  let mockmsrWorkflowService: RecorderWorkflowService;
   let mockDateSvc: DateService;
 
   beforeEach(() => {
@@ -30,7 +30,7 @@ describe('ViewSittingRecordsComponent', () => {
     fixture = TestBed.createComponent(ViewSittingRecordsComponent);
     component = fixture.componentInstance;
     mockRouter = TestBed.inject(Router);
-    mockWorkflowService = TestBed.inject(RecorderWorkflowService);
+    mockmsrWorkflowService = TestBed.inject(RecorderWorkflowService);
     mockDateSvc = TestBed.inject(DateService)
   });
 
@@ -49,10 +49,10 @@ describe('ViewSittingRecordsComponent', () => {
       "sittingRecords": []
     }
 
-    mockWorkflowService.setFormData(formDataMock);
+    mockmsrWorkflowService.setFormData(formDataMock);
     fixture.detectChanges();
     spyOn(mockDateSvc, 'formatDateFromForm').and.returnValue(formattedDate);
-    spyOn(mockWorkflowService, 'getSittingRecordsData').and.returnValue(of(response));
+    spyOn(mockmsrWorkflowService, 'getSittingRecordsData').and.returnValue(of(response));
     
     component.ngOnInit();
     
