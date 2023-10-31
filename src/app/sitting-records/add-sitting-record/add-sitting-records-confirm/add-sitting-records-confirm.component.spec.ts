@@ -5,7 +5,6 @@ import { RecorderWorkflowService } from '../../../_workflows/recorder-workflow.s
 import { Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { DateService } from '../../../_services/date-service/date-service';
 import { of, throwError } from 'rxjs';
 import { DuplicateRecordWorkflowService } from 'src/app/_workflows/duplicate-record-workflow.service';
 import { SittingRecordsInfoBannerComponent } from '../../sitting-records-info-banner/sitting-records-info-banner.component';
@@ -17,7 +16,6 @@ describe('AddSittingRecordsConfirmComponent', () => {
   let srWorkFlow: RecorderWorkflowService;
   let router: Router;
   let httpMock: HttpTestingController;
-  let dateSvc: DateService;
   let drWorkFlow: DuplicateRecordWorkflowService;
 
   beforeEach(async () => {

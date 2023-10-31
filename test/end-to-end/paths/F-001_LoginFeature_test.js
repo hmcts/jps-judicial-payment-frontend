@@ -1,7 +1,7 @@
 Feature('Login Feature Tests @functional @F-001');
 
-Scenario('Successful login @S-001.1',({ I}) => {
-  I.loginWithJPSRecorderUser();
+Scenario('Successful login @S-001.1',async({ I}) => {
+  await I.loginWithJPSRecorderUser();
   I.see('Manage judicial sitting records');
 });
 

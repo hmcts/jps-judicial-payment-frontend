@@ -11,6 +11,9 @@ nodejs:
     SESSION_SECRET: secretSauce
     ALLOW_CONFIG_MUTATIONS: 1
     NOW: false
+
+    DEBUG: xuiNode:*
+
     # Services Location Ref
     SERVICES_LOCATION_REF_API_URL: http://rd-location-ref-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
     SERVICES_USERS_REF_API_URL: http://rd-judicial-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
@@ -24,10 +27,18 @@ nodejs:
     SERVICES_S2S: http://rpe-service-auth-provider-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
     # OpenId ISS
     SERVICES_IDAM_ISS_URL: https://forgerock-am.service.core-compute-idam-{{ .Values.global.environment }}2.internal:8443/openam/oauth2/hmcts
+    SERVICES_JPS_API_URL: http://jps-judicial-payment-service-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
+    #REDIS
+    REDIS_ENABLED: true
+    REDIS_KEY_PREFIX: 'activity:'
+    REDIS_TTL: 6000
+
     memoryRequests: "512Mi"
     cpuRequests: "25m"
     memoryLimits: "1024Mi"
     cpuLimits: "2500m"
+    #OIDC Flag
+    OIDC_ENABLED: false
   keyVaults:
     jps:
       resourceGroup: jps
@@ -36,10 +47,20 @@ nodejs:
         - jps-idam-client-secret
         - idam-jps-system-username
         - idam-jps-system-password
+        - judicial-payment-frontend-redis6-connection-string
 
   # Don't modify below here
   image: 'hmctspublic.azurecr.io/jps/judicial-payment-frontend:latest'
   ingressHost: judicial-payments.{{ .Values.global.environment }}.platform.hmcts.net
+
+redis:
+  enabled: false
+  architecture: standalone
+  master:
+    persistence:
+      enabled: false
+  auth:
+    enabled: false
 
 idam-pr:
   enabled: false

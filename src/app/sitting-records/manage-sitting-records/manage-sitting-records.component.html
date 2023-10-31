@@ -1,137 +1,30 @@
 <main class="govuk-main-wrapper " id="main-content" role="main">
     
-    <h1 class="govuk-heading-l govuk-!-margin-bottom-3">Manage judicial sitting records</h1>
-    <h1 class="govuk-body-l govuk-!-margin-bottom-5">Find, add or delete judicial sitting records</h1>
+  <h1 class="govuk-heading-l govuk-!-margin-bottom-3">Manage judicial sitting records</h1>
+  <h1 class="govuk-body-l govuk-!-margin-bottom-5">Find, add or delete judicial sitting records</h1>
 
-    <form 
-        [formGroup]="manageRecords"
-        (ngSubmit)="submitForm()"
-    >
-        <div class="govuk-form-group govuk-!-margin-bottom-3">
-            <label class="govuk-label" for="sort">
-              Select a tribunal service 
-            </label>
-            <select class="govuk-select govuk-!-width-two-thirds" 
-                formControlName="tribunalService"
-                id="sort" name="sort"
-            >
-              <option [ngValue]="null" disabled selected>--Select a value--</option>
-              <option *ngFor="let service of tribunalServices" [ngValue]="service">{{service.service}}</option>
-            </select>
-          </div>
-          <div class="govuk-form-group govuk-!-margin-bottom-3"                 
-          [class.govuk-form-group--error] = "f['venue'].errors !== null && f['venue'].dirty && f['venue'].touched">
-            <label class="govuk-label" for="venue-select">
-              Select a venue
-            </label>
-            <p id="msr-require-match" class="govuk-error-message" *ngIf="f['venue'].errors && f['venue'].dirty && f['venue'].touched">
-              <span class="govuk-visually-hidden">Error:</span> Select valid Venue 
-            </p>
-            <div class="auto-complete-container">
-              <input class="govuk-input govuk-!-width-two-thirds"
-                formControlName="venue" id="venue-select" 
-                name="venue-select" type="text" 
-                placeholder="Start typing to search for a venue"
-                autocomplete="off" autocorrect="off" spellcheck="off" autocapitalize="off"
-                [matAutocomplete]="autoSearchVenue"
-                required>
-              <mat-autocomplete class="mat-autocomplete-panel-extend" id="auto-venue-select" #autoSearchVenue="matAutocomplete" (optionSelected)="optionSelected($event)" [displayWith]="showVenue">
-                <mat-option *ngFor="let venue of filteredVenues | async" id="option-venue-select-{{venue.site_name}}" (mousedown)=$event.preventDefault() [value]="venue" >
-                  {{ venue.site_name }}
-                </mat-option>
-                <mat-option *ngIf="!typeaheadResultsFound && searchTerm.length >= this.minSearchCharacters" disabled>No results found</mat-option>
-              </mat-autocomplete>
-              
-            </div>
-          </div>
-          <div 
-            class="govuk-form-group"
-            [class.govuk-form-group--error]="f['dateSelected'].errors !== null && f['dateSelected'].dirty"
-            formGroupName="dateSelected"
-          >
-            <fieldset class="govuk-fieldset" role="group" aria-describedby="msr-date-hint">
-              <legend class="govuk-fieldset__legend">
-                Enter a date 
-              </legend>
-              <p id="msr-error-future" class="govuk-error-message" *ngIf="f['dateSelected'].hasError('date_after_today')">
-                <span class="govuk-visually-hidden">Error:</span> The date you have selected is in the future
-              </p>
-              <p id="msr-error-out-of-support" class="govuk-error-message" *ngIf="f['dateSelected'].hasError('date_out_of_support')">
-                <span class="govuk-visually-hidden">Error:</span> The date you have selected is out of support
-              </p>
-              <p id="msr-error-out-of-support" class="govuk-error-message" *ngIf="f['dateSelected'].hasError('date_invalid')">
-                <span class="govuk-visually-hidden">Error:</span> Invalid date selected
-              </p>
-              <div class="govuk-date-input" id="msr-date">
-                <div class="govuk-date-input__item">
-                  <div class="govuk-form-group">
-                    <label class="govuk-label govuk-date-input__label" for="msr-date-day">
-                      Day
-                    </label>
-                    <input 
-                        class="govuk-input govuk-date-input__input govuk-input--width-2" 
-                        id="msr-date-day" 
-                        name="msr-date-day" 
-                        type="text" 
-                        inputmode="numeric"
-                        formControlName="dateDay"
-                        [class.govuk-input--error] = "f['dateSelected'].errors !== null && f['dateSelected'].dirty" 
-                        [maxlength]="2"
-                        appNumbersOnly
-                    >
-                  </div>
-                </div>
-                <div class="govuk-date-input__item">
-                  <div class="govuk-form-group">
-                    <label class="govuk-label govuk-date-input__label" for="msr-date-month">
-                      Month
-                    </label>
-                    <input 
-                        class="govuk-input govuk-date-input__input govuk-input--width-2" 
-                        id="msr-date-month" 
-                        name="msr-date-month" 
-                        type="text" 
-                        inputmode="numeric"
-                        formControlName="dateMonth"
-                        [class.govuk-input--error] = "f['dateSelected'].errors !== null && f['dateSelected'].dirty" 
-                        [maxLength]="2"
-                        appNumbersOnly
-                    >
-                  </div>
-                </div>
-                <div class="govuk-date-input__item">
-                  <div class="govuk-form-group">
-                    <label class="govuk-label govuk-date-input__label" for="msr-date-year">
-                      Year
-                    </label>
-                    <input 
-                        class="govuk-input govuk-date-input__input govuk-input--width-4" 
-                        id="msr-date-year" name="msr-date-year" 
-                        type="text" 
-                        inputmode="numeric"
-                        formControlName="dateYear"
-                        [class.govuk-input--error] = "f['dateSelected'].errors !== null && f['dateSelected'].dirty" 
-                        [maxlength]="4"
-                        [minlength]="4"
-                        appNumbersOnly
-                    >
-                  </div>
-                </div>
-              </div>
-            </fieldset>
-          </div>
+  <form 
+      [formGroup]="manageRecords"
+      (ngSubmit)="submitForm()"
+  >
+        <app-tribunal-service></app-tribunal-service>
+        
+        <app-venue [venues]="venues"></app-venue>
+
+        <app-sitting-date dateHeaderText="Enter a date"> </app-sitting-date>
+
+        
+        <div class="govuk-button-group">
           
-          <div class="govuk-button-group">
-            
-            <button type="submit" class="govuk-button" data-module="govuk-button" [disabled]="!manageRecords.valid">
-              Continue
-            </button>
-            
-          </div>
+          <button type="submit" class="govuk-button" data-module="govuk-button" [disabled]="!manageRecords.valid">
+            Continue
+          </button>
+          
+        </div>
 
-          <p class="govuk-body" *ngIf="showPreviousButton">
-            <a class="govuk-link link-color" (click)="goBack()">Cancel</a>
-          </p>
+        <p class="govuk-body" *ngIf="showPreviousButton">
+          <a class="govuk-link link-color" (click)="goBack()">Cancel</a>
+        </p>
 
-    </form>
-  </main>
+  </form>
+</main>

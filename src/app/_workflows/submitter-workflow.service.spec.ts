@@ -1,25 +1,25 @@
-import { HttpClientModule } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { of } from 'rxjs';
 import { RegionModel } from '../_models/region.model';
-import { ViewSittingRecordPost, ViewSittingRecordResponse } from '../_models/viewSittingRecords.model';
+import { ViewSittingRecordResponse } from '../_models/viewSittingRecords.model';
 import { DateService } from '../_services/date-service/date-service';
 import { ViewSittingRecordService } from '../_services/sitting-records-service/view-sitting-records-service';
 
 import { SubmitterWorkflowService } from './submitter-workflow.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('SubmitterWorkflowService', () => {
   let mockWorkflowService: SubmitterWorkflowService;
   let mockViewSittingRecordService: ViewSittingRecordService;
   let mockformData: FormGroup;
-  let mockUserFormData: FormGroup;
+  let mockUserLandingData: FormGroup;
   let mockDateSvc: DateService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [SubmitterWorkflowService, ViewSittingRecordService, DateService],
-      imports: [HttpClientModule]
+      imports: [HttpClientTestingModule]
     });
     
     mockWorkflowService = TestBed.inject(SubmitterWorkflowService);
@@ -31,20 +31,20 @@ describe('SubmitterWorkflowService', () => {
       region: ['Region 1'],
     });
 
-    mockUserFormData = new FormBuilder().group({
+    mockUserLandingData = new FormBuilder().group({
       option: ['opt2'],
     });
 
     mockWorkflowService.setFormData(mockformData);
-    mockWorkflowService.setUserFormData(mockUserFormData);
+    mockWorkflowService.setUserLandingData(mockUserLandingData);
   });
 
   it('should be created', () => {
     expect(mockWorkflowService).toBeTruthy();
   });
 
-  describe('setManageVisited', () => {
-    it('should set hasVisitedManage to true', () => {
+  describe('setLandingVisited', () => {
+    it('should set hasLandingVisited to true', () => {
       mockWorkflowService.setLandingVisited();
       expect(mockWorkflowService.getLandingVisited()).toBe(true);
     });
@@ -56,9 +56,9 @@ describe('SubmitterWorkflowService', () => {
     });
   });
 
-  describe('setUserFormData and getUserFormData', () => {
+  describe('setUserLandingData and getUserLandingData', () => {
     it('should set and get the user form data', () => {
-      expect(mockWorkflowService.getUserFormData()).toBe(mockUserFormData);
+      expect(mockWorkflowService.getUserLandingData()).toBe(mockUserLandingData);
     });
   });
 
@@ -70,11 +70,11 @@ describe('SubmitterWorkflowService', () => {
     });
   });
 
-  describe('resetUserFormData', () => {
+  describe('resetUserLandingData', () => {
     it('should reset the user form data', () => {
-      expect(mockWorkflowService.getUserFormData()).toBe(mockUserFormData);
-      mockWorkflowService.resetUserFormData();
-      expect(mockWorkflowService.getUserFormData().getRawValue()).toEqual({ option: null });
+      expect(mockWorkflowService.getUserLandingData()).toBe(mockUserLandingData);
+      mockWorkflowService.resetUserLandingData();
+      expect(mockWorkflowService.getUserLandingData().getRawValue()).toEqual({ option: null });
     });
   });
 
@@ -100,20 +100,6 @@ describe('SubmitterWorkflowService', () => {
 
   describe('getSittingRecordsData', () => {
     it('should return a valid ViewSittingRecordResponse object', () => {
-      const postObj: ViewSittingRecordPost = {
-        pageSize: 100,
-        offset: 0,
-        dateOrder: 'ASCENDING',
-        regionId: '',
-        epimmsId: '',
-        createdByUserId: '',
-        personalCode: '',
-        judgeRoleTypeId: '',
-        duration: '',
-        dateRangeFrom: '',
-        dateRangeTo: '',
-        statusId: ''
-      };
       const mockResponse: ViewSittingRecordResponse = { "sittingRecords": [] };
       const dateSelected = '2022-01-01';
 

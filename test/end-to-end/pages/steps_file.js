@@ -1,5 +1,4 @@
 module.exports = function () {
-
   const recorderUsername = process.env.JPS_RECORDER_USERNAME || 'jps-recorder-role@gmail.com';
   const recorderPassword = process.env.JPS_RECORDER_PASSWORD || 'password';
   const submitterUsername = process.env.JPS_SUBMITTER_USERNAME || 'jps-submitter-role@gmail.com';
@@ -14,58 +13,87 @@ module.exports = function () {
   const invalidPassword = process.env.JPS_INVALID_PASSWORD || 'password';
 
   return actor({
-    loginWithJPSRecorderUser: function(){
+    loginWithJPSRecorderUser: async function () {
       const I = this;
-      I.amOnPage('/');
-      I.waitForVisible('#username', 10);
-      I.fillField('Email address', recorderUsername);
-      I.fillField('Password', recorderPassword);
-      I.click('Sign in');
+      await I.amOnPage('/');
+      await I.waitForElement('//*[@id="footer"]/div/div/div[2]', 10);
+      await I.waitForVisible('#username', 10);
+      await I.fillField('Email address', recorderUsername);
+      await I.fillField('Password', recorderPassword);
+      await I.click('Sign in');
+      await I.waitForText('Manage judicial sitting records', 10);
     },
 
-    loginWithJPSSubmitterUser: function(){
+    loginWithJPSSubmitterUser: async function () {
       const I = this;
-      I.amOnPage('/');
-      I.waitForVisible('#username', 10);
-      I.fillField('Email address', submitterUsername);
-      I.fillField('Password', submitterPassword);
-      I.click('Sign in');
+      await I.amOnPage('/');
+      await I.waitForElement('//*[@id="footer"]/div/div/div[2]', 10);
+      await I.waitForVisible('#username', 10);
+      await I.fillField('Email address', submitterUsername);
+      await I.fillField('Password', submitterPassword);
+      await I.click('Sign in');
+      await I.waitForText('Manage judicial sitting records', 10);
     },
 
-    loginWithJPSAdminUser: function(){
+    loginWithJPSAdminUser: async function () {
       const I = this;
-      I.amOnPage('/');
-      I.waitForVisible('#username', 10);
-      I.fillField('Email address', adminUsername);
-      I.fillField('Password', adminPassword);
-      I.click('Sign in');
+      await I.amOnPage('/');
+      await I.waitForElement('//*[@id="footer"]/div/div/div[2]', 10);
+      await  I.waitForVisible('#username', 10);
+      await I.fillField('Email address', adminUsername);
+      await I.fillField('Password', adminPassword);
+      await I.click('Sign in');
+      await I.waitForText('Manage judicial sitting records', 10);
     },
 
-    loginWithJPSJOHAdminUser: function(){
+    loginWithJPSJOHAdminUser: async function () {
       const I = this;
-      I.amOnPage('/');
-      I.waitForVisible('#username', 10);
-      I.fillField('Email address', johAdminUsername);
-      I.fillField('Password', johAdminPassword);
-      I.click('Sign in');
+      await I.amOnPage('/');
+      await I.waitForElement('//*[@id="footer"]/div/div/div[2]', 10);
+      await  I.waitForVisible('#username', 10);
+      await I.fillField('Email address', johAdminUsername);
+      await I.fillField('Password', johAdminPassword);
+      await I.click('Sign in');
+      await I.waitForText('Manage judicial sitting records', 10);
     },
 
-    loginWithJPSPublisherUser: function(){
+    loginWithJPSPublisherUser: async function () {
       const I = this;
-      I.amOnPage('/');
-      I.waitForVisible('#username', 10);
-      I.fillField('Email address', publisherUsername);
-      I.fillField('Password', publisherPassword);
-      I.click('Sign in');
+      await I.amOnPage('/');
+      await I.wait(5);
+      await I.waitForElement('//*[@id="footer"]/div/div/div[2]', 10);
+      await I.waitForVisible('#username', 10);
+      await I.fillField('Email address', publisherUsername);
+      await I.fillField('Password', publisherPassword);
+      await I.click('Sign in');
+      await I.waitForText('Manage judicial sitting records', 10);
     },
 
-    loginWithJPSInvalidUser: function(){
+    loginWithJPSInvalidUser: function () {
       const I = this;
       I.amOnPage('/');
+      I.wait(5);
+      I.waitForElement('//*[@id="footer"]/div/div/div[2]', 10);
       I.waitForVisible('#username', 10);
       I.fillField('Email address', invalidUsername);
       I.fillField('Password', invalidPassword);
       I.click('Sign in');
+      I.wait(3);
+    },
+
+    createSittingRecord: function (name, role, period) {
+      const I = this;
+      I.fillField('.govuk-input', name);
+      I.click('.mdc-list-item__primary-text');
+      I.selectOption('.govuk-select', role);
+      I.checkOption(period);
+      I.click('Continue');
+      I.click('Save Record(s)');
+      I.waitForText('Sitting record(s) saved', 10);
+      I.click('View Record Table');
+      I.see(name);
+      I.see(role);
+      I.see(period);
     }
   });
-}
+};

@@ -3,7 +3,6 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { PotentialDuplicateComponent } from './potential-duplicate.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { DuplicateRecordWorkflowService } from '../../../_workflows/duplicate-record-workflow.service';
 import { RecorderWorkflowService } from '../../../_workflows/recorder-workflow.service';
 import { ConvertAddPeriodPipe, ConvertToStringPeriodPipe } from './../../../_pipes/convert-period-pipe'
 import { ConvertRoleIdToString } from './../../../_pipes/convertRoleIdToString'
@@ -14,7 +13,6 @@ import { CapitalizeFirstLetterPipe } from '../../../_pipes/convertTableStatus'
 describe('PotentialDuplicateComponent', () => {
   let component: PotentialDuplicateComponent;
   let fixture: ComponentFixture<PotentialDuplicateComponent>;
-  let duplicateRecordWorkflow: DuplicateRecordWorkflowService;
   let srWorkFlow: RecorderWorkflowService;
   let mockformData: FormGroup;
   
@@ -22,11 +20,10 @@ describe('PotentialDuplicateComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ PotentialDuplicateComponent, ConvertAddPeriodPipe, ConvertToStringPeriodPipe, ConvertRoleIdToString, StringFromDatePipeYDM, CapitalizeFirstLetterPipe],
       imports: [HttpClientTestingModule],
-      providers: [RecorderWorkflowService, DuplicateRecordWorkflowService, SittingRecordsInfoBannerComponent]
+      providers: [RecorderWorkflowService, SittingRecordsInfoBannerComponent]
     })
 
     srWorkFlow = TestBed.inject(RecorderWorkflowService);
-    duplicateRecordWorkflow = TestBed.inject(DuplicateRecordWorkflowService);
 
     mockformData= new FormBuilder().group({
       dateSelected: ['2022-01-01'],

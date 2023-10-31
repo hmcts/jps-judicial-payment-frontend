@@ -14,3 +14,22 @@ export class SittingRecordsPostBody {
     recordedByName!: string;
     recordedSittingRecords: SittingRecordsPostObj[] = [];
 }
+
+export interface DuplicateResponse {  
+    postedRecord: SittingRecordsPostObj;
+    errorCode: string;
+    createdByName: string;
+    AM: boolean;
+    PM: boolean;
+    judgeRoleTypeId: string;
+    judgeRoleTypeName: string;
+    createdDateTime: string;
+    statusId: string
+}
+
+export interface ValidRecord{
+    johName: string
+    johPeriod: string
+    johRole: string
+    postedDate: string
+}
