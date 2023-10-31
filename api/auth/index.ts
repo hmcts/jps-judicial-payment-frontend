@@ -55,7 +55,8 @@ xuiNode.on(AUTH.EVENT.AUTHENTICATE_SUCCESS, successCallback);
 xuiNode.on(AUTH.EVENT.AUTHENTICATE_FAILURE, failureCallback);
 
 export const getXuiNodeMiddleware = () => {
-  console.log(`Redis enabled is set to ${getConfigValue(REDIS_ENABLED)}`)
+  console.log(`Redis enabled is set to ${showFeature(REDIS_ENABLED)}`)
+  console.log(`Redis url set to: ${getConfigValue(REDISCLOUD_URL)}`)
   const idamWebUrl = getConfigValue(SERVICES_IDAM_LOGIN_URL);
   const authorizationUrl = `${idamWebUrl}/login`;
   const secret = getConfigValue(IDAM_SECRET);
@@ -136,7 +137,7 @@ export const getXuiNodeMiddleware = () => {
       },
       oauth2:options,
     },
-    session: getConfigValue(REDIS_ENABLED) ? redisStoreOptions : fileStoreOptions
+    session: showFeature(REDIS_ENABLED) ? redisStoreOptions : fileStoreOptions
   };
 
   const type = showFeature(OIDC_ENABLED) ? 'oidc' : 'oauth2';
