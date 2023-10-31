@@ -1,0 +1,29 @@
+export interface SittingRecord {
+    accountCode: string,
+    am: boolean,
+    changedByUserId: string, 
+    changedByUserName: string 
+    changedDateTime: string
+    contractTypeId: number
+    contractTypeName: null 
+    createdByUserId: string 
+    createdByUserName: string 
+    createdDateTime: string
+    crownServantFlag: false 
+    epimmsId: string
+    fee: null 
+    hmctsServiceId: string
+    judgeRoleTypeId: string
+    judgeRoleTypeName: null 
+    londonFlag: boolean 
+    payrollId: null 
+    personalCode: string
+    personalName: string
+    pm: boolean 
+    regionId: string 
+    regionName: string
+    sittingDate: string
+    sittingRecordId: number 
+    statusId: string
+    venueName: string
+}

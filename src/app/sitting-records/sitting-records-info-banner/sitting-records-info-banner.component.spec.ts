@@ -2,8 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SittingRecordsInfoBannerComponent } from './sitting-records-info-banner.component';
 import { RecorderWorkflowService } from '../../_workflows/recorder-workflow.service';
 import { DateService } from '../../_services/date-service/date-service';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { of } from 'rxjs';
+import { FormBuilder } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('SittingRecordsInfoBannerComponent', () => {
@@ -30,7 +29,7 @@ describe('SittingRecordsInfoBannerComponent', () => {
 
     const mockFormData = formBuilder.group({
       tribunalService: { service: 'service 1' },
-      venue: { site_name: 'site 1' },
+      venue: { court_name: 'site 1' },
       dateSelected: formBuilder.group({
         dateDay: '01',
         dateMonth: '02',

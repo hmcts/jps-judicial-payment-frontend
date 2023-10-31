@@ -15,7 +15,7 @@ describe('ViewSittingRecordsComponent', () => {
   let component: ViewSittingRecordsComponent;
   let fixture: ComponentFixture<ViewSittingRecordsComponent>;
   let mockRouter: Router;
-  let mockWorkflowService: RecorderWorkflowService;
+  let mockmsrWorkflowService: RecorderWorkflowService;
   let mockDateSvc: DateService;
 
   beforeEach(() => {
@@ -30,7 +30,7 @@ describe('ViewSittingRecordsComponent', () => {
     fixture = TestBed.createComponent(ViewSittingRecordsComponent);
     component = fixture.componentInstance;
     mockRouter = TestBed.inject(Router);
-    mockWorkflowService = TestBed.inject(RecorderWorkflowService);
+    mockmsrWorkflowService = TestBed.inject(RecorderWorkflowService);
     mockDateSvc = TestBed.inject(DateService)
   });
 
@@ -43,22 +43,22 @@ describe('ViewSittingRecordsComponent', () => {
     const formDataMock: FormGroup = new FormBuilder().group({
       dateSelected: ['2022-01-01'],
       tribunalService: [{service: 'Tribunal 1'}],
-      venue: { site_name: 'Venue 1' }
+      venue: { court_name: 'Venue 1' }
     });
     const response: ViewSittingRecordResponse = {
       "sittingRecords": []
     }
 
-    mockWorkflowService.setFormData(formDataMock);
+    mockmsrWorkflowService.setFormData(formDataMock);
     fixture.detectChanges();
     spyOn(mockDateSvc, 'formatDateFromForm').and.returnValue(formattedDate);
-    spyOn(mockWorkflowService, 'getSittingRecordsData').and.returnValue(of(response));
+    spyOn(mockmsrWorkflowService, 'getSittingRecordsData').and.returnValue(of(response));
     
     component.ngOnInit();
     
     expect(mockDateSvc.formatDateFromForm).toHaveBeenCalledWith(formDataMock.controls['dateSelected'].value);
     expect(component.tribService).toBe(formDataMock.controls['tribunalService'].value.service);
-    expect(component.venueSiteName).toBe(formDataMock.controls['venue'].value.site_name);
+    expect(component.venueSiteName).toBe(formDataMock.controls['venue'].value.court_name);
     expect(component.date).toBe(formattedDate);
     expect(component.sittingRecordData).toBe(response.sittingRecords);
   });

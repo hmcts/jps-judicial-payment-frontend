@@ -1,6 +1,5 @@
 const { I } = inject();
 
-const tribunalField = '//*[@id="main-content"]/form/div[1]';
 const venueField = '#venue-select';
 const dayField = 'input[name = "msr-date-day"]';
 const monthField = 'input[name = "msr-date-month"]';
@@ -10,7 +9,7 @@ const roleField = '#role';
 const selectJudgeName = '.mdc-list-item__primary-text';
 
 function selectJOH(name, role, row=0) {
-  I.see('Select the Judicial office holders (JOH) associated with this sitting');
+  I.see('Select the judicial office holders (JOH) associated with this sitting');
   I.see('You can select a maximum of 3 office holders for each sitting.');
   I.fillField(judgeField + `${row}`, name);
   I.click(selectJudgeName);
@@ -33,7 +32,7 @@ function selectPeriod (period) {
 function clickCancel(tribunal, venue, day, month, year) {
   I.click('Cancel');
   I.see('Manage judicial sitting records');
-  I.seeInField(tribunalField, tribunal);
+  I.see(tribunal);
   I.seeInField(venueField, venue);
   I.seeInField(dayField, day);
   I.seeInField(monthField, month);
@@ -42,7 +41,7 @@ function clickCancel(tribunal, venue, day, month, year) {
 
 function clickPrevious(name, role){
   I.click('Previous');
-  I.see('Select the Judicial office holders (JOH) associated with this sitting');
+  I.see('Select the judicial office holders (JOH) associated with this sitting');
   I.seeInField(judgeField + '0', name);
   I.seeInField(roleField, role);
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UserInfoService } from './_services/user-info-service/user-info-service';
 import { CookieService } from 'ngx-cookie-service';
 import { LoaderComponent } from './static-elements/loader/loader.component'
@@ -7,7 +7,7 @@ import { LoaderComponent } from './static-elements/loader/loader.component'
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
 
   constructor(
     private cookies: CookieService,

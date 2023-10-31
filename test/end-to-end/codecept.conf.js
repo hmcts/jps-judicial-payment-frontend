@@ -17,7 +17,8 @@ exports.config = {
       url: process.env.TEST_URL || 'http://localhost:3000',
       show: false,
       browser: 'chromium',
-      timeout: 10000
+      timeout: 10000,
+      ignoreHTTPSErrors: true
     }
   },
   include: {

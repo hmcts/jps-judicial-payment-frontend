@@ -8,6 +8,22 @@ import { ConvertAddPeriodPipe, ConvertToStringPeriodPipe } from './../../../_pip
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ConvertRoleIdToString } from './../../../_pipes/convertRoleIdToString'
 import { StringFromDatePipeYDM, StringFromDatePipe } from '../../../_pipes/string-date-pipe'
+import { ValidRecord } from '../../../_models/addSittingRecords.model'
+
+const mockValidResults: Array<ValidRecord> = [
+  {
+    johName: 'Joe',
+    johPeriod: 'AM',
+    johRole: 'Judge',
+    postedDate: '11-11-2022'
+  },
+  {
+    johName: 'Jane',
+    johPeriod: 'AM',
+    johRole: 'Tribunal Judge',
+    postedDate: '11-11-2022'
+  }
+]
 
 describe('ValidSittingRecordsComponent', () => {
   let component: ValidSittingRecordsComponent;
@@ -35,7 +51,9 @@ describe('ValidSittingRecordsComponent', () => {
     });
 
     spyOn(srWorkFlow, 'getFormData').and.returnValue(mockformData)
-    spyOn(duplicateRecordWorkflow, 'matchValidRecords').and.returnValue([{}, {}]);
+    spyOn(duplicateRecordWorkflow, 'matchValidRecords').and.returnValue(mockValidResults);
+
+    
 
     fixture = TestBed.createComponent(ValidSittingRecordsComponent);
     component = fixture.componentInstance;
@@ -52,7 +70,7 @@ describe('ValidSittingRecordsComponent', () => {
     
     component.ngOnInit();
 
-    expect(component.validRecords).toEqual([{}, {}])
+    expect(component.validRecords).toEqual(mockValidResults)
 
   })
 });

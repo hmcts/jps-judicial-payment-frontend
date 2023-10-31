@@ -16,14 +16,14 @@ function addSittingRecordsInformation(tribunal, venue, day, month, year) {
 
 function seeCommonLandingPage() {
   I.waitForVisible('.govuk-heading-l', 10);
-  I.see('Manage Judicial Sitting Records');
+  I.see('Manage judicial sitting records');
   I.see('What would you like to do?');
 }
 
 function selectSittingRecordsToSubmitToFinance(service, region, day, month, year) {
   I.see('Submit sitting records to Finance');
   I.click('Submit sitting records to Finance');
-  I.selectOption('Select a service', service);
+  I.selectOption('//*[@id="sort"]', service);
   I.click('Select a region');
   I.selectOption('#region-select', region);
   I.fillField('Day', day);
@@ -31,4 +31,13 @@ function selectSittingRecordsToSubmitToFinance(service, region, day, month, year
   I.fillField('Year', year);
 }
 
-module.exports = { addSittingRecordsInformation, seeCommonLandingPage, selectSittingRecordsToSubmitToFinance }
+function selectCreatePayrollFileAndPublishRecords(service, day, month, year) {
+  I.see('Create payroll file and publish records');
+  I.click('Create payroll file and publish records');
+  I.selectOption('//*[@id="sort"]', service);
+  I.fillField('Day', day);
+  I.fillField('Month', month);
+  I.fillField('Year', year);
+}
+
+module.exports = { addSittingRecordsInformation, seeCommonLandingPage, selectSittingRecordsToSubmitToFinance, selectCreatePayrollFileAndPublishRecords }
