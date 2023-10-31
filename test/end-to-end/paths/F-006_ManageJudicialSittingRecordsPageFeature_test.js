@@ -10,8 +10,10 @@ Scenario('Successfully continue to "Judicial sitting records" page @S-006.1',asy
   I.see("Sitting records for Social Security and Child Support, Bournemouth Combined Court, for 11/03/2022");
 });
 
-Scenario('"Manage judicial sitting records" page is not displayed for a user that does not have recorder role @S-006.2',async ({ I}) => {
+Scenario('"Manage judicial sitting records" page is displayed for a user with the publisher role @S-006.2',async ({ I}) => {
   await I.loginWithJPSPublisherUser();
+  I.see('View or export a collection of sitting records');
+  I.see('Create payroll file and publish records');
   I.dontSee('Find, add or delete judicial sitting records');
 });
 
@@ -58,9 +60,9 @@ Scenario('Region drop down will be populated with values when Submit sitting rec
   await I.loginWithJPSSubmitterUser();
   ManageJudicialSittingRecordsPage.seeCommonLandingPage();
   I.click('Submit sitting records to Finance');
-  I.selectOption('Select a service', 'Social Security and Child Support');
+  I.selectOption('//*[@id="sort"]', 'Social Security and Child Support');
   I.click('#region-select');
-  I.seeNumberOfElements('option[value*="Object"]', 10);
+  I.seeNumberOfElements('option[value*="Object"]', 11);
 });
 
 Scenario('Region field should be enabled only after tribunal service is selected @S-006.9',async ({ I}) => {
@@ -70,18 +72,16 @@ Scenario('Region field should be enabled only after tribunal service is selected
   I.seeElement('#region-select[disabled]');
 });
 
-Scenario('Region field selected value should be removed if a different tribunal service is selected @S-006.10',async ({ I}) => {
-  await I.loginWithJPSSubmitterUser();
-  ManageJudicialSittingRecordsPage.seeCommonLandingPage();
-  ManageJudicialSittingRecordsPage.selectSittingRecordsToSubmitToFinance('Social Security and Child Support', 'London', '11', '03', '2022');
-  I.selectOption('Select a service', 'Private Law');
-  I.see('Select a value');
-});
-
-Scenario('If date value is after today\'s date error should be displayed @S-006.11',async ({ I}) => {
+Scenario('If date value is after today\'s date error should be displayed for Submit sitting records to Finance @S-006.10',async ({ I}) => {
   await I.loginWithJPSSubmitterUser();
   ManageJudicialSittingRecordsPage.seeCommonLandingPage();
   ManageJudicialSittingRecordsPage.selectSittingRecordsToSubmitToFinance('Social Security and Child Support', 'London', '11', '03', '2040');
   I.see('The date you have selected is in the future');
 });
 
+Scenario('If date value is after today\'s date error should be displayed for Create payroll file and publish records @S-006.11',async ({ I}) => {
+  await I.loginWithJPSPublisherUser();
+  ManageJudicialSittingRecordsPage.seeCommonLandingPage();
+  ManageJudicialSittingRecordsPage.selectCreatePayrollFileAndPublishRecords('Social Security and Child Support','11', '03', '2040');
+  I.see('The date you have selected is in the future');
+});
