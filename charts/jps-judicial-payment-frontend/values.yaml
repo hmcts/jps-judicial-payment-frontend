@@ -11,7 +11,6 @@ nodejs:
     SESSION_SECRET: secretSauce
     ALLOW_CONFIG_MUTATIONS: 1
     NOW: false
-
     DEBUG: xuiNode:*
     # Services Location Ref
     SERVICES_LOCATION_REF_API_URL: http://rd-location-ref-api-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
@@ -34,7 +33,6 @@ nodejs:
 
     REDIS_KEY_PREFIX: 'activity:'
     REDIS_TTL: 6000
-
     memoryRequests: "512Mi"
     cpuRequests: "25m"
     memoryLimits: "1024Mi"
