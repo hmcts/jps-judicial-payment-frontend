@@ -59,6 +59,7 @@ export const getXuiNodeMiddleware = () => {
   console.log(`Redis url set to: ${getConfigValue(REDISCLOUD_URL)}`)
   console.log(`OIDC set to: ${showFeature(OIDC_ENABLED)}`)
   console.log(`s2s set to: ${getConfigValue(S2S_SECRET)}`)
+  console.log(`using s2s path: ${getConfigValue(SERVICES_S2S_PATH)}`)
   const idamWebUrl = getConfigValue(SERVICES_IDAM_LOGIN_URL);
   const authorizationUrl = `${idamWebUrl}/login`;
   const secret = getConfigValue(IDAM_SECRET);
@@ -137,7 +138,6 @@ export const getXuiNodeMiddleware = () => {
         s2sEndpointUrl: `${getConfigValue(SERVICES_S2S_PATH)}/lease`,
         s2sSecret: s2sSecret.trim(),
       },
-      oauth2:options,
     },
     session: showFeature(REDIS_ENABLED) ? redisStoreOptions : fileStoreOptions
   };
