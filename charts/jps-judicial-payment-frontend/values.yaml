@@ -18,9 +18,9 @@ nodejs:
     # Services Idam
     SERVICES_IDAM_API_URL: https://idam-api.{{ .Values.global.environment }}.platform.hmcts.net
     SERVICES_IDAM_CLIENT_ID: jps_judicial_payment_frontend
+    SERVICES_IDAM_OAUTH_CALLBACK_URL: /oauth2/callback
     SERVICES_IDAM_LOGIN_URL: https://idam-web-public.{{ .Values.global.environment }}.platform.hmcts.net
     SERVICES_IDAM_INDEX_URL: /
-    SERVICES_IDAM_OAUTH_CALLBACK_URL: /oauth2/callback
     # Services S2s
     SERVICES_S2S: http://rpe-service-auth-provider-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
     # OpenId ISS
