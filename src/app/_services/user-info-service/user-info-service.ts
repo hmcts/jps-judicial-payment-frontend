@@ -11,6 +11,7 @@ export class UserInfoService {
 
     setUserInfo(userInfo, userRole){
         userInfo = JSON.parse(userInfo.slice(2, userInfo.length))
+        console.log(userInfo)
         this.idamID = userInfo[0]
         this.userName = userInfo[1]
         this.userRoles = JSON.parse(userRole.slice(2, userRole.length))

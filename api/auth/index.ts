@@ -30,6 +30,7 @@ import {
 
 export const successCallback = (req: EnhancedRequest, res: Response, next: NextFunction) => {
   const {user} = req.session.passport;
+  console.log(user)
   const {userinfo} = user;
   const {accessToken} = user.tokenset;
   const cookieToken = getConfigValue(COOKIES_TOKEN);
