@@ -30,12 +30,15 @@ import {
 
 export const successCallback = (req: EnhancedRequest, res: Response, next: NextFunction) => {
   const {user} = req.session.passport;
+  console.log(user)
   const {userinfo} = user;
   const {accessToken} = user.tokenset;
   const cookieToken = getConfigValue(COOKIES_TOKEN);
   const cookieUserId = getConfigValue(COOKIES_USER_ID);
   const cookieUserRole = getConfigValue(COOKIES_USER_ROLE);
-  res.cookie(cookieUserId, [userinfo.id, `${userinfo.forename} ${userinfo.surname}`]);
+  const uid = userinfo.uid ? userinfo.uid: userinfo.id;
+  const uName = userinfo.name ? userinfo.name : `${userinfo.forename} ${userinfo.surname}`
+  res.cookie(cookieUserId, [uid, uName]);
   res.cookie(cookieToken, accessToken);
   res.cookie(cookieUserRole, userinfo.roles);
 
@@ -60,6 +63,7 @@ export const getXuiNodeMiddleware = () => {
   console.log(`OIDC set to: ${showFeature(OIDC_ENABLED)}`)
   console.log(`s2s set to: ${getConfigValue(S2S_SECRET)}`)
   console.log(`using s2s path: ${getConfigValue(SERVICES_S2S_PATH)}`)
+  console.log(`Using auth option: ${showFeature(OIDC_ENABLED) ? 'oidc' : 'oauth2'}`)
   const idamWebUrl = getConfigValue(SERVICES_IDAM_LOGIN_URL);
   const authorizationUrl = `${idamWebUrl}/login`;
   const secret = getConfigValue(IDAM_SECRET);
