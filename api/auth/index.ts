@@ -138,7 +138,6 @@ export const getXuiNodeMiddleware = () => {
         s2sEndpointUrl: `${getConfigValue(SERVICES_S2S_PATH)}/lease`,
         s2sSecret: s2sSecret.trim(),
       },
-      oauth2:options,
     },
     session: showFeature(REDIS_ENABLED) ? redisStoreOptions : fileStoreOptions
   };
