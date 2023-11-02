@@ -34,7 +34,7 @@ export class SubmitSittingRecordsComponent implements OnInit {
   ngOnInit(){
     const formData = this.submitterWorkflow.getFormData().value;
     const { dateSelected, tribunalService, region } = formData;
-    this.tribService = tribunalService;
+    this.tribService = tribunalService.service;
     this.region = region.description;
     this.date = this.dateSvc.formatDateFromForm(dateSelected);
     $.fn.dataTable.ext.classes.sPageButton = 'govuk-pagination__item blue-text';
