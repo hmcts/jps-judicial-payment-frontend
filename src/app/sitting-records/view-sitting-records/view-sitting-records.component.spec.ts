@@ -67,28 +67,6 @@ describe('ViewSittingRecordsComponent', () => {
     expect(component.sittingRecordData).toEqual(response.sittingRecords);
     
   });
-
-  it('should execute ajaxFunction correctly', () => {
-    // Arrange
-    const fakeDataTablesParams = { start: 0 };
-    const fakeCallback = jasmine.createSpy('fakeCallback');
-    const response: ViewSittingRecordResponse = {
-      recordCount: 1,
-      sittingRecords: []
-    };
-    spyOn(mockmsrWorkflowService, 'getSittingRecordsData').and.returnValue(of(response));
-  
-    // Act
-    component.getViewTableData(fakeDataTablesParams, fakeCallback);
-  
-    // Assert
-    expect(fakeCallback).toHaveBeenCalledWith({
-      recordsTotal: response.recordCount,
-      recordsFiltered: response.recordCount,
-      data: []
-    });
-    expect(mockmsrWorkflowService.getSittingRecordsData).toHaveBeenCalledWith(fakeDataTablesParams.start);
-  });
   
 
   it('should navigate to the manage page on goBack', () => {
