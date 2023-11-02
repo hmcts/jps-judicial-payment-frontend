@@ -66,13 +66,6 @@ export class SubmitSittingRecordsComponent implements OnInit {
           }
         })
       },
-      preDrawCallback: function (settings) {
-        const api = new $.fn.dataTable.Api(settings);
-        const pagination = $(this)
-            .closest('.dataTables_wrapper')
-            .find('.dataTables_paginate');
-        pagination.toggle(api.page.info().pages > 1);
-      },
       drawCallback: 
         /* istanbul ignore next */  
         () => {

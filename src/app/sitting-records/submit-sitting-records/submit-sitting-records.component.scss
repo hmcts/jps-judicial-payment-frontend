@@ -12,9 +12,15 @@
 }
 
 .previous.disabled{
-    display: none !important;
+    opacity: 0.5; 
+}
+.previous.disabled:hover{
+    background: white;
 }
 
+.next.disabled:hover{
+    background: white;
+}
 .next.disabled{
-    display: none !important;
+    opacity: 0.5;
 }
