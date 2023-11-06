@@ -13,7 +13,7 @@ nodejs:
     NOW: false
     DEBUG: xuiNode:*
 
-    DUMMY_VALUE: 1
+    DUMMY_VALUE: 123
     # Services Idam
     SERVICES_IDAM_API_URL: https://idam-api.{{ .Values.global.environment }}.platform.hmcts.net
     SERVICES_IDAM_CLIENT_ID: jps_judicial_payment_frontend
