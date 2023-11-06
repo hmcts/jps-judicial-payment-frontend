@@ -13,7 +13,6 @@ nodejs:
     NOW: false
     DEBUG: xuiNode:*
 
-    
     DUMMY_VALUE: 1
     # Services Idam
     SERVICES_IDAM_API_URL: https://idam-api.{{ .Values.global.environment }}.platform.hmcts.net
@@ -31,6 +30,7 @@ nodejs:
     SERVICES_JPS_API_URL: http://jps-judicial-payment-service-{{ .Values.global.environment }}.service.core-compute-{{ .Values.global.environment }}.internal
     #REDIS
     REDIS_ENABLED: true
+    
     #OIDC Flag
     OIDC_ENABLED: true
 
