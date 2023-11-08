@@ -1,5 +1,7 @@
-import { FormControl, FormGroup } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ManageSittingRecord } from './sitting-records-form-validator';
+import { TestBed } from '@angular/core/testing';
+import { Component } from '@angular/core';
 
 describe('ManageSittingRecord', () => {
 
@@ -49,6 +51,74 @@ describe('ManageSittingRecord', () => {
             expect(ManageSittingRecord.validateDateFormat(control)).toEqual(null)
         })
 
+    });
+
+    describe('dateLessThan', () => {
+        let formGroup: FormGroup;
+
+        beforeEach(() => {
+            TestBed.configureTestingModule({
+                imports: [ReactiveFormsModule],
+            });
+
+            // Initialize a form group structure matching the validator requirements
+            formGroup = new FormGroup({
+                startDateField: new FormGroup({
+                    dateYear: new FormControl(),
+                    dateMonth: new FormControl(),
+                    dateDay: new FormControl(),
+                }),
+                endDateField: new FormGroup({
+                    dateYear: new FormControl(),
+                    dateMonth: new FormControl(),
+                    dateDay: new FormControl(),
+                }),
+            });
+        });
+
+        function setDate(formGroup: AbstractControl, fieldName: string, year: string, month: number, day: number) {
+            const group = formGroup.get(fieldName) as FormGroup;
+            group.get('dateYear')?.setValue(year);
+            group.get('dateMonth')?.setValue(month);
+            group.get('dateDay')?.setValue(day);
+        }
+
+        it('should validate that the end date is after the start date', () => {
+            setDate(formGroup, 'startDateField', '2023', 5, 20);
+            setDate(formGroup, 'endDateField', '2023', 5, 21);
+
+            const validatorFn = ManageSittingRecord.dateLessThan('startDateField', 'endDateField');
+            const result = validatorFn(formGroup);
+
+            expect(result).toBeNull(); 
+        });
+
+        it('should invalidate when the start date is after the end date', () => {
+            setDate(formGroup, 'startDateField', '2023', 5, 22);
+            setDate(formGroup, 'endDateField', '2023', 5, 21);
+
+            const validatorFn = ManageSittingRecord.dateLessThan('startDateField', 'endDateField');
+            const result = validatorFn(formGroup);
+
+            expect(result).toEqual({ dateLessThan: true });
+        });
+
+        it('should invalidate if the dates are not properly formatted', () => {
+            setDate(formGroup, 'startDateField', '23', 5, 20); 
+            setDate(formGroup, 'endDateField', '2023', 5, 21);
+
+            const validatorFn = ManageSittingRecord.dateLessThan('startDateField', 'endDateField');
+            const result = validatorFn(formGroup);
+
+            expect(result).toBeNull(); 
+        });
+
+        it('should return null if the dates are not set', () => {
+            const validatorFn = ManageSittingRecord.dateLessThan('startDateField', 'endDateField');
+            const result = validatorFn(formGroup);
+
+            expect(result).toBeNull(); 
+        });
     });
 
 })
