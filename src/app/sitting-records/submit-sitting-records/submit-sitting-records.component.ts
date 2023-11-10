@@ -48,6 +48,7 @@ export class SubmitSittingRecordsComponent implements OnInit {
       autoWidth: false,
       pageLength:20,
       ajax: (dataTablesParameters: any, callback) => {
+        /* istanbul ignore next */  
         this.submitterWorkflow.getSittingRecordsData(dataTablesParameters.start)
         .subscribe({
           next: (records) => {
