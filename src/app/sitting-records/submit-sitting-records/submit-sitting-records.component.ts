@@ -4,6 +4,7 @@ import { DateService } from '../../_services/date-service/date-service';
 import { Router } from '@angular/router';
 import { defaultDtOptions }  from '../../_services/default-dt-options'
 import { SittingRecord } from '../../_models/viewSittingRecords.model';
+
 @Component({
   selector: 'app-submit-sitting-records',
   encapsulation: ViewEncapsulation.None,
@@ -48,28 +49,9 @@ export class SubmitSittingRecordsComponent implements OnInit {
       autoWidth: false,
       pageLength:20,
       ajax: (dataTablesParameters: any, callback) => {
-        /* istanbul ignore next */  
-        this.submitterWorkflow.getSittingRecordsData(dataTablesParameters.start)
-        .subscribe({
-          next: (records) => {
-            this.apiError = false
-            this.sittingRecordData = records.sittingRecords;
-            this.recordCount = records.recordCount;
-            callback({
-              recordsTotal: records.recordCount,
-              recordsFiltered: records.recordCount,
-              data: []
-            });
-          },
-          error: () => {
-            this.apiError = true
-            this.recordCount = 0;
-          }
-        })
+        this.loadSittingRecordsData(dataTablesParameters.start, callback);
       },
-      drawCallback: 
-        /* istanbul ignore next */  
-        () => {
+      drawCallback: () => {
         /* istanbul ignore next */
         document
           .querySelectorAll(`#submitRecordViewTable_info`)
@@ -78,16 +60,33 @@ export class SubmitSittingRecordsComponent implements OnInit {
           .querySelector(`#submitRecordViewTable_paginate`)?.classList.add('blue-text', 'govuk-pagination')
         document
           .querySelector(`#submitRecordViewTable_previous`)?.classList.add('blue-text', 'govuk-pagination__prev')
-          document
+        document
           .querySelector(`#submitRecordViewTable_next`)?.classList.add('blue-text', 'govuk-pagination__next')
-
       }
     };
-
   } 
+
+  loadSittingRecordsData(start: number, callback: any) {
+    this.submitterWorkflow.getSittingRecordsData(start)
+      .subscribe({
+        next: (records) => {
+          this.apiError = false
+          this.sittingRecordData = records.sittingRecords;
+          this.recordCount = records.recordCount;
+          callback({
+            recordsTotal: records.recordCount,
+            recordsFiltered: records.recordCount,
+            data: []
+          });
+        },
+        error: () => {
+          this.apiError = true
+          this.recordCount = 0;
+        }
+      });
+  }
 
   goBack(){
     void this.router.navigate(['sittingRecords','home'])
   }
-
 }

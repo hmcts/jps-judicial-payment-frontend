@@ -57,26 +57,9 @@ export class ViewSittingRecordsComponent implements OnInit{
       pageLength:10,
       paging: true,
         /* istanbul ignore next */ 
-      ajax: (dataTablesParameters: any, callback) => {
-        /* istanbul ignore next */ 
-        this.srWorkFlow.getSittingRecordsData(dataTablesParameters.start)
-        .subscribe({
-          next: (records) => {
-            this.sittingRecordData = records.sittingRecords;
-            this.recordCount = records.recordCount;
-            callback({
-              recordsTotal: records.recordCount,
-              recordsFiltered: records.recordCount,
-              data: []
-            });
-          },
-          error: (err) => {
-            this.apiError = true
-            this.dtOptions.ordering = false
-            this.recordCount = 0;
-          }
-        })
-      },
+        ajax: (dataTablesParameters, callback) => {
+          this.loadSittingRecordsData(dataTablesParameters, callback);
+        },
       drawCallback: 
         /* istanbul ignore next */ 
         () => {
@@ -95,6 +78,32 @@ export class ViewSittingRecordsComponent implements OnInit{
     };
 
   } 
+
+  loadSittingRecordsData(dataTablesParameters, callback): void {
+    this.srWorkFlow.getSittingRecordsData(dataTablesParameters.start)
+      .subscribe({
+        next: (records) => {
+          this.sittingRecordData = records.sittingRecords;
+          this.recordCount = records.recordCount;
+          callback({
+            recordsTotal: records.recordCount,
+            recordsFiltered: records.recordCount,
+            data: []
+          });
+        },
+        error: (err) => {
+          this.apiError = true;
+          this.dtOptions.ordering = false;
+          this.recordCount = 0;
+          callback({
+            recordsTotal: 0,
+            recordsFiltered: 0,
+            data: []
+          });
+        }
+      });
+  }
+  
 
   navigateDeleteSittingRecord(sittingRecord){
     this.msrWorkFlow.setSittingRecordToDelete(sittingRecord);

@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { DataTablesModule } from 'angular-datatables';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ViewSittingRecordResponse } from '../../_models/viewSittingRecords.model';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { SittingRecordsInfoBannerComponent } from '../sitting-records-info-banner/sitting-records-info-banner.component';
 
@@ -88,6 +88,48 @@ describe('ViewSittingRecordsComponent', () => {
     component.addNewRecord()
     expect(mockRouter.navigate).toHaveBeenCalledWith(['sittingRecords','add'])
   })
+
+  it('should make an AJAX call and update component properties on success', () => {
+    const mockDataTablesParameters = { start: 0 }; 
+    const mockCallback = jasmine.createSpy();
+    const response: ViewSittingRecordResponse = {
+      "recordCount": 0,
+      "sittingRecords": []
+    };
+
+    spyOn(mockmsrWorkflowService, 'getSittingRecordsData').and.returnValue(of(response));
+
+    component.loadSittingRecordsData(mockDataTablesParameters, mockCallback);
+
+    expect(mockmsrWorkflowService.getSittingRecordsData).toHaveBeenCalledWith(mockDataTablesParameters.start);
+    expect(component.sittingRecordData).toEqual(response.sittingRecords);
+    expect(component.recordCount).toEqual(response.recordCount);
+    expect(mockCallback).toHaveBeenCalledWith({
+      recordsTotal: response.recordCount,
+      recordsFiltered: response.recordCount,
+      data: []
+    });
+  });
+
+  it('should handle errors correctly', () => {
+    const mockDataTablesParameters = { start: 0 }; 
+    const mockCallback = jasmine.createSpy();
+
+    spyOn(mockmsrWorkflowService, 'getSittingRecordsData').and.returnValue(throwError(() => new Error('Error')));
+
+    component.loadSittingRecordsData(mockDataTablesParameters, mockCallback);
+
+    expect(mockmsrWorkflowService.getSittingRecordsData).toHaveBeenCalledWith(mockDataTablesParameters.start);
+    expect(component.apiError).toBeTrue();
+    expect(component.dtOptions.ordering).toBeFalse();
+    expect(component.recordCount).toEqual(0);
+    expect(mockCallback).toHaveBeenCalledWith({
+      recordsTotal: 0,
+      recordsFiltered: 0,
+      data: []
+    });
+  });
+
 
 });
 

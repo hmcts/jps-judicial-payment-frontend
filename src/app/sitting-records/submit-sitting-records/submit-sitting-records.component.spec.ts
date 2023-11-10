@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { DataTablesModule } from 'angular-datatables';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { ViewSittingRecordResponse } from '../../_models/viewSittingRecords.model';
 import { DateService } from '../../_services/date-service/date-service';
 import { SubmitterWorkflowService } from '../../_workflows/submitter-workflow.service';
@@ -67,4 +67,35 @@ describe('SubmitSittingRecordsComponent', () => {
     expect(mockRouter.navigate).toHaveBeenCalledWith(['sittingRecords','home']);
   });
 
+  it('should correctly load sitting records data', () => {
+    const mockResponse: ViewSittingRecordResponse = {
+      sittingRecords: [],
+      recordCount: 0
+    };
+
+    spyOn(mockWorkflowService, 'getSittingRecordsData').and.returnValue(of(mockResponse));
+    const callback = jasmine.createSpy("callback");
+
+    component.loadSittingRecordsData(0, callback);
+    
+    expect(component.apiError).toBeFalse();
+    expect(component.sittingRecordData).toEqual(mockResponse.sittingRecords);
+    expect(component.recordCount).toBe(mockResponse.recordCount);
+    expect(callback).toHaveBeenCalledWith({
+      recordsTotal: mockResponse.recordCount,
+      recordsFiltered: mockResponse.recordCount,
+      data: []
+    });
+  });
+
+  it('should handle error on loading sitting records data', () => {
+    spyOn(mockWorkflowService, 'getSittingRecordsData').and.returnValue(throwError(() => new Error('Error')));
+    const callback = jasmine.createSpy("callback");
+
+    component.loadSittingRecordsData(0, callback);
+
+    expect(component.apiError).toBeTrue();
+    expect(component.recordCount).toBe(0);
+  });
+  
 });
