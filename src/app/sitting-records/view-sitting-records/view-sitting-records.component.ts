@@ -44,12 +44,18 @@ export class ViewSittingRecordsComponent implements OnInit{
     this.tribService = tribunalService.service;
     this.venueSiteName = venue.court_name;
     this.date = this.dateSvc.formatDateFromForm(dateSelected);
+    $.fn.dataTable.ext.classes.sPageButton = 'govuk-pagination__item blue-paingation-text';
+    $.fn.dataTable.ext.classes.sPageButtonActive = 'govuk-pagination__item activePagination';
 
     this.dtOptions = {
       ...defaultDtOptions,
       columnDefs:[
         { targets: [5], orderable: false },
       ],
+      serverSide: true,
+      autoWidth:false,
+      pageLength:10,
+      paging: true,
         /* istanbul ignore next */ 
       ajax: (dataTablesParameters: any, callback) => {
         /* istanbul ignore next */ 
@@ -78,10 +84,12 @@ export class ViewSittingRecordsComponent implements OnInit{
         document
           .querySelectorAll(`#sittingRecordViewTable_info`)
           .forEach((elem) => elem.classList.add('govuk-body'))
-
         document
-          .querySelectorAll(`#sittingRecordViewTable_paginate`)
-          .forEach((elem) => elem.classList.add('govuk-body'))
+          .querySelector(`#sittingRecordViewTable_paginate`)?.classList.add('blue-paingation-text', 'govuk-pagination')
+        document
+          .querySelector(`#sittingRecordViewTable_previous`)?.classList.add('blue-pagination-text', 'govuk-pagination__prev')
+        document
+          .querySelector(`#sittingRecordViewTable_next`)?.classList.add('blue-pagination-text', 'govuk-pagination__next')
 
       }
     };

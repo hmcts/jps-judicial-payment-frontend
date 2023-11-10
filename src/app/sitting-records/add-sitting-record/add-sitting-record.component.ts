@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { RecorderWorkflowService } from '../../_workflows/recorder-workflow.service';
-import { DateService } from '../../_services/date-service/date-service';
 import { Router } from '@angular/router';
 import {
   FormGroup,
@@ -8,7 +7,6 @@ import {
   FormArray,
   FormControl,
 } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
 import { catchError, debounceTime, filter, mergeMap, tap } from 'rxjs/operators';
 import { UserService } from '../../_services/user-service/user.service'
 import { UserModel } from '../../_models/user.model';
@@ -203,15 +201,27 @@ export class AddSittingRecordComponent implements OnInit, OnDestroy {
    * @memberof AddSittingRecordComponent
    */
   removeJoh(index: number) {
-    this.johFormArray.removeAt(index)
-    this.subscriptions[index].unsubscribe();
+    if (this.subscriptions[index]) {
+      this.subscriptions[index].unsubscribe();
+      this.subscriptions.splice(index, 1); 
+    }  
+    this.johFormArray.removeAt(index);
+    this.userRoleList.splice(index, 1);
+    this.userPersonalCode.splice(index, 1);
+    this.searchTerm.splice(index, 1);
+    this.usersFound.splice(index, 1);
+    for (let i = index; i < this.johFormArray.length; i++) {
+      if (this.subscriptions[i]) {
+        this.subscriptions[i].unsubscribe();
+      }
+      this.createValueChangesListener(i);
+    }
+    this.changeDetector.markForCheck();
   }
 
   constructor(
     public recorderWorkFlow: RecorderWorkflowService,
-    private dateSvc: DateService,
     public router: Router,
-    private http: HttpClient,
     private userSvc: UserService,
     private changeDetector: ChangeDetectorRef
   ) {

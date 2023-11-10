@@ -1,5 +1,4 @@
 export const defaultDtOptions = {
-    autoWidth: false,
     searching: false,
     lengthChange: false,
     paging: false,

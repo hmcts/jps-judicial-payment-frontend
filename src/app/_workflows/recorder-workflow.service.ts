@@ -73,11 +73,12 @@ export class RecorderWorkflowService {
     const { dateSelected, venue, tribunalService } = this.formData.value;
     const hmctsServiceCode = tribunalService.hmctsServiceCode;
     const dateToGet = this.dateSvc.formatDateForPost(dateSelected);
-    postObj.epimmsId = venue.epimms_id;
+    postObj.epimmsId = venue.epimms_id; 
     postObj.regionId = venue.region_id;
     postObj.dateRangeFrom = dateToGet;
     postObj.dateRangeTo = dateToGet;
     postObj.dateOrder = "ASCENDING";
+    postObj.offset = offset
 
     //TODO: add logic below to add in filter functionality
     return this.ViewSittingRecordService.postObject(postObj, hmctsServiceCode);

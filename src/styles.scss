@@ -20,5 +20,5 @@ input::-webkit-contacts-auto-fill-button {
     right: 0;
 }
 .white-text{ color: govuk-colour("white"); }
-.blue-text { color: govuk-colour("blue"); }  
+.blue-text { color: govuk-colour("blue") !important; }  
 .dataTables_empty{display: none;}
