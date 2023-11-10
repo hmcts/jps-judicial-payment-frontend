@@ -4,7 +4,6 @@ import { DateService } from '../../_services/date-service/date-service';
 import { Router } from '@angular/router';
 import { defaultDtOptions }  from '../../_services/default-dt-options'
 import { SittingRecord } from '../../_models/viewSittingRecords.model';
-import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-view-sitting-records',
@@ -12,6 +11,8 @@ import { Subject } from 'rxjs';
   styleUrls: ['./view-sitting-records.component.scss']
 })
 export class ViewSittingRecordsComponent implements OnInit{
+  recordCount: number | undefined;
+  apiError: boolean | undefined;
 
   constructor(
     private msrWorkFlow: RecorderWorkflowService,
@@ -25,7 +26,6 @@ export class ViewSittingRecordsComponent implements OnInit{
   date = "";
 
   dtOptions: DataTables.Settings = {};
-  dtTrigger: Subject<any> = new Subject<any>();
   sittingRecordData: SittingRecord[] = [];
 
   showFilters = false;
@@ -44,13 +44,39 @@ export class ViewSittingRecordsComponent implements OnInit{
     this.tribService = tribunalService.service;
     this.venueSiteName = venue.court_name;
     this.date = this.dateSvc.formatDateFromForm(dateSelected);
+    $.fn.dataTable.ext.classes.sPageButton = 'govuk-pagination__item blue-paingation-text';
+    $.fn.dataTable.ext.classes.sPageButtonActive = 'govuk-pagination__item activePagination';
 
     this.dtOptions = {
       ...defaultDtOptions,
       columnDefs:[
         { targets: [5], orderable: false },
       ],
-      
+      serverSide: true,
+      autoWidth:false,
+      pageLength:10,
+      paging: true,
+        /* istanbul ignore next */ 
+      ajax: (dataTablesParameters: any, callback) => {
+        /* istanbul ignore next */ 
+        this.srWorkFlow.getSittingRecordsData(dataTablesParameters.start)
+        .subscribe({
+          next: (records) => {
+            this.sittingRecordData = records.sittingRecords;
+            this.recordCount = records.recordCount;
+            callback({
+              recordsTotal: records.recordCount,
+              recordsFiltered: records.recordCount,
+              data: []
+            });
+          },
+          error: (err) => {
+            this.apiError = true
+            this.dtOptions.ordering = false
+            this.recordCount = 0;
+          }
+        })
+      },
       drawCallback: 
         /* istanbul ignore next */ 
         () => {
@@ -58,30 +84,17 @@ export class ViewSittingRecordsComponent implements OnInit{
         document
           .querySelectorAll(`#sittingRecordViewTable_info`)
           .forEach((elem) => elem.classList.add('govuk-body'))
-
         document
-          .querySelectorAll(`#sittingRecordViewTable_paginate`)
-          .forEach((elem) => elem.classList.add('govuk-body'))
+          .querySelector(`#sittingRecordViewTable_paginate`)?.classList.add('blue-paingation-text', 'govuk-pagination')
+        document
+          .querySelector(`#sittingRecordViewTable_previous`)?.classList.add('blue-pagination-text', 'govuk-pagination__prev')
+        document
+          .querySelector(`#sittingRecordViewTable_next`)?.classList.add('blue-pagination-text', 'govuk-pagination__next')
 
       }
     };
 
-    this.loadViewSittingRecords();
   } 
-
-  loadViewSittingRecords() {
-    this.msrWorkFlow.getSittingRecordsData().subscribe(
-      records => {
-        this.sittingRecordData = records.sittingRecords;
-        this.dtTrigger.next(null); 
-      },
-      () => {
-        this.sittingRecordData = []
-        this.dtTrigger.next(null);
-      }
-    );
-    
-  }
 
   navigateDeleteSittingRecord(sittingRecord){
     this.msrWorkFlow.setSittingRecordToDelete(sittingRecord);

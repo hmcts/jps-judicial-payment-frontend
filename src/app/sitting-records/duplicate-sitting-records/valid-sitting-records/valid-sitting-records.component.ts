@@ -35,7 +35,6 @@ export class ValidSittingRecordsComponent implements OnInit {
 
   filterRecords() {
       this.validRecords = this.dupeRecordWorkflow.matchValidRecords(this.recordData, this.recorderWorkFlow.getAddSittingRecords());
-      console.log(this.validRecords)
   }
 
   ngOnInit(){

@@ -1,1 +1,26 @@
+@import 'node_modules/govuk-frontend/govuk/all.scss';
+
 .no-data-available{ text-align: center; }
+.activePagination{
+    color: $govuk-link-visited-colour !important;
+    font-weight: 700;
+    text-decoration: none !important;
+}
+.blue-text{
+    color: $govuk-link-colour;
+    text-decoration: underline;
+}
+
+.previous.disabled{
+    opacity: 0.5; 
+}
+.previous.disabled:hover{
+    background: white;
+}
+
+.next.disabled:hover{
+    background: white;
+}
+.next.disabled{
+    opacity: 0.5;
+}

@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, flush } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ViewSittingRecordsComponent } from './view-sitting-records.component';
 import { RecorderWorkflowService } from '../../_workflows/recorder-workflow.service';
@@ -46,6 +46,7 @@ describe('ViewSittingRecordsComponent', () => {
       venue: { court_name: 'Venue 1' }
     });
     const response: ViewSittingRecordResponse = {
+      "recordCount": 1,
       "sittingRecords": []
     }
 
@@ -53,15 +54,20 @@ describe('ViewSittingRecordsComponent', () => {
     fixture.detectChanges();
     spyOn(mockDateSvc, 'formatDateFromForm').and.returnValue(formattedDate);
     spyOn(mockmsrWorkflowService, 'getSittingRecordsData').and.returnValue(of(response));
+    spyOn(mockmsrWorkflowService, 'getFormData').and.returnValue(formDataMock)
     
     component.ngOnInit();
-    
+  
+    expect(mockmsrWorkflowService.getFormData).toHaveBeenCalled();
     expect(mockDateSvc.formatDateFromForm).toHaveBeenCalledWith(formDataMock.controls['dateSelected'].value);
     expect(component.tribService).toBe(formDataMock.controls['tribunalService'].value.service);
     expect(component.venueSiteName).toBe(formDataMock.controls['venue'].value.court_name);
     expect(component.date).toBe(formattedDate);
-    expect(component.sittingRecordData).toBe(response.sittingRecords);
+
+    expect(component.sittingRecordData).toEqual(response.sittingRecords);
+    
   });
+  
 
   it('should navigate to the manage page on goBack', () => {
     spyOn(mockRouter, 'navigate');
@@ -69,4 +75,41 @@ describe('ViewSittingRecordsComponent', () => {
     expect(mockRouter.navigate).toHaveBeenCalledWith(['sittingRecords','manage']);
   });
 
+  it('should navigate to sittingRecords/delete on navigateDeleteSittingRecord', () => {
+    spyOn(mockRouter, 'navigate')
+    spyOn(mockmsrWorkflowService, 'setSittingRecordToDelete')
+    component.navigateDeleteSittingRecord(mockRecord)
+    expect(mockmsrWorkflowService.setSittingRecordToDelete).toHaveBeenCalledWith(mockRecord)
+    expect(mockRouter.navigate).toHaveBeenCalledWith(['sittingRecords','delete'])
+  })
+
+  it('should navigate to sittingRecords/add on addNewRecord', () => {
+    spyOn(mockRouter, 'navigate')
+    component.addNewRecord()
+    expect(mockRouter.navigate).toHaveBeenCalledWith(['sittingRecords','add'])
+  })
+
 });
+
+const mockRecord ={  
+  sittingRecordId: 'string',
+  sittingDate: 'string',
+  statusId: 'string',
+  regionId: 'string',
+  regionName: 'string',
+  epimmsId: 'string',
+  hmctsServiceId: 'string',
+  personalCode: 'string',
+  personalName: 'string',
+  contractTypeId: 0,
+  judgeRoleTypeId: 'string',
+  am: true,
+  pm: false,
+  createdDateTime: 'string',
+  createdByUserId: 'string',
+  createdByUserName: 'string',
+  changedDateTime: 'string',
+  changedByUserId: 'string',
+  changedByUserName: 'string',
+  venueName: 'string',
+}
