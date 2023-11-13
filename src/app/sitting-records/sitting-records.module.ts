@@ -46,7 +46,8 @@ import { DuplicateExistingConfirmComponent } from './duplicate-sitting-records/d
 import { DuplicateConfirmSuccessComponent } from './duplicate-sitting-records/duplicate-confirm/duplicate-confirm-success/duplicate-confirm-success.component'
 
 import { SittingRecordsLandingManageRecordsPublisherComponent } from './sitting-records-landing/sitting-records-landing-manage-records-publisher/sitting-records-landing-manage-records-publisher.component'
-import { SittingRecordsLandingJohadminComponent } from './sitting-records-landing/sitting-records-landing-johadmin/sitting-records-landing-johadmin.component'
+import { SittingRecordsLandingJohadminComponent } from './sitting-records-landing/sitting-records-landing-johadmin/sitting-records-landing-johadmin.component';
+import { CompareSittingRecordsLandingComponent } from './sitting-records-landing/compare-sitting-records-landing/compare-sitting-records-landing.component'
 
 @NgModule({
   imports: [
@@ -97,7 +98,8 @@ import { SittingRecordsLandingJohadminComponent } from './sitting-records-landin
     SubmitSittingRecordsComponent,
     ConvertRoleIdToString,
     SittingRecordsLandingJohadminComponent,
-    UserSearchComponent
+    UserSearchComponent,
+    CompareSittingRecordsLandingComponent
   ]
 })
 export class SittingRecordsModule { }

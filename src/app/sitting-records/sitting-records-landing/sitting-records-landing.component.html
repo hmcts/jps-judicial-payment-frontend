@@ -45,6 +45,13 @@
                             View or manage judicial information
                         </label>
                     </div>
+                    <div *ngIf="showCompareSittingRecords" class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="option-6" name="options" type="radio" value="compareSittingRecords"
+                            formControlName="options">
+                        <label class="govuk-label govuk-radios__label" for="option-6">
+                            Compare sitting records against planned sessions
+                        </label>
+                    </div>
 
                 </div>
             </fieldset>
@@ -58,9 +65,13 @@
         <div *ngIf="!hideManageRecordsJohAdmin" class="govuk-inset-text">
             <app-sitting-records-landing-johadmin (johAdminFormValid)="handleFormValidChange($event)"></app-sitting-records-landing-johadmin>
         </div>
+        <div *ngIf="!hideCompareSittingRecords" class="govuk-inset-text">
+            <app-compare-sitting-records-landing (compareRecordFormValid)="handleFormValidChange($event)"></app-compare-sitting-records-landing>
+        </div>
 
         <div class="govuk-button-group">
-            <button type="submit" class="govuk-button" data-module="govuk-button" [disabled]="(!hideManageRecordsSubmitter && !submitterFormValid) || (!hideManageRecordsPublisher && !publisherFormValid) || (!hideManageRecordsJohAdmin && !johAdminFormValid)">
+            <button type="submit" class="govuk-button" data-module="govuk-button" 
+            [disabled]="(!hideManageRecordsSubmitter && !submitterFormValid) || (!hideManageRecordsPublisher && !publisherFormValid) || (!hideManageRecordsJohAdmin && !johAdminFormValid) || (!hideCompareSittingRecords && !compareFormValid)">
                 Continue
             </button>
         </div>

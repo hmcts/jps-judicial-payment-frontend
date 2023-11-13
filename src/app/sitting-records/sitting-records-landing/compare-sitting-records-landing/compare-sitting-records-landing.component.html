@@ -1,0 +1,10 @@
+<div [formGroup]="compareRecordForm">
+    <app-tribunal-service></app-tribunal-service>
+    <app-region></app-region>
+    <div [class.govuk-form-group--error]="compareRecordForm.hasError('dateLessThan')">
+        <div *ngIf="compareRecordForm.hasError('dateLessThan')" class="govuk-error-message">Start and end dates incompatible.</div>
+        <app-sitting-date dateHeaderText="Start date" [formName]="'startDate'"> </app-sitting-date>
+        <app-sitting-date dateHeaderText="End date" [formName]="'endDate'"> </app-sitting-date>
+    </div>
+    
+</div>

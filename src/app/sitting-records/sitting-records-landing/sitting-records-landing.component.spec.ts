@@ -8,18 +8,20 @@ import { CookieService } from 'ngx-cookie-service';
 import { SubmitterWorkflowService } from '../../_workflows/submitter-workflow.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Router } from '@angular/router';
+import { PublisherWorkflowService } from 'src/app/_workflows/publisher-workflow.service';
 
 describe('SittingRecordsLandingComponent', () => {
   let component: SittingRecordsLandingComponent;
   let fixture: ComponentFixture<SittingRecordsLandingComponent>;
   let cookieService: CookieService;
   let router: Router;
+  let pbWorkflow: PublisherWorkflowService
   
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ RouterTestingModule, HttpClientTestingModule, ReactiveFormsModule],
       declarations: [ SittingRecordsLandingComponent ],
-      providers: [ SubmitterWorkflowService,
+      providers: [ SubmitterWorkflowService, PublisherWorkflowService,
         { provide: CookieService }
       ]
     }).compileComponents();
@@ -30,7 +32,7 @@ describe('SittingRecordsLandingComponent', () => {
     component = fixture.componentInstance;
     cookieService = TestBed.inject(CookieService);
     router = TestBed.inject(Router);
-
+    pbWorkflow = TestBed.inject(PublisherWorkflowService)
     fixture.detectChanges();
   });
 
@@ -58,6 +60,16 @@ describe('SittingRecordsLandingComponent', () => {
       component.handleFormValidChange([false, 'publisher']);
       expect(component.publisherFormValid).toBeFalse();
     });
+
+    it('should set johFormValid to true when called with true', () => {
+      component.handleFormValidChange([true, 'johAdmin'])
+      expect(component.johAdminFormValid).toBeTrue()
+    })
+
+    it('should set compareRecords to true when called with true', () => {
+      component.handleFormValidChange([true, 'compareRecords'])
+      expect(component.compareFormValid).toBeTrue()
+    })
   });
 
   describe('ngOnInit', () => {
@@ -90,6 +102,26 @@ describe('SittingRecordsLandingComponent', () => {
         .toHaveBeenCalledWith(['sittingRecords', 'submit']);
     });
     
+
+    it('should navigate to publish page for publisher', () => {
+      component.userRole = 'jps-publisher';
+      component.userForm.controls['options'].setValue('publishRecords');
+      spyOn(pbWorkflow, 'setFormData')
+
+      component.submitForm()
+      expect(pbWorkflow.setFormData).toHaveBeenCalled()
+    });
+
+    it('should navigate to compareRecords page for submitter', () => {
+      component.userRole = 'jps-submitter';
+      component.userForm.controls['options'].setValue('compareSittingRecords');
+      spyOn(router, 'navigate');
+
+      component.submitForm()
+      expect(router.navigate)
+        .toHaveBeenCalledWith([]);
+    });
+    
     
   });
 
@@ -112,6 +144,7 @@ describe('SittingRecordsLandingComponent', () => {
       component.configureUserRoleSettings();
       expect(component.showFindAddDeleteSittingRecordsOption).toBeTrue();
       expect(component.showSubmitSittingRecordsOption).toBeTrue();
+      expect(component.showCompareSittingRecords).toBeTrue()
   
       // Test for other roles
       component.userRole = 'other-role';
