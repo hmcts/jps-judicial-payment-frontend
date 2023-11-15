@@ -20,6 +20,8 @@ import { AuthGuard } from '../_guards/auth/auth.guard';
 import { DuplicateConfirmComponent } from './duplicate-sitting-records/duplicate-confirm/duplicate-option-confirm/duplicate-confirm.component';
 import { DuplicateExistingConfirmComponent } from './duplicate-sitting-records/duplicate-confirm/duplicate-existing-confirm/duplicate-existing-confirm.component'
 import { DuplicateConfirmSuccessComponent } from './duplicate-sitting-records/duplicate-confirm/duplicate-confirm-success/duplicate-confirm-success.component';
+import { CompareRecordsComponent } from './compare-records/compare-records.component';
+import { CompareRecordGuard } from '../_guards/sitting-records/compare-records.guard';
 
 const routes: Routes = [
     {
@@ -91,6 +93,11 @@ const routes: Routes = [
             path: 'confirmDupeSuccess',
             component: DuplicateConfirmSuccessComponent,
             canActivate: [SittingRecordsViewGuard]
+          },
+          {
+            path: 'compare',
+            component: CompareRecordsComponent,
+            canActivate: [CompareRecordGuard]
           }
         ]
     }

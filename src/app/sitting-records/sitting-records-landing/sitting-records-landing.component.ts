@@ -1,10 +1,14 @@
-import { OnInit, Component } from '@angular/core';
+
+
+import { OnInit, Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { SubmitterWorkflowService } from '../../_workflows/submitter-workflow.service';
 import { PublisherWorkflowService } from '../../_workflows/publisher-workflow.service';
 import { AdminWorkflowService } from '../../_workflows/admin-workflow.service';
+import { Subject, takeUntil } from 'rxjs';
+import { CompareRecordsWorkflowService } from 'src/app/_workflows/compare-record-workflow.service';
 
 enum Options {
   SubmitToFinance = 'submitToFinance',
@@ -17,12 +21,15 @@ enum Options {
   styleUrls: ['./sitting-records-landing.component.scss']
 })
 
-export class SittingRecordsLandingComponent implements OnInit {
+export class SittingRecordsLandingComponent implements OnInit, OnDestroy {
+
+  private destroy$: Subject<void> = new Subject();
 
   userForm!: FormGroup;
   hideManageRecordsSubmitter = true;
   hideManageRecordsPublisher = true;
   hideManageRecordsJohAdmin = true;
+  hideCompareSittingRecords = true;
 
   showSubmitSittingRecordsOption = false;
   showFindAddDeleteSittingRecordsOption = false;
@@ -30,6 +37,7 @@ export class SittingRecordsLandingComponent implements OnInit {
   showCreatePayrollFilePublishSittingRecordsOption = false;
   showHeadingForPublisher = false;
   showViewOrManageJudicialInfo = false;
+  showCompareSittingRecords = false;
 
   manageRecordsSubmitter!: FormGroup | undefined;
   manageRecordsPublisher!: FormGroup | undefined;
@@ -38,11 +46,12 @@ export class SittingRecordsLandingComponent implements OnInit {
   publisherFormValid = false;
   submitterFormValid = false;
   johAdminFormValid = false;
+  compareFormValid = false;
 
   submitterFormValues;
   publisherFormValues;
   johAdminFormValues;
-
+  compareFormValues;
 
   options = Options;
 
@@ -53,7 +62,8 @@ export class SittingRecordsLandingComponent implements OnInit {
     private formBuilder: FormBuilder,
     private submitterWorkflow : SubmitterWorkflowService,
     private publisherWorkflow : PublisherWorkflowService,
-    private adminWorkflow: AdminWorkflowService
+    private adminWorkflow: AdminWorkflowService,
+    private comparisonWorkflow: CompareRecordsWorkflowService
 
   ){
       this.userForm = this.formBuilder.group(
@@ -78,9 +88,13 @@ export class SittingRecordsLandingComponent implements OnInit {
     else if (isValid[1] == 'johAdmin'){
       this.johAdminFormValid = isValid[0];
     }
+    else if (isValid[1] == 'compareRecords'){
+      this.compareFormValid = isValid[0]
+    }
   }
 
   handleFormValues(value){
+    console.log(value)
     if(value[1] === 'submitter'){
       this.submitterFormValues = value[0];
     }
@@ -89,6 +103,9 @@ export class SittingRecordsLandingComponent implements OnInit {
     }
     else if(value[1] === 'johAdmin'){
       this.johAdminFormValues = value[0];
+    }
+    else if(value[1] === 'compareRecords'){
+      this.compareFormValues = value[0]
     }
   }
 
@@ -106,6 +123,7 @@ export class SittingRecordsLandingComponent implements OnInit {
     } else if (this.userRole.includes('jps-submitter')) {
       this.showFindAddDeleteSittingRecordsOption = true;
       this.showSubmitSittingRecordsOption = true;
+      this.showCompareSittingRecords = true;
     } else {
       this.showFindAddDeleteSittingRecordsOption = true;
     }
@@ -125,14 +143,16 @@ export class SittingRecordsLandingComponent implements OnInit {
   }
   
   private subscribeToUserFormChanges() {
-    this.userForm.controls['options'].valueChanges.subscribe(optionValue => {
+    this.userForm.controls['options'].valueChanges
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(optionValue => {
       this.hideManageRecordsSubmitter = optionValue !== 'submitToFinance';
       this.hideManageRecordsPublisher = optionValue !== 'publishRecords';
       this.hideManageRecordsJohAdmin = optionValue !== 'viewManageJudicialInfo';
+      this.hideCompareSittingRecords = optionValue !== 'compareSittingRecords';
     });
   }
   
-
   submitForm() {
     
     const optionValue = this.userForm.controls["options"].value;
@@ -144,6 +164,7 @@ export class SittingRecordsLandingComponent implements OnInit {
     if (isSubmitter) {
       workflows['manageSittingRecords'] = this.submitterWorkflow;
       workflows['submitToFinance'] = this.submitterWorkflow;
+      workflows['compareSittingRecords'] = this.comparisonWorkflow;
     }
     
     if (isAdmin) {
@@ -153,29 +174,35 @@ export class SittingRecordsLandingComponent implements OnInit {
     workflows['publishRecords'] = this.publisherWorkflow;
   
     const selectedWorkflow = workflows[optionValue];
-  
+    console.log(selectedWorkflow)
     if (selectedWorkflow) {
       selectedWorkflow.setUserLandingData(this.userForm);
       selectedWorkflow.setLandingVisited();
-      
-      if (optionValue === 'submitToFinance') {
-        selectedWorkflow.setFormData(this.submitterFormValues);
-        void this.router.navigate(['sittingRecords', 'submit']);
-
-      }
-  
-      if (optionValue === 'publishRecords') {
-        selectedWorkflow.setFormData(this.publisherFormValues);
-      }
-  
-      if (optionValue === 'manageSittingRecords') {
-        void this.router.navigate(['sittingRecords', 'manage']);
-      }
-
-      if (optionValue === 'viewManageJudicialInfo'){
-        selectedWorkflow.setFormData(this.johAdminFormValues)
+      switch (optionValue) {
+        case 'submitToFinance':
+          selectedWorkflow.setFormData(this.submitterFormValues);
+          void this.router.navigate(['sittingRecords', 'submit']);
+          break;
+        case 'publishRecords':
+          selectedWorkflow.setFormData(this.publisherFormValues);
+          break;
+        case 'manageSittingRecords':
+          void this.router.navigate(['sittingRecords', 'manage']);
+          break;
+        case 'viewManageJudicialInfo':
+          selectedWorkflow.setFormData(this.johAdminFormValues);
+          break;
+        case 'compareSittingRecords':
+          selectedWorkflow.setFormData(this.compareFormValues)
+          void this.router.navigate(['sittingRecords', 'compare']);
+          break;
       }
     }
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
   
 }

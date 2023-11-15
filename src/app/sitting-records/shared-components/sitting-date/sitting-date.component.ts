@@ -9,6 +9,7 @@ import { AbstractControl, FormGroupDirective } from '@angular/forms';
 export class SittingDateComponent {
 
   @Input() dateHeaderText;
+  @Input() formName = 'dateSelected';
 
   constructor(public parentFormGroup: FormGroupDirective) { }
 

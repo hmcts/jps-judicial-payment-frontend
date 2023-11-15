@@ -1,17 +1,17 @@
 <ng-container [formGroup]="parentFormGroup.control">
     <div class="govuk-form-group"
-    [class.govuk-form-group--error]="f['dateSelected'].errors !== null && f['dateSelected'].dirty" formGroupName="dateSelected">
+    [class.govuk-form-group--error]="f[formName].errors !== null && f[formName].dirty" [formGroupName]="formName">
         <fieldset class="govuk-fieldset" role="group" aria-describedby="msr-date-hint">
             <legend class="govuk-fieldset__legend">
             {{dateHeaderText}}
             </legend>
-            <p id="msr-error-future" class="govuk-error-message" *ngIf="f['dateSelected'].hasError('date_after_today')">
+            <p id="msr-error-future" class="govuk-error-message" *ngIf="f[formName].hasError('date_after_today')">
             <span class="govuk-visually-hidden">Error:</span> The date you have selected is in the future
             </p>
-            <p id="msr-error-out-of-support" class="govuk-error-message" *ngIf="f['dateSelected'].hasError('date_out_of_support')">
+            <p id="msr-error-out-of-support" class="govuk-error-message" *ngIf="f[formName].hasError('date_out_of_support')">
             <span class="govuk-visually-hidden">Error:</span> The date you have selected is out of support
             </p>
-            <p id="msr-error-out-of-support" class="govuk-error-message" *ngIf="f['dateSelected'].hasError('date_invalid')">
+            <p id="msr-error-out-of-support" class="govuk-error-message" *ngIf="f[formName].hasError('date_invalid')">
             <span class="govuk-visually-hidden">Error:</span> Invalid date selected
             </p>
             <div class="govuk-date-input" id="msr-date">
@@ -27,7 +27,7 @@
                     type="text" 
                     inputmode="numeric"
                     formControlName="dateDay"
-                    [class.govuk-input--error] = "f['dateSelected'].errors !== null && f['dateSelected'].dirty" 
+                    [class.govuk-input--error] = "f[formName].errors !== null && f[formName].dirty" 
                     [maxlength]="2"
                     appNumbersOnly
                 >
@@ -45,7 +45,7 @@
                     type="text" i
                     nputmode="numeric"
                     formControlName="dateMonth"
-                    [class.govuk-input--error] = "f['dateSelected'].errors !== null && f['dateSelected'].dirty" 
+                    [class.govuk-input--error] = "f[formName].errors !== null && f[formName].dirty" 
                     [maxLength]="2"
                     appNumbersOnly
                 >
@@ -62,7 +62,7 @@
                     type="text" 
                     inputmode="numeric"
                     formControlName="dateYear"
-                    [class.govuk-input--error] = "f['dateSelected'].errors !== null && f['dateSelected'].dirty" 
+                    [class.govuk-input--error] = "f[formName].errors !== null && f[formName].dirty" 
                     [maxlength]="4"
                     [minlength]="4"
                     appNumbersOnly
