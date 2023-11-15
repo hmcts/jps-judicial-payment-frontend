@@ -8,6 +8,7 @@ import { SubmitterWorkflowService } from '../../_workflows/submitter-workflow.se
 import { PublisherWorkflowService } from '../../_workflows/publisher-workflow.service';
 import { AdminWorkflowService } from '../../_workflows/admin-workflow.service';
 import { Subject, takeUntil } from 'rxjs';
+import { CompareRecordsWorkflowService } from 'src/app/_workflows/compare-record-workflow.service';
 
 enum Options {
   SubmitToFinance = 'submitToFinance',
@@ -50,6 +51,7 @@ export class SittingRecordsLandingComponent implements OnInit, OnDestroy {
   submitterFormValues;
   publisherFormValues;
   johAdminFormValues;
+  compareFormValues;
 
   options = Options;
 
@@ -60,7 +62,8 @@ export class SittingRecordsLandingComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private submitterWorkflow : SubmitterWorkflowService,
     private publisherWorkflow : PublisherWorkflowService,
-    private adminWorkflow: AdminWorkflowService
+    private adminWorkflow: AdminWorkflowService,
+    private comparisonWorkflow: CompareRecordsWorkflowService
 
   ){
       this.userForm = this.formBuilder.group(
@@ -91,6 +94,7 @@ export class SittingRecordsLandingComponent implements OnInit, OnDestroy {
   }
 
   handleFormValues(value){
+    console.log(value)
     if(value[1] === 'submitter'){
       this.submitterFormValues = value[0];
     }
@@ -99,6 +103,9 @@ export class SittingRecordsLandingComponent implements OnInit, OnDestroy {
     }
     else if(value[1] === 'johAdmin'){
       this.johAdminFormValues = value[0];
+    }
+    else if(value[1] === 'compareRecords'){
+      this.compareFormValues = value[0]
     }
   }
 
@@ -157,7 +164,7 @@ export class SittingRecordsLandingComponent implements OnInit, OnDestroy {
     if (isSubmitter) {
       workflows['manageSittingRecords'] = this.submitterWorkflow;
       workflows['submitToFinance'] = this.submitterWorkflow;
-      workflows['compareSittingRecords'] = this.submitterWorkflow;
+      workflows['compareSittingRecords'] = this.comparisonWorkflow;
     }
     
     if (isAdmin) {
@@ -167,7 +174,7 @@ export class SittingRecordsLandingComponent implements OnInit, OnDestroy {
     workflows['publishRecords'] = this.publisherWorkflow;
   
     const selectedWorkflow = workflows[optionValue];
-  
+    console.log(selectedWorkflow)
     if (selectedWorkflow) {
       selectedWorkflow.setUserLandingData(this.userForm);
       selectedWorkflow.setLandingVisited();
@@ -186,7 +193,8 @@ export class SittingRecordsLandingComponent implements OnInit, OnDestroy {
           selectedWorkflow.setFormData(this.johAdminFormValues);
           break;
         case 'compareSittingRecords':
-          void this.router.navigate([]);
+          selectedWorkflow.setFormData(this.compareFormValues)
+          void this.router.navigate(['sittingRecords', 'compare']);
           break;
       }
     }

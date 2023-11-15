@@ -119,7 +119,7 @@ describe('SittingRecordsLandingComponent', () => {
 
       component.submitForm()
       expect(router.navigate)
-        .toHaveBeenCalledWith([]);
+        .toHaveBeenCalledWith(['sittingRecords', 'compare']);
     });
     
     

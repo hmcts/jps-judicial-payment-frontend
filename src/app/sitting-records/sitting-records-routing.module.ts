@@ -21,6 +21,7 @@ import { DuplicateConfirmComponent } from './duplicate-sitting-records/duplicate
 import { DuplicateExistingConfirmComponent } from './duplicate-sitting-records/duplicate-confirm/duplicate-existing-confirm/duplicate-existing-confirm.component'
 import { DuplicateConfirmSuccessComponent } from './duplicate-sitting-records/duplicate-confirm/duplicate-confirm-success/duplicate-confirm-success.component';
 import { CompareRecordsComponent } from './compare-records/compare-records.component';
+import { CompareRecordGuard } from '../_guards/sitting-records/compare-records.guard';
 
 const routes: Routes = [
     {
@@ -95,7 +96,8 @@ const routes: Routes = [
           },
           {
             path: 'compare',
-            component: CompareRecordsComponent
+            component: CompareRecordsComponent,
+            canActivate: [CompareRecordGuard]
           }
         ]
     }

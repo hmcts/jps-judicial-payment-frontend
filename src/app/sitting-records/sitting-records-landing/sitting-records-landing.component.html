@@ -66,7 +66,7 @@
             <app-sitting-records-landing-johadmin (johAdminFormValid)="handleFormValidChange($event)"></app-sitting-records-landing-johadmin>
         </div>
         <div *ngIf="!hideCompareSittingRecords" class="govuk-inset-text">
-            <app-compare-sitting-records-landing (compareRecordFormValid)="handleFormValidChange($event)"></app-compare-sitting-records-landing>
+            <app-compare-sitting-records-landing (compareRecordFormValid)="handleFormValidChange($event)" (compareRecordFormValues)="handleFormValues($event)"></app-compare-sitting-records-landing>
         </div>
 
         <div class="govuk-button-group">
