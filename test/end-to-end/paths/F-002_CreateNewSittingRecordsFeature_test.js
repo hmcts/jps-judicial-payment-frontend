@@ -4,7 +4,7 @@ const JudicialSittingRecordsPage = require('../pages/JudicialSittingRecordsPage'
 const ManageJudicialSittingRecordsPage = require('../pages/ManageJudicialSittingRecordsPage');
 const PossibleDuplicatesPage = require('../pages/PossibleDuplicatesPage')
 
-Feature('Create new Sitting Records Feature Tests @functional @F-002').retry(3);
+Feature('Create new Sitting Records Feature Tests @functional @F-002').retry(2);
 
 const randomDays = [];
 for (let i = 0; randomDays.length < 7; i++) {
