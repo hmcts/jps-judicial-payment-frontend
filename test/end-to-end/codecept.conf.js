@@ -14,7 +14,7 @@ exports.config = {
   output: process.cwd() + '/functional-output',
   helpers: {
     Playwright: {
-      url: process.env.TEST_URL || 'https://jps-judicial-payment-frontend-pr-70.preview.platform.hmcts.net/',
+      url: process.env.TEST_URL || 'http://localhost:3000',
       show: false,
       browser: 'chromium',
       timeout: 10000,
